@@ -1,7 +1,7 @@
 package base;
 
-import item.Item;
+import item.Skill;
 
 public interface Interactable {
-	public abstract boolean interact(Item e);
+	public abstract boolean interact(Skill e);
 }

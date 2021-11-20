@@ -2,9 +2,12 @@ package player;
 
 import java.util.ArrayList;
 
+import base.Attackable;
+import base.Damageable;
+import item.Skill;
 import item.weapon.Weapon;
 
-public class Player {
+public class Player implements Attackable, Damageable{
 
 	private String character;
 	private String url;
@@ -15,12 +18,37 @@ public class Player {
 	private int level;
 	private int exp;
 	private int coin;
+	
+	private int vx;
+	private int vy;
+	
+	private Skill currentItem;
+	private Weapon currentWeapon;
 	private ArrayList<Weapon> inventory;
 
 	Player(String character) {
 		
 		inventory = new ArrayList<Weapon>();
 		switch (character) {
+			
+		case "VKJ":
+			this.setUrl("VKJ-Character.png");
+			this.setMaxLifePoint(120);
+			this.setCurrentLifePoint(maxLifePoint);
+			this.setDefaultAtkPoint(100);
+			this.setCurrentAtkPoint(defaultAtkPoint);
+			inventory.add(null);
+			inventory.add(null);
+			break;
+			
+		case "PVK":
+			this.setUrl("PVK-Character.png");
+			this.setMaxLifePoint(100);
+			this.setCurrentLifePoint(maxLifePoint);
+			this.setDefaultAtkPoint(120);
+			this.setCurrentAtkPoint(defaultAtkPoint);
+			inventory.add(null);
+			break;
 		
 		case "NNN":
 			this.setUrl("NNN-Character.png");
@@ -31,18 +59,8 @@ public class Player {
 			inventory.add(null);
 			break;
 			
-		case "VKJ":
-			this.setUrl("VKJ-Character.png");
-			this.setMaxLifePoint(100);
-			this.setCurrentLifePoint(maxLifePoint);
-			this.setDefaultAtkPoint(120);
-			this.setCurrentAtkPoint(defaultAtkPoint);
-			inventory.add(null);
-			inventory.add(null);
-			break;
-			
-		case "PVK":
-			this.setUrl("PVK-Character.png");
+		case "ATS":
+			this.setUrl("ATS-Character.png");
 			this.setMaxLifePoint(100);
 			this.setCurrentLifePoint(maxLifePoint);
 			this.setDefaultAtkPoint(120);
@@ -155,6 +173,44 @@ public class Player {
 
 	public void setInventory(ArrayList<Weapon> inventory) {
 		this.inventory = inventory;
+	}
+
+	@Override
+	public int attack(Damageable character) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public Skill getCurrentItem() {
+		return currentItem;
+	}
+
+	public void setCurrentItem(Skill currentItem) {
+		this.currentItem = currentItem;
+	}
+
+	public Weapon getCurrentWeapon() {
+		return currentWeapon;
+	}
+
+	public void setCurrentWeapon(Weapon currentWeapon) {
+		this.currentWeapon = currentWeapon;
+	}
+
+	public int getVx() {
+		return vx;
+	}
+
+	public void setVx(int vx) {
+		this.vx = vx;
+	}
+
+	public int getVy() {
+		return vy;
+	}
+
+	public void setVy(int vy) {
+		this.vy = vy;
 	}
 	
 	

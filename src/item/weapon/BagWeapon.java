@@ -2,9 +2,9 @@ package item.weapon;
 
 import entity.enemy.Enemy;
 
-public class HandWeapon extends Weapon  {
-	
-	public HandWeapon() {
+public class BagWeapon extends Weapon {
+
+	public BagWeapon() {
 		
 	}
 	

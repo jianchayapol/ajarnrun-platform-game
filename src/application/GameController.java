@@ -1,13 +1,17 @@
 package application;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
+import entity.base.Direction;
+import entity.character.PlayerCharacter;
 import item.weapon.Weapon;
 
 public class GameController {
 	
 	public static final int initCoin = 100;
 	
+	private static PlayerCharacter player;
 	private static int coin;
 	private static int time;
 	private static int level;
@@ -16,8 +20,25 @@ public class GameController {
 	public GameController(){
 		time = 0;
 		level = 0;
+		player = new PlayerCharacter("ATS");
 		inventory = new ArrayList<Weapon>();
+		
 	}
+	
+	public static void movePlayer(Direction d) {
+		
+		switch(d) {
+		case LEFT :
+			player.setDirection(d);
+			player.moveForward();
+		case RIGHT :
+			player.setDirection(d);
+			player.moveForward();
+		case UP :
+			player.jump();
+		}
+	}
+	
 	public static int getCoin() {
 		return coin;
 	}
@@ -53,7 +74,14 @@ public class GameController {
 	public static int getInitcoin() {
 		return initCoin;
 	}
+	public PlayerCharacter getPlayer() {
+		return player;
+	}
+	public void setPlayer(PlayerCharacter player) {
+		this.player = player;
+	}
 
+	
 	
 	
 	

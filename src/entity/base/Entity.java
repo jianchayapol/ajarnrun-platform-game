@@ -15,6 +15,7 @@ public abstract class Entity {
 
 	protected Point currentPos;
 	protected Point initialPos;
+	protected Direction direction;
 
 	protected int vx;
 	protected int vy;
@@ -126,5 +127,11 @@ public abstract class Entity {
 		this.initialPos = new Point(x, y);
 	}
 
+	public Direction getDirection() {
+		return direction;
+	}
 
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
 }

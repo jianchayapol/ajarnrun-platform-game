@@ -24,17 +24,15 @@ public class Main extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		
 		StackPane root = new StackPane();
-		
 		Scene scene = new Scene(root, 720,480);
-		
 		Canvas canvas = new Canvas(720,480);
-		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
 		root.getChildren().addAll(canvas);
 		
 		addEventListener(scene,gc);
 		
+		primaryStage.setResizable(false);
 		primaryStage.setTitle("Ajarn ja run !!");
 		primaryStage.setScene(scene);
 		primaryStage.show();

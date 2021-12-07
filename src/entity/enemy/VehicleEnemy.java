@@ -1,8 +1,9 @@
 package entity.enemy;
 
 import entity.base.Damagable;
+import entity.base.Direction;
 import entity.base.Jumpable;
-import entity.character.PlayerCharacter;
+import entity.character.Player;
 
 public class VehicleEnemy extends Enemy implements Jumpable {
 
@@ -48,8 +49,14 @@ public class VehicleEnemy extends Enemy implements Jumpable {
 
 	@Override
 	public int attack(Damagable character) {
-		if(character instanceof PlayerCharacter) return this.currentATK;
+		if(character instanceof Player) return this.currentATK;
 		return 0;
+	}
+
+	@Override
+	public void moveForward(Direction direction) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

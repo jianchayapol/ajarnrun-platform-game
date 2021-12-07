@@ -8,10 +8,5 @@ public class HandWeapon extends Weapon  {
 		
 	}
 	
-	@Override
-	public int hit(Enemy target) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }

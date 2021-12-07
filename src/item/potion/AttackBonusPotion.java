@@ -1,6 +1,6 @@
-package potion;
+package item.potion;
 
-import entity.character.PlayerCharacter;
+import entity.character.Player;
 import exception.ConsumePotionFailedException;
 import item.base.Consumable;
 
@@ -13,7 +13,7 @@ public class AttackBonusPotion extends Potion {
 	}
 
 	@Override
-	public void consumed(PlayerCharacter player) throws ConsumePotionFailedException {
+	public void consumed(Player player) throws ConsumePotionFailedException {
 		player.setCurrentATK(player.getCurrentATK()+BonusATK);
 	}
 	

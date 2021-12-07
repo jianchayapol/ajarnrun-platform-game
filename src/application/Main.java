@@ -19,11 +19,22 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		
 		StackPane root = new StackPane();
+<<<<<<< HEAD
 
 //		Scene scene = new Scene(root, 720, 480);
 
 		Canvas canvas = new Canvas(720, 480);
 
+||||||| 539883a
+		
+		Scene scene = new Scene(root, 720,480);
+		
+		Canvas canvas = new Canvas(720,480);
+		
+=======
+		Scene scene = new Scene(root, 720,480);
+		Canvas canvas = new Canvas(720,480);
+>>>>>>> 95113eb3308b772ce06e055631075159bfcf749b
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
 
@@ -33,6 +44,7 @@ public class Main extends Application {
 		
 		addEventListener(scene, gc);
 		
+		primaryStage.setResizable(false);
 		primaryStage.setTitle("Ajarn ja run !!");
 		primaryStage.setScene(scene);
 		primaryStage.show();

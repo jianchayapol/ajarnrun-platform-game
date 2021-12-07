@@ -6,17 +6,19 @@ import entity.base.Direction;
 import entity.base.Entity;
 import entity.base.Jumpable;
 import entity.base.Runnable;
-import gui.draw.SpriteAnimation;
+import gui.draw.*;
+import application.utility.InputUtility;
 import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 
 public class Player extends Entity implements Attackable, Damagable, Jumpable, Runnable {
 
-	ImageView imageView;
-	Animation animation;
+	private static ImageView imageView;
+	private static Animation animation;
 	
 	public Player(String name) {
 
@@ -40,25 +42,9 @@ public class Player extends Entity implements Attackable, Damagable, Jumpable, R
 			this.setCurrentATK(this.getDefaultATK());
 			break;
 
-		case "NNN":
-			this.setImageUrl("NNN-Character.png");
-			this.setMaxLP(120);
-			this.setCurrentLP(this.getMaxLP());
-			this.setDefaultATK(100);
-			this.setCurrentATK(this.getDefaultATK());
-			break;
-
-		case "ATS":
-			this.setImageUrl("ATS-Character.png");
-			this.setMaxLP(120);
-			this.setCurrentLP(this.getMaxLP());
-			this.setDefaultATK(100);
-			this.setCurrentATK(this.getDefaultATK());
-			break;
-
 		default:
-			createFirstSprite();
-			createSprite();
+			DrawUtil.createFirstSprite();
+			DrawUtil.createSprite();
 			this.imageView = new ImageView("player-among.png");
 			this.setMaxLP(120);
 			this.setCurrentLP(this.getMaxLP());
@@ -72,6 +58,14 @@ public class Player extends Entity implements Attackable, Damagable, Jumpable, R
 		this.setDirection(Direction.RIGHT);
 	}
 
+	public void update() {
+		
+		if (InputUtility.getKeyPressed(KeyCode.LEFT)) {
+			System.out.println(">> ");;
+		}
+		
+	}
+	
 	@Override
 	public int attack(Damagable character) {
 		// TODO Auto-generated method stub
@@ -100,38 +94,21 @@ public class Player extends Entity implements Attackable, Damagable, Jumpable, R
 			break;
 		}
 	}
-
-/////////////////////////////////////// Player Animation //////////////////////////////////////
-
-	private static final Image IMAGES = new Image("player-among.png");
-	private static final int COLUMNS = 12;
-	private static final int COUNT = 12;
-	private static final int OFFSET_X = 0;
-	private static final int OFFSET_Y = 0;
-	private static final int WIDTH = 85;
-	private static final int HEIGHT = 140;
-
-	void createFirstSprite() {
-		imageView = new ImageView(IMAGES);
+	
+	public static ImageView getImageView() {
+		return imageView;
 	}
 
-	void createSprite() {
-		imageView = new ImageView(IMAGES);
-		
-		imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
-		imageView.relocate((double) (100), (double) 100);
-		//imageView.relocate(arg0, arg1);
-		if (true) {
-			animation = new SpriteAnimation(imageView, Duration.millis(500), COUNT, COLUMNS, OFFSET_X, OFFSET_Y, WIDTH,
-					HEIGHT);
-			animation.setCycleCount(Animation.INDEFINITE);
-			animation.play();
-		}
+	public static void setImageView(ImageView imageView) {
+		Player.imageView = imageView;
 	}
 
-	public ImageView getImageView() {
-		// TODO Auto-generated method stub
-		return this.imageView;
+	public static Animation getAnimation() {
+		return animation;
+	}
+
+	public static void setAnimation(Animation animation) {
+		Player.animation = animation;
 	}
 
 }

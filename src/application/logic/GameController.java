@@ -19,7 +19,7 @@ public class GameController {
 	
 	public GameController(){
 		time = 0;
-		level = 0;
+		level = 1;
 		player = new Player("VKJ");
 		inventory = new ArrayList<Weapon>();
 		

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
@@ -19,16 +20,10 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		
 		StackPane root = new StackPane();
-
 		Canvas canvas = new Canvas(720, 480);
-
-		
 		Scene scene = new Scene(root, 720,480);
-		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-
 		root.getChildren().addAll(canvas);
-		
 		addEventListener(scene, gc);
 		
 		primaryStage.setResizable(false);

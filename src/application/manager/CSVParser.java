@@ -1,4 +1,4 @@
-package application;
+package application.manager;
  
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,4 +43,6 @@ public class CSVParser {
 	    }
 	    return escapedData;
 	}
+	
+	
 }

@@ -1,8 +1,9 @@
 package entity.enemy;
 
-import application.GameController;
+import application.logic.GameController;
 import entity.base.Damagable;
-import entity.character.PlayerCharacter;
+import entity.base.Direction;
+import entity.character.Player;
 
 public class TheifEnemy extends Enemy {
 
@@ -15,6 +16,12 @@ public class TheifEnemy extends Enemy {
 		int stolenMoney = (int) ((Math.random() * (GameController.getCoin())));
 		GameController.setCoin(GameController.getCoin() - stolenMoney);
 		return stolenMoney;
+	}
+
+	@Override
+	public void moveForward(Direction direction) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

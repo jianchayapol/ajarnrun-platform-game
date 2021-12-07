@@ -1,6 +1,6 @@
 package item.weapon;
 
-import entity.character.PlayerCharacter;
+import entity.character.Player;
 import entity.enemy.Enemy;
 import exception.EquipItemFailedException;
 import item.base.Equipable;
@@ -12,11 +12,10 @@ public abstract class Weapon implements Equipable {
 	protected int cost;
 	protected int attack;
 
-	public abstract int hit(Enemy target);
 
 	@Override
-	public boolean equip(PlayerCharacter player) throws EquipItemFailedException {
-		// TODO Auto-generated method stub
+	public boolean equip(Player player) throws EquipItemFailedException {
+		
 		return false;
 	}
 
@@ -49,7 +48,6 @@ public abstract class Weapon implements Equipable {
 	}
 
 	public int getCost() {
-		return attack;
+		return cost;
 	}
-
 }

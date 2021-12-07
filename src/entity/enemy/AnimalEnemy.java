@@ -1,7 +1,8 @@
 package entity.enemy;
 
 import entity.base.Damagable;
-import entity.character.PlayerCharacter;
+import entity.base.Direction;
+import entity.character.Player;
 
 public class AnimalEnemy extends Enemy {
 
@@ -35,7 +36,7 @@ public class AnimalEnemy extends Enemy {
 			break;
 
 		case "bull":
-			this.setImageUrl("ATS-Character.png");
+			this.setImageUrl("bull-Character.png");
 			this.setMaxLP(120);
 			this.setCurrentLP(this.getMaxLP());
 			this.setDefaultATK(100);
@@ -43,7 +44,7 @@ public class AnimalEnemy extends Enemy {
 			break;
 
 		case "mongoose":
-			this.setImageUrl("ATS-Character.png");
+			this.setImageUrl("mongoose-Character.png");
 			this.setMaxLP(120);
 			this.setCurrentLP(this.getMaxLP());
 			this.setDefaultATK(100);
@@ -65,9 +66,15 @@ public class AnimalEnemy extends Enemy {
 
 	@Override
 	public int attack(Damagable character) {
-		if (character instanceof PlayerCharacter)
+		if (character instanceof Player)
 			return this.currentATK;
 		return 0;
+	}
+
+	@Override
+	public void moveForward(Direction direction) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

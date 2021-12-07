@@ -1,26 +1,26 @@
-package application;
+package application.logic;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 import entity.base.Direction;
-import entity.character.PlayerCharacter;
+import entity.character.Player;
 import item.weapon.Weapon;
 
 public class GameController {
 	
-	public static final int initCoin = 100;
+	public static final int initialCoin = 100;
 	
-	private static PlayerCharacter player;
+	private static Player player; 
 	private static int coin;
-	private static int time;
+	private static double time;
 	private static int level;
+	
 	private static ArrayList<Weapon> inventory;
 	
 	public GameController(){
 		time = 0;
 		level = 0;
-		player = new PlayerCharacter("ATS");
+		player = new Player("VKJ");
 		inventory = new ArrayList<Weapon>();
 		
 	}
@@ -30,10 +30,10 @@ public class GameController {
 		switch(d) {
 		case LEFT :
 			player.setDirection(d);
-			player.moveForward();
+			player.moveForward(d);
 		case RIGHT :
 			player.setDirection(d);
-			player.moveForward();
+			player.moveForward(d);
 		case UP :
 			player.jump();
 		}
@@ -47,8 +47,8 @@ public class GameController {
 		GameController.coin = coin;
 	}
 
-	public static int getTime() {
-		return time;
+	public static double getTime() {
+		return (int)(Math.round(time * 100))/100.0;
 	}
 
 	public static void setTime(int time) {
@@ -72,13 +72,13 @@ public class GameController {
 	}
 
 	public static int getInitcoin() {
-		return initCoin;
+		return initialCoin;
 	}
-	public PlayerCharacter getPlayer() {
+	public static Player getPlayer() {
 		return player;
 	}
-	public void setPlayer(PlayerCharacter player) {
-		this.player = player;
+	public static void setPlayer(Player player) {
+		GameController.player = player;
 	}
 
 	

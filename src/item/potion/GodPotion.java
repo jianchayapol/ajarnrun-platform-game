@@ -1,6 +1,6 @@
-package potion;
+package item.potion;
 
-import entity.character.PlayerCharacter;
+import entity.character.Player;
 import exception.ConsumePotionFailedException;
 
 public class GodPotion extends Potion {
@@ -10,7 +10,7 @@ public class GodPotion extends Potion {
 	}
 	
 	@Override
-	public void consumed(PlayerCharacter player) throws ConsumePotionFailedException {
+	public void consumed(Player player) throws ConsumePotionFailedException {
 		// TODO Auto-generated method stub
 		
 	}

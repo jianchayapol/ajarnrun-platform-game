@@ -1,6 +1,6 @@
-package potion;
+package item.potion;
 
-import entity.character.PlayerCharacter;
+import entity.character.Player;
 import exception.ConsumePotionFailedException;
 
 public class HealthPotion extends Potion {
@@ -13,7 +13,7 @@ public class HealthPotion extends Potion {
 	}
 
 	@Override
-	public void consumed(PlayerCharacter player) throws ConsumePotionFailedException {
+	public void consumed(Player player) throws ConsumePotionFailedException {
 		// TODO Auto-generated method stub
 		player.setCurrentLP(player.getCurrentATK()+bonusLP);
 	}

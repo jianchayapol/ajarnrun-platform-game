@@ -24,8 +24,8 @@ public class MainViewManager {
 	
 	public MainViewManager() {
 		this.mainPane = new AnchorPane();
-		setBackgroundImage("/town.png");
-		addCharacter("/aj-vishnu1.png");
+		setBackgroundImage("/mainSceneBackground_demo.png");
+//		addCharacter("/aj-vishnu1.png");
 		createMainButton();
 		this.mainScene = new Scene(mainPane, WIDTH, HEIGHT);
 		this.mainStage = new Stage();
@@ -46,13 +46,13 @@ public class MainViewManager {
 		
 		// New Game, Load Game, Exit
 		newGameButton = new MainButton("New Game");
-		newGameButton.setLayoutY(initialHeight);
-		newGameButton.setLayoutX(20.00);
 		loadGameButton = new MainButton("Load Game");
-		loadGameButton.setLayoutY(initialHeight + loadGameButton.getPrefHeight() + initialHeight);
-		loadGameButton.setLayoutX(20.00);
 		exitButton = new MainButton("Exit");
-		exitButton.setLayoutY(initialHeight + loadGameButton.getPrefHeight() + initialHeight + exitButton.getPrefHeight() + initialHeight);
+		newGameButton.setLayoutY(HEIGHT-(3*initialHeight)-newGameButton.getPrefHeight()-loadGameButton.getPrefHeight()-exitButton.getPrefHeight());
+		newGameButton.setLayoutX(20.00);
+		loadGameButton.setLayoutY(newGameButton.getLayoutY()+initialHeight+newGameButton.getPrefHeight());
+		loadGameButton.setLayoutX(20.00);
+		exitButton.setLayoutY(loadGameButton.getLayoutY()+initialHeight+loadGameButton.getPrefHeight());
 		exitButton.setLayoutX(20.00);
 		
 		// About Us
@@ -75,13 +75,13 @@ public class MainViewManager {
 		mainPane.getChildren().add(bg);
 	}
 	
-	private void addCharacter(String url) {
-		characterImg = new Image(url);
-		character = new ImageView(characterImg);
-		character.setFitHeight(100);
-		character.setFitWidth(80);
-		character.setLayoutY(400);
-		character.setLayoutX(100);
-		mainPane.getChildren().add(character);
-	}
+//	private void addCharacter(String url) {
+//		characterImg = new Image(url);
+//		character = new ImageView(characterImg);
+//		character.setFitHeight(100);
+//		character.setFitWidth(80);
+//		character.setLayoutY(400);
+//		character.setLayoutX(100);
+//		mainPane.getChildren().add(character);
+//	}
 }

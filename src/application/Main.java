@@ -17,45 +17,18 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import view.MainViewManager;
 import application.logic.GameController;
 import gui.draw.GameScreen;
 import entity.base.Direction;
 import entity.character.Player;
 
 public class Main extends Application {
-
+	private MainViewManager mainViewManager;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
-		StackPane root = new StackPane();
-		Canvas canvas = new Canvas(720, 480);
-
-		ImageView bg = new ImageView(new Image("/town.png"));
-		bg.setFitHeight(480); bg.setFitWidth(720);
-		
-		ImageView img = new ImageView(new Image("/aj-vishnu1.png"));
-		img.setFitWidth(80); img.setFitHeight(100);
-		root.setAlignment(Pos.CENTER_LEFT);
-		
-		GameScreen gameScreen = new GameScreen(720, 480);
-		root.getChildren().add(gameScreen);
-		gameScreen.requestFocus();
-		
-		
-		AnimationTimer animation = new AnimationTimer() {
-			public void handle(long now) {
-				gameScreen.paintComponent();
-			}
-		};
-		
-		animation.start();
-		root.getChildren().addAll(bg,img);
-		
-		Scene scene = new Scene(root, 720, 480);
-		
-		primaryStage.setResizable(false);
-		primaryStage.setTitle("Ajarn ja run !!");
-		primaryStage.setScene(scene);
+		mainViewManager = new MainViewManager();
+		primaryStage = mainViewManager.getStage();
 		primaryStage.show();
 	}
 

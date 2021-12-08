@@ -2,7 +2,6 @@ package view;
 
 import button.MainButton;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -14,7 +13,6 @@ public class MainViewManager {
 	private AnchorPane mainPane;
 	private Scene mainScene;
 	private Stage mainStage;
-	private Canvas canvas;
 	private Image bgImg;
 	private ImageView bg;
 	private Image characterImg;
@@ -22,12 +20,13 @@ public class MainViewManager {
 	private MainButton newGameButton;
 	private MainButton loadGameButton;
 	private MainButton exitButton;
+	private MainButton info;
 	
 	public MainViewManager() {
 		this.mainPane = new AnchorPane();
+		setBackgroundImage("/town.png");
+		addCharacter("/aj-vishnu1.png");
 		createMainButton();
-		setBackgroundImage("src/res/townBG.png");
-		addCharacter("src/res/aj-vishnu1.png");
 		this.mainScene = new Scene(mainPane, WIDTH, HEIGHT);
 		this.mainStage = new Stage();
 		this.mainStage.setScene(mainScene);
@@ -43,12 +42,29 @@ public class MainViewManager {
 	}
 	
 	private void createMainButton() {
+		double initialHeight = 20;
+		
+		// New Game, Load Game, Exit
 		newGameButton = new MainButton("New Game");
+		newGameButton.setLayoutY(initialHeight);
+		newGameButton.setLayoutX(20.00);
 		loadGameButton = new MainButton("Load Game");
+		loadGameButton.setLayoutY(initialHeight + loadGameButton.getPrefHeight() + initialHeight);
+		loadGameButton.setLayoutX(20.00);
 		exitButton = new MainButton("Exit");
+		exitButton.setLayoutY(initialHeight + loadGameButton.getPrefHeight() + initialHeight + exitButton.getPrefHeight() + initialHeight);
+		exitButton.setLayoutX(20.00);
+		
+		// About Us
+		info = new MainButton("About Us");
+		info.setLayoutX(WIDTH-initialHeight-info.getPrefWidth());
+		info.setLayoutY(HEIGHT-initialHeight-info.getPrefHeight());
+		
+		// Add to pane
 		mainPane.getChildren().add(newGameButton);
 		mainPane.getChildren().add(loadGameButton);
 		mainPane.getChildren().add(exitButton);
+		mainPane.getChildren().add(info);
 	}
 	
 	private void setBackgroundImage(String url) {

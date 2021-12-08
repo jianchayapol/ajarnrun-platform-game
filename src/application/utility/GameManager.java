@@ -1,4 +1,4 @@
-package application.manager;
+package application.utility;
 
 public class GameManager {
 	

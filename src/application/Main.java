@@ -28,20 +28,13 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		
 		StackPane root = new StackPane();
-
 		Canvas canvas = new Canvas(720, 480);
-
-		Scene scene = new Scene(root, 720,480);
-		
-		GraphicsContext gc = canvas.getGraphicsContext2D();
 
 		ImageView bg = new ImageView(new Image("/town.png"));
 		bg.setFitHeight(480); bg.setFitWidth(720);
 		
 		ImageView img = new ImageView(new Image("/aj-vishnu1.png"));
-		
 		img.setFitWidth(80); img.setFitHeight(100);
-		
 		root.setAlignment(Pos.CENTER_LEFT);
 		
 		GameScreen gameScreen = new GameScreen(720, 480);
@@ -56,7 +49,6 @@ public class Main extends Application {
 		};
 		
 		animation.start();
-		
 		
 		root.getChildren().addAll(bg,img);
 		

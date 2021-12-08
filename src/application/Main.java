@@ -49,8 +49,9 @@ public class Main extends Application {
 		};
 		
 		animation.start();
-		
 		root.getChildren().addAll(bg,img);
+		
+		Scene scene = new Scene(root, 720, 480);
 		
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Ajarn ja run !!");

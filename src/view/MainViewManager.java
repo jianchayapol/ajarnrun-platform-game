@@ -1,9 +1,12 @@
 package view;
 
 import button.MainButton;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -22,8 +25,9 @@ public class MainViewManager {
 	
 	public MainViewManager() {
 		this.mainPane = new AnchorPane();
-		setBackgroundImage("/mainSceneBackground_demo.png");
+		setBackgroundImage("/mainSceneBackground_withoutLogo_fixed.png");
 		createMainButton();
+		createLogo();
 		this.mainScene = new Scene(mainPane, WIDTH, HEIGHT);
 		this.mainStage = new Stage();
 		this.mainStage.setScene(mainScene);
@@ -68,6 +72,20 @@ public class MainViewManager {
 		bg.setFitHeight(HEIGHT);
 		bg.setFitWidth(WIDTH);
 		mainPane.getChildren().add(bg);
+	}
+	private void createLogo() {
+		ImageView logo = new ImageView("/Logo.png");
+		logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				logo.setEffect(new DropShadow());
+			}
+		});
+		logo.setOnMouseExited(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				logo.setEffect(null);
+			}
+		});
+		mainPane.getChildren().add(logo);
 	}
 	public MainButton getNewGameButton() {
 		return newGameButton;

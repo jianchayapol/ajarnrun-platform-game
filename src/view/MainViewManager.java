@@ -15,8 +15,6 @@ public class MainViewManager {
 	private Stage mainStage;
 	private Image bgImg;
 	private ImageView bg;
-	private Image characterImg;
-	private ImageView character;
 	private MainButton newGameButton;
 	private MainButton loadGameButton;
 	private MainButton exitButton;
@@ -25,18 +23,15 @@ public class MainViewManager {
 	public MainViewManager() {
 		this.mainPane = new AnchorPane();
 		setBackgroundImage("/mainSceneBackground_demo.png");
-//		addCharacter("/aj-vishnu1.png");
 		createMainButton();
 		this.mainScene = new Scene(mainPane, WIDTH, HEIGHT);
 		this.mainStage = new Stage();
 		this.mainStage.setScene(mainScene);
 		this.mainStage.setResizable(false);
 	}
-	
 	public Stage getStage() {
 		return mainStage;
 	}
-	
 	public AnchorPane getMainPane() {
 		return mainPane;
 	}
@@ -74,14 +69,16 @@ public class MainViewManager {
 		bg.setFitWidth(WIDTH);
 		mainPane.getChildren().add(bg);
 	}
-	
-//	private void addCharacter(String url) {
-//		characterImg = new Image(url);
-//		character = new ImageView(characterImg);
-//		character.setFitHeight(100);
-//		character.setFitWidth(80);
-//		character.setLayoutY(400);
-//		character.setLayoutX(100);
-//		mainPane.getChildren().add(character);
-//	}
+	public MainButton getNewGameButton() {
+		return newGameButton;
+	}
+	public MainButton getLoadGameButton() {
+		return loadGameButton;
+	}
+	public MainButton getExitButton() {
+		return exitButton;
+	}
+	public MainButton getInfo() {
+		return info;
+	}
 }

@@ -25,7 +25,7 @@ public class MainViewManager {
 	
 	public MainViewManager() {
 		this.mainPane = new AnchorPane();
-		setBackgroundImage("/mainSceneBackground_withoutLogo.png");
+		setBackgroundImage("/mainSceneBackground_withoutLogo_fixed.png");
 		createMainButton();
 		createLogo();
 		this.mainScene = new Scene(mainPane, WIDTH, HEIGHT);

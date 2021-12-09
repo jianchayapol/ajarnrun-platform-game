@@ -1,6 +1,7 @@
 package view;
 
 import button.MainButton;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
@@ -10,7 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class MainViewManager {
+public class ViewManager {
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 800;
 	private AnchorPane mainPane;
@@ -22,12 +23,15 @@ public class MainViewManager {
 	private MainButton loadGameButton;
 	private MainButton exitButton;
 	private MainButton info;
+	private boolean isInfoPressed;
+	private AjarnRunSubScene aboutUs;
 	
-	public MainViewManager() {
+	public ViewManager() {
 		this.mainPane = new AnchorPane();
 		setBackgroundImage("/mainSceneBackground_withoutLogo_fixed.png");
 		createMainButton();
 		createLogo();
+		createInfoButton();
 		this.mainScene = new Scene(mainPane, WIDTH, HEIGHT);
 		this.mainStage = new Stage();
 		this.mainStage.setScene(mainScene);
@@ -45,7 +49,7 @@ public class MainViewManager {
 		
 		// New Game, Load Game, Exit
 		newGameButton = new MainButton("New Game");
-		loadGameButton = new MainButton("Load Game");
+		loadGameButton = new MainButton("Leaderboard");
 		exitButton = new MainButton("Exit");
 		newGameButton.setLayoutY(HEIGHT-(3*initialHeight)-newGameButton.getPrefHeight()-loadGameButton.getPrefHeight()-exitButton.getPrefHeight());
 		newGameButton.setLayoutX(20.00);
@@ -54,16 +58,17 @@ public class MainViewManager {
 		exitButton.setLayoutY(loadGameButton.getLayoutY()+initialHeight+loadGameButton.getPrefHeight());
 		exitButton.setLayoutX(20.00);
 		
-		// About Us
-		info = new MainButton("About Us");
-		info.setLayoutX(WIDTH-initialHeight-info.getPrefWidth());
-		info.setLayoutY(HEIGHT-initialHeight-info.getPrefHeight());
-		
 		// Add to pane
 		mainPane.getChildren().add(newGameButton);
 		mainPane.getChildren().add(loadGameButton);
 		mainPane.getChildren().add(exitButton);
-		mainPane.getChildren().add(info);
+		
+		// Implement Event Listeners
+		exitButton.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				ViewManager.this.getStage().close();
+			}
+		});
 	}
 	
 	private void setBackgroundImage(String url) {
@@ -87,6 +92,34 @@ public class MainViewManager {
 		});
 		mainPane.getChildren().add(logo);
 	}
+	private void createInfoButton() {
+		double initialHeight = 20;
+		// About Us
+		info = new MainButton("About Us");
+		info.setLayoutX(WIDTH-initialHeight-info.getPrefWidth());
+		info.setLayoutY(HEIGHT-initialHeight-info.getPrefHeight());
+		mainPane.getChildren().add(info);
+		this.aboutUs = new AjarnRunSubScene("/button/aboutUsPicture.png", "infoButton", 350, 560);
+		this.mainPane.getChildren().add(aboutUs);
+		setIsInfoPressed(false);
+		info.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				if (ViewManager.this.getIsInfoPressed()) {
+					aboutUs.moveSubScene("infoButtonPressed");
+					ViewManager.this.setIsInfoPressed(false);
+				} else {
+					aboutUs.moveSubScene("infoButtonUnpressed");
+					ViewManager.this.setIsInfoPressed(true);
+				}
+			}
+		});
+	}
+	public void setIsInfoPressed(boolean isPressed) {
+		this.isInfoPressed = isPressed;
+	}
+	public boolean getIsInfoPressed() {
+		return isInfoPressed;
+	}
 	public MainButton getNewGameButton() {
 		return newGameButton;
 	}
@@ -99,4 +132,5 @@ public class MainViewManager {
 	public MainButton getInfo() {
 		return info;
 	}
+
 }

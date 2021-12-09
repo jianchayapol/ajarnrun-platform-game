@@ -13,7 +13,6 @@ public class Main extends Application {
 		primaryStage.show();
 	}
 	public static void main(String[] args) {
-		System.out.println("hahaha");
 		launch(args);
 	}
 }

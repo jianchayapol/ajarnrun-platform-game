@@ -18,6 +18,7 @@ public class GameScene {
 	public GameScene(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		// Initialzing map
+		
 		//GameController.InitializeGame(...)
 		
 		HBox root = new HBox(4);

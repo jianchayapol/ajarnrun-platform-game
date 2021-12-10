@@ -9,9 +9,15 @@ public class Player extends ImageView {
 	private int velocityY;
 	private boolean canJump;
 	
-	public Player(String URL, int velocityX, int velocityY) {
+	public Player(String URL, int velocityX, int velocityY, int layoutX, int layoutY) {
 		super(new Image(URL));
 		setVelocity(velocityX, velocityY);
+		setFitWidth(96);
+		setFitHeight(128);
+		
+		setLayoutX(layoutX);
+		setLayoutY(layoutY-getFitHeight());
+		
 	}
 	
 	public void setVelocity(int velocityX, int velocityY) {

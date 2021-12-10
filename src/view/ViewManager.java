@@ -1,5 +1,5 @@
 package view;
-
+import sharedObject.*;
 import button.MainButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 public class ViewManager {
@@ -31,7 +32,12 @@ public class ViewManager {
 	
 	public ViewManager() {
 		this.mainPane = new AnchorPane();
-		setBackgroundImage("/mainSceneBackground_withoutLogo_fixed.png");
+		setBackgroundImage("/image/mainSceneBackground_withoutLogo_fixed.png");
+	
+		AudioClip themeSong = AudioLoader.Entrance_Theme_Song;
+		themeSong.setVolume(0.5);
+		themeSong.setCycleCount(AudioClip.INDEFINITE);
+		themeSong.play();
 		
 		// Create Logo
 		createLogo();
@@ -45,6 +51,7 @@ public class ViewManager {
 		createLeaderBoardSubScene();
 		
 		// Implement buttons' event listeners
+		implementNewGameEventListener();
 		implementLeaderBoardEventListener();
 		implementExitEventListener();
 		implementAboutUsEventListener();
@@ -95,7 +102,7 @@ public class ViewManager {
 		mainPane.getChildren().add(bg);
 	}
 	private void createLogo() {
-		ImageView logo = new ImageView("/Logo.png");
+		ImageView logo = new ImageView("/image/Logo.png");
 		logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				logo.setEffect(new DropShadow());
@@ -127,9 +134,19 @@ public class ViewManager {
 		this.mainPane.getChildren().add(leaderBoard);
 	}
 	
+	private void implementNewGameEventListener() {
+		newGameButton.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				AudioLoader.Mouse_Click.play();
+				
+			}
+		});
+	}
+	
 	private void implementLeaderBoardEventListener() {
 		leaderBoardButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+				AudioLoader.Mouse_Click.play();
 				if (ViewManager.this.getIsLeaderBoardPressed()) {
 					leaderBoard.moveSubScene("leaderBoardPressed");
 					ViewManager.this.setIsLeaderBoardPressed(false);
@@ -140,16 +157,20 @@ public class ViewManager {
 			}
 		});
 	}
+	
 	private void implementExitEventListener() {
 		exitButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+				AudioLoader.Mouse_Click.play();
 				ViewManager.this.getStage().close();
 			}
 		});
 	}
 	private void implementAboutUsEventListener() {
 		info.setOnAction(new EventHandler<ActionEvent>() {
+			
 			public void handle(ActionEvent e) {
+				AudioLoader.Mouse_Click.play();
 				if (ViewManager.this.getIsInfoPressed()) {
 					aboutUs.moveSubScene("infoButtonPressed");
 					ViewManager.this.setIsInfoPressed(false);

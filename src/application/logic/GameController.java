@@ -17,7 +17,7 @@ public class GameController {
 	private Player player;
 	private String[] level;
 	private int levelWidth;
-	
+	private static boolean isMute = false;
 	
 	public GameController() {
 		setLevelWidth();
@@ -64,5 +64,15 @@ public class GameController {
 		
 		return block;
 	}
+	
+
+	public static boolean IsMute() {
+		return isMute;
+	}
+
+	public static void setMute(boolean isMute) {
+		GameController.isMute = isMute;
+	}
+
 }
 

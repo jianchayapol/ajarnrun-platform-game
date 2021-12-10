@@ -44,6 +44,7 @@ public class RenderableHolder {
 	public static void loadResource() {
 		RenderableHolder.player_sprite_Image = loadImage("player_sprite_Image.png");
 		RenderableHolder.entrance_background_Image = loadImage("player_sprite_Image.png");
+		
 		/*
 		 * 
 		 * 

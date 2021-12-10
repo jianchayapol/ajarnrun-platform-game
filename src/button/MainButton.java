@@ -2,7 +2,7 @@ package button;
 
 import java.io.FileInputStream;
 
-import javafx.event.ActionEvent;
+import application.logic.GameController;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
@@ -64,7 +64,7 @@ public class MainButton extends Button {
 
 		setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				AudioLoader.Mouse_Click.play();
+				if(!GameController.IsMute()) AudioLoader.Mouse_Click.play();
 				setButtonPressedStyle();
 			}
 		});

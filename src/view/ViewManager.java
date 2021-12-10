@@ -1,5 +1,6 @@
 package view;
 import sharedObject.*;
+import application.logic.GameController;
 import button.MainButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,15 +30,17 @@ public class ViewManager {
 	private AjarnRunPartialSubScene aboutUs;
 	private AjarnRunPartialSubScene leaderBoard;
 	private AjarnRunLevelSubScene newGame;
+	public Stage stage;
 	
 	public ViewManager() {
 		this.mainPane = new AnchorPane();
 		setBackgroundImage("/image/mainSceneBackground_withoutLogo_fixed.png");
-	
-		AudioClip themeSong = AudioLoader.Entrance_Theme_Song;
-		themeSong.setVolume(0.5);
-		themeSong.setCycleCount(AudioClip.INDEFINITE);
-		themeSong.play();
+		if(!GameController.IsMute()) {
+			AudioClip themeSong = AudioLoader.Entrance_Theme_Song;
+			themeSong.setVolume(0.5);
+			themeSong.setCycleCount(AudioClip.INDEFINITE);
+			themeSong.play();
+		}
 		
 		// Create Logo
 		createLogo();
@@ -61,6 +64,7 @@ public class ViewManager {
 		this.mainStage = new Stage();
 		this.mainStage.setScene(mainScene);
 		this.mainStage.setResizable(false);
+		this.stage = mainStage;
 	}
 	public Stage getStage() {
 		return mainStage;
@@ -138,7 +142,8 @@ public class ViewManager {
 		newGameButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				
-				
+				GameScene gameScreen = new GameScene(mainStage);
+				AudioLoader.Entrance_Theme_Song.stop();
 			}
 		});
 	}

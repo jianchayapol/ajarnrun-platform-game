@@ -26,9 +26,9 @@ public class ViewManager {
 	private MainButton info;
 	private boolean isLeaderBoardPressed;
 	private boolean isInfoPressed;
-	private AjarnRunSubScene aboutUs;
-	private AjarnRunSubScene leaderBoard;
-	private AjarnRunSubScene newGame;
+	private AjarnRunPartialSubScene aboutUs;
+	private AjarnRunPartialSubScene leaderBoard;
+	private AjarnRunLevelSubScene newGame;
 	
 	public ViewManager() {
 		this.mainPane = new AnchorPane();
@@ -126,11 +126,11 @@ public class ViewManager {
 	}
 	
 	private void createAboutUsSubScene() {
-		this.aboutUs = new AjarnRunSubScene("/button/aboutUsPicture.png", "infoButton", 350, 560);
+		this.aboutUs = new AjarnRunPartialSubScene("/image/aboutUsDemo2.png", "infoButton", 350, 560);
 		this.mainPane.getChildren().add(aboutUs);
 	}
 	private void createLeaderBoardSubScene() {
-		leaderBoard = new AjarnRunSubScene("/button/aboutUsPicture.png", "leaderBoard", 350, 560);
+		leaderBoard = new AjarnRunPartialSubScene("/image/leaderboardDemo2.png", "leaderBoard", 350, 560);
 		this.mainPane.getChildren().add(leaderBoard);
 	}
 	
@@ -153,6 +153,10 @@ public class ViewManager {
 				} else {
 					leaderBoard.moveSubScene("leaderBoardUnpressed");
 					ViewManager.this.setIsLeaderBoardPressed(true);
+					if (ViewManager.this.getIsInfoPressed()) {
+						aboutUs.moveSubScene("infoButtonPressed");
+						ViewManager.this.setIsInfoPressed(false);
+					}
 				}
 			}
 		});
@@ -163,6 +167,7 @@ public class ViewManager {
 			public void handle(ActionEvent e) {
 				AudioLoader.Mouse_Click.play();
 				ViewManager.this.getStage().close();
+
 			}
 		});
 	}
@@ -177,6 +182,10 @@ public class ViewManager {
 				} else {
 					aboutUs.moveSubScene("infoButtonUnpressed");
 					ViewManager.this.setIsInfoPressed(true);
+					if (ViewManager.this.getIsLeaderBoardPressed()) {
+						leaderBoard.moveSubScene("leaderBoardPressed");
+						ViewManager.this.setIsLeaderBoardPressed(false);
+					}
 				}
 			}
 		});
@@ -205,5 +214,12 @@ public class ViewManager {
 	}
 	public MainButton getInfo() {
 		return info;
+	}
+	
+	public static int getSceenHeight() {
+		return HEIGHT;
+	}
+	public static int getScreenWidth() {
+		return WIDTH;
 	}
 }

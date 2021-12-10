@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 
 public class MainButton extends Button {
-	private final String FONT_PATH = "src/res/YanoneKaffeesatz-SemiBold.ttf";
+	private final String FONT_PATH = "res/font/YanoneKaffeesatz-SemiBold.ttf";
 	private final String BUTTON_PRESSED = " -fx-background-color: transparent; -fx-background-image: url('/button/yellow_button01.png')";
 	private final String BUTTON_UNPRESSED = " -fx-background-color: transparent; -fx-background-image: url('/button/yellow_button00.png')";
 	

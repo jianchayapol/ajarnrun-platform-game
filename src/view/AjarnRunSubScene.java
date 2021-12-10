@@ -45,6 +45,13 @@ public class AjarnRunSubScene extends SubScene {
 			setLayoutX(-width-100);
 			setLayoutY(20);
 			break;
+		case "leaderBoard":
+			setLayoutX(900);
+			setLayoutY(20);
+			break;
+		case "newGame":
+			setLayoutX(0);
+			setLayoutY(0);
 		default:
 			break;
 		}
@@ -62,6 +69,15 @@ public class AjarnRunSubScene extends SubScene {
 		case "infoButtonPressed":
 			transition.setToX(-this.getWidth()-120);
 			transition.setToY(0);
+			break;
+		case "leaderBoardUnpressed":
+			transition.setToX(-this.getWidth()-100);
+			transition.setToY(0);
+			break;
+		case "leaderBoardPressed":
+			transition.setToX(this.getWidth()+100);
+			transition.setToY(0);
+			break;
 		default:
 			break;
 		}

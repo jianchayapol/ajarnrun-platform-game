@@ -7,12 +7,27 @@ import java.util.Comparator;
 
 import exception.ImageNotFoundException;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class RenderableHolder {
 	private ArrayList<IRenderable> entities;
 	private Comparator<IRenderable> comparator;
 	private static final RenderableHolder instance = new RenderableHolder();
-
+	private static final int BLOCK_WIDTH = 60;
+	private static final int BLOCK_HEIGHT = 60;
+	
+	
+	// Private Image
+	private static Image greenOne;
+	private static Image greenTwo;
+	private static Image greenThree;
+	private static Image greenFour;
+	private static Image greenFive;
+	private static Image floatOne;
+	private static Image floatTwo;
+	private static Image floatThree;
+	private static Image floatFour;
+	
 	// Images
 	public static Image x;
 
@@ -40,15 +55,61 @@ public class RenderableHolder {
 		}
 		return null;
 	}
+	
+	public static ImageView createImageViewForPlatform(int posX, int posY, String fileNumber) { 
+		ImageView block;
+		switch (fileNumber) {
+		case "1":
+			block = new ImageView(RenderableHolder.greenOne);
+			break;
+		case "2":
+			block = new ImageView(RenderableHolder.greenTwo);
+			break;
+		case "3":
+			block = new ImageView(RenderableHolder.greenThree);
+			break;
+		case "4":
+			block = new ImageView(RenderableHolder.greenFour);
+			break;
+		case "5":
+			block = new ImageView(RenderableHolder.greenFive);
+			break;
+		case "f1":
+			block = new ImageView(RenderableHolder.floatOne);
+			break;
+		case "f2":
+			block = new ImageView(RenderableHolder.floatTwo);
+			break;
+		case "f3":
+			block = new ImageView(RenderableHolder.floatThree);
+			break;
+		case "f4":
+			block = new ImageView(RenderableHolder.floatFour);
+			break;
+		default:
+			block = new ImageView(RenderableHolder.greenOne);
+		}
+		block.setFitWidth(BLOCK_WIDTH);
+		block.setFitHeight(BLOCK_HEIGHT);
+		block.setLayoutX(posX);
+		block.setLayoutY(posY);
+		return block;
+	}
 
 	public static void loadResource() {
 		RenderableHolder.player_sprite_Image = loadImage("player_sprite_Image.png");
 		RenderableHolder.entrance_background_Image = loadImage("player_sprite_Image.png");
-		/*
-		 * 
-		 * 
-		 * 
-		 */
+		
+		// Platform
+		RenderableHolder.greenOne = new Image("/image/platform/green_01.png");
+		RenderableHolder.greenTwo = new Image("/image/platform/green_02.png");
+		RenderableHolder.greenThree = new Image("/image/platform/green_03.png");
+		RenderableHolder.greenFour = new Image("/image/platform/green_04.png");
+		RenderableHolder.greenFive = new Image("/image/platform/green_05.png");
+		RenderableHolder.floatOne = new Image("/image/platform/floatGreen_01.png");
+		RenderableHolder.floatTwo = new Image("/image/platform/floatGreen_02.png");
+		RenderableHolder.floatThree = new Image("/image/platform/floatGreen_03.png");
+		RenderableHolder.floatFour = new Image("/image/platform/floatGreen_04.png");
 	}
 	
 	public RenderableHolder() {

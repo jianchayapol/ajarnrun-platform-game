@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import player.Player;
+import sharedObject.RenderableHolder;
 import level.Level;
 
 public class GameController {
@@ -22,6 +23,13 @@ public class GameController {
 	public GameController() {
 		setLevelWidth();
 		setFirstLevelPlatform();
+		player = new Player("/image/haracter_malAdventure_attack0.png", 5, 0, 50, 480);
+		player.translateXProperty().addListener((obs, old, newValue) -> {
+			int offSet = newValue.intValue();
+			if (offSet > 400 && offSet < levelWidth-400) {
+				
+			}
+		});
 	}
 	
 	public static void platformStart() {
@@ -50,19 +58,24 @@ public class GameController {
 				case '0':
 					break;
 				case '1':
-					platforms.add(createImageViewForPlatform(j*60, i*60, 60, 60, "/image/platform/green_05.png"));
+					platforms.add(RenderableHolder.createImageViewForPlatform(j*60, i*60, "1"));
 					break;
+				case '2':
+					platforms.add(RenderableHolder.createImageViewForPlatform(j*60, i*60, "2"));
+					break;
+				case '3':
+					platforms.add(RenderableHolder.createImageViewForPlatform(j*60, i*60, "3"));
+					break;
+				case '4':
+					platforms.add(RenderableHolder.createImageViewForPlatform(j*60, i*60, "4"));
+					break;
+				case '5':
+					platforms.add(RenderableHolder.createImageViewForPlatform(j*60, i*60, "5"));
+					break;
+				case '6':
 				}
 			}
 		}
-	}
-	
-	private ImageView createImageViewForPlatform(int posX, int posY, int width, int height,String url) { 
-		ImageView block = new ImageView(new Image(url));
-		block.setFitWidth(width);
-		block.setFitHeight(height);
-		
-		return block;
 	}
 }
 

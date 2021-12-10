@@ -5,6 +5,7 @@ import javafx.scene.media.AudioClip;
 public class AudioLoader {
 
 	public static AudioClip Mouse_Click = new AudioClip(ClassLoader.getSystemResource("audio/mouse_click2.wav").toString());
+	public static AudioClip Mouse_Click1 = new AudioClip(ClassLoader.getSystemResource("audio/mouse_click.mp3").toString());
 	//	public static AudioClip Lose_Sound = new AudioClip(ClassLoader.getSystemResource("sound/lose.mp3").toString());
 //	public static AudioClip Error_Sound = new AudioClip(ClassLoader.getSystemResource("sound/error.mp3").toString());
 //	public static AudioClip Coin_Sound = new AudioClip(ClassLoader.getSystemResource("sound/SuccessSend.mp3").toString());

@@ -137,7 +137,7 @@ public class ViewManager {
 	private void implementNewGameEventListener() {
 		newGameButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				AudioLoader.Mouse_Click.play();
+				
 				
 			}
 		});
@@ -146,7 +146,7 @@ public class ViewManager {
 	private void implementLeaderBoardEventListener() {
 		leaderBoardButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				AudioLoader.Mouse_Click.play();
+				
 				if (ViewManager.this.getIsLeaderBoardPressed()) {
 					leaderBoard.moveSubScene("leaderBoardPressed");
 					ViewManager.this.setIsLeaderBoardPressed(false);
@@ -165,7 +165,7 @@ public class ViewManager {
 	private void implementExitEventListener() {
 		exitButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				AudioLoader.Mouse_Click.play();
+				
 				ViewManager.this.getStage().close();
 
 			}
@@ -175,7 +175,7 @@ public class ViewManager {
 		info.setOnAction(new EventHandler<ActionEvent>() {
 			
 			public void handle(ActionEvent e) {
-				AudioLoader.Mouse_Click.play();
+				
 				if (ViewManager.this.getIsInfoPressed()) {
 					aboutUs.moveSubScene("infoButtonPressed");
 					ViewManager.this.setIsInfoPressed(false);

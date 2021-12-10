@@ -3,6 +3,7 @@ package view;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Parent;
 import javafx.scene.SubScene;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -11,11 +12,11 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.util.Duration;
 
-public class AjarnRunSubScene extends SubScene {
+public class AjarnRunPartialSubScene extends SubScene {
 	
 	private static final String BACKGROUND_IMAGE = "/mainSceneBackground_withoutLogo_fixed.png";
 	
-	public AjarnRunSubScene(Parent mainPane, double width, double height) {
+	public AjarnRunPartialSubScene(Parent mainPane, double width, double height) {
 		super(mainPane, width, height);
 		prefWidth(width);
 		prefHeight(height);
@@ -27,7 +28,7 @@ public class AjarnRunSubScene extends SubScene {
 			);
 		/* AnchorPane root2 = (AnchorPane) this.getRoot(); */
 	}
-	public AjarnRunSubScene(String imageURL, String altText, int width, int height) {
+	public AjarnRunPartialSubScene(String imageURL, String altText, int width, int height) {
 		super(new AnchorPane(), width, height);
 		prefWidth(width);
 		prefHeight(height);
@@ -44,10 +45,12 @@ public class AjarnRunSubScene extends SubScene {
 		case "infoButton":
 			setLayoutX(-width-100);
 			setLayoutY(20);
+			setEffect(new DropShadow());
 			break;
 		case "leaderBoard":
 			setLayoutX(900);
 			setLayoutY(20);
+			setEffect(new DropShadow());
 			break;
 		case "newGame":
 			setLayoutX(0);
@@ -71,11 +74,11 @@ public class AjarnRunSubScene extends SubScene {
 			transition.setToY(0);
 			break;
 		case "leaderBoardUnpressed":
-			transition.setToX(-this.getWidth()-100);
+			transition.setToX(-this.getWidth()-120);
 			transition.setToY(0);
 			break;
 		case "leaderBoardPressed":
-			transition.setToX(this.getWidth()+100);
+			transition.setToX(this.getWidth()+120);
 			transition.setToY(0);
 			break;
 		default:

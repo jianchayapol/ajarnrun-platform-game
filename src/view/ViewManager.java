@@ -1,15 +1,21 @@
 package view;
 import sharedObject.*;
+import application.logic.GameController;
+import application.utility.ImageButtonType;
+import button.ImageButton;
 import button.MainButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class ViewManager {
@@ -24,20 +30,24 @@ public class ViewManager {
 	private MainButton leaderBoardButton;
 	private MainButton exitButton;
 	private MainButton info;
+	private ImageButton muteButton;
+	private static boolean isPlayingThemeSong;
+	private static boolean isVisible;
+	
 	private boolean isLeaderBoardPressed;
 	private boolean isInfoPressed;
 	private AjarnRunPartialSubScene aboutUs;
 	private AjarnRunPartialSubScene leaderBoard;
 	private AjarnRunLevelSubScene newGame;
+	public Stage stage;
 	
 	public ViewManager() {
 		this.mainPane = new AnchorPane();
-		setBackgroundImage("/image/mainSceneBackground_withoutLogo_fixed.png");
-	
-		AudioClip themeSong = AudioLoader.Entrance_Theme_Song;
-		themeSong.setVolume(0.5);
-		themeSong.setCycleCount(AudioClip.INDEFINITE);
-		themeSong.play();
+		setBackgroundImage(RenderableHolder.entrance_background_Image);
+		
+		isVisible = true;
+		isPlayingThemeSong = true;
+		playThemeSong();
 		
 		// Create Logo
 		createLogo();
@@ -45,6 +55,7 @@ public class ViewManager {
 		// Create all buttons
 		createMainButton();
 		createInfoButton();
+		createMuteButton();
 		
 		// Create SubScenes
 		createAboutUsSubScene();
@@ -61,7 +72,29 @@ public class ViewManager {
 		this.mainStage = new Stage();
 		this.mainStage.setScene(mainScene);
 		this.mainStage.setResizable(false);
+		this.stage = mainStage;
+		this.stage.show();
 	}
+	
+	private void createMuteButton() {
+		muteButton = new ImageButton(ImageButtonType.SOUND);
+		muteButton.setLayoutX(20);
+		muteButton.setLayoutY(20);
+		this.mainPane.getChildren().add(muteButton);
+	}
+
+	public static void playThemeSong() {
+		AudioClip themeSong = AudioLoader.Entrance_Theme_Song;
+		if(isPlayingThemeSong && !GameController.IsMute()) {
+			themeSong.setVolume(0.5);
+			themeSong.setCycleCount(AudioClip.INDEFINITE);
+			themeSong.play();
+		}
+		else {
+			themeSong.stop();
+		}
+	}
+	
 	public Stage getStage() {
 		return mainStage;
 	}
@@ -94,13 +127,13 @@ public class ViewManager {
 
 	}
 	
-	private void setBackgroundImage(String url) {
-		bgImg = new Image(url);
+	private void setBackgroundImage(Image bgImg) {
 		bg = new ImageView(bgImg);
 		bg.setFitHeight(HEIGHT);
 		bg.setFitWidth(WIDTH);
 		mainPane.getChildren().add(bg);
 	}
+	
 	private void createLogo() {
 		ImageView logo = new ImageView("/image/Logo.png");
 		logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -137,8 +170,10 @@ public class ViewManager {
 	private void implementNewGameEventListener() {
 		newGameButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				
-				
+				ViewManager.isVisible = false;
+				GameScene gameScreen = new GameScene(mainStage);
+				AudioLoader.Entrance_Theme_Song.stop();
+				isPlayingThemeSong = false;
 			}
 		});
 	}
@@ -157,6 +192,7 @@ public class ViewManager {
 						aboutUs.moveSubScene("infoButtonPressed");
 						ViewManager.this.setIsInfoPressed(false);
 					}
+					
 				}
 			}
 		});
@@ -216,10 +252,26 @@ public class ViewManager {
 		return info;
 	}
 	
-	public static int getSceenHeight() {
+	public static int getScreenHeight() {
 		return HEIGHT;
 	}
 	public static int getScreenWidth() {
 		return WIDTH;
 	}
+	
+	public static boolean isVisible() {
+		return isVisible;
+	}
+
+	public static void setVisible(boolean isVisible) {
+		ViewManager.isVisible = isVisible;
+	}
+	public static boolean isPlayingThemeSong() {
+		return isPlayingThemeSong;
+	}
+
+	public static void setPlayingThemeSong(boolean isPlayingThemeSong) {
+		ViewManager.isPlayingThemeSong = isPlayingThemeSong;
+	}
+
 }

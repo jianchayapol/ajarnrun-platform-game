@@ -16,10 +16,10 @@ public class AjarnRunLevelSubScene extends SubScene {
 	}
 	
 	public AjarnRunLevelSubScene(String imageURL, String altText) {
-		super(new AnchorPane(), ViewManager.getScreenWidth(), ViewManager.getSceenHeight());
+		super(new AnchorPane(), ViewManager.getScreenWidth(), ViewManager.getScreenHeight());
 		prefWidth(ViewManager.getScreenWidth());
-		prefHeight(ViewManager.getSceenHeight());
-		BackgroundImage img = new BackgroundImage(new Image(imageURL, ViewManager.getScreenWidth(), ViewManager.getSceenHeight(), false, true),
+		prefHeight(ViewManager.getScreenHeight());
+		BackgroundImage img = new BackgroundImage(new Image(imageURL, ViewManager.getScreenWidth(), ViewManager.getScreenHeight(), false, true),
 				BackgroundRepeat.REPEAT,
 				BackgroundRepeat.REPEAT,
 				BackgroundPosition.DEFAULT,

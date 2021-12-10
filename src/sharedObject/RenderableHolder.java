@@ -37,6 +37,10 @@ public class RenderableHolder {
 	// Player
 	public static Image player_sprite_Image;
 
+	// Button
+	public static Image mute_button_Image;
+	public static Image unmute_button_Image;
+	
 	// ---------------------------------------------------------
 	static {
 		loadResource();
@@ -97,8 +101,20 @@ public class RenderableHolder {
 	}
 
 	public static void loadResource() {
-		RenderableHolder.player_sprite_Image = loadImage("player_sprite_Image.png");
-		RenderableHolder.entrance_background_Image = loadImage("player_sprite_Image.png");
+		
+		//RenderableHolder.player_sprite_Image = loadImage("player_sprite_Image.png");
+		
+		// Background
+		RenderableHolder.entrance_background_Image = loadImage("mainSceneBackground_withoutLogo_fixed.png");
+		
+		// Button
+		RenderableHolder.unmute_button_Image = new Image("/button/unmute.png");
+		RenderableHolder.mute_button_Image = new Image("/button/mute.png");
+		/*
+		 * 
+		 * 
+		 * 
+		 */
 		
 		// Platform
 		RenderableHolder.greenOne = new Image("/image/platform/green_01.png");
@@ -110,6 +126,7 @@ public class RenderableHolder {
 		RenderableHolder.floatTwo = new Image("/image/platform/floatGreen_02.png");
 		RenderableHolder.floatThree = new Image("/image/platform/floatGreen_03.png");
 		RenderableHolder.floatFour = new Image("/image/platform/floatGreen_04.png");
+
 	}
 	
 	public RenderableHolder() {

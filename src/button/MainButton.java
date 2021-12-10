@@ -74,7 +74,5 @@ public class MainButton extends Button {
 				setButtonUnpressedStyle();
 			}
 		});
-
-
 	}
 }

@@ -1,6 +1,7 @@
 package player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -10,11 +11,14 @@ import application.utility.CSVUtility;
 
 public class LeaderBoard {
 
-	private static ArrayList<String> data = CSVUtility.readCSV();
-	private static SortedSet<PlayerStat> stats = new TreeSet();   
-	
+	private static ArrayList<String> data;
+	private static SortedSet<PlayerStat> stats;  
+
 	public static void sortUpdatedData() {
-		for (String line : data) {
+		stats = new TreeSet(); 
+		data = CSVUtility.readCSV();
+		
+		for (String line : getData()) {
 			String[] s = line.split(",");
 			String name = s[0];
 			int level = Integer.parseInt(s[1]);
@@ -24,5 +28,12 @@ public class LeaderBoard {
 		CSVUtility.updateSortCSV(stats);
 	}
 	
-	
+	public static void setData(ArrayList<String> data) {
+		LeaderBoard.data = data;
+	}
+
+	public static ArrayList<String> getData() {
+		return data;
+	}
+
 }

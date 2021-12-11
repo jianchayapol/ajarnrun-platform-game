@@ -13,7 +13,6 @@ import sharedObject.AudioLoader;
 
 public class GameScene {
 	private Stage primaryStage;
-	private Button backToMainButton;
 	
 	public GameScene(Stage primaryStage) {
 		this.primaryStage = primaryStage;

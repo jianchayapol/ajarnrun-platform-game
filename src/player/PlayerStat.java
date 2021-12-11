@@ -1,10 +1,10 @@
 package player;
 
-import exception.EmptyPlayerNameException;
+import exception.WrongFormatPlayerNameException;
 
 public class PlayerStat implements Comparable<PlayerStat> {
 
-	private String name;
+	public String name;
 	private int level;
 	private int exp;
 
@@ -18,12 +18,11 @@ public class PlayerStat implements Comparable<PlayerStat> {
 	public int compareTo(PlayerStat other) {
 		// TODO Auto-generated method stub
 		int comp = 0;
-		if (this.getExp() != other.getExp()) {
-			comp = (this.getExp() < other.getExp()) ? 1 : -1;
-		} else if (this.getLevel() != other.getLevel()) {
+		if (this.getLevel() != other.getLevel()) {
 			comp = (this.getLevel() < other.getLevel()) ? 1 : -1;
-		}
-		else {
+		} else if (this.getExp() != other.getExp()) {
+			comp = (this.getExp() < other.getExp()) ? 1 : -1;
+		} else {
 			comp = this.getName().compareTo(other.getName());
 		}
 		return comp;
@@ -33,17 +32,24 @@ public class PlayerStat implements Comparable<PlayerStat> {
 		return name;
 	}
 
-	public void setName(String name){
-		
-		try{
-			if (name.isBlank()) {
-				throw new EmptyPlayerNameException();
-			}
-			else this.name = name;
+	public void setName(String name) {
+		if (checkEnteredName(name)) {
+			this.name = name;
 		}
-		catch(EmptyPlayerNameException e) {
+	}
+
+	public static boolean checkEnteredName(String name) {
+		try {
+			if (name.isBlank()) {
+				throw new WrongFormatPlayerNameException("Name cannot be blank!");
+			} else if (name.length() > 10) {
+				throw new WrongFormatPlayerNameException("Name Cannot Exceed 10 Characters");
+			}
+			return true;
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		return false;
 	}
 
 	public int getLevel() {

@@ -16,6 +16,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import player.LeaderBoard;
@@ -58,8 +59,9 @@ public class AjarnRunPartialSubScene extends SubScene {
 
 			break;
 		case "newGame":
-			setLayoutX(0);
-			setLayoutY(0);
+			setLayoutX(width/2);
+			setLayoutY(height/2);
+			setEffect(new DropShadow());
 		default:
 			break;
 		}
@@ -93,7 +95,7 @@ public class AjarnRunPartialSubScene extends SubScene {
 	}
 
 	public void fillLeaderBoard() {
-		Label header = new Label("Rank" + "         " + "Lv." + "        " + "Player" + "             " + "Exp");
+		Label header = new Label("Rank" + "         " + "Lv." + "        " + "Player" + "              " + "Exp");
 		header.setTextFill(Color.DARKRED);
 		try {
 			header.setFont(Font.loadFont(new FileInputStream(FONT_PATH), 32));
@@ -103,15 +105,23 @@ public class AjarnRunPartialSubScene extends SubScene {
 
 		int posX = 15;
 		int posY = 120;
+		
+		Line lineShape = new Line(posX, posY,   posX+320,   posY);
+		lineShape.setStrokeWidth(4);
+		lineShape.setFill(Color.DARKRED);
+		posY+=15;
+		
 		header.setLayoutX(posX);
 		header.setLayoutY(posY);
 
 		AnchorPane subSceneRoot = (AnchorPane) this.getRoot();
-		subSceneRoot.getChildren().add(header);
+		subSceneRoot.getChildren().addAll(lineShape,header);
 
-		// Read Data from CS
+		// Read Data from CSV
+		LeaderBoard.setData(CSVUtility.readCSV());
 		LeaderBoard.sortUpdatedData();
 		ArrayList<String> data = CSVUtility.readCSV();
+		
 		int n = data.size();
 		if (n > 10)
 			n = 10;
@@ -121,8 +131,8 @@ public class AjarnRunPartialSubScene extends SubScene {
 			posY += 40;
 			String[] stat = data.get(i - 1).split(",");
 			Label line = new Label(fillString("[" + String.valueOf(i) + "]", 6) + fillString(stat[1], 4)
-					+ fillString(stat[0], 8) + fillString(stat[2], 4));
-			line.setTextFill(Color.DARKRED);
+					+ fillString(stat[0], 9) + fillString(stat[2], 4));
+			line.setTextFill(Color.BLACK);
 			try {
 				line.setFont(Font.loadFont(new FileInputStream(FONT_PATH2), 24));
 			} catch (Exception e) {

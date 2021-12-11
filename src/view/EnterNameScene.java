@@ -2,13 +2,17 @@ package view;
 
 import java.io.FileInputStream;
 
+import application.Main;
 import application.utility.ImageButtonType;
 import button.ImageButton;
 import exception.WrongFormatPlayerNameException;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
@@ -28,7 +32,11 @@ public class EnterNameScene {
 	private static Stage primaryStage;
 	private ImageButton playButton;
 	private StackPane mainPane;
+	private static ProgressBar progBar;
+	private static double value;
+	private static StackPane enterPane;
 	private static TextField textField;
+	private static Label text1;
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 800;
 	
@@ -40,7 +48,7 @@ public class EnterNameScene {
 		setUpForm(mainPane);
 		Scene scene = new Scene(mainPane);
 		
-		this.primaryStage = primaryStage;
+		EnterNameScene.primaryStage = primaryStage;
 		this.primaryStage.setScene(scene);
 		this.primaryStage.show();
 	}
@@ -78,6 +86,13 @@ public class EnterNameScene {
 			textField.setFont(Font.font("Verdana", 28));
 		}
 		
+		enterPane = new StackPane();
+		progBar = new ProgressBar(0);
+		progBar.setMaxWidth(290);
+		progBar.setMaxHeight(50);
+		enterPane.getChildren().addAll(progBar,textField);
+		
+		
 		VBox vbox = new VBox(40);
 		
 		Rectangle rec = new Rectangle(450,320);
@@ -86,7 +101,7 @@ public class EnterNameScene {
 		rec.setLayoutX(30);
 		rec.setLayoutY(30);
 		
-		Label text1 = new Label("Enter your name!");
+		text1 = new Label("Enter your name!");
 		text1.setTextFill(Color.WHITESMOKE);
 		try {
 			text1.setFont(Font.loadFont(new FileInputStream("res/font/YanoneKaffeesatz-SemiBold.ttf"), 32));
@@ -95,7 +110,7 @@ public class EnterNameScene {
 		}
 		text1.setAlignment(Pos.CENTER);
 		
-		vbox.getChildren().addAll(text1,textField, playButton);
+		vbox.getChildren().addAll(text1,enterPane, playButton);
 		
 		pane.getChildren().addAll(rec,vbox);
 		
@@ -115,5 +130,54 @@ public class EnterNameScene {
 		return primaryStage;
 	}
 
+	public static void setProgBar(double d) {
+		progBar.setProgress(d);
+	}
+	
+	public static void startProgress() {
+		Thread thread = new Thread(() -> { simulateProgressIncrement(0d); });
+		thread.start();
+	}
+	
+	public static void simulateProgressIncrement(Double start) {
+		value = start;
+		while (value < 1d) {
+			try {
+				Thread.sleep(10);
+				
+				Thread thread = new Thread(() -> {
+					try {
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								setProgBar(value);
+							}
+						});
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				});
+				thread.start();
+
+				value += 0.01d;
+
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public static void setLabel(String text) {
+		EnterNameScene.text1.setText(text);
+	}
+
+	public static StackPane getEnterPane() {
+		// TODO Auto-generated method stub
+		return EnterNameScene.enterPane;
+	}
 
 }

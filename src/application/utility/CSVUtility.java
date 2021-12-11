@@ -92,12 +92,11 @@ public class CSVUtility {
 			writer = new BufferedWriter(new FileWriter(new File("res/csv" + filename), false));
 
 			String textToWrite = "";
-			System.out.println(stats.size());
 			for (PlayerStat p : stats) {
 				String name = p.getName();
 				String level = String.valueOf(p.getLevel());
 				String exp = String.valueOf(p.getExp());
-				textToWrite += (name + "," + level + "," + exp + "\n");
+				textToWrite += (name.substring(0, 1).toUpperCase()+name.substring(1).toLowerCase() + "," + level + "," + exp + "\n");
 			}
 			writer.write(textToWrite);
 			System.out.println("Successfully Updated!");

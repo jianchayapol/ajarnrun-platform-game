@@ -2,5 +2,6 @@ package application.utility;
 
 public enum ImageButtonType {
 	SOUND,
-	PLAY
+	PLAY,
+	NULL
 }

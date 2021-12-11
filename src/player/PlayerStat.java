@@ -1,6 +1,7 @@
 package player;
 
 import exception.WrongFormatPlayerNameException;
+import view.EnterNameScene;
 
 public class PlayerStat implements Comparable<PlayerStat> {
 
@@ -41,8 +42,10 @@ public class PlayerStat implements Comparable<PlayerStat> {
 	public static boolean checkEnteredName(String name) {
 		try {
 			if (name.isBlank()) {
+				EnterNameScene.setErrorMessage("PlayerName cannot be blank!");
 				throw new WrongFormatPlayerNameException("PlayerName cannot be blank!");
 			} else if (name.length() > 8) {
+				EnterNameScene.setErrorMessage("PlayerName Cannot Exceed 8 Characters");
 				throw new WrongFormatPlayerNameException("PlayerName Cannot Exceed 8 Characters");
 			}
 			return true;

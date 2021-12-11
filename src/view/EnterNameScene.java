@@ -37,6 +37,8 @@ public class EnterNameScene {
 	private static StackPane enterPane;
 	private static TextField textField;
 	private static Label text1;
+	private static Label errorMessage;
+	
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 800;
 	
@@ -110,14 +112,27 @@ public class EnterNameScene {
 		}
 		text1.setAlignment(Pos.CENTER);
 		
-		vbox.getChildren().addAll(text1,enterPane, playButton);
+		
+		errorMessage = new Label("");
+		errorMessage.setAlignment(Pos.BOTTOM_LEFT);
+		errorMessage.setTextFill(Color.YELLOW);
+		
+		try {
+			errorMessage.setFont(Font.loadFont(new FileInputStream("res/font/Courier.ttf"), 18));
+		} catch (Exception e) {
+			errorMessage.setFont(Font.font("Verdana", 18));
+		}
+		
+		vbox.getChildren().addAll(text1,enterPane, playButton,errorMessage);
+		errorMessage.setLayoutY(400);
+		errorMessage.setAlignment(Pos.BOTTOM_CENTER);
 		
 		pane.getChildren().addAll(rec,vbox);
 		
 		vbox.setAlignment(Pos.CENTER);
 		playButton.setLayoutY(400);
 		pane.setAlignment(Pos.CENTER);
-		root.getChildren().add(pane);
+		root.getChildren().addAll(pane);
 		root.setAlignment(Pos.CENTER);
 		
 	}
@@ -180,4 +195,12 @@ public class EnterNameScene {
 		return EnterNameScene.enterPane;
 	}
 
+	public static void setErrorMessage(String text) {
+		EnterNameScene.errorMessage.setText(text);
+	}
+	
+	public static String getErrorMessage() {
+		return EnterNameScene.errorMessage.getText();
+	}
+	
 }

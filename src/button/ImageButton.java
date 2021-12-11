@@ -42,6 +42,9 @@ public class ImageButton extends ImageView {
 			img = RenderableHolder.play_button_Image;
 			height = 50;
 			width = 139;
+		} else if (imageButtonType.equals(ImageButtonType.NULL)) {
+			height = 0;
+			width = 0;
 		}
 		this.setImage(img);
 		this.setFitHeight(height);
@@ -72,6 +75,7 @@ public class ImageButton extends ImageView {
 						String[] stat = { name.strip().toUpperCase(), "1", "0" };
 						CSVUtility.appendToCSV(stat);
 						ViewManager.setVisible(false);
+						initImageButton(ImageButtonType.NULL);
 						AudioLoader.Entrance_Theme_Song.stop();
 						ViewManager.setPlayingThemeSong(false);
 						EnterNameScene.getEnterPane().getChildren().remove(1);

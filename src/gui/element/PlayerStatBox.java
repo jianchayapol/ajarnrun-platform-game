@@ -6,54 +6,29 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class PlayerStatBox {
+public class PlayerStatBox extends HBox {
 	private ImageView image;
 	private Label moneyLabel;
-	private Label expLabel;
-	private Label timeLabel;
-	private VBox root;
+	private Label levelLabel;
+	private Label nameLabel;
 	private ProgressBar progBar;
-	
+
 	public PlayerStatBox() {
 		// imageView = RenderableHolder.???
 		setHpProgress();
-		timeLabel.setText("360");
-		expLabel.setText("0");
-		
-		root = new VBox(30);
-		
-		HBox InfoBox = new HBox(20);
-		InfoBox.getChildren().addAll(moneyLabel,timeLabel);
-		
-		root.getChildren().addAll(image,progBar,InfoBox);
+		HBox infoBox1 = new HBox();
+		infoBox1.getChildren().addAll(levelLabel, progBar);
+
+		HBox infoBox2 = new HBox();
+		infoBox2.getChildren().addAll(nameLabel, moneyLabel);
+
+		VBox playerBox = new VBox(20);
+		playerBox.getChildren().addAll(infoBox1, infoBox2);
+
+		this.getChildren().addAll(image, playerBox);
 	}
 
 	public void setHpProgress() {
-		progBar.setProgress(80.0/100.0);
+		progBar.setProgress(80.0 / 100.0);
 	}
-	
-	public ImageView getImage() {
-		return image;
-	}
-
-	public void setImage(ImageView image) {
-		this.image = image;
-	}
-
-	public Label getMoneyLabel() {
-		return moneyLabel;
-	}
-
-	public Label getExpLabel() {
-		return expLabel;
-	}
-
-	public ProgressBar getProgBar() {
-		return progBar;
-	}
-
-	public void setProgBar(ProgressBar progBar) {
-		this.progBar = progBar;
-	}
-
 }

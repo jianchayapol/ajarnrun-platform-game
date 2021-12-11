@@ -3,8 +3,8 @@ package view;
 import java.io.FileInputStream;
 
 import application.Main;
-import application.utility.ImageButtonType;
 import button.ImageButton;
+import button.ImageButtonType;
 import exception.WrongFormatPlayerNameException;
 import javafx.application.Platform;
 import javafx.geometry.Insets;

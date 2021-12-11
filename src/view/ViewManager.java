@@ -2,9 +2,11 @@ package view;
 
 import sharedObject.*;
 import application.logic.GameController;
-import application.utility.ImageButtonType;
 import button.ImageButton;
+import button.ImageButtonType;
 import button.MainButton;
+import gui.element.LevelPassBox;
+import gui.element.LevelPassType;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -125,7 +127,7 @@ public class ViewManager {
 		mainPane.getChildren().add(newGameButton);
 		mainPane.getChildren().add(leaderBoardButton);
 		mainPane.getChildren().add(exitButton);
-
+		
 	}
 
 	private void setBackgroundImage(Image bgImg) {

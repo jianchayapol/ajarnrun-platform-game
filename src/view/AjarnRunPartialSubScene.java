@@ -123,8 +123,8 @@ public class AjarnRunPartialSubScene extends SubScene {
 		ArrayList<String> data = CSVUtility.readCSV();
 		
 		int n = data.size();
-		if (n > 10)
-			n = 10;
+		if (n > 9)
+			n = 9;
 		posX += 3;
 		posY += 15;
 		for (int i = 1; i <= n; i++) {

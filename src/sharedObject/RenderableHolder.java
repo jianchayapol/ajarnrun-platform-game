@@ -31,6 +31,10 @@ public class RenderableHolder {
 	// Images
 	public static Image x;
 
+	// Pane
+	public static Image level_passed_Image;
+	public static Image level_failed_Image;
+	
 	// Background
 	public static Image entrance_background_Image;
 
@@ -41,6 +45,8 @@ public class RenderableHolder {
 	public static Image mute_button_Image;
 	public static Image unmute_button_Image;
 	public static Image play_button_Image;
+	public static Image continue_button_Image;
+	public static Image skip_button_Image;
 	// ---------------------------------------------------------
 	static {
 		loadResource();
@@ -53,6 +59,20 @@ public class RenderableHolder {
 				throw new ImageNotFoundException(fileName);
 			}
 			return new Image(ClassLoader.getSystemResource("image/" + fileName).toString());
+		} catch (ImageNotFoundException e) {
+			System.out.println(e.getMessage());
+			System.exit(1);
+		}
+		return null;
+	}
+	
+	public static Image loadImageButton(String fileName) {
+		try {
+			URL image = ClassLoader.getSystemResource("button/" + fileName);
+			if (image == null) {
+				throw new ImageNotFoundException(fileName);
+			}
+			return new Image(ClassLoader.getSystemResource("button/" + fileName).toString());
 		} catch (ImageNotFoundException e) {
 			System.out.println(e.getMessage());
 			System.exit(1);
@@ -107,10 +127,17 @@ public class RenderableHolder {
 		// Background
 		RenderableHolder.entrance_background_Image = loadImage("mainSceneBackground_withoutLogo_fixed.png");
 		
+		// Pane
+		RenderableHolder.level_passed_Image = loadImage("passedLevel.png");
+		RenderableHolder.level_failed_Image = loadImage("failedLevel.png");
+		
 		// Button
-		RenderableHolder.unmute_button_Image = new Image("/button/unmute.png");
-		RenderableHolder.mute_button_Image = new Image("/button/mute.png");
-		RenderableHolder.play_button_Image = new Image("/button/start.png");
+		RenderableHolder.unmute_button_Image = loadImageButton("unmute.png");
+		RenderableHolder.mute_button_Image = loadImageButton("mute.png");
+		RenderableHolder.play_button_Image = loadImageButton("start.png");
+		RenderableHolder.skip_button_Image= loadImageButton("skip-button.png");
+		RenderableHolder.continue_button_Image = loadImageButton("continue-button.png");
+		
 		/*
 		 * 
 		 * 

@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.SortedSet;
 
-import player.LeaderBoard;
 import player.PlayerStat;
 
 public class CSVUtility {
@@ -35,20 +34,48 @@ public class CSVUtility {
 	}
 
 	public static void appendToCSV(String[] text) {
+		BufferedReader reader = null;
 		BufferedWriter writer = null;
+		boolean check = false;
+		ArrayList<String> lines = new ArrayList<>();
 		try {
-
-			writer = new BufferedWriter(new FileWriter(new File("res/csv" + filename), true));
-
-			String textToWrite = "";
-			for (int i = 0; i < text.length; i++) {
-				textToWrite += text[i];
-				if (i != text.length - 1) {
-					textToWrite += ",";
+			reader = new BufferedReader(new FileReader("res/csv" + filename));
+			String line = null;
+			
+			while ((line = reader.readLine()) != null) {
+				String[] l = line.split(",");
+				if(text[0].equals(l[0])) {
+					if(Integer.parseInt(l[1])>Integer.parseInt(text[1]) ) {
+						lines.add(line);
+						check = true;
+					}
+					else if(Integer.parseInt(l[1])==Integer.parseInt(text[1]) && Integer.parseInt(l[2])>Integer.parseInt(text[2])) {
+						lines.add(line);
+						check = true;
+					}
+				}else {
+					lines.add(line);
 				}
 			}
-
-			writer.write(textToWrite + "\n");
+			
+			String textToWrite = "";
+			
+			writer = new BufferedWriter(new FileWriter(new File("res/csv" + filename), false));
+			for (String s : lines) {
+				textToWrite += (s.split(",")[0] + "," +s.split(",")[1]+ "," + s.split(",")[2] + "\n");
+			}
+			
+			if(!check) {
+				for (int i = 0; i < text.length; i++) {
+					textToWrite += escapeSpecialCharacters(text[i]);
+					if (i != text.length - 1) {
+						textToWrite += ",";
+					}
+				}
+				textToWrite += "\n";
+			}
+			
+			writer.write(textToWrite);
 			System.out.println("Successfully Added");
 			writer.close();
 
@@ -65,7 +92,7 @@ public class CSVUtility {
 			writer = new BufferedWriter(new FileWriter(new File("res/csv" + filename), false));
 
 			String textToWrite = "";
-
+			System.out.println(stats.size());
 			for (PlayerStat p : stats) {
 				String name = p.getName();
 				String level = String.valueOf(p.getLevel());

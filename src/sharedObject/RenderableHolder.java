@@ -40,7 +40,7 @@ public class RenderableHolder {
 	// Button
 	public static Image mute_button_Image;
 	public static Image unmute_button_Image;
-	
+	public static Image play_button_Image;
 	// ---------------------------------------------------------
 	static {
 		loadResource();
@@ -110,6 +110,7 @@ public class RenderableHolder {
 		// Button
 		RenderableHolder.unmute_button_Image = new Image("/button/unmute.png");
 		RenderableHolder.mute_button_Image = new Image("/button/mute.png");
+		RenderableHolder.play_button_Image = new Image("/button/start.png");
 		/*
 		 * 
 		 * 

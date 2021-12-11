@@ -2,12 +2,13 @@ package player;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import logic.base.Jumpable;
+import logic.base.Moveable;
 
-public class Player extends ImageView {
+public class Player extends ImageView implements Moveable, Jumpable {
 	
 	private int velocityX;
 	private int velocityY;
-	private boolean canJump;
 	
 	public Player(String URL, int velocityX, int velocityY, int layoutX, int layoutY) {
 		super(new Image(URL));
@@ -32,10 +33,13 @@ public class Player extends ImageView {
 		return this.velocityY;
 	}
 	
-	public void setCanJump(boolean canJump) {
-		this.canJump = canJump;
+	public void setVelocityX(int velocityX) {
+		this.velocityX = velocityX;
 	}
-	public boolean getCanJump() {
-		return this.canJump;
+
+	public void setVelocityY(int velocityY) {
+		this.velocityY = velocityY;
 	}
+
+	
 }

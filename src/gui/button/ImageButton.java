@@ -18,6 +18,10 @@ import sharedObject.RenderableHolder;
 
 public class ImageButton extends ImageView {
 
+	private int height;
+	private int width;
+	private Image img;
+
 	public ImageButton(ImageButtonType imageButtonType) {
 		super();
 		initImageButton(imageButtonType);
@@ -25,110 +29,110 @@ public class ImageButton extends ImageView {
 	}
 
 	private void initImageButton(ImageButtonType imageButtonType) {
-		Image img = null;
-		int height = 0;
-		int width = 0;
 
-		if (imageButtonType.equals(imageButtonType.SOUND)) {
+		switch (imageButtonType) {
+		case SOUND:
+			setSize(30, 30);
 			if (GameController.IsMute()) {
 				img = RenderableHolder.mute_button_Image;
 			} else {
 				img = RenderableHolder.unmute_button_Image;
 			}
-			height = 30;
-			width = 30;
-		} else if (imageButtonType.equals(ImageButtonType.PLAY)) {
+			break;
+		case PLAY:
 			img = RenderableHolder.play_button_Image;
-			height = 50;
-			width = 139;
-		} else if (imageButtonType.equals(ImageButtonType.NULL)) {
-			height = 0;
-			width = 0;
-		} else if (imageButtonType.equals(ImageButtonType.CONTINUE_LV)) {
-			img = RenderableHolder.continue_button_Image;
-			height = 60;
-			width = 190;
+			setSize(139, 50);
+			break;
+		case NULL:
+			break;
+		case CONTINUE_LV:
+			setSize(139, 50);
+			break;
+		case SKIP_LV:
+			setSize(139, 50);
+			break;
+		default:
+			setSize(0, 0);
+			break;
 		}
-
 		this.setImage(img);
 		this.setFitHeight(height);
 		this.setFitWidth(width);
 
 	}
 
+	// Init Event Handler
 	private void initEventHandler(ImageButtonType imageButtonType) {
-		// TODO
 		this.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
 			@Override
 			public void handle(MouseEvent event) {
 				AudioLoader.Mouse_Click.play();
-
-				if (imageButtonType.equals(ImageButtonType.SOUND)) {
-					setUpSound(imageButtonType);
-
-				} else if (imageButtonType.equals(ImageButtonType.PLAY)) {
+				switch (imageButtonType) {
+				case SOUND:
+					setUpSound();
+					break;
+				case PLAY:
 					setUpNameInput();
-				} else if (imageButtonType.equals(ImageButtonType.CONTINUE_LV)) {
-
+					break;
+				case CONTINUE_LV:
+					break;
+				case SKIP_LV:
+					break;
+				default:
+					break;
 				}
 			}
 		});
-
-		setOnMouseExited(new EventHandler<MouseEvent>() {
+		this.setOnMouseExited(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				ImageButton.this.getParent().setCursor(Cursor.DEFAULT);
 				setEffect(null);
 			}
 		});
-
 		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				ImageButton.this.getParent().setCursor(Cursor.HAND);
 				setEffect(new DropShadow());
 			}
 		});
-
 	}
 
+	// Setup
 	public void setUpNameInput() {
 		String name = EnterNameScene.getEnteredName();
 		if (PlayerStat.checkEnteredName(name)) {
 			String[] stat = { name.strip().toUpperCase(), "1", "0" };
 			CSVUtility.appendToCSV(stat);
-			ViewManager.setIsVisible(false);
-			initImageButton(ImageButtonType.NULL);
-			AudioLoader.Entrance_Theme_Song.stop();
-			ViewManager.setIsPlayingThemeSong(false);
-			EnterNameScene.getEnterPane().getChildren().remove(1);
-			EnterNameScene.setLabel("loading..");
-			EnterNameScene.startProgress();
-			Thread thread = new Thread(() -> {
-				try {
-					Thread.sleep(1600);
-					Platform.runLater(new Runnable() {
-						@Override
-						public void run() {
-							GameScene gameScene = new GameScene(EnterNameScene.getPrimaryStage());
-						}
-					});
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			});
-			thread.start();
-
+			stopViewManager();
+			EnterNameScene.setupLoading();
+			EnterNameScene.startGameScene();
 		}
 	}
-
-	public void setUpSound(ImageButtonType imageButtonType) {
-		AudioLoader.Mouse_Click.play();
+	public void setUpSound() {
 		GameController.setMute(!GameController.IsMute());
-		initImageButton(imageButtonType);
+		initImageButton(ImageButtonType.SOUND);
 		if (ViewManager.isVisible()) {
 			ViewManager.setIsPlayingThemeSong(!ViewManager.isPlayingThemeSong());
 			ViewManager.playThemeSong();
 		}
 	}
+	public void stopViewManager() {
+		ViewManager.setIsVisible(false);
+		initImageButton(ImageButtonType.NULL);
+		AudioLoader.Entrance_Theme_Song.stop();
+		ViewManager.setIsPlayingThemeSong(false);
+	}
 
+	// Getter & Setter	
+	public Image getImg() {
+		return img;
+	}
+	public void setImg(Image img) {
+		this.img = img;
+	}
+	public void setSize(int w, int h) {
+		this.width = w;
+		this.height = h;
+	}
+	
 }

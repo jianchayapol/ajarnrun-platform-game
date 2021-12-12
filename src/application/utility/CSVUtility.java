@@ -36,7 +36,7 @@ public class CSVUtility {
 	public static void appendToCSV(String[] text) {
 		BufferedReader reader = null;
 		BufferedWriter writer = null;
-		boolean check = false;
+		boolean isHighScore = false;
 		ArrayList<String> lines = new ArrayList<>();
 		try {
 			reader = new BufferedReader(new FileReader("res/csv" + filename));
@@ -45,13 +45,14 @@ public class CSVUtility {
 			while ((line = reader.readLine()) != null) {
 				String[] l = line.split(",");
 				if(text[0].equals(l[0])) {
-					if(Integer.parseInt(l[1])>Integer.parseInt(text[1]) ) {
-						lines.add(line);
-						check = true;
+					if(Integer.parseInt(l[1])<Integer.parseInt(text[1]) ) {
+						isHighScore = true;
 					}
-					else if(Integer.parseInt(l[1])==Integer.parseInt(text[1]) && Integer.parseInt(l[2])>Integer.parseInt(text[2])) {
+					else if(Integer.parseInt(l[1])==Integer.parseInt(text[1]) && Integer.parseInt(l[2])<Integer.parseInt(text[2])) {
+						isHighScore = true;
+					}
+					else {
 						lines.add(line);
-						check = true;
 					}
 				}else {
 					lines.add(line);
@@ -65,7 +66,7 @@ public class CSVUtility {
 				textToWrite += (s.split(",")[0] + "," +s.split(",")[1]+ "," + s.split(",")[2] + "\n");
 			}
 			
-			if(!check) {
+			if(isHighScore) {
 				for (int i = 0; i < text.length; i++) {
 					textToWrite += escapeSpecialCharacters(text[i]);
 					if (i != text.length - 1) {
@@ -95,7 +96,7 @@ public class CSVUtility {
 				String name = p.getName();
 				String level = String.valueOf(p.getLevel());
 				String exp = String.valueOf(p.getExp());
-				textToWrite += (name.substring(0, 1).toUpperCase()+name.substring(1).toLowerCase() + "," + level + "," + exp + "\n");
+				textToWrite += (name + "," + level + "," + exp + "\n");
 			}
 			writer.write(textToWrite);
 			writer.close();

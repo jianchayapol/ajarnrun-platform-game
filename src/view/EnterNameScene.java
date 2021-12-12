@@ -214,7 +214,7 @@ public class EnterNameScene {
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
-						GameScene gameScene = new GameScene(EnterNameScene.getPrimaryStage());
+						GameScene gameScene = new GameScene(mainPane,EnterNameScene.getPrimaryStage());
 					}
 				});
 			} catch (Exception e) {

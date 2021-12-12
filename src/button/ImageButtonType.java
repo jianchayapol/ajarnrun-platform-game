@@ -1,7 +1,9 @@
-package application.utility;
+package button;
 
 public enum ImageButtonType {
 	SOUND,
 	PLAY,
+	CONTINUE_LV,
+	SKIP_LV,
 	NULL
 }

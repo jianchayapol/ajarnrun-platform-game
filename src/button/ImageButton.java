@@ -5,7 +5,6 @@ import view.GameScene;
 import view.ViewManager;
 import application.logic.GameController;
 import application.utility.CSVUtility;
-import application.utility.ImageButtonType;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
@@ -45,7 +44,12 @@ public class ImageButton extends ImageView {
 		} else if (imageButtonType.equals(ImageButtonType.NULL)) {
 			height = 0;
 			width = 0;
+		} else if (imageButtonType.equals(ImageButtonType.CONTINUE_LV)) {
+			img = RenderableHolder.continue_button_Image;
+			height = 60;
+			width = 190;
 		}
+
 		this.setImage(img);
 		this.setFitHeight(height);
 		this.setFitWidth(width);
@@ -59,48 +63,14 @@ public class ImageButton extends ImageView {
 			@Override
 			public void handle(MouseEvent event) {
 				AudioLoader.Mouse_Click.play();
-				
+
 				if (imageButtonType.equals(ImageButtonType.SOUND)) {
-					AudioLoader.Mouse_Click.play();
-					GameController.setMute(!GameController.IsMute());
-					initImageButton(imageButtonType);
-					if (ViewManager.isVisible()) {
-						ViewManager.setPlayingThemeSong(!ViewManager.isPlayingThemeSong());
-						ViewManager.playThemeSong();
-					}
+					setUpSound(imageButtonType);
 
 				} else if (imageButtonType.equals(ImageButtonType.PLAY)) {
-					String name = EnterNameScene.getEnteredName();
-					if (PlayerStat.checkEnteredName(name)) {
-						String[] stat = { name.strip().toUpperCase(), "1", "0" };
-						CSVUtility.appendToCSV(stat);
-						ViewManager.setVisible(false);
-						initImageButton(ImageButtonType.NULL);
-						AudioLoader.Entrance_Theme_Song.stop();
-						ViewManager.setPlayingThemeSong(false);
-						EnterNameScene.getEnterPane().getChildren().remove(1);
-						EnterNameScene.setLabel("loading..");
-						EnterNameScene.startProgress();
-						
-						Thread thread = new Thread(() -> {
-							try {
-								Thread.sleep(1600);
-								Platform.runLater(new Runnable() {
-									@Override
-									public void run() {
-										// TODO Auto-generated method stub
-										GameScene gameScene = new GameScene(EnterNameScene.getPrimaryStage());
-									}
-								});
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+					setUpNameInput();
+				} else if (imageButtonType.equals(ImageButtonType.CONTINUE_LV)) {
 
-						});
-						thread.start();
-						
-					}
 				}
 			}
 		});
@@ -119,6 +89,50 @@ public class ImageButton extends ImageView {
 			}
 		});
 
+	}
+
+	public void setUpNameInput() {
+		String name = EnterNameScene.getEnteredName();
+		if (PlayerStat.checkEnteredName(name)) {
+			String[] stat = { name.strip().toUpperCase(), "1", "0" };
+			CSVUtility.appendToCSV(stat);
+			ViewManager.setVisible(false);
+			initImageButton(ImageButtonType.NULL);
+			AudioLoader.Entrance_Theme_Song.stop();
+			ViewManager.setPlayingThemeSong(false);
+			EnterNameScene.getEnterPane().getChildren().remove(1);
+			EnterNameScene.setLabel("loading..");
+			EnterNameScene.startProgress();
+
+			Thread thread = new Thread(() -> {
+				try {
+					Thread.sleep(1600);
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							GameScene gameScene = new GameScene(EnterNameScene.getPrimaryStage());
+						}
+					});
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			});
+			thread.start();
+
+		}
+	}
+
+	public void setUpSound(ImageButtonType imageButtonType) {
+		AudioLoader.Mouse_Click.play();
+		GameController.setMute(!GameController.IsMute());
+		initImageButton(imageButtonType);
+		if (ViewManager.isVisible()) {
+			ViewManager.setPlayingThemeSong(!ViewManager.isPlayingThemeSong());
+			ViewManager.playThemeSong();
+		}
 	}
 
 }

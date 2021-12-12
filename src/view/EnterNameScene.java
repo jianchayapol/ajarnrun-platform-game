@@ -4,6 +4,7 @@ import application.logic.GameManager;
 import gui.button.ImageButton;
 import gui.button.ImageButtonType;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -54,7 +57,7 @@ public class EnterNameScene extends Scene {
 
 		// set up
 		setupPane();
-
+		
 		// Stage
 		primaryStage.setScene(this);
 		EnterNameScene.primaryStage = primaryStage;

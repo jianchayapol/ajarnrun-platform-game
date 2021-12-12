@@ -1,4 +1,4 @@
-package level;
+package logic.level;
 
 public class Level {
 	public static final String[] LEVEL1 = new String[] {

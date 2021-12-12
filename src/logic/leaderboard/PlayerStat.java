@@ -1,4 +1,4 @@
-package player;
+package logic.leaderboard;
 
 import exception.WrongFormatPlayerNameException;
 import view.EnterNameScene;

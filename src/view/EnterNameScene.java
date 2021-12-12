@@ -1,7 +1,5 @@
 package view;
 
-import java.io.FileInputStream;
-
 import application.logic.GameManager;
 import gui.button.ImageButton;
 import gui.button.ImageButtonType;
@@ -27,10 +25,9 @@ import sharedObject.FontLoader;
 import sharedObject.FontType;
 import sharedObject.RenderableHolder;
 
-public class EnterNameScene {
+public class EnterNameScene extends Scene {
 	private static Stage primaryStage;
 	private ImageButton playButton = new ImageButton(ImageButtonType.PLAY);
-	private static StackPane mainPane;
 	private static StackPane enterPane;
 	private static ProgressBar progBar;
 	private static Rectangle rec;
@@ -43,9 +40,9 @@ public class EnterNameScene {
 	private static final int WIDTH = 800;
 
 	public EnterNameScene(Stage primaryStage) {
-		// mainPane
-		mainPane = new StackPane();
-		mainPane.setPrefSize(WIDTH, HEIGHT);
+		super(new StackPane());
+		((StackPane)this.getRoot()).setPrefSize(WIDTH, HEIGHT);
+		
 		// Background
 		setBackgroundImage(RenderableHolder.entrance_background_Image);
 
@@ -59,9 +56,8 @@ public class EnterNameScene {
 		// set up
 		setupPane();
 
-		// Scene & Stage
-		Scene scene = new Scene(mainPane);
-		primaryStage.setScene(scene);
+		// Stage
+		primaryStage.setScene(this);
 		EnterNameScene.primaryStage = primaryStage;
 	}
 
@@ -121,8 +117,8 @@ public class EnterNameScene {
 		vbox.setAlignment(Pos.CENTER);
 		playButton.setLayoutY(400);
 		pane.setAlignment(Pos.CENTER);
-		mainPane.getChildren().addAll(pane);
-		mainPane.setAlignment(Pos.CENTER);
+		((StackPane)this.getRoot()).getChildren().addAll(pane);
+		((StackPane)this.getRoot()).setAlignment(Pos.CENTER);
 	}
 	
 	// setup
@@ -136,7 +132,7 @@ public class EnterNameScene {
 		rec.setFill(Color.BLACK);
 		rec.setOpacity(0.8);
 
-		mainPane.getChildren().addAll(bg, rec);
+		((StackPane)this.getRoot()).getChildren().addAll(bg, rec);
 	}
 
 	// =================== public static method ==============================
@@ -216,7 +212,7 @@ public class EnterNameScene {
 					@Override
 					public void run() {
 						GameScene gameScene = new GameScene(GameManager.getAppRoot(), primaryStage);
-					}
+						}
 				});
 			} catch (Exception e) {
 				e.printStackTrace();

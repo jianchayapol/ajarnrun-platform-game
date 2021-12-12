@@ -21,11 +21,13 @@ public class GameScene extends Scene {
 		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
 				GameManager.setKeysValue(event.getCode(), true);
+				System.out.println(event.getCode());
 			}
 		});
 		this.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
 				GameManager.setKeysValue(event.getCode(), false);
+				System.out.println(event.getCode());
 			}
 		});
 	}

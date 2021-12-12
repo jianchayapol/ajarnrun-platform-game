@@ -42,7 +42,6 @@ public class EnterNameScene extends Scene {
 	public EnterNameScene(Stage primaryStage) {
 		super(new StackPane());
 		((StackPane)this.getRoot()).setPrefSize(WIDTH, HEIGHT);
-		
 		// Background
 		setBackgroundImage(RenderableHolder.entrance_background_Image);
 

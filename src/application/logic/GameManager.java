@@ -201,15 +201,14 @@ public class GameManager {
 			jumpPlayer();
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
-			movePlayerX(-5);
+			movePlayerX(-4);
 		}
 		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 5 - player.getWidth()) {
-			movePlayerX(5);
+			movePlayerX(4);
 		}
 		if (player.getVelocityY() < 10) {
 			player.setVelocityY(player.getVelocityY() + 1);
 		}
-		
 		movePlayerY(player.getVelocityY());
 	}
 	

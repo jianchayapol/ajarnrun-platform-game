@@ -22,6 +22,5 @@ public class Player extends Character implements Moveable, Jumpable {
 	
 	public int getWidth() {
 		return WIDTH;
-	}
-	
+	}	
 }

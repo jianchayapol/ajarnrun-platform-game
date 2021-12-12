@@ -17,7 +17,6 @@ public class LeaderBoard {
 	public static void sortUpdatedData() {
 		stats = new TreeSet(); 
 		data = CSVUtility.readCSV();
-		
 		for (String line : getData()) {
 			String[] s = line.split(",");
 			String name = s[0];

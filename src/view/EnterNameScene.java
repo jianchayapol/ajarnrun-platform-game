@@ -2,14 +2,11 @@ package view;
 
 import java.io.FileInputStream;
 
-import application.Main;
-import exception.WrongFormatPlayerNameException;
 import gui.button.ImageButton;
 import gui.button.ImageButtonType;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -31,7 +28,7 @@ import sharedObject.RenderableHolder;
 public class EnterNameScene {
 	private static Stage primaryStage;
 	private ImageButton playButton;
-	private StackPane mainPane;
+	private static StackPane mainPane;
 	private static ProgressBar progBar;
 	private static double value;
 	private static StackPane enterPane;
@@ -45,7 +42,7 @@ public class EnterNameScene {
 	public EnterNameScene(Stage primaryStage) {
 		mainPane = new StackPane();
 		setBackgroundImage(RenderableHolder.entrance_background_Image);
-		setUpForm(mainPane);
+		setUpForm();
 		Scene scene = new Scene(mainPane);
 		primaryStage.setScene(scene);
 		EnterNameScene.primaryStage = primaryStage;
@@ -68,11 +65,9 @@ public class EnterNameScene {
 		return primaryStage;
 	}
 	
-	private void setUpForm(StackPane root) {
+	private void setUpForm() {
 		
-		root.setPrefHeight(HEIGHT);
-		root.setPrefWidth(WIDTH);
-		mainPane = root;
+		this.mainPane.setPrefSize(WIDTH, HEIGHT);
 		
 		playButton = new ImageButton(ImageButtonType.PLAY);
 		
@@ -132,8 +127,8 @@ public class EnterNameScene {
 		vbox.setAlignment(Pos.CENTER);
 		playButton.setLayoutY(400);
 		pane.setAlignment(Pos.CENTER);
-		root.getChildren().addAll(pane);
-		root.setAlignment(Pos.CENTER);
+		mainPane.getChildren().addAll(pane);
+		mainPane.setAlignment(Pos.CENTER);
 		
 	}
 	

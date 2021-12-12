@@ -66,7 +66,7 @@ public class ImageButton extends ImageView {
 		this.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				AudioLoader.Mouse_Click.play();
+				if(!GameController.isMute()) AudioLoader.Mouse_Click.play();
 				switch (imageButtonType) {
 				case SOUND:
 					setUpSound();

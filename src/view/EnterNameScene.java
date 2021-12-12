@@ -2,6 +2,7 @@ package view;
 
 import java.io.FileInputStream;
 
+import application.logic.GameManager;
 import gui.button.ImageButton;
 import gui.button.ImageButtonType;
 import javafx.application.Platform;
@@ -214,7 +215,7 @@ public class EnterNameScene {
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
-						GameScene gameScene = new GameScene(EnterNameScene.getPrimaryStage());
+						GameScene gameScene = new GameScene(GameManager.getAppRoot(), primaryStage);
 					}
 				});
 			} catch (Exception e) {

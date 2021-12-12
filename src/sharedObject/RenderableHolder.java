@@ -143,12 +143,6 @@ public class RenderableHolder {
 		RenderableHolder.skip_button_Image= loadImageButton("skip-button.png");
 		RenderableHolder.continue_button_Image = loadImageButton("continue-button.png");
 		
-		/*
-		 * 
-		 * 
-		 * 
-		 */
-		
 		// Platform
 		RenderableHolder.greenOne = loadImage("platform/green_01.png");
 		RenderableHolder.greenTwo = loadImage("platform/green_02.png");
@@ -164,7 +158,7 @@ public class RenderableHolder {
 		RenderableHolder.logo = loadImage("Logo.png");
 		
 		// Player
-		RenderableHolder.playerImage = loadImage("character_maleAdventure_attack0.png");
+		RenderableHolder.playerImage = loadImage("character_maleAdventurer_attack0.png");
 	}
 	
 	public RenderableHolder() {

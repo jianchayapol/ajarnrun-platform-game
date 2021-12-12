@@ -10,8 +10,8 @@ public class Player extends ImageView implements Moveable, Jumpable {
 	private int velocityX;
 	private int velocityY;
 	
-	public Player(String URL, int velocityX, int velocityY, int layoutX, int layoutY) {
-		super(new Image(URL));
+	public Player(Image image, int velocityX, int velocityY, int layoutX, int layoutY) {
+		super(image);
 		setVelocity(velocityX, velocityY);
 		setFitWidth(96);
 		setFitHeight(128);

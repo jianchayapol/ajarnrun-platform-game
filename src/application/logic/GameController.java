@@ -20,7 +20,7 @@ import logic.base.Jumpable;
 public class GameController {
 	private static HashMap<KeyCode, Boolean> keys = new HashMap<KeyCode, Boolean>();
 	private static ArrayList<Node> platforms = new ArrayList<Node>();
-	private static Player player = new Player("/image/character_maleAdventurer_attack0.png", 5, 0, 50, 480);
+//	private static Player player = new Player("/image/character_maleAdventurer_attack0.png", 5, 0, 50, 480);
 	private static boolean canJump;
 
 	private static String[] level;
@@ -193,10 +193,6 @@ public class GameController {
 		gameRoot.getChildren().add(entity);
 		return entity;
 	}
-	
-	public static boolean IsMute() {
-		return isMute;
-	}
 
 	public static void setMute(boolean isMute) {
 		GameController.isMute = isMute;
@@ -218,13 +214,13 @@ public class GameController {
 		GameController.platforms = platforms;
 	}
 
-	public Player getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Player player) {
-		GameController.player = player;
-	}
+//	public Player getPlayer() {
+//		return player;
+//	}
+//
+//	public void setPlayer(Player player) {
+//		GameController.player = player;
+//	}
 
 	public static String[] getLevel() {
 		return level;

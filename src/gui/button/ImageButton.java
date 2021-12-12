@@ -33,7 +33,7 @@ public class ImageButton extends ImageView {
 		switch (imageButtonType) {
 		case SOUND:
 			setSize(30, 30);
-			if (GameController.IsMute()) {
+			if (GameController.isMute()) {
 				img = RenderableHolder.mute_button_Image;
 			} else {
 				img = RenderableHolder.unmute_button_Image;
@@ -109,7 +109,7 @@ public class ImageButton extends ImageView {
 		}
 	}
 	public void setUpSound() {
-		GameController.setMute(!GameController.IsMute());
+		GameController.setMute(!GameController.isMute());
 		initImageButton(ImageButtonType.SOUND);
 		if (ViewManager.isVisible()) {
 			ViewManager.setIsPlayingThemeSong(!ViewManager.isPlayingThemeSong());

@@ -27,9 +27,6 @@ public class RenderableHolder {
 	private static Image floatTwo;
 	private static Image floatThree;
 	private static Image floatFour;
-	
-	// Images
-	public static Image x;
 
 	// Pane
 	public static Image level_passed_Image;
@@ -37,6 +34,7 @@ public class RenderableHolder {
 	
 	// Background
 	public static Image entrance_background_Image;
+	public static Image normalLevelImage;
 
 	// Player
 	public static Image player_sprite_Image;
@@ -50,6 +48,9 @@ public class RenderableHolder {
 	
 	// Logo
 	public static Image logo;
+	
+	// Player
+	public static Image playerImage;
 	// ---------------------------------------------------------
 	static {
 		loadResource();
@@ -129,6 +130,7 @@ public class RenderableHolder {
 		
 		// Background
 		RenderableHolder.entrance_background_Image = loadImage("mainSceneBackground_withoutLogo_fixed.png");
+		RenderableHolder.normalLevelImage = loadImage("demo_level_background.png");
 		
 		// Pane
 		RenderableHolder.level_passed_Image = loadImage("passedLevel.png");
@@ -148,18 +150,21 @@ public class RenderableHolder {
 		 */
 		
 		// Platform
-		RenderableHolder.greenOne = new Image("/image/platform/green_01.png");
-		RenderableHolder.greenTwo = new Image("/image/platform/green_02.png");
-		RenderableHolder.greenThree = new Image("/image/platform/green_03.png");
-		RenderableHolder.greenFour = new Image("/image/platform/green_04.png");
-		RenderableHolder.greenFive = new Image("/image/platform/green_05.png");
-		RenderableHolder.floatOne = new Image("/image/platform/floatGreen_01.png");
-		RenderableHolder.floatTwo = new Image("/image/platform/floatGreen_02.png");
-		RenderableHolder.floatThree = new Image("/image/platform/floatGreen_03.png");
-		RenderableHolder.floatFour = new Image("/image/platform/floatGreen_04.png");
+		RenderableHolder.greenOne = loadImage("platform/green_01.png");
+		RenderableHolder.greenTwo = loadImage("platform/green_02.png");
+		RenderableHolder.greenThree = loadImage("platform/green_03.png");
+		RenderableHolder.greenFour = loadImage("platform/green_04.png");
+		RenderableHolder.greenFive = loadImage("platform/green_05.png");
+		RenderableHolder.floatOne = loadImage("platform/floatGreen_01.png");
+		RenderableHolder.floatTwo = loadImage("platform/floatGreen_02.png");
+		RenderableHolder.floatThree = loadImage("platform/floatGreen_03.png");
+		RenderableHolder.floatFour = loadImage("platform/floatGreen_04.png");
 		
 		// Logo
-		RenderableHolder.logo = new Image("/image/Logo.png");
+		RenderableHolder.logo = loadImage("Logo.png");
+		
+		// Player
+		RenderableHolder.playerImage = loadImage("character_maleAdventurer_attack0.png");
 	}
 	
 	public RenderableHolder() {

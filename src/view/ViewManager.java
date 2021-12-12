@@ -85,7 +85,7 @@ public class ViewManager {
 
 	public static void playThemeSong() {
 		AudioClip themeSong = AudioLoader.Entrance_Theme_Song;
-		if (isPlayingThemeSong && !GameController.IsMute()) {
+		if (isPlayingThemeSong && !GameController.isMute()) {
 			themeSong.setVolume(0.5);
 			themeSong.setCycleCount(AudioClip.INDEFINITE);
 			themeSong.play();

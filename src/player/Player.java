@@ -14,4 +14,14 @@ public class Player extends Character implements Moveable, Jumpable {
 		setFitHeight(HEIGHT);
 	}
 	
+	/* ==================== GETTER/SETTER ==================== */
+	
+	public int getHeight() {
+		return HEIGHT;
+	}
+	
+	public int getWidth() {
+		return WIDTH;
+	}
+	
 }

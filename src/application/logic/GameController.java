@@ -85,14 +85,5 @@ public class GameController {
 	public static void setMute(boolean isMute) {
 		GameController.isMute = isMute;
 	}
-
-	
-	private ImageView createImageViewForPlatform(int posX, int posY, int width, int height,String url) { 
-		ImageView block = new ImageView(new Image(url));
-		block.setFitWidth(width);
-		block.setFitHeight(height);
-		
-		return block;
-	}
 }
 

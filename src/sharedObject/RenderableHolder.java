@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import application.logic.GameManager;
 import exception.ImageNotFoundException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,8 +14,8 @@ public class RenderableHolder {
 	private ArrayList<IRenderable> entities;
 	private Comparator<IRenderable> comparator;
 	private static final RenderableHolder instance = new RenderableHolder();
-	private static final int BLOCK_WIDTH = 60;
-	private static final int BLOCK_HEIGHT = 60;
+	private static final int BLOCK_WIDTH = GameManager.getBlockWidth();
+	private static final int BLOCK_HEIGHT = GameManager.getBlockHeight();
 	
 	
 	// Private Image
@@ -53,7 +54,6 @@ public class RenderableHolder {
 	public static Image playerImage;
 	// ---------------------------------------------------------
 	static {
-		loadResource();
 	}
 	
 	public static Image loadImage(String fileName) {

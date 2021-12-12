@@ -143,12 +143,6 @@ public class RenderableHolder {
 		RenderableHolder.skip_button_Image= loadImageButton("skip-button.png");
 		RenderableHolder.continue_button_Image = loadImageButton("continue-button.png");
 		
-		/*
-		 * 
-		 * 
-		 * 
-		 */
-		
 		// Platform
 		RenderableHolder.greenOne = loadImage("platform/green_01.png");
 		RenderableHolder.greenTwo = loadImage("platform/green_02.png");

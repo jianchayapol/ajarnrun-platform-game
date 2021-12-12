@@ -1,24 +1,19 @@
 package view;
 
 import sharedObject.*;
-import application.logic.GameController;
+import application.logic.GameManager;
 import gui.button.ImageButton;
 import gui.button.ImageButtonType;
 import gui.button.MainButton;
-import gui.element.LevelPassBox;
-import gui.element.LevelPassType;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class ViewManager {
@@ -35,7 +30,7 @@ public class ViewManager {
 	private ImageButton muteButton;
 	
 	private static boolean isPlayingThemeSong;
-	private static boolean isVisible;
+	private static boolean isMainViewVisible;
 
 	private boolean isLeaderBoardPressed;
 	private boolean isInfoPressed;
@@ -85,7 +80,7 @@ public class ViewManager {
 
 	public static void playThemeSong() {
 		AudioClip themeSong = AudioLoader.Entrance_Theme_Song;
-		if (isPlayingThemeSong && !GameController.isMute()) {
+		if (isPlayingThemeSong && !GameManager.getIsMute()) {
 			themeSong.setVolume(0.5);
 			themeSong.setCycleCount(AudioClip.INDEFINITE);
 			themeSong.play();
@@ -261,11 +256,11 @@ public class ViewManager {
 	}
 
 	public static boolean isVisible() {
-		return isVisible;
+		return isMainViewVisible;
 	}
 
 	public static void setIsVisible(boolean isVisible) {
-		ViewManager.isVisible = isVisible;
+		ViewManager.isMainViewVisible = isVisible;
 	}
 
 	public static boolean isPlayingThemeSong() {

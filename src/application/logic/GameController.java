@@ -20,7 +20,7 @@ import logic.base.Jumpable;
 public class GameController {
 	private static HashMap<KeyCode, Boolean> keys = new HashMap<KeyCode, Boolean>();
 	private static ArrayList<Node> platforms = new ArrayList<Node>();
-	private static Player player = new Player("/image/character_maleAdventurer_attack0.png", 5, 0, 50, 480);
+//	private static Player player = new Player("/image/character_maleAdventurer_attack0.png", 5, 0, 50, 480);
 	private static boolean canJump;
 
 	private static String[] level;

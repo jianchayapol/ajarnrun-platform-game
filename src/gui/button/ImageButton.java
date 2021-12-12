@@ -101,7 +101,7 @@ public class ImageButton extends ImageView {
 	public void setUpNameInput() {
 		String name = EnterNameScene.getEnteredName();
 		if (PlayerStat.checkEnteredName(name)) {
-			String[] stat = { name.strip().toUpperCase(), "1", "0" };
+			String[] stat = { name.strip(), "2", "0" };
 			CSVUtility.appendToCSV(stat);
 			stopViewManager();
 			EnterNameScene.setupLoading();

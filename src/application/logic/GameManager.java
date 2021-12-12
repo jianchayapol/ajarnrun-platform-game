@@ -129,11 +129,7 @@ public class GameManager {
 	private static void addUIRoot() {
 		appRoot.getChildren().add(uiRoot);
 	}
-	
-	private static void setIsMute(boolean isMute) {
-		GameManager.isMute = isMute;
-	}
-	
+
 	private static void setTime(int time) {
 		GameManager.time = time;
 	}
@@ -188,5 +184,13 @@ public class GameManager {
 
 	public static void setAppRoot(AnchorPane appRoot) {
 		GameManager.appRoot = appRoot;
+	}
+	
+	public static void setIsMute(boolean isMute) {
+		GameManager.isMute = isMute;
+	}
+	
+	public static boolean getIsMute() {
+		return isMute;
 	}
 }

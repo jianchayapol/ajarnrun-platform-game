@@ -54,7 +54,6 @@ public class RenderableHolder {
 	public static Image playerImage;
 	// ---------------------------------------------------------
 	static {
-		loadResource();
 	}
 	
 	public static Image loadImage(String fileName) {

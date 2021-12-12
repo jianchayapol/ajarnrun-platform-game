@@ -11,12 +11,12 @@ public abstract class Character extends ImageView {
 	public Character(Image image,int velocityX, int velocityY, int layoutX, int layoutY) {
 		super(image);
 		setVelocity(velocityX, velocityY);
-		setLayout(layoutX, layoutY);
+		setTranslate(layoutX, layoutY);
 	}
 	
-	public void setLayout(int layoutX, int layoutY) {
-		setLayoutX(layoutX);
-		setLayoutY(layoutY);
+	public void setTranslate(int layoutX, int layoutY) {
+		setTranslateX(layoutX);
+		setTranslateY(layoutY);
 	}
 	
 	public void setVelocity(int velocityX, int velocityY) {

@@ -4,22 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import level.Level;
 import player.Player;
 import sharedObject.RenderableHolder;
 import view.ViewManager;
 
 public class GameManager {
-	private static HashMap<KeyCode, Boolean> keys = new HashMap<KeyCode, Boolean>();
+	public static HashMap<KeyCode, Boolean> keys = new HashMap<KeyCode, Boolean>();
 	private static ArrayList<Node> platforms = new ArrayList<Node>();
 	private static Player player;
 	private static boolean canJump;
@@ -52,18 +48,12 @@ public class GameManager {
 	/* ==================== USE IN CONSTRUCTOR ==================== */
 	
 	private static void setLevelWidth() {
-		levelWidth = Level.LEVEL1[0].length();
+		levelWidth = Level.LEVEL1[0].length() * BLOCK_WIDTH;
 	}
 	
 	private static void setFirstLevelPlatform() {
-		Pane background = new Pane();
-		background.setPrefSize(800, 600);
-		background.setBackground(new Background(new BackgroundImage(RenderableHolder.normalLevelImage,
-				BackgroundRepeat.REPEAT,
-				BackgroundRepeat.REPEAT,
-				BackgroundPosition.DEFAULT,
-				null
-			)));
+		Rectangle background = new Rectangle(ViewManager.getScreenWidth(), ViewManager.getScreenHeight());
+		background.setFill(new ImagePattern(RenderableHolder.normalLevelImage));
 		for (int i = 0; i < Level.LEVEL1.length; i++) {
 			String line = Level.LEVEL1[i];
 			for (int j = 0; j < line.length(); j++) {
@@ -73,38 +63,47 @@ public class GameManager {
 					break;
 				case '1':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "1");
+					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					break;
 				case '2':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "2");
+					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					break;
 				case '3':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "3");
+					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					break;
 				case '4':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "4");
+					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					break;
 				case '5':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "5");
+					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					break;
 				case 'A':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "f1");
+					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					break;
 				case 'B':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "f2");
+					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					break;
 				case 'C':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "f3");
+					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					break;
 				case 'D':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "f4");
+					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					break;
 				default:
@@ -116,7 +115,8 @@ public class GameManager {
 	}
 	
 	private static void initializePlayer() {
-		player = new Player(RenderableHolder.playerImage, 5, 5, 100, 100);
+		player = new Player(RenderableHolder.playerImage, 0, 0, 200, 300);
+		gameRoot.getChildren().add(player);
 	}
 	
 	private static void setGameRootLayoutX() {
@@ -135,7 +135,7 @@ public class GameManager {
 	private static void addUIRoot() {
 		appRoot.getChildren().add(uiRoot);
 	}
-
+	
 	private static void setTime(int time) {
 		GameManager.time = time;
 	}
@@ -153,14 +153,14 @@ public class GameManager {
 				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
 					if (moveRight) {
 						if (player.getTranslateX() + player.getWidth() == platform.getTranslateX()) {
-							return ;
+							return;
 						}
 					} else if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH) {
-						return ;
+						return;
 					}
 				}
 			}
-			player.setTranslateX(player.getTranslateX() + (moveRight ? 1: 1));
+			player.setTranslateX(player.getTranslateX() + (moveRight ? 1: -1));
 		}
 	}
 	
@@ -203,7 +203,7 @@ public class GameManager {
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
 			movePlayerX(-5);
 		}
-		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 45) {
+		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 5 - player.getWidth()) {
 			movePlayerX(5);
 		}
 		if (player.getVelocityY() < 10) {
@@ -213,10 +213,6 @@ public class GameManager {
 		movePlayerY(player.getVelocityY());
 	}
 	
-	public static void setKeysValue(KeyCode keyCode, boolean value) {
-		keys.put(keyCode, value);
-	}
-
 
 	/* ============================== GETTER/SETTER ============================== */
 	
@@ -243,4 +239,9 @@ public class GameManager {
 	public static int getBlockHeight() {
 		return BLOCK_HEIGHT;
 	}
+	
+	public static void setKeysValue(KeyCode keyCode, boolean value) {
+		keys.put(keyCode, value);
+	}
+
 }

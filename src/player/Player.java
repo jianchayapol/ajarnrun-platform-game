@@ -8,8 +8,8 @@ public class Player extends Character implements Moveable, Jumpable {
 	private final int WIDTH = 96;
 	private final int HEIGHT = 128;
 	
-	public Player(Image image, int velocityX, int velocityY, int layoutX, int layoutY){
-		super(image, velocityX, velocityY, layoutX, layoutY);
+	public Player(Image image, int velocityX, int velocityY, int translateX, int translateY){
+		super(image, velocityX, velocityY, translateX, translateY);
 		setFitWidth(WIDTH);
 		setFitHeight(HEIGHT);
 	}

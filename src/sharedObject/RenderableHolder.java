@@ -119,8 +119,8 @@ public class RenderableHolder {
 		}
 		block.setFitWidth(BLOCK_WIDTH);
 		block.setFitHeight(BLOCK_HEIGHT);
-		block.setLayoutX(posX);
-		block.setLayoutY(posY);
+		block.setTranslateX(posX);
+		block.setTranslateY(posY);
 		return block;
 	}
 

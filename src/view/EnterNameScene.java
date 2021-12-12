@@ -43,6 +43,7 @@ public class EnterNameScene {
 	private static final int WIDTH = 800;
 
 	public EnterNameScene(Stage primaryStage) {
+		
 		// mainPane
 		mainPane = new StackPane();
 		mainPane.setPrefSize(WIDTH, HEIGHT);

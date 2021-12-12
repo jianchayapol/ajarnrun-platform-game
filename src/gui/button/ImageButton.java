@@ -3,7 +3,7 @@ package gui.button;
 import view.EnterNameScene;
 import view.GameScene;
 import view.ViewManager;
-import application.logic.GameController;
+import application.logic.GameManager;
 import application.utility.CSVUtility;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -33,7 +33,7 @@ public class ImageButton extends ImageView {
 		switch (imageButtonType) {
 		case SOUND:
 			setSize(30, 30);
-			if (GameController.IsMute()) {
+			if (GameManager.getIsMute()) {
 				img = RenderableHolder.mute_button_Image;
 			} else {
 				img = RenderableHolder.unmute_button_Image;
@@ -109,7 +109,7 @@ public class ImageButton extends ImageView {
 		}
 	}
 	public void setUpSound() {
-		GameController.setMute(!GameController.IsMute());
+		GameManager.setIsMute(!GameManager.getIsMute());
 		initImageButton(ImageButtonType.SOUND);
 		if (ViewManager.isVisible()) {
 			ViewManager.setIsPlayingThemeSong(!ViewManager.isPlayingThemeSong());

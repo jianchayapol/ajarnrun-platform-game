@@ -1,44 +1,46 @@
 package view;
 
-import application.logic.GameController;
+import application.logic.GameManager;
 import javafx.animation.AnimationTimer;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import player.Player;
-import sharedObject.AudioLoader;
 
-public class GameScene {
-	private Stage primaryStage;
+public class GameScene extends Scene {
 
-
-	public GameScene(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-
-		GameController gameController = new GameController();
-		
-		Pane root = GameController.getAppRoot();
-		Scene scene = new Scene(root);
-		
-		scene.setOnKeyPressed(event -> GameController.getKeys().put(event.getCode(), true));
-		scene.setOnKeyReleased(event -> GameController.getKeys().put(event.getCode(), false));
-			
-		this.primaryStage.setTitle("Ajarn Ja Run!");
-		this.primaryStage = primaryStage;
-		this.primaryStage.setScene(scene);
-		this.primaryStage.show();
-
-		GameController.platformStart();
-	
+	public GameScene(Pane parent, Stage primaryStage) {
+		super(parent);
+		initializeEventHandler();
+		setUpStage(primaryStage);
+		runScene();
 	}
-
 	
+	private void initializeEventHandler() {
+		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent event) {
+				GameManager.setKeysValue(event.getCode(), true);
+			}
+		});
+		this.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent event) {
+				GameManager.setKeysValue(event.getCode(), false);
+			}
+		});
+	}
+	
+	private void setUpStage(Stage primaryStage) {
+		primaryStage.setTitle("Ajarn Ja Run!");
+		primaryStage.setScene(this);
+	}
+	
+	private void runScene() {
+		AnimationTimer timer = new AnimationTimer() {
+			public void handle(long now) {
+				GameManager.update();
+			}
+		};
+		timer.start();
+	}
 }

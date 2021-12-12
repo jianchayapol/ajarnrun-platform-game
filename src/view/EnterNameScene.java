@@ -199,4 +199,28 @@ public class EnterNameScene {
 		return EnterNameScene.errorMessage.getText();
 	}
 	
+	public static void setupLoading() {
+		getEnterPane().getChildren().remove(1);
+		setErrorMessage(null);
+		setLabel("loading..");
+		startProgress();
+	}
+	
+	public static void startGameScene() {
+		Thread thread = new Thread(() -> {
+			try {
+				Thread.sleep(1600);
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						GameScene gameScene = new GameScene(EnterNameScene.getPrimaryStage());
+					}
+				});
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		thread.start();
+	}
+	
 }

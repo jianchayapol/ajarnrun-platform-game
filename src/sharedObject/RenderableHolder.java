@@ -29,6 +29,7 @@ public class RenderableHolder {
 	private static Image floatFour;
 
 	// Pane
+	public static Image shop_Image;
 	public static Image level_passed_Image;
 	public static Image level_failed_Image;
 	
@@ -133,6 +134,7 @@ public class RenderableHolder {
 		RenderableHolder.normalLevelImage = loadImage("demo_level_background.png");
 		
 		// Pane
+		RenderableHolder.shop_Image = loadImage("shopPane.png");
 		RenderableHolder.level_passed_Image = loadImage("passedLevel.png");
 		RenderableHolder.level_failed_Image = loadImage("failedLevel.png");
 		

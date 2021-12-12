@@ -159,6 +159,7 @@ public class ViewManager {
 		newGameButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				EnterNameScene enterNameScene = new EnterNameScene(mainStage);
+				//ShopScene shopScene = new ShopScene(mainStage);
 			}
 		});
 	}

@@ -1,7 +1,7 @@
 package gui.element;
 
-import button.ImageButton;
-import button.ImageButtonType;
+import gui.button.ImageButton;
+import gui.button.ImageButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;

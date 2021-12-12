@@ -47,6 +47,9 @@ public class RenderableHolder {
 	public static Image play_button_Image;
 	public static Image continue_button_Image;
 	public static Image skip_button_Image;
+	
+	// Logo
+	public static Image logo;
 	// ---------------------------------------------------------
 	static {
 		loadResource();
@@ -154,7 +157,9 @@ public class RenderableHolder {
 		RenderableHolder.floatTwo = new Image("/image/platform/floatGreen_02.png");
 		RenderableHolder.floatThree = new Image("/image/platform/floatGreen_03.png");
 		RenderableHolder.floatFour = new Image("/image/platform/floatGreen_04.png");
-
+		
+		// Logo
+		RenderableHolder.logo = new Image("/image/Logo.png");
 	}
 	
 	public RenderableHolder() {

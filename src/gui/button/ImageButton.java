@@ -1,4 +1,4 @@
-package button;
+package gui.button;
 
 import view.EnterNameScene;
 import view.GameScene;
@@ -96,29 +96,25 @@ public class ImageButton extends ImageView {
 		if (PlayerStat.checkEnteredName(name)) {
 			String[] stat = { name.strip().toUpperCase(), "1", "0" };
 			CSVUtility.appendToCSV(stat);
-			ViewManager.setVisible(false);
+			ViewManager.setIsVisible(false);
 			initImageButton(ImageButtonType.NULL);
 			AudioLoader.Entrance_Theme_Song.stop();
-			ViewManager.setPlayingThemeSong(false);
+			ViewManager.setIsPlayingThemeSong(false);
 			EnterNameScene.getEnterPane().getChildren().remove(1);
 			EnterNameScene.setLabel("loading..");
 			EnterNameScene.startProgress();
-
 			Thread thread = new Thread(() -> {
 				try {
 					Thread.sleep(1600);
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							// TODO Auto-generated method stub
 							GameScene gameScene = new GameScene(EnterNameScene.getPrimaryStage());
 						}
 					});
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 			});
 			thread.start();
 
@@ -130,7 +126,7 @@ public class ImageButton extends ImageView {
 		GameController.setMute(!GameController.IsMute());
 		initImageButton(imageButtonType);
 		if (ViewManager.isVisible()) {
-			ViewManager.setPlayingThemeSong(!ViewManager.isPlayingThemeSong());
+			ViewManager.setIsPlayingThemeSong(!ViewManager.isPlayingThemeSong());
 			ViewManager.playThemeSong();
 		}
 	}

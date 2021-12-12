@@ -1,4 +1,4 @@
-package button;
+package gui.button;
 
 import java.io.FileInputStream;
 

@@ -28,8 +28,8 @@ public class GameScene {
 		Pane root = GameController.getAppRoot();
 		Scene scene = new Scene(root);
 		
-		scene.setOnKeyPressed(event-> GameController.getKeys().put(event.getCode(), true));
-		scene. setOnKeyReleased(event -> GameController.getKeys().put(event.getCode(), false));
+		scene.setOnKeyPressed(event -> GameController.getKeys().put(event.getCode(), true));
+		scene.setOnKeyReleased(event -> GameController.getKeys().put(event.getCode(), false));
 			
 		this.primaryStage.setTitle("Ajarn Ja Run!");
 		this.primaryStage = primaryStage;

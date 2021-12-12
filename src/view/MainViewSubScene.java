@@ -21,13 +21,13 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import player.LeaderBoard;
 
-public class AjarnRunPartialSubScene extends SubScene {
+public class MainViewSubScene extends SubScene {
 
 	private static final String BACKGROUND_IMAGE = "/mainSceneBackground_withoutLogo_fixed.png";
 	private final String FONT_PATH = "res/font/YanoneKaffeesatz-SemiBold.ttf";
 	private final String FONT_PATH2 = "res/font/Courier.ttf";
 
-	public AjarnRunPartialSubScene(Parent mainPane, double width, double height) {
+	public MainViewSubScene(Parent mainPane, double width, double height) {
 		super(mainPane, width, height);
 		prefWidth(width);
 		prefHeight(height);
@@ -36,7 +36,7 @@ public class AjarnRunPartialSubScene extends SubScene {
 		/* AnchorPane root2 = (AnchorPane) this.getRoot(); */
 	}
 
-	public AjarnRunPartialSubScene(String imageURL, String altText, int width, int height) {
+	public MainViewSubScene(String imageURL, String altText, int width, int height) {
 		super(new AnchorPane(), width, height);
 		prefWidth(width);
 		prefHeight(height);

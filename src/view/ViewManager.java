@@ -2,9 +2,9 @@ package view;
 
 import sharedObject.*;
 import application.logic.GameController;
-import button.ImageButton;
-import button.ImageButtonType;
-import button.MainButton;
+import gui.button.ImageButton;
+import gui.button.ImageButtonType;
+import gui.button.MainButton;
 import gui.element.LevelPassBox;
 import gui.element.LevelPassType;
 import javafx.event.ActionEvent;
@@ -33,23 +33,22 @@ public class ViewManager {
 	private MainButton exitButton;
 	private MainButton info;
 	private ImageButton muteButton;
+	
 	private static boolean isPlayingThemeSong;
 	private static boolean isVisible;
 
 	private boolean isLeaderBoardPressed;
 	private boolean isInfoPressed;
 
-	private AjarnRunPartialSubScene aboutUs;
-	private AjarnRunPartialSubScene leaderBoard;
-	private AjarnRunPartialSubScene newGame;
-	public Stage stage;
+	private MainViewSubScene aboutUs;
+	private MainViewSubScene leaderBoard;
 
 	public ViewManager() {
 		this.mainPane = new AnchorPane();
 		setBackgroundImage(RenderableHolder.entrance_background_Image);
 
-		isVisible = true;
-		isPlayingThemeSong = true;
+		setIsVisible(true);
+		setIsPlayingThemeSong(true);
 		playThemeSong();
 
 		// Create Logo
@@ -66,7 +65,7 @@ public class ViewManager {
 
 		// Implement buttons' event listeners
 		implementNewGameEventListener();
-		implementLeaderBoardEventListener();
+		implementLeaderboardEventListener();
 		implementExitEventListener();
 		implementAboutUsEventListener();
 
@@ -75,8 +74,6 @@ public class ViewManager {
 		this.mainStage = new Stage();
 		this.mainStage.setScene(mainScene);
 		this.mainStage.setResizable(false);
-		this.stage = mainStage;
-		this.stage.show();
 	}
 
 	private void createMuteButton() {
@@ -97,14 +94,6 @@ public class ViewManager {
 		}
 	}
 
-	public Stage getStage() {
-		return mainStage;
-	}
-
-	public AnchorPane getMainPane() {
-		return mainPane;
-	}
-
 	private void createMainButton() {
 		double initialHeight = 20;
 
@@ -112,8 +101,7 @@ public class ViewManager {
 		newGameButton = new MainButton("New Game");
 		leaderBoardButton = new MainButton("Leaderboard");
 		exitButton = new MainButton("Exit");
-		newGameButton.setLayoutY(HEIGHT - (3 * initialHeight) - newGameButton.getPrefHeight()
-				- leaderBoardButton.getPrefHeight() - exitButton.getPrefHeight());
+		newGameButton.setLayoutY(HEIGHT - (3 * initialHeight) - newGameButton.getPrefHeight() - leaderBoardButton.getPrefHeight() - exitButton.getPrefHeight());
 		newGameButton.setLayoutX(20.00);
 		leaderBoardButton.setLayoutY(newGameButton.getLayoutY() + initialHeight + newGameButton.getPrefHeight());
 		leaderBoardButton.setLayoutX(20.00);
@@ -131,14 +119,14 @@ public class ViewManager {
 	}
 
 	private void setBackgroundImage(Image bgImg) {
-		bg = new ImageView(bgImg);
-		bg.setFitHeight(HEIGHT);
-		bg.setFitWidth(WIDTH);
-		mainPane.getChildren().add(bg);
+		this.bg = new ImageView(bgImg);
+		this.bg.setFitHeight(HEIGHT);
+		this.bg.setFitWidth(WIDTH);
+		mainPane.getChildren().add(this.bg);
 	}
 
 	private void createLogo() {
-		ImageView logo = new ImageView("/image/Logo.png");
+		ImageView logo = new ImageView(RenderableHolder.logo);
 		logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				logo.setEffect(new DropShadow());
@@ -163,12 +151,12 @@ public class ViewManager {
 	}
 
 	private void createAboutUsSubScene() {
-		this.aboutUs = new AjarnRunPartialSubScene("/image/aboutUsDemo2.png", "infoButton", 350, 560);
+		this.aboutUs = new MainViewSubScene("/image/aboutUsDemo2.png", "infoButton", 350, 560);
 		this.mainPane.getChildren().add(aboutUs);
 	}
 
 	private void createLeaderBoardSubScene() {
-		leaderBoard = new AjarnRunPartialSubScene("/image/leaderboardDemo2.png", "leaderBoard", 350, 560);
+		leaderBoard = new MainViewSubScene("/image/leaderboardDemo2.png", "leaderBoard", 350, 560);
 		this.mainPane.getChildren().add(leaderBoard);
 	}
 
@@ -180,10 +168,9 @@ public class ViewManager {
 		});
 	}
 
-	private void implementLeaderBoardEventListener() {
+	private void implementLeaderboardEventListener() {
 		leaderBoardButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-
 				if (ViewManager.this.getIsLeaderBoardPressed()) {
 					leaderBoard.moveSubScene("leaderBoardPressed");
 					ViewManager.this.setIsLeaderBoardPressed(false);
@@ -194,7 +181,6 @@ public class ViewManager {
 						aboutUs.moveSubScene("infoButtonPressed");
 						ViewManager.this.setIsInfoPressed(false);
 					}
-
 				}
 			}
 		});
@@ -203,18 +189,14 @@ public class ViewManager {
 	private void implementExitEventListener() {
 		exitButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-
 				ViewManager.this.getStage().close();
-
 			}
 		});
 	}
 
 	private void implementAboutUsEventListener() {
 		info.setOnAction(new EventHandler<ActionEvent>() {
-
 			public void handle(ActionEvent e) {
-
 				if (ViewManager.this.getIsInfoPressed()) {
 					aboutUs.moveSubScene("infoButtonPressed");
 					ViewManager.this.setIsInfoPressed(false);
@@ -228,6 +210,14 @@ public class ViewManager {
 				}
 			}
 		});
+	}
+	
+	public Stage getStage() {
+		return mainStage;
+	}
+
+	public AnchorPane getMainPane() {
+		return mainPane;
 	}
 	
 	public void setIsLeaderBoardPressed(boolean isPressed) {
@@ -274,7 +264,7 @@ public class ViewManager {
 		return isVisible;
 	}
 
-	public static void setVisible(boolean isVisible) {
+	public static void setIsVisible(boolean isVisible) {
 		ViewManager.isVisible = isVisible;
 	}
 
@@ -282,7 +272,7 @@ public class ViewManager {
 		return isPlayingThemeSong;
 	}
 
-	public static void setPlayingThemeSong(boolean isPlayingThemeSong) {
+	public static void setIsPlayingThemeSong(boolean isPlayingThemeSong) {
 		ViewManager.isPlayingThemeSong = isPlayingThemeSong;
 	}
 

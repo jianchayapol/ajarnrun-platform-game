@@ -76,7 +76,6 @@ public class CSVUtility {
 			}
 			
 			writer.write(textToWrite);
-			System.out.println("Successfully Added");
 			writer.close();
 
 		} catch (Exception e) {
@@ -99,7 +98,6 @@ public class CSVUtility {
 				textToWrite += (name.substring(0, 1).toUpperCase()+name.substring(1).toLowerCase() + "," + level + "," + exp + "\n");
 			}
 			writer.write(textToWrite);
-			System.out.println("Successfully Updated!");
 			writer.close();
 
 		} catch (Exception e) {

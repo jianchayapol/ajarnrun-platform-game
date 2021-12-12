@@ -1,8 +1,8 @@
 package player;
 
 import javafx.scene.image.Image;
-import logic.base.Jumpable;
-import logic.base.Moveable;
+import player.base.Jumpable;
+import player.base.Moveable;
 
 public class Player extends Character implements Moveable, Jumpable {
 	private final int WIDTH = 96;

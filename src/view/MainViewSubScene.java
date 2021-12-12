@@ -19,7 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
-import player.LeaderBoard;
+import logic.leaderboard.LeaderBoard;
 
 public class MainViewSubScene extends SubScene {
 

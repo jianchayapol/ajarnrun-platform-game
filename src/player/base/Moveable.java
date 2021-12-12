@@ -1,4 +1,4 @@
-package logic.base;
+package player.base;
 
 public interface Moveable {
 

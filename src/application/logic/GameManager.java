@@ -11,7 +11,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import level.Level;
 import player.Player;
@@ -146,47 +145,47 @@ public class GameManager {
 	/* ==================== USE IN update() METHOD ==================== */
 	
 	private static void movePlayerX(int moveX) {
-//		boolean moveRight = moveX > 0;
-//		for (int i = 0; i < Math.abs(moveX); i++) {
-//			for (Node platform: platforms) {
-//				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
-//					if (moveRight) {
-//						if (player.getTranslateX() + player.getWidth() == platform.getTranslateX()) {
-//							return ;
-//						}
-//					} else if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH) {
-//						return ;
-//					}
-//				}
-//			}
-//			player.setTranslateX(player.getTranslateX() + (moveRight ? 1: 1));
-//		}
+		boolean moveRight = moveX > 0;
+		for (int i = 0; i < Math.abs(moveX); i++) {
+			for (Node platform: platforms) {
+				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
+					if (moveRight) {
+						if (player.getTranslateX() + player.getWidth() == platform.getTranslateX()) {
+							return ;
+						}
+					} else if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH) {
+						return ;
+					}
+				}
+			}
+			player.setTranslateX(player.getTranslateX() + (moveRight ? 1: 1));
+		}
 	}
 	
 	private static void movePlayerY(int moveY) {
-//		boolean moveDown = moveY > 0;
-//		for (int i = 0; i < Math.abs(moveY); i++) {
-//			for (Node platform: platforms) {
-//				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
-//					if (moveDown) {
-//						if (player.getTranslateY() + player.getHeight() == platform.getTranslateY()) {
-//							player.setTranslateY(player.getTranslateY() - 1);
-//							setCanJump(true);
-//						}
-//					} else if (player.getTranslateY() == platform.getTranslateY() + BLOCK_HEIGHT) {
-//						return ;
-//					}
-//				}
-//			}
-//			player.setTranslateY(player.getTranslateY() + (moveDown ? 1: -1));
-//		}
+		boolean moveDown = moveY > 0;
+		for (int i = 0; i < Math.abs(moveY); i++) {
+			for (Node platform: platforms) {
+				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
+					if (moveDown) {
+						if (player.getTranslateY() + player.getHeight() == platform.getTranslateY()) {
+							player.setTranslateY(player.getTranslateY() - 1);
+							setCanJump(true);
+						}
+					} else if (player.getTranslateY() == platform.getTranslateY() + BLOCK_HEIGHT) {
+						return ;
+					}
+				}
+			}
+			player.setTranslateY(player.getTranslateY() + (moveDown ? 1: -1));
+		}
 	}
 	
 	private static void jumpPlayer() {
-//		if (canJump) {
-//			player.setVelocityY(player.getVelocityY() - 30);
-//			setCanJump(false);
-//		}
+		if (canJump) {
+			player.setVelocityY(player.getVelocityY() - 30);
+			setCanJump(false);
+		}
 	}
 	
 	private static boolean isPressed(KeyCode key) {

@@ -6,9 +6,9 @@ import java.util.HashMap;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -20,31 +20,30 @@ import logic.base.Jumpable;
 public class GameController {
 	private static HashMap<KeyCode, Boolean> keys = new HashMap<KeyCode, Boolean>();
 	private static ArrayList<Node> platforms = new ArrayList<Node>();
-	private static Player player;
+	private static Player player = new Player("/image/character_maleAdventurer_attack0.png", 5, 0, 50, 480);
 	private static boolean canJump;
 
-	private String[] level;
+	private static String[] level;
 	private static int levelWidth;
 	private static boolean isMute = false;
 
-	private static Pane appRoot = new Pane();
-	private static Pane gameRoot = new Pane();
-	private static Pane uiRoot = new Pane();
+	private static AnchorPane appRoot = new AnchorPane();
+	private static AnchorPane gameRoot = new AnchorPane();
+	private static AnchorPane uiRoot = new AnchorPane();
+	
+	public static int time = 0;
 
-	public GameController() {
+	static {
 		setLevelWidth();
 		setFirstLevelPlatform();
-		player = new Player("/image/character_maleAdventurer_attack0.png", 5, 0, 50, 480);
-		
 		player.translateXProperty().addListener((obs, old, newValue) -> {
 			int offSet = newValue.intValue();
 			if (offSet > 400 && offSet < levelWidth - 400) {
-
+				gameRoot.setLayoutX(-(offSet-400));
 			}
 		});
+		
 	}
-
-	public static int time =0;
 	
 	public static void platformStart() {
 		initializePlatform();
@@ -134,11 +133,11 @@ public class GameController {
 		
 	}
 
-	private void setLevelWidth() {
-		this.levelWidth = Level.LEVEL1[0].length() * 60;
+	private static void setLevelWidth() {
+		levelWidth = Level.LEVEL1[0].length() * 60;
 	}
 
-	private void setFirstLevelPlatform() {
+	private static void setFirstLevelPlatform() {
 		Rectangle bg = new Rectangle(800, 600);
 
 		for (int i = 0; i < Level.LEVEL1.length; i++) {
@@ -175,24 +174,24 @@ public class GameController {
 		appRoot.getChildren().addAll(bg, gameRoot, uiRoot);
 	}
 
-	private Node createEntity(ImageView img,int x, int y) {
+	private static Node createEntity(ImageView img,int x, int y) {
 		Rectangle entity = new Rectangle(60,60);
 		entity.setTranslateX(x);
 		entity.setTranslateY(y);
 		entity.setFill(Color.AQUAMARINE);
 		
 		gameRoot.getChildren().add(entity);
-	return entity;
+		return entity;
 	}
 	
-	private Node createPlayer(ImageView img,int x, int y) {
+	private static Node createPlayer(ImageView img,int x, int y) {
 		Rectangle entity = new Rectangle(60,60);
 		entity.setTranslateX(x);
 		entity.setTranslateY(y);
 		entity.setFill(Color.DARKRED);
 		
 		gameRoot.getChildren().add(entity);
-	return entity;
+		return entity;
 	}
 	
 	public static boolean IsMute() {
@@ -201,14 +200,6 @@ public class GameController {
 
 	public static void setMute(boolean isMute) {
 		GameController.isMute = isMute;
-	}
-
-	private ImageView createImageViewForPlatform(int posX, int posY, int width, int height, String url) {
-		ImageView block = new ImageView(new Image(url));
-		block.setFitWidth(width);
-		block.setFitHeight(height);
-
-		return block;
 	}
 
 	public static HashMap<KeyCode, Boolean> getKeys() {
@@ -224,7 +215,7 @@ public class GameController {
 	}
 
 	public void setPlatforms(ArrayList<Node> platforms) {
-		this.platforms = platforms;
+		GameController.platforms = platforms;
 	}
 
 	public Player getPlayer() {
@@ -232,23 +223,23 @@ public class GameController {
 	}
 
 	public void setPlayer(Player player) {
-		this.player = player;
+		GameController.player = player;
 	}
 
-	public String[] getLevel() {
+	public static String[] getLevel() {
 		return level;
 	}
 
-	public void setLevel(String[] level) {
-		this.level = level;
+	public static void setLevel(String[] level) {
+		GameController.level = level;
 	}
 
-	public int getLevelWidth() {
+	public static int getLevelWidth() {
 		return levelWidth;
 	}
 
-	public void setLevelWidth(int levelWidth) {
-		this.levelWidth = levelWidth;
+	public static void setLevelWidth(int levelWidth) {
+		GameController.levelWidth = levelWidth;
 	}
 
 	public static boolean isMute() {
@@ -259,24 +250,24 @@ public class GameController {
 		return appRoot;
 	}
 
-	public void setAppRoot(Pane appRoot) {
-		this.appRoot = appRoot;
+	public static void setAppRoot(AnchorPane appRoot) {
+		GameController.appRoot = appRoot;
 	}
 
 	public static Pane getGameRoot() {
 		return gameRoot;
 	}
 
-	public void setGameRoot(Pane gameRoot) {
-		this.gameRoot = gameRoot;
+	public static void setGameRoot(AnchorPane gameRoot) {
+		GameController.gameRoot = gameRoot;
 	}
 
 	public static Pane getUiRoot() {
 		return uiRoot;
 	}
 
-	public void setUiRoot(Pane uiRoot) {
-		this.uiRoot = uiRoot;
+	public static void setUiRoot(AnchorPane uiRoot) {
+		GameController.uiRoot = uiRoot;
 	}
 
 }

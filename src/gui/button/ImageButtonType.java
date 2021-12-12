@@ -1,4 +1,4 @@
-package button;
+package gui.button;
 
 public enum ImageButtonType {
 	SOUND,

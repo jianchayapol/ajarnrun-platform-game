@@ -3,9 +3,9 @@ package view;
 import java.io.FileInputStream;
 
 import application.Main;
-import button.ImageButton;
-import button.ImageButtonType;
 import exception.WrongFormatPlayerNameException;
+import gui.button.ImageButton;
+import gui.button.ImageButtonType;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -43,16 +43,12 @@ public class EnterNameScene {
 	private static final int WIDTH = 800;
 	
 	public EnterNameScene(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-		
 		mainPane = new StackPane();
 		setBackgroundImage(RenderableHolder.entrance_background_Image);
 		setUpForm(mainPane);
 		Scene scene = new Scene(mainPane);
-		
+		primaryStage.setScene(scene);
 		EnterNameScene.primaryStage = primaryStage;
-		this.primaryStage.setScene(scene);
-		this.primaryStage.show();
 	}
 	
 	private void setBackgroundImage(Image bgImg) {
@@ -66,6 +62,10 @@ public class EnterNameScene {
 		rec.setOpacity(0.8);
 		
 		mainPane.getChildren().addAll(bg,rec);
+	}
+	
+	public static Stage getPrimaryStage() {
+		return primaryStage;
 	}
 	
 	private void setUpForm(StackPane root) {
@@ -139,10 +139,6 @@ public class EnterNameScene {
 	
 	public static String getEnteredName() {
 		return textField.getText();
-	}
-	
-	public static Stage getPrimaryStage() {
-		return primaryStage;
 	}
 
 	public static void setProgBar(double d) {

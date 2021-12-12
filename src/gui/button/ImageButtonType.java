@@ -5,5 +5,6 @@ public enum ImageButtonType {
 	PLAY,
 	CONTINUE_LV,
 	SKIP_LV,
-	NULL
+	NULL,
+	BUY,
 }

@@ -9,7 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import level.Level;
+import logic.level.Level;
 import player.Player;
 import sharedObject.RenderableHolder;
 import view.ViewManager;
@@ -144,7 +144,7 @@ public class GameManager {
 		GameManager.canJump = canJump;
 	}
 	
-	/* ==================== USE IN update() METHOD ==================== */
+	/* ==================== USED IN update() METHOD ==================== */
 	
 	private static void movePlayerX(int moveX) {
 		boolean moveRight = moveX > 0;

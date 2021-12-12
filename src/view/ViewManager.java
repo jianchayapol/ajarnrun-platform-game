@@ -271,5 +271,10 @@ public class ViewManager {
 	public static void setIsPlayingThemeSong(boolean isPlayingThemeSong) {
 		ViewManager.isPlayingThemeSong = isPlayingThemeSong;
 	}
-
+	
+	public static void stopViewManager() {
+		ViewManager.setIsVisible(false);
+		AudioLoader.Entrance_Theme_Song.stop();
+		ViewManager.setIsPlayingThemeSong(false);
+	}
 }

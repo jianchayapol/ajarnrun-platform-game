@@ -3,8 +3,9 @@ package gui.button;
 import view.EnterNameScene;
 import view.GameScene;
 import view.ViewManager;
-import application.logic.GameManager;
+import application.logic.*;
 import application.utility.CSVUtility;
+import exception.BuyItemFailedException;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
@@ -12,7 +13,8 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import player.PlayerStat;
+import logic.leaderboard.PlayerStat;
+import logic.shop.ShopManager;
 import sharedObject.AudioLoader;
 import sharedObject.RenderableHolder;
 
@@ -21,11 +23,19 @@ public class ImageButton extends ImageView {
 	private int height;
 	private int width;
 	private Image img;
-
+	private String altText;
+	
 	public ImageButton(ImageButtonType imageButtonType) {
 		super();
 		initImageButton(imageButtonType);
 		initEventHandler(imageButtonType);
+	}
+	
+	public ImageButton(ImageButtonType imageButtonType, String altText) {
+		super();
+		initImageButton(imageButtonType);
+		initEventHandler(imageButtonType);
+		this.altText = altText;
 	}
 
 	private void initImageButton(ImageButtonType imageButtonType) {
@@ -50,6 +60,9 @@ public class ImageButton extends ImageView {
 			break;
 		case SKIP_LV:
 			setSize(139, 50);
+			break;
+		case BUY:
+			setSize(80, 20);
 			break;
 		default:
 			setSize(0, 0);
@@ -78,6 +91,9 @@ public class ImageButton extends ImageView {
 					break;
 				case SKIP_LV:
 					break;
+				case BUY:
+					setUpBuyItem();
+					break;
 				default:
 					break;
 				}
@@ -98,17 +114,22 @@ public class ImageButton extends ImageView {
 	}
 
 	// Setup
-	public void setUpNameInput() {
+	private void setUpNameInput() {
 		String name = EnterNameScene.getEnteredName();
 		if (PlayerStat.checkEnteredName(name)) {
+			// Add to CSV file
 			String[] stat = { name.strip(), "1", "0" };
 			CSVUtility.appendToCSV(stat);
-			stopViewManager();
+			// Preparing to the next Scene
+			initImageButton(ImageButtonType.NULL);
+			ViewManager.stopViewManager();
+			// loading.. GameScene
 			EnterNameScene.setupLoading();
 			EnterNameScene.startGameScene();
 		}
 	}
-	public void setUpSound() {
+	
+	private void setUpSound() {
 		GameManager.setIsMute(!GameManager.getIsMute());
 		initImageButton(ImageButtonType.SOUND);
 		if (ViewManager.isVisible()) {
@@ -116,11 +137,24 @@ public class ImageButton extends ImageView {
 			ViewManager.playThemeSong();
 		}
 	}
-	public void stopViewManager() {
-		ViewManager.setIsVisible(false);
-		initImageButton(ImageButtonType.NULL);
-		AudioLoader.Entrance_Theme_Song.stop();
-		ViewManager.setIsPlayingThemeSong(false);
+	
+	private void setUpBuyItem() {
+		switch(altText) {
+		case "run":
+			ShopManager.buyShopItem(10);
+			break;
+		case "jump":
+			ShopManager.buyShopItem(10);
+			break;
+		case "time":
+			ShopManager.buyShopItem(10);
+			break;
+		case "lp":
+			ShopManager.buyShopItem(10);
+			break;
+		default:
+			break;
+		}
 	}
 
 	// Getter & Setter	
@@ -133,6 +167,14 @@ public class ImageButton extends ImageView {
 	public void setSize(int w, int h) {
 		this.width = w;
 		this.height = h;
+	}
+
+	public String getAltText() {
+		return altText;
+	}
+
+	public void setAltText(String altText) {
+		this.altText = altText;
 	}
 	
 }

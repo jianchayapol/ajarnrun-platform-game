@@ -1,4 +1,4 @@
-package player;
+package logic.leaderboard;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import player.PlayerStat;
 import application.utility.CSVUtility;
 
 public class LeaderBoard {

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.SortedSet;
 
-import player.PlayerStat;
+import logic.leaderboard.PlayerStat;
 
 public class CSVUtility {
 

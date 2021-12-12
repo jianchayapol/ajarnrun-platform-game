@@ -1,4 +1,4 @@
-package view;
+package application.logic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +15,9 @@ import javafx.scene.layout.Pane;
 import level.Level;
 import player.Player;
 import sharedObject.RenderableHolder;
+import view.ViewManager;
 
-public class GameViewManager {
+public class GameManager {
 	private static HashMap<KeyCode, Boolean> keys = new HashMap<KeyCode, Boolean>();
 	private static ArrayList<Node> platforms = new ArrayList<Node>();
 	private static Player player;
@@ -130,11 +131,11 @@ public class GameViewManager {
 	}
 	
 	private static void setIsMute(boolean isMute) {
-		GameViewManager.isMute = isMute;
+		GameManager.isMute = isMute;
 	}
 	
 	private static void setTime(int time) {
-		GameViewManager.time = time;
+		GameManager.time = time;
 	}
 	
 	/* ==================== USE IN update() METHOD ==================== */
@@ -170,9 +171,22 @@ public class GameViewManager {
 		if (player.getVelocityY() < 10) {
 			player.setVelocityY(player.getVelocityY() + 1);
 		}
+		
+		movePlayerY(player.getVelocityY());
 	}
 	
 	public static void setKeysValue(KeyCode keyCode, boolean value) {
 		keys.put(keyCode, value);
+	}
+
+
+	/* ============================== GETTER/SETTER ============================== */
+	
+	public static AnchorPane getAppRoot() {
+		return appRoot;
+	}
+
+	public static void setAppRoot(AnchorPane appRoot) {
+		GameManager.appRoot = appRoot;
 	}
 }

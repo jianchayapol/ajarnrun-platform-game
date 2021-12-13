@@ -31,6 +31,10 @@ public class GameManager {
 	
 	private static int time;
 	
+	private static boolean isMovingRight;
+	private static boolean isMovingLeft;
+	private static boolean isStandingStill;
+	
 	static {
 		RenderableHolder.loadResource();
 		setLevelWidth();
@@ -42,6 +46,10 @@ public class GameManager {
 		addUIRoot();
 		setIsMute(false);
 		setTime(0);
+		initializeKeysValue();
+		isMovingRight = false;
+		isMovingLeft = false;
+		isStandingStill = true;
 	}
 	
 	/* ============================== PRIVATE STATIC METHOD ============================== */
@@ -122,8 +130,8 @@ public class GameManager {
 	private static void setGameRootLayoutX() {
 		player.translateXProperty().addListener((observer, oldValue, newValue) -> {
 			int offSet = newValue.intValue();
-			if (offSet > (ViewManager.getScreenWidth()/2) && offSet < levelWidth-(ViewManager.getScreenWidth()/2)) {
-				gameRoot.setLayoutX(-(offSet-(ViewManager.getScreenWidth()/2)));
+			if (offSet > 400 && offSet < levelWidth-400) {
+				gameRoot.setLayoutX(-(offSet-400));
 			}
 		});
 	}
@@ -144,6 +152,12 @@ public class GameManager {
 		GameManager.canJump = canJump;
 	}
 	
+	private static void initializeKeysValue() {
+		keys.put(KeyCode.W, false);
+		keys.put(KeyCode.A, false);
+		keys.put(KeyCode.D, false);
+	}
+	
 	/* ==================== USED IN update() METHOD ==================== */
 	
 	private static void movePlayerX(int moveX) {
@@ -152,10 +166,10 @@ public class GameManager {
 			for (Node platform: platforms) {
 				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
 					if (moveRight) {
-						if (player.getTranslateX() + player.getWidth() == platform.getTranslateX()) {
+						if (player.getTranslateX() + player.getWidth() - 30 == platform.getTranslateX()) {
 							return;
 						}
-					} else if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH) {
+					} else if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH - 20) {
 						return;
 					}
 				}
@@ -174,7 +188,7 @@ public class GameManager {
 							player.setTranslateY(player.getTranslateY() - 1);
 							setCanJump(true);
 						}
-					} else if (player.getTranslateY() == platform.getTranslateY() + BLOCK_HEIGHT) {
+					} else if (player.getTranslateY() == platform.getTranslateY() + 10) {
 						return ;
 					}
 				}
@@ -182,12 +196,18 @@ public class GameManager {
 			player.setTranslateY(player.getTranslateY() + (moveDown ? 1: -1));
 		}
 	}
-	
-	private static void jumpPlayer() {
+
+	private static void jumpPlayer(int jumpHeight) {
 		if (canJump) {
-			player.setVelocityY(player.getVelocityY() - 30);
+			player.setVelocityY(player.getVelocityY() - jumpHeight);
 			setCanJump(false);
 		}
+	}
+	
+	private static void stepForward(int jumpSpeed, int moveSpeed) {
+		jumpPlayer(jumpSpeed);
+		movePlayerX(moveSpeed);
+		setCanJump(false);
 	}
 	
 	private static boolean isPressed(KeyCode key) {
@@ -198,21 +218,21 @@ public class GameManager {
 	
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
-			jumpPlayer();
+			jumpPlayer(22);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
-			movePlayerX(-4);
+			stepForward(3, -3);
 		}
 		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 5 - player.getWidth()) {
-			movePlayerX(4);
+			stepForward(3, 3);
 		}
-		if (player.getVelocityY() < 10) {
+		if (player.getVelocityY() < 8) {
 			player.setVelocityY(player.getVelocityY() + 1);
 		}
 		movePlayerY(player.getVelocityY());
 	}
 	
-
+	
 	/* ============================== GETTER/SETTER ============================== */
 	
 	public static AnchorPane getAppRoot() {
@@ -242,5 +262,8 @@ public class GameManager {
 	public static void setKeysValue(KeyCode keyCode, boolean value) {
 		keys.put(keyCode, value);
 	}
-
+	
+	public static void getPlayerTranslateY() {
+		System.out.println(player.getTranslateY());
+	}
 }

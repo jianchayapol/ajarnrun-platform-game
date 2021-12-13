@@ -11,9 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class RenderableHolder {
-	private ArrayList<IRenderable> entities;
-	private Comparator<IRenderable> comparator;
-	private static final RenderableHolder instance = new RenderableHolder();
+	
 	private static final int BLOCK_WIDTH = GameManager.getBlockWidth();
 	private static final int BLOCK_HEIGHT = GameManager.getBlockHeight();
 
@@ -50,6 +48,7 @@ public class RenderableHolder {
 
 	// Button
 	public static Image pause_button_Image;
+	public static Image buy_button_Image;
 	public static Image mute_button_Image;
 	public static Image unmute_button_Image;
 	public static Image play_button_Image;
@@ -159,12 +158,13 @@ public class RenderableHolder {
 
 		// Pane
 		RenderableHolder.money_tag_Image = loadImage("moneyTag.png");
-		RenderableHolder.shop_Image = loadImage("shopPane.png");
+		RenderableHolder.shop_Image = loadImage("shop-pane.png");
 		RenderableHolder.level_passed_Image = loadImage("passedLevel.png");
 		RenderableHolder.level_failed_Image = loadImage("failedLevel.png");
 
 		// Button
 		RenderableHolder.pause_button_Image =  loadImageButton("pause.png");
+		RenderableHolder.buy_button_Image =  loadImageButton("buy-button.png");
 		RenderableHolder.unmute_button_Image = loadImageButton("unmute.png");
 		RenderableHolder.mute_button_Image = loadImageButton("mute.png");
 		RenderableHolder.play_button_Image = loadImageButton("start.png");
@@ -197,36 +197,6 @@ public class RenderableHolder {
 		RenderableHolder.spritePlayerStandingBackward = loadImage("sprite/sprite_player_standing_backward.png");
 		RenderableHolder.spritePlayerJump = loadImage("sprite/sprite_player_jump.png");
 		RenderableHolder.spritePlayerJumpBackward = loadImage("sprite/sprite_player_jump_backward.png");
-	}
-
-	public RenderableHolder() {
-
-		entities = new ArrayList<IRenderable>();
-		comparator = (IRenderable o1, IRenderable o2) -> {
-			if (o1.getZ() > o2.getZ()) {
-				return 1;
-			}
-			return -1;
-		};
-	}
-
-	public void add(IRenderable entity) {
-		entities.add(entity);
-		Collections.sort(entities, comparator);
-	}
-
-	public void update() {
-		/*
-		 * to do
-		 */
-	}
-
-	public static RenderableHolder getInstance() {
-		return instance;
-	}
-
-	public ArrayList<IRenderable> getEntities() {
-		return entities;
 	}
 
 }

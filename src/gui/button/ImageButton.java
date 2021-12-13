@@ -5,15 +5,15 @@ import view.GameScene;
 import view.ViewManager;
 import application.logic.*;
 import application.utility.CSVUtility;
-import exception.BuyItemFailedException;
-import javafx.application.Platform;
+import application.utility.NameInputUtility;
+import gui.element.PauseGameLeaderBox;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import logic.leaderboard.PlayerStat;
+import javafx.scene.layout.StackPane;
 import logic.shop.ShopManager;
 import sharedObject.AudioLoader;
 import sharedObject.RenderableHolder;
@@ -22,55 +22,65 @@ public class ImageButton extends ImageView {
 
 	private int height;
 	private int width;
-	private Image img;
-	private String altText;
-	
+	private static Image image;
+	private static String altText;
+
+	// constructor1 : normal
 	public ImageButton(ImageButtonType imageButtonType) {
 		super();
 		initImageButton(imageButtonType);
 		initEventHandler(imageButtonType);
 	}
-	
+
+	// constructor2 : BuyButton (ShopScene)
 	public ImageButton(ImageButtonType imageButtonType, String altText) {
 		super();
 		initImageButton(imageButtonType);
 		initEventHandler(imageButtonType);
-		this.altText = altText;
+		ImageButton.altText = altText;
 	}
 
+	// Init Image Button
 	private void initImageButton(ImageButtonType imageButtonType) {
 
 		switch (imageButtonType) {
 		case SOUND:
 			setSize(30, 30);
 			if (GameManager.getIsMute()) {
-				img = RenderableHolder.mute_button_Image;
+				image = RenderableHolder.mute_button_Image;
 			} else {
-				img = RenderableHolder.unmute_button_Image;
+				image = RenderableHolder.unmute_button_Image;
 			}
 			break;
 		case PLAY:
-			img = RenderableHolder.play_button_Image;
+			image = RenderableHolder.play_button_Image;
 			setSize(139, 50);
 			break;
 		case CONTINUE_LV:
+			image = RenderableHolder.continue_button_Image;
 			setSize(139, 50);
 			break;
 		case SKIP_LV:
+			image = RenderableHolder.skip_button_Image;
 			setSize(139, 50);
 			break;
 		case BUY:
-			setSize(80, 20);
+			image = RenderableHolder.buy_button_Image;
+			setSize(72, 40);
 			break;
 		case PAUSE:
-			img = RenderableHolder.pause_button_Image;
+			if (!GameScene.getIsPause()) {
+				image = RenderableHolder.pause_button_Image;
+			} else {
+				image = RenderableHolder.unmute_button_Image;
+			}
 			setSize(30, 30);
 			break;
 		default:
 			setSize(0, 0);
 			break;
 		}
-		this.setImage(img);
+		this.setImage(image);
 		this.setFitHeight(height);
 		this.setFitWidth(width);
 	}
@@ -95,6 +105,9 @@ public class ImageButton extends ImageView {
 				case BUY:
 					setUpBuyItem();
 					break;
+				case PAUSE:
+					setUpPauseScreen();
+					break;
 				default:
 					break;
 				}
@@ -114,15 +127,16 @@ public class ImageButton extends ImageView {
 		});
 	}
 
-	// Setup
+	// =================================== SETUP
+	// ==========================================
+
 	private void setUpNameInput() {
 		String name = EnterNameScene.getEnteredName();
-		if (PlayerStat.checkEnteredName(name)) {
+		if (NameInputUtility.checkEnteredName(name)) {
 			// Add to CSV file
 			String[] stat = { name.strip(), "1", "0" };
 			CSVUtility.appendToCSV(stat);
 			// Preparing to the next Scene
-//			initImageButton(ImageButtonType.NULL);
 			setImage(null);
 			ViewManager.stopViewManager();
 			// loading.. GameScene
@@ -130,7 +144,7 @@ public class ImageButton extends ImageView {
 			EnterNameScene.startGameScene();
 		}
 	}
-	
+
 	private void setUpSound() {
 		GameManager.setIsMute(!GameManager.getIsMute());
 		initImageButton(ImageButtonType.SOUND);
@@ -138,10 +152,14 @@ public class ImageButton extends ImageView {
 			ViewManager.setIsPlayingThemeSong(!ViewManager.isPlayingThemeSong());
 			ViewManager.playThemeSong();
 		}
+		if (GameScene.isVisible()) {
+			GameScene.setIsPlayingThemeSong(!GameScene.isPlayingThemeSong());
+			GameScene.playThemeSong();
+		}
 	}
-	
+
 	private void setUpBuyItem() {
-		switch(altText) {
+		switch (altText) {
 		case "run":
 			ShopManager.buyShopItem(10);
 			break;
@@ -158,25 +176,43 @@ public class ImageButton extends ImageView {
 			break;
 		}
 	}
+	
+	private void setUpPauseScreen() {
+		GameScene.setIsPause(!GameScene.getIsPause());
+		initImageButton(ImageButtonType.PAUSE);
+		if(GameScene.getIsPause()) {
+			PauseGameLeaderBox leaderBox = new PauseGameLeaderBox();
+			GameScene.setPauseGameLeaderboard(leaderBox);
+			GameScene.updatePauseScreen();
+		}
+		else {
+			GameScene.updatePauseScreen();
+		}
+		
+	}
 
-	// Getter & Setter	
-	public Image getImg() {
-		return img;
+	// =========================== GETTERS - SETTERS
+	// =================================
+
+	public static Image getImg() {
+		return image;
 	}
-	public void setImg(Image img) {
-		this.img = img;
+
+	public static void setImg(Image img) {
+		ImageButton.image = img;
 	}
+
 	public void setSize(int w, int h) {
 		this.width = w;
 		this.height = h;
 	}
 
-	public String getAltText() {
+	public static String getAltText() {
 		return altText;
 	}
 
-	public void setAltText(String altText) {
-		this.altText = altText;
+	public static void setAltText(String altText) {
+		ImageButton.altText = altText;
 	}
-	
+
 }

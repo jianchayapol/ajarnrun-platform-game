@@ -15,12 +15,15 @@ import javafx.stage.Stage;
 public class GameScene extends Scene {
 
 	private static GameHUD gameHud;
+	private Stage stage;
+	private static double timeValue;
 	
 	public GameScene(Pane parent, Stage primaryStage) {
 		super(parent);
 		initializeEventHandler();
 		setUpStage(primaryStage);
 		runScene();
+		stage = primaryStage;
 	}
 	
 	private void initializeEventHandler() {
@@ -44,12 +47,20 @@ public class GameScene extends Scene {
 	}
 	
 	private void runScene() {
+		double timeSecond = 100;
+		timeValue = timeSecond;
 		AnimationTimer timer = new AnimationTimer() {
 			public void handle(long now) {
 				GameManager.update();
+				GameHUD.setProgress(GameHUD.getTimerProgressBar(), timeValue, timeSecond);
+				timeValue -= 0.01666666666667;
 			}
 		};
 		timer.start();
-		//GameHUD.timerAnimate(1);
+//		GameHUD.timerAnimate(1);
+	}
+	
+	public Stage getStage() {
+		return stage;
 	}
 }

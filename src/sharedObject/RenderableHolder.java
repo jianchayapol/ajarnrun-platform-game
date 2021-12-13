@@ -60,6 +60,16 @@ public class RenderableHolder {
 
 	// Player
 	public static Image playerImage;
+	
+	// Sprite
+	public static Image spritePlayerAttack;
+	public static Image spritePlayerAttackBackward;
+	public static Image spritePlayerRun;
+	public static Image spritePlayerRunBackward;
+	public static Image spritePlayerStanding;
+	public static Image spritePlayerStandingBackward;
+	public static Image spritePlayerJump;
+	public static Image spritePlayerJumpBackward;
 
 	// ---------------------------------------------------------
 	static {
@@ -176,6 +186,16 @@ public class RenderableHolder {
 
 		// Player
 		RenderableHolder.playerImage = loadImage("character_maleAdventurer_attack0.png");
+		
+		// Sprite
+		RenderableHolder.spritePlayerAttack = loadImage("sprite/sprite_player_attack.png");
+		RenderableHolder.spritePlayerAttackBackward = loadImage("sprite/sprite_player_attack_backward.png");
+		RenderableHolder.spritePlayerRun = loadImage("sprite/sprite_player_run.png");
+		RenderableHolder.spritePlayerRunBackward = loadImage("sprite/sprite_player_run_backward.png");
+		RenderableHolder.spritePlayerStanding = loadImage("sprite/sprite_player_standing.png");
+		RenderableHolder.spritePlayerStandingBackward = loadImage("sprite/sprite_player_standing_backward.png");
+		RenderableHolder.spritePlayerJump = loadImage("sprite/sprite_player_jump.png");
+		RenderableHolder.spritePlayerJumpBackward = loadImage("sprite/sprite_player_jump_backward.png");
 	}
 
 	public RenderableHolder() {

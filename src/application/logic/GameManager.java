@@ -31,10 +31,6 @@ public class GameManager {
 	
 	private static int time;
 	
-	private static boolean isMovingRight;
-	private static boolean isMovingLeft;
-	private static boolean isStandingStill;
-	
 	static {
 		RenderableHolder.loadResource();
 		setLevelWidth();
@@ -47,9 +43,6 @@ public class GameManager {
 		setIsMute(false);
 		setTime(0);
 		initializeKeysValue();
-		isMovingRight = false;
-		isMovingLeft = false;
-		isStandingStill = true;
 	}
 	
 	/* ============================== PRIVATE STATIC METHOD ============================== */
@@ -123,7 +116,7 @@ public class GameManager {
 	}
 	
 	private static void initializePlayer() {
-		player = new Player(RenderableHolder.playerImage, 0, 0, 200, 1);
+		player = new Player(RenderableHolder.spritePlayerStanding, 0, 0, 200, 1);
 		gameRoot.getChildren().add(player);
 	}
 	
@@ -203,11 +196,11 @@ public class GameManager {
 			for (Node platform : platforms) {
 				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
 					if (movingRight) {
-						if (player.getTranslateX() + player.getWidth() == platform.getTranslateX()) {
+						if (player.getTranslateX() + player.getWidth() - 20 == platform.getTranslateX()) {
 							return;
 						}
 					} else {
-						if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH + 1) {
+						if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH - 20) {
 							return;
 						}
 					}
@@ -228,7 +221,7 @@ public class GameManager {
 							return;
 						}
 					} else {
-						if (player.getTranslateY() == platform.getTranslateY() + 10) {
+						if (player.getTranslateY() == platform.getTranslateY() + 45) {
 							return;
 						}
 					}
@@ -256,16 +249,19 @@ public class GameManager {
 			jumpPlayer(30);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
-//			jumpPlayer(15);
+//			jumpPlayer(3);
 			movePlayerX(-5);
 		}
 		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 5 - player.getWidth()) {
+//			jumpPlayer(3);
 			movePlayerX(5);
 		}
 		if (player.getVelocityY() < 10) {
 			player.setVelocityY(player.getVelocityY() + 1);
 		}
 		movePlayerY(player.getVelocityY());
+		player.update();
+//		System.out.println(player.getVelocityY());
 	}
 	
 	
@@ -297,6 +293,10 @@ public class GameManager {
 	
 	public static void setKeysValue(KeyCode keyCode, boolean value) {
 		keys.put(keyCode, value);
+	}
+	
+	public static boolean getKeysValue(KeyCode key) {
+		return keys.getOrDefault(key, false);
 	}
 	
 	public static void getPlayerTranslateY() {

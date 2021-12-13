@@ -2,20 +2,15 @@ package gui.element;
 
 import gui.button.ImageButton;
 import gui.button.ImageButtonType;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import sharedObject.FontLoader;
 import sharedObject.FontType;
 import sharedObject.RenderableHolder;
@@ -49,8 +44,6 @@ public class GameHUD extends HBox {
 
 	public static void setupComponents() {
 		imagePane = new StackPane();
-		// Rectangle rec = new Rectangle(48,72);
-		// rec.setFill(Color.WHITESMOKE);
 		image = new ImageView(RenderableHolder.playerImage);
 		image.setFitHeight(72);
 		image.setFitWidth(48);
@@ -58,7 +51,7 @@ public class GameHUD extends HBox {
 		imagePane.setAlignment(Pos.CENTER);
 
 		progBar = new ProgressBar();
-		progBar.setStyle("-fx-accent: green");
+		progBar.setStyle("-fx-accent: red");
 		progBar.setPrefSize(300, 28);
 		setProgress(progBar, 80, 100);
 		progBarPane = setTextProgBar(progBar, "HP");

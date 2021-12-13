@@ -21,6 +21,7 @@ public class GameManager {
 	private static boolean canJump;
 	private static int levelWidth;
 	private static boolean isMute;
+	private static boolean isLevelFinish;
 	
 	private static AnchorPane appRoot = new AnchorPane();
 	private static AnchorPane gameRoot = new AnchorPane();

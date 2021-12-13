@@ -123,7 +123,7 @@ public class GameManager {
 	}
 	
 	private static void initializePlayer() {
-		player = new Player(RenderableHolder.playerImage, 0, 0, 200, 300);
+		player = new Player(RenderableHolder.playerImage, 0, 0, 200, 1);
 		gameRoot.getChildren().add(player);
 	}
 	
@@ -160,40 +160,81 @@ public class GameManager {
 	
 	/* ==================== USED IN update() METHOD ==================== */
 	
-	private static void movePlayerX(int moveX) {
-		boolean moveRight = moveX > 0;
-		for (int i = 0; i < Math.abs(moveX); i++) {
-			for (Node platform: platforms) {
+//	private static void movePlayerX(int moveX) {
+//		boolean moveRight = moveX > 0;
+//		for (int i = 0; i < Math.abs(moveX); i++) {
+//			for (Node platform: platforms) {
+//				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
+//					if (moveRight) {
+//						if (player.getTranslateX() + player.getWidth() - 30 == platform.getTranslateX()) {
+//							return;
+//						}
+//					} else if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH + 5) {
+//						return;
+//					}
+//				}
+//			}
+//			player.setTranslateX(player.getTranslateX() + (moveRight ? 1: -1));
+//		}
+//	}
+//	
+//	private static void movePlayerY(int moveY) {
+//		boolean moveDown = moveY > 0;
+//		for (int i = 0; i < Math.abs(moveY); i++) {
+//			for (Node platform: platforms) {
+//				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
+//					if (moveDown) {
+//						if (player.getTranslateY() + player.getHeight() == platform.getTranslateY()) {
+//							player.setTranslateY(player.getTranslateY() - 1);
+//							setCanJump(true);
+//						}
+//					} else if (player.getTranslateY() == platform.getTranslateY() + 61) {
+//						return ;
+//					}
+//				}
+//			}
+//			player.setTranslateY(player.getTranslateY() + (moveDown ? 1: -1));
+//		}
+//	}
+	
+	private static void movePlayerX(int value) {
+		boolean movingRight = value > 0;
+		for (int i = 0; i < Math.abs(value); i++) {
+			for (Node platform : platforms) {
 				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
-					if (moveRight) {
-						if (player.getTranslateX() + player.getWidth() - 30 == platform.getTranslateX()) {
+					if (movingRight) {
+						if (player.getTranslateX() + player.getWidth() == platform.getTranslateX()) {
 							return;
 						}
-					} else if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH - 20) {
-						return;
+					} else {
+						if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH + 1) {
+							return;
+						}
 					}
 				}
 			}
-			player.setTranslateX(player.getTranslateX() + (moveRight ? 1: -1));
+			player.setTranslateX(player.getTranslateX() + (movingRight ? 1 : -1));
 		}
 	}
-	
-	private static void movePlayerY(int moveY) {
-		boolean moveDown = moveY > 0;
-		for (int i = 0; i < Math.abs(moveY); i++) {
-			for (Node platform: platforms) {
+
+	private static void movePlayerY(int value) {
+		boolean movingDown = value > 0;
+		for (int i = 0; i < Math.abs(value); i++) {
+			for (Node platform : platforms) {
 				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
-					if (moveDown) {
+					if (movingDown) {
 						if (player.getTranslateY() + player.getHeight() == platform.getTranslateY()) {
-							player.setTranslateY(player.getTranslateY() - 1);
-							setCanJump(true);
+							canJump = true;
+							return;
 						}
-					} else if (player.getTranslateY() == platform.getTranslateY() + 10) {
-						return ;
+					} else {
+						if (player.getTranslateY() == platform.getTranslateY() + 10) {
+							return;
+						}
 					}
 				}
 			}
-			player.setTranslateY(player.getTranslateY() + (moveDown ? 1: -1));
+			player.setTranslateY(player.getTranslateY() + (movingDown ? 1 : -1));
 		}
 	}
 
@@ -204,12 +245,6 @@ public class GameManager {
 		}
 	}
 	
-	private static void stepForward(int jumpSpeed, int moveSpeed) {
-		jumpPlayer(jumpSpeed);
-		movePlayerX(moveSpeed);
-		setCanJump(false);
-	}
-	
 	private static boolean isPressed(KeyCode key) {
 		return keys.getOrDefault(key, false);
 	}
@@ -218,15 +253,16 @@ public class GameManager {
 	
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
-			jumpPlayer(22);
+			jumpPlayer(30);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
-			stepForward(3, -3);
+//			jumpPlayer(15);
+			movePlayerX(-5);
 		}
 		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 5 - player.getWidth()) {
-			stepForward(3, 3);
+			movePlayerX(5);
 		}
-		if (player.getVelocityY() < 8) {
+		if (player.getVelocityY() < 10) {
 			player.setVelocityY(player.getVelocityY() + 1);
 		}
 		movePlayerY(player.getVelocityY());

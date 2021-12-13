@@ -76,7 +76,7 @@ public class EnterNameScene extends Scene {
 		textField.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 		textField.setPrefWidth(290);
 		textField.setMaxWidth(290);
-		FontLoader.setFont(textField, FontType.COURIER, 28);
+		FontLoader.setFont(textField, FontType.YANONE, 28);
 	}
 
 	private static void initializeProgBar() {
@@ -96,7 +96,7 @@ public class EnterNameScene extends Scene {
 	private void initializeEnterNameLabel() {
 		text1 = new Label("Enter your name!");
 		text1.setTextFill(Color.WHITESMOKE);
-		FontLoader.setFont(text1, FontType.YANONE, 32);
+		FontLoader.setFont(text1, FontType.TELEGRAMA, 32);
 		text1.setAlignment(Pos.CENTER);
 	}
 
@@ -104,7 +104,7 @@ public class EnterNameScene extends Scene {
 		errorMessage = new Label("");
 		errorMessage.setAlignment(Pos.BOTTOM_LEFT);
 		errorMessage.setTextFill(Color.YELLOW);
-		FontLoader.setFont(errorMessage, FontType.COURIER, 18);
+		FontLoader.setFont(errorMessage, FontType.TELEGRAMA, 18);
 		errorMessage.setLayoutY(400);
 		errorMessage.setAlignment(Pos.BOTTOM_CENTER);
 	}

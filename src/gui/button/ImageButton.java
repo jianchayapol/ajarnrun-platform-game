@@ -62,6 +62,10 @@ public class ImageButton extends ImageView {
 		case BUY:
 			setSize(80, 20);
 			break;
+		case PAUSE:
+			img = RenderableHolder.pause_button_Image;
+			setSize(30, 30);
+			break;
 		default:
 			setSize(0, 0);
 			break;
@@ -69,7 +73,6 @@ public class ImageButton extends ImageView {
 		this.setImage(img);
 		this.setFitHeight(height);
 		this.setFitWidth(width);
-
 	}
 
 	// Init Event Handler

@@ -46,7 +46,7 @@ public class CSVUtility {
 				String[] l = line.split(",");
 				if(text[0].equals(l[0])) {
 					if(Integer.parseInt(l[1])<Integer.parseInt(text[1]) ) {
-						isHighScore = true;
+						 isHighScore = true;
 					}
 					else if(Integer.parseInt(l[1])==Integer.parseInt(text[1]) && Integer.parseInt(l[2])<Integer.parseInt(text[2])) {
 						isHighScore = true;

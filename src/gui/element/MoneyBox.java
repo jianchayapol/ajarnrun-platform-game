@@ -10,16 +10,15 @@ public class MoneyBox extends StackPane{
 	
 	public MoneyBox(){
 		super();
-		
+		setup();
 	}
 	
 	public void setup() {
 		
-		ImageView shop = new ImageView(RenderableHolder.money_tag_Image);
-		shop.setFitHeight(400);
-		shop.setFitWidth(300);
-		this.getChildren().add(shop);
-		this.setPrefSize(360,480);
+		ImageView moneyTag = new ImageView(RenderableHolder.money_tag_Image);
+		moneyTag.setFitHeight(36);
+		moneyTag.setFitWidth(106);
+		this.getChildren().add(moneyTag);
 		this.setAlignment(Pos.CENTER);
 	}
 }

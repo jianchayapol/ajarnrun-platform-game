@@ -43,10 +43,10 @@ public class ShopItemBox extends HBox{
 		// name tag
 		nameTag = new Label(item.getDescription());
 		nameTag.setTextFill(Color.SADDLEBROWN);
-		FontLoader.setFont(nameTag, FontType.YANONE, 30);	
+		FontLoader.setFont(nameTag, FontType.TELEGRAMA, 30);	
 		// price tag
 		priceTag = new Label(item.getPriceText());
-		FontLoader.setFont(priceTag, FontType.YANONE, 20);
+		FontLoader.setFont(priceTag, FontType.TELEGRAMA, 20);
 		
 		VBox infoBox = new VBox(10);
 		infoBox.getChildren().addAll(nameTag,priceTag);

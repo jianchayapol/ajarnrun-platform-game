@@ -76,7 +76,7 @@ public class EnterNameScene extends Scene {
 		textField.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 		textField.setPrefWidth(290);
 		textField.setMaxWidth(290);
-		FontLoader.setFont(textField, FontType.YANONE, 28);
+		FontLoader.setFont(textField, FontType.TELEGRAMA, 28);
 	}
 
 	private static void initializeProgBar() {
@@ -113,7 +113,7 @@ public class EnterNameScene extends Scene {
 		StackPane pane = new StackPane();
 		enterPane = new StackPane();
 		enterPane.getChildren().addAll(progBar, textField);
-		VBox vbox = new VBox(40);
+		VBox vbox = new VBox(30);
 		vbox.getChildren().addAll(text1, enterPane, playButton, errorMessage);
 		pane.getChildren().addAll(rec, vbox);
 		vbox.setAlignment(Pos.CENTER);
@@ -137,7 +137,7 @@ public class EnterNameScene extends Scene {
 		((StackPane)this.getRoot()).getChildren().addAll(bg, rec);
 	}
 
-	// =================== public static method ==============================
+	// =================== public static method : USED IN NameInputUtility class ==============================
 
 	public static String getEnteredName() {
 		return textField.getText();

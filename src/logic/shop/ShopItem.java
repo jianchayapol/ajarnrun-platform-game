@@ -15,22 +15,22 @@ public class ShopItem {
 		case "run":
 			image = RenderableHolder.run_item;
 			price = 10;
-			Description = "";
+			Description = "Booster Speed";
 			break;
 		case "time":
 			image = RenderableHolder.time_bonus_item;
 			price = 10;
-			Description = "";
+			Description = "Time Bonus   ";
 			break;
 		case "jump":
 			image = RenderableHolder.jump_item;
 			price = 10;
-			Description = "";
+			Description = "Booster Jump ";
 			break;
 		case "lp":
 			image = RenderableHolder.lp_bonus_item;
 			price = 10;
-			Description = "";
+			Description = "Health Bonus ";
 			break;
 		
 		default:

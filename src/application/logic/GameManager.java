@@ -246,14 +246,14 @@ public class GameManager {
 	
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
-			jumpPlayer(30);
+			jumpPlayer(25);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
-//			jumpPlayer(3);
+			jumpPlayer(3);
 			movePlayerX(-5);
 		}
 		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 5 - player.getWidth()) {
-//			jumpPlayer(3);
+			jumpPlayer(3);
 			movePlayerX(5);
 		}
 		if (player.getVelocityY() < 10) {

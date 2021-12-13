@@ -49,6 +49,7 @@ public class RenderableHolder {
 	public static Image player_sprite_Image;
 
 	// Button
+	public static Image pause_button_Image;
 	public static Image mute_button_Image;
 	public static Image unmute_button_Image;
 	public static Image play_button_Image;
@@ -136,7 +137,6 @@ public class RenderableHolder {
 	public static void loadResource() {
 
 		// RenderableHolder.player_sprite_Image = loadImage("player_sprite_Image.png");
-
 		RenderableHolder.green_box1 = loadImage("platform/green_01.png");
 		RenderableHolder.jump_item = loadImage("jump.png");
 		RenderableHolder.run_item = loadImage("run.png");
@@ -154,6 +154,7 @@ public class RenderableHolder {
 		RenderableHolder.level_failed_Image = loadImage("failedLevel.png");
 
 		// Button
+		RenderableHolder.pause_button_Image =  loadImageButton("pause.png");
 		RenderableHolder.unmute_button_Image = loadImageButton("unmute.png");
 		RenderableHolder.mute_button_Image = loadImageButton("mute.png");
 		RenderableHolder.play_button_Image = loadImageButton("start.png");

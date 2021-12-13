@@ -7,4 +7,5 @@ public enum ImageButtonType {
 	SKIP_LV,
 	NULL,
 	BUY,
+	PAUSE,
 }

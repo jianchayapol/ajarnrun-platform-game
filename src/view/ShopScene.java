@@ -76,7 +76,7 @@ public class ShopScene extends Scene {
 		errorMessage = new Label("");
 		errorMessage.setAlignment(Pos.BOTTOM_LEFT);
 		errorMessage.setTextFill(Color.YELLOW);
-		FontLoader.setFont(errorMessage, FontType.COURIER, 18);
+		FontLoader.setFont(errorMessage, FontType.YANONE, 18);
 		errorMessage.setLayoutY(400);
 		errorMessage.setAlignment(Pos.BOTTOM_CENTER);
 	}

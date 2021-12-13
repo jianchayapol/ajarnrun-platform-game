@@ -1,6 +1,5 @@
 package view;
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
 
 import application.utility.CSVUtility;
@@ -17,15 +16,14 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 import logic.leaderboard.LeaderBoard;
+import sharedObject.FontLoader;
+import sharedObject.FontType;
 
 public class MainViewSubScene extends SubScene {
 
 	private static final String BACKGROUND_IMAGE = "/mainSceneBackground_withoutLogo_fixed.png";
-	private final String FONT_PATH = "res/font/YanoneKaffeesatz-SemiBold.ttf";
-	private final String FONT_PATH2 = "res/font/Courier.ttf";
 
 	public MainViewSubScene(Parent mainPane, double width, double height) {
 		super(mainPane, width, height);
@@ -59,8 +57,8 @@ public class MainViewSubScene extends SubScene {
 
 			break;
 		case "newGame":
-			setLayoutX(width/2);
-			setLayoutY(height/2);
+			setLayoutX(width / 2);
+			setLayoutY(height / 2);
 			setEffect(new DropShadow());
 		default:
 			break;
@@ -95,33 +93,30 @@ public class MainViewSubScene extends SubScene {
 	}
 
 	public void fillLeaderBoard() {
-		Label header = new Label("Rank" + "         " + "Lv." + "        " + "Player" + "              " + "Exp");
+		Label header = new Label("Rank" + "  " + "Lv." + "  " + "Player" + "  " + "Exp");
 		header.setTextFill(Color.DARKRED);
-		try {
-			header.setFont(Font.loadFont(new FileInputStream(FONT_PATH), 32));
-		} catch (Exception e) {
-			header.setFont(Font.font("Verdana", 32));
-		}
+		FontLoader.setFont(header, FontType.TELEGRAMA,22);
 
 		int posX = 15;
 		int posY = 120;
-		
-		Line lineShape = new Line(posX, posY,   posX+320,   posY);
+
+		Line lineShape = new Line(posX, posY, posX + 320, posY);
 		lineShape.setStrokeWidth(4);
 		lineShape.setFill(Color.DARKRED);
-		posY+=15;
-		
+
+		posY += 20;
+
 		header.setLayoutX(posX);
 		header.setLayoutY(posY);
 
 		AnchorPane subSceneRoot = (AnchorPane) this.getRoot();
-		subSceneRoot.getChildren().addAll(lineShape,header);
+		subSceneRoot.getChildren().addAll(lineShape, header);
 
 		// Read Data from CSV
 		LeaderBoard.setData(CSVUtility.readCSV());
 		LeaderBoard.sortUpdatedData();
 		ArrayList<String> data = CSVUtility.readCSV();
-		
+
 		int n = data.size();
 		if (n > 9)
 			n = 9;
@@ -130,21 +125,33 @@ public class MainViewSubScene extends SubScene {
 		for (int i = 1; i <= n; i++) {
 			posY += 40;
 			String[] stat = data.get(i - 1).split(",");
-			Label line = new Label(fillString("[" + String.valueOf(i) + "]", 6) + fillString(stat[1], 4)
+			Label line = new Label(fillString("[" + String.valueOf(i) + "]", 6) + fillString(stat[1], 5)
 					+ fillString(stat[0], 9) + fillString(stat[2], 4));
-			line.setTextFill(Color.BLACK);
-			try {
-				line.setFont(Font.loadFont(new FileInputStream(FONT_PATH2), 24));
-			} catch (Exception e) {
-				line.setFont(Font.font("Verdana", 24));
-			}
-
+			setUpText(line, i);
 			line.setLayoutX(posX);
 			line.setLayoutY(posY);
 
 			subSceneRoot.getChildren().add(line);
 		}
 
+	}
+
+	private static void setUpText(Label line, int i) {
+		switch (i) {
+		case 1:
+			line.setTextFill(Color.rgb(164, 129, 17));
+			break;
+		case 2:
+			line.setTextFill(Color.rgb(113, 112, 110));
+			break;
+		case 3:
+			line.setTextFill(Color.rgb(93, 45, 36));
+			break;
+		default:
+			line.setTextFill(Color.BLACK);
+			break;
+		}
+		FontLoader.setFont(line, FontType.TELEGRAMA, 21);
 	}
 
 	public static String fillString(String s, int n) {

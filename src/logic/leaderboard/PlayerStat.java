@@ -1,5 +1,6 @@
 package logic.leaderboard;
 
+import application.utility.NameInputUtility;
 import exception.WrongFormatPlayerNameException;
 import view.EnterNameScene;
 
@@ -34,25 +35,9 @@ public class PlayerStat implements Comparable<PlayerStat> {
 	}
 
 	public void setName(String name) {
-		if (checkEnteredName(name)) {
+		if (NameInputUtility.checkEnteredName(name)) {
 			this.name = name;
 		}
-	}
-
-	public static boolean checkEnteredName(String name) {
-		try {
-			if (name.isBlank()) {
-				EnterNameScene.setErrorMessage("PlayerName cannot be blank!");
-				throw new WrongFormatPlayerNameException("PlayerName cannot be blank!");
-			} else if (name.length() > 8) {
-				EnterNameScene.setErrorMessage("PlayerName Cannot Exceed 8 Characters");
-				throw new WrongFormatPlayerNameException("PlayerName Cannot Exceed 8 Characters");
-			}
-			return true;
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return false;
 	}
 
 	public int getLevel() {

@@ -24,7 +24,7 @@ public class AudioLoader {
 //	
 	public static AudioClip Entrance_Theme_Song = new AudioClip(
 			ClassLoader.getSystemResource("audio/entrance_music.mp3").toString());
-//	public static AudioClip Game_Screen = new AudioClip(ClassLoader.getSystemResource("audio/GameScreen.mp3").toString());
+	public static AudioClip Game_Theme_Song = new AudioClip(ClassLoader.getSystemResource("audio/game.mp3").toString());
 //	public static AudioClip End_Screen = new AudioClip(ClassLoader.getSystemResource("audio/EndScreen.mp3").toString());
 	
 }

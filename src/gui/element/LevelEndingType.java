@@ -1,6 +1,6 @@
 package gui.element;
 
-public enum LevelPassType {
+public enum LevelEndingType {
 	FAILED,
 	COMPLETED
 }

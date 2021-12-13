@@ -53,8 +53,6 @@ public class ImageButton extends ImageView {
 			img = RenderableHolder.play_button_Image;
 			setSize(139, 50);
 			break;
-		case NULL:
-			break;
 		case CONTINUE_LV:
 			setSize(139, 50);
 			break;
@@ -121,7 +119,8 @@ public class ImageButton extends ImageView {
 			String[] stat = { name.strip(), "1", "0" };
 			CSVUtility.appendToCSV(stat);
 			// Preparing to the next Scene
-			initImageButton(ImageButtonType.NULL);
+//			initImageButton(ImageButtonType.NULL);
+			setImage(null);
 			ViewManager.stopViewManager();
 			// loading.. GameScene
 			EnterNameScene.setupLoading();

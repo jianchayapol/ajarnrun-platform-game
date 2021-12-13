@@ -7,6 +7,7 @@ import player.base.Moveable;
 public class Player extends Character implements Moveable, Jumpable {
 	private final int WIDTH = 96;
 	private final int HEIGHT = 128;
+	private int jumpHeight = 21;
 	
 	public Player(Image image, int velocityX, int velocityY, int translateX, int translateY){
 		super(image, velocityX, velocityY, translateX, translateY);
@@ -22,6 +23,9 @@ public class Player extends Character implements Moveable, Jumpable {
 	
 	public int getWidth() {
 		return WIDTH;
-	}
+	}	
 	
+	public int getJumpHeight() {
+		return jumpHeight;
+	}
 }

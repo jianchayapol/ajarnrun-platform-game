@@ -4,6 +4,7 @@ import application.logic.GameManager;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -21,13 +22,11 @@ public class GameScene extends Scene {
 		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
 				GameManager.setKeysValue(event.getCode(), true);
-				System.out.println(event.getCode());
 			}
 		});
 		this.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
 				GameManager.setKeysValue(event.getCode(), false);
-				System.out.println(event.getCode());
 			}
 		});
 	}

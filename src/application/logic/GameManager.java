@@ -197,9 +197,9 @@ public class GameManager {
 		}
 	}
 
-	private static void jumpPlayer(int power) {
+	private static void jumpPlayer(int jumpHeight) {
 		if (canJump) {
-			player.setVelocityY(player.getVelocityY() - power);
+			player.setVelocityY(player.getVelocityY() - jumpHeight);
 			setCanJump(false);
 		}
 	}

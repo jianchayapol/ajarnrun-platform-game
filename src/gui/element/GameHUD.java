@@ -2,6 +2,7 @@ package gui.element;
 
 import gui.button.ImageButton;
 import gui.button.ImageButtonType;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -115,14 +116,17 @@ public class GameHUD extends HBox {
 	}
 
 	public static void setProgress(ProgressBar progBar, double current, double max) {
-		progBar.setProgress(current*1.0 / max);
-		System.out.println(current*1.0 / max);
+		progBar.setProgress(current*1.0/max);
+	}
+	
+	public static ProgressBar getTimerProgressBar() {
+		return timerProgBar;
 	}
 	
 
 //	public static void timerAnimate(double timeSecond) {
 //		timeValue = timeSecond;
-//		while (timeValue >= 0d) {
+//		while (timeValue > 0d) {
 //			try {
 //				Thread thread = new Thread(() -> {
 //					try {
@@ -137,7 +141,7 @@ public class GameHUD extends HBox {
 //					}
 //				});
 //				thread.start();
-//				timeValue -= 0.001d;
+//				timeValue -= 0.1d;
 //				Thread.sleep(100);
 //			} catch (InterruptedException e) {
 //				e.printStackTrace();

@@ -176,10 +176,10 @@ public class GameManager {
 					nodeCount++;
 					break;
 
-				// FINISH BLOCK
-				case 'X':
-					finishPositionX = j * BLOCK_WIDTH;
-					finishPositionY = i * BLOCK_HEIGHT;
+//				// FINISH BLOCK
+//				case 'X':
+//					finishPositionX = j * BLOCK_WIDTH;
+//					finishPositionY = i * BLOCK_HEIGHT;
 
 				case 'M':
 					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "coin");

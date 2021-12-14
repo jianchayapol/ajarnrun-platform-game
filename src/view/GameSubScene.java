@@ -64,13 +64,13 @@ public class GameSubScene extends SubScene {
 		switch (altText) {
 		
 		case "levelEnding":
-			setLayoutX(-width - 100);
-			setLayoutY(20);
+			setLayoutX(0);
+			setLayoutY(0);
 			setEffect(new DropShadow());
 			break;
 		case "shop":
-			setLayoutX(900);
-			setLayoutY(20);
+			setLayoutX(0);
+			setLayoutY(0);
 			setEffect(new DropShadow());
 			DrawStringUtility.fillLeaderBoard(this);
 			break;

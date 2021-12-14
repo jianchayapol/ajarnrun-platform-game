@@ -180,6 +180,34 @@ public class GameManager {
 				case 'X':
 					finishPositionX = j * BLOCK_WIDTH;
 					finishPositionY = i * BLOCK_HEIGHT;
+
+				case 'M':
+					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "coin");
+					gameRoot.getChildren().add(platform);
+					platforms.add(platform);
+					nodeCount++;
+					break;
+				case 'K':
+					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "book1");
+					gameRoot.getChildren().add(platform);
+					platforms.add(platform);
+					nodeCount++;
+					break;
+				case 'k':
+					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "book2");
+					gameRoot.getChildren().add(platform);
+					platforms.add(platform);
+					nodeCount++;
+					break;
+				
+				// FINISH BLOCK
+				case 'X':
+					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "finish");
+					gameRoot.getChildren().add(platform);
+					platforms.add(platform);
+					nodeCount++;
+					finishPositionX = j*BLOCK_WIDTH;
+					finishPositionY = i*BLOCK_HEIGHT;
 				default:
 					break;
 				}
@@ -423,12 +451,9 @@ public class GameManager {
 	private static void setPlayerCurrentHP(int HP) {
 		playerCurrentHP = HP;
 	}
-
-	/*
-	 * ============================== PUBLIC STATIC METHOD
-	 * ==============================
-	 */
-
+  
+	/* ============================== PUBLIC STATIC METHOD ============================== */
+	
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
 			jumpPlayer(30);
@@ -476,7 +501,7 @@ public class GameManager {
 		addUIRoot();
 		setCanJump(true);
 		setIsMute(false);
-		setTime(10);
+		setTime(120);
 		initializeKeysValue();
 	}
 
@@ -568,6 +593,8 @@ public class GameManager {
 	 * ==============================
 	 */
 
+	/* ============================== GET PLAYER'S STATS ============================== */
+	
 	public static int getPlayerMaxHP() {
 		return playerMaxHP;
 	}

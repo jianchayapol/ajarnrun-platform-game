@@ -15,7 +15,7 @@ public class RenderableHolder {
 	private static final int BLOCK_WIDTH = GameManager.getBlockWidth();
 	private static final int BLOCK_HEIGHT = GameManager.getBlockHeight();
 
-	// Private Image
+	// Platform
 	private static Image greenOne;
 	private static Image greenTwo;
 	private static Image greenThree;
@@ -77,6 +77,14 @@ public class RenderableHolder {
 	// Enemy
 	public static Image enemyOneLeft;
 	public static Image enemyTwoLeft;
+	
+	// Item
+	public static Image bookOne;
+	public static Image bookTwo;
+	public static Image coin;
+	
+	// Finish flag
+	public static Image finish;
 
 	// ---------------------------------------------------------
 	static {
@@ -168,6 +176,26 @@ public class RenderableHolder {
 			block.setFitWidth(50);
 			block.setFitHeight(50);
 			break;
+		case "book1":
+			block = new ImageView(RenderableHolder.bookOne);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
+			break;
+		case "book2":
+			block = new ImageView(RenderableHolder.bookTwo);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
+			break;
+		case "coin":
+			block = new ImageView(RenderableHolder.coin);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
+			break;
+		case "finish":
+			block = new ImageView(RenderableHolder.finish);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
+			break;
 		default:
 			block = new ImageView(RenderableHolder.greenOne);
 			block.setFitWidth(BLOCK_WIDTH);
@@ -241,6 +269,14 @@ public class RenderableHolder {
 		// Enemy
 		RenderableHolder.enemyOneLeft = loadImage("enemy/enemy_1.png");
 		RenderableHolder.enemyTwoLeft = loadImage("enemy/enemy_2.png");
+		
+		// Item
+		RenderableHolder.bookOne = loadImage("platform/book_1.png");
+		RenderableHolder.bookTwo = loadImage("platform/book_2.png");
+		RenderableHolder.coin = loadImage("platform/coin.png");
+		
+		// Finish flag
+		RenderableHolder.finish = loadImage("platform/finish.png");
 	}
 
 }

@@ -255,6 +255,7 @@ public class EnterNameScene extends Scene {
 		getEnterPane().getChildren().remove(1);
 		setErrorMessage(null);
 		setLabel("loading..");
+		GameManager.setPlayerName(getEnteredName());
 		startProgress();
 	}
 

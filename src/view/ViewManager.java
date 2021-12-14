@@ -5,8 +5,12 @@ import application.logic.GameManager;
 import gui.button.ImageButton;
 import gui.button.ImageButtonType;
 import gui.button.MainButton;
+import gui.element.HowToPlayBox;
+import gui.element.PauseGameLeaderBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -15,6 +19,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
@@ -30,16 +35,19 @@ public class ViewManager {
 	private MainButton exitButton;
 	private MainButton info;
 	private ImageButton muteButton;
-
+	private ImageButton howToButton;
+	
 	private static boolean isPlayingThemeSong;
 	private static boolean isMainViewVisible;
-
+	
 	private boolean isLeaderBoardPressed;
 	private boolean isInfoPressed;
-
+	private static boolean isShowHowToPlay;
+	
 	private GameSubScene aboutUs;
 	private GameSubScene leaderBoard;
-
+	private static GameSubScene howToPlay;
+	
 	public ViewManager() {
 		this.mainPane = new AnchorPane();
 		setBackgroundImage(RenderableHolder.entrance_background_Image);
@@ -54,12 +62,13 @@ public class ViewManager {
 		// Create all buttons
 		createMainButton();
 		createInfoButton();
-		createMuteButton();
+		createSettingButton();
 
 		// Create SubScenes
 		createAboutUsSubScene();
 		createLeaderBoardSubScene();
-
+		createSubSceneHowToPlay();
+		
 		// Implement buttons' event listeners
 		implementNewGameEventListener();
 		implementLeaderboardEventListener();
@@ -73,11 +82,15 @@ public class ViewManager {
 		this.mainStage.setResizable(false);
 	}
 
-	private void createMuteButton() {
+	private void createSettingButton() {
 		muteButton = new ImageButton(ImageButtonType.SOUND);
-		muteButton.setLayoutX(20);
-		muteButton.setLayoutY(20);
-		this.mainPane.getChildren().add(muteButton);
+		howToButton = new ImageButton(ImageButtonType.HELP);
+		HBox hb = new HBox(10);
+		howToButton.setSize(20, 20);
+		hb.setPadding(new Insets(15));
+		hb.getChildren().addAll(howToButton,muteButton);
+		hb.setAlignment(Pos.CENTER);
+		this.mainPane.getChildren().add(hb);
 	}
 
 	public static void playThemeSong() {
@@ -192,14 +205,14 @@ public class ViewManager {
 	private void implementExitEventListener() {
 		exitButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				ViewManager.this.getStage().close();
+				//////////////////
 			}
 		});
 		mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent key) {
 				if (key.getCode().equals(KeyCode.ESCAPE)) {
-					ViewManager.this.getStage().close();
+					
 				}
 			}
 		});
@@ -223,6 +236,11 @@ public class ViewManager {
 		});
 	}
 
+	private void createSubSceneHowToPlay() {
+		ViewManager.howToPlay = new GameSubScene(new HowToPlayBox(),"howToPlay",790,540);
+		this.mainPane.getChildren().add(howToPlay);
+	}
+	
 	public static Stage getStage() {
 		return mainStage;
 	}
@@ -291,9 +309,25 @@ public class ViewManager {
 		ViewManager.isPlayingThemeSong = isPlayingThemeSong;
 	}
 
+	public static boolean isShowHowToPlay() {
+		return isShowHowToPlay;
+	}
+
+	public static void setShowHowToPlay(boolean isShowHowToPlay) {
+		ViewManager.isShowHowToPlay = isShowHowToPlay;
+	}
+
 	public static void stopViewManager() {
 		ViewManager.setIsVisible(false);
 		AudioLoader.Entrance_Theme_Song.stop();
 		ViewManager.setIsPlayingThemeSong(false);
+	}
+
+	public static GameSubScene getHowToPlay() {
+		return howToPlay;
+	}
+
+	public static void setHowToPlay(GameSubScene howToPlay) {
+		ViewManager.howToPlay = howToPlay;
 	}
 }

@@ -1,5 +1,6 @@
 package gui.element;
 
+import application.logic.GameManager;
 import gui.button.ImageButton;
 import gui.button.ImageButtonType;
 import javafx.geometry.Insets;
@@ -36,21 +37,38 @@ public class GameHUD extends HBox {
 		setupComponents();
 		setupHudPref();
 	}
-	
-	// =================== public static method(s) : USED in GameScene =========================
-	
+
+	// =============== public static methods =========================
+
 	public static void setProgress(ProgressBar progBar, double current, double max) {
-		double progress = current*1.0/max;
+		double progress = current * 1.0 / max;
 		progBar.setProgress(progress);
-		if(progress<=0.1d) progBar.setStyle("-fx-accent: red");
+		if (progress <= 0.1d)
+			progBar.setStyle("-fx-accent: red");
 	}
-	
+
 	public static ProgressBar getTimerProgressBar() {
 		return timerProgBar;
 	}
-	
-	// =================== private static method(s) : USED within this GameHUD class =========================
-	
+
+	public static ProgressBar getHpProgressBar() {
+		return progBar;
+	}
+
+	public static void setLevelLabel(int level) {
+		levelLabel.setText("Lv." + String.valueOf(level));
+	}
+
+	public static void setMoneyLabel(int coin) {
+		moneyLabel.setText("    $" + String.valueOf(coin));
+	}
+
+	public static void setNameLabel(String name) {
+		nameLabel.setText(name);
+	}
+
+	// =============== private static methods =========================
+
 	private static void setupComponents() {
 		// initialize components
 		initImagePane();
@@ -67,36 +85,36 @@ public class GameHUD extends HBox {
 		image.setFitHeight(72);
 		image.setFitWidth(48);
 	}
-	
+
 	private static void initHpProgBar() {
-		progBar = new ProgressBar();
+		progBar = new ProgressBar(1.0d);
 		progBar.setStyle("-fx-accent: green");
 		progBar.setPrefSize(300, 28);
-		setProgress(progBar, 80, 100);
 		progBarPane = setTextProgBar(progBar, "HP");
 	}
-	
+
 	private static void initNameLabel() {
-		nameLabel = new Label("Mos");
-		FontLoader.setFont(nameLabel, FontType.TELEGRAMA, 28);
+		nameLabel = new Label(GameManager.getPlayerName());
+		FontLoader.setFont(nameLabel, FontType.TELEGRAMA, 20);
 		nameLabel.setTextFill(Color.BLACK);
 		nameLabel.setAlignment(Pos.BASELINE_CENTER);
 	}
-	
+
 	private static void initTimerBox() {
-		// Setup ProgressBar 
+		// Setup ProgressBar
 		timerProgBar = new ProgressBar(1.0d);
-		timerProgBar.setPrefWidth(520);
+		timerProgBar.setPrefWidth(400);
+		timerProgBar.setMaxWidth(400);
 		timerProgBar.setPrefHeight(30);
 		timerPane = setTextProgBar(timerProgBar, "TIME");
-		timerPane.setPrefWidth(500);
+		timerPane.setPrefWidth(430);
 		// Add to VBox
 		timerBox = new VBox(10);
+		timerBox.setMaxHeight(120);
 		timerBox.getChildren().addAll(levelLabel, timerPane);
 		timerBox.setAlignment(Pos.BOTTOM_LEFT);
-		timerBox.setMaxHeight(120);
 	}
-	
+
 	private static void initLevelLabel() {
 		levelLabel = new Label("Lv.1");
 		FontLoader.setFont(levelLabel, FontType.TELEGRAMA, 22);
@@ -105,7 +123,7 @@ public class GameHUD extends HBox {
 	}
 
 	private static void initButtonBox() {
-		buttonBox = new HBox(10);
+		buttonBox = new HBox(20);
 		soundButton = new ImageButton(ImageButtonType.SOUND);
 		pauseButton = new ImageButton(ImageButtonType.PAUSE);
 		buttonBox.setPadding(new Insets(10));
@@ -125,37 +143,34 @@ public class GameHUD extends HBox {
 	}
 
 	private static void setupMoneyLabel() {
-		moneyLabel = new Label("0");
-		FontLoader.setFont(moneyLabel, FontType.TELEGRAMA, 20);
+		moneyLabel = new Label("    $" + "0");
+		moneyLabel.setTextFill(Color.WHITE);
+		FontLoader.setFont(moneyLabel, FontType.TELEGRAMA, 18);
 	}
-	
-	public static void setMoneyLabel(String text) {
-		moneyLabel.setText(text);
-	}
-	
-	private static void initPlayerBox() {
-		playerBox = new HBox(30);
-		playerBox.setMaxSize(350, 120);
 
+	private static void initPlayerBox() {
+		playerBox = new HBox(20);
+		playerBox.setMaxSize(480, 120);
+		playerBox.setPrefWidth(430);
 		StackPane moneyPane = new StackPane();
 		setupMoneyLabel();
 		moneyBox = new MoneyBox();
 		HBox infoBox1 = new HBox(20);
 		moneyBox.setPrefSize(100, 34);
-		moneyPane.getChildren().addAll(moneyBox,moneyLabel);
-		infoBox1.getChildren().addAll(nameLabel, moneyBox);
+		moneyPane.getChildren().addAll(moneyBox, moneyLabel);
+		moneyPane.setAlignment(Pos.CENTER_LEFT);
+		infoBox1.getChildren().addAll(nameLabel, moneyPane);
 
 		VBox infoBox2 = new VBox(8);
 		infoBox2.getChildren().addAll(infoBox1, progBarPane);
-
 		playerBox.getChildren().addAll(image, infoBox2);
 	}
-	
+
 	private void setupHudPref() {
-		setSpacing(50);
+		setSpacing(30);
 		getChildren().addAll(playerBox, timerBox, buttonBox);
 		setPadding(new Insets(15));
-		setMaxWidth(750);
+		setMaxWidth(800);
 	}
 
 }

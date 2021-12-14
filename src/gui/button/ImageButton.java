@@ -45,12 +45,12 @@ public class ImageButton extends ImageView {
 
 		switch (imageButtonType) {
 		case SOUND:
-			setSize(30, 30);
 			if (GameManager.getIsMute()) {
 				image = RenderableHolder.mute_button_Image;
 			} else {
 				image = RenderableHolder.unmute_button_Image;
 			}
+			setSize(35,35);
 			break;
 		case PLAY:
 			image = RenderableHolder.play_button_Image;
@@ -72,14 +72,18 @@ public class ImageButton extends ImageView {
 			if (!GameScene.getIsPause()) {
 				image = RenderableHolder.pause_button_Image;
 			} else {
-				image = RenderableHolder.unmute_button_Image;
+				image = RenderableHolder.resume_button_Image;
 			}
-			setSize(30, 30);
+			setSize(24, 24);
 			break;
 		case HOME:
 			image = RenderableHolder.home_button_Image;
 			setSize(45, 45);
 			break;
+		case HELP:
+			image = RenderableHolder.question_button_Image;
+			setSize(30,28);
+			this.setOpacity(0.6);
 		default:
 			setSize(0, 0);
 			break;
@@ -115,11 +119,14 @@ public class ImageButton extends ImageView {
 				case HOME:
 					setBackToHome();
 					break;
+				case HELP:
+					setUpHowToPlay();
 				default:
 					break;
 				}
 			}
 		});
+		
 		this.setOnMouseExited(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				ImageButton.this.getParent().setCursor(Cursor.DEFAULT);
@@ -195,6 +202,15 @@ public class ImageButton extends ImageView {
 		initImageButton(ImageButtonType.PAUSE);
 	}
 
+	private void setUpHowToPlay() {
+		if (ViewManager.isShowHowToPlay()) {
+			ViewManager.getHowToPlay().moveSubScene("howToPlayPressed");
+		} else {
+			ViewManager.getHowToPlay().moveSubScene("howToPlayUnpressed");
+		}
+		ViewManager.setShowHowToPlay(!ViewManager.isShowHowToPlay());
+	}
+	
 	private void setBackToHome() {
 		EnterNameScene.setScene(ViewManager.getMainScene());
 	}

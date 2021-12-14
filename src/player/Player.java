@@ -86,7 +86,7 @@ public class Player extends Character implements Moveable, Jumpable {
 	private final Image SPRITE_STANDING_BW = RenderableHolder.spritePlayerStandingBackward;
 	private final Image SPRITE_JUMP = RenderableHolder.spritePlayerJump;
 	private final Image SPRITE_JUMP_BW = RenderableHolder.spritePlayerJumpBackward;
-	
+		
 	private static final int COLUMNS = 3;
 	private static final int COUNT = 3;
 	private static final int OFFSET_X = 0;

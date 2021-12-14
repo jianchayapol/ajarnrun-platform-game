@@ -9,4 +9,5 @@ public enum ImageButtonType {
 	BUY,
 	PAUSE,
 	HOME,
+	HELP,
 }

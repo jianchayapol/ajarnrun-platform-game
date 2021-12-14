@@ -538,4 +538,26 @@ public class GameManager {
 	public static void setPlayerEXP(int EXP) {
 		playerEXP = EXP;
 	}
+	
+	/* ============================== SET PLAYER'S STATS ============================== */
+	
+	public static int getPlayerMaxHP() {
+		return playerMaxHP;
+	}
+	
+	public static int getPlayerCurrentHP() {
+		return playerCurrentHP;
+	}
+	
+	public static int getPlayerCoin() {
+		return playerCoin;
+	}
+	
+	public static int getPlayerEXP() {
+		return playerEXP;
+	}
+	
+	public static boolean isDead() {
+		return isDead;
+	}
 }

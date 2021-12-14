@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
@@ -63,7 +64,8 @@ public class ViewManager {
 		implementLeaderboardEventListener();
 		implementExitEventListener();
 		implementAboutUsEventListener();
-
+		initializeKeyboardHandler();
+		
 		// Create main scene and stage
 		this.mainScene = new Scene(mainPane, WIDTH, HEIGHT);
 		this.mainStage = new Stage();
@@ -204,6 +206,14 @@ public class ViewManager {
 					}
 				}
 			}
+		});
+	}
+	
+	private void initializeKeyboardHandler() {
+		this.newGameButton.setOnKeyPressed(e -> {
+		    if (e.getCode() == KeyCode.N && e.isControlDown()) {
+		    	EnterNameScene enterNameScene = new EnterNameScene(mainStage);
+		    }
 		});
 	}
 	

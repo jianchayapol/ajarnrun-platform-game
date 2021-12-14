@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import sharedObject.AudioLoader;
@@ -21,7 +20,6 @@ public class GameScene extends Scene {
 
 	private static GameHUD gameHud;
 	private static Stage stage;
-	private static double timeRemaining;
 	private static final double TIME_TICK = 0.01666666666667;
 	private static boolean isPlayingThemeSong;
 	private static boolean isVisible = true;
@@ -31,13 +29,15 @@ public class GameScene extends Scene {
 	private static GameSubScene pauseGameLeaderboard;
 	private static GameSubScene levelEnding;
 	private static double timeMapSecond;
+	private static double timeRemained;
+	private static AnimationTimer timer;
 	
 	public GameScene(Pane parent, Stage primaryStage) {
 		super(parent);
 		initializeEventHandler();
 		setUpStage(primaryStage);
 		setGameHud(GameManager.getUIRoot());
-		createPauseGameLeaderboardSubScene();
+		createPauseGameLeaderboardSubScene();////////
 		runScene();
 		stage = primaryStage;
 	}
@@ -69,13 +69,13 @@ public class GameScene extends Scene {
 	
 	private void runScene() {
 		setTimeMapSecond(120);
-		timeRemaining = getTimeMapSecond();
-		AnimationTimer timer = new AnimationTimer() {
+		timeRemained = getTimeMapSecond();
+		timer = new AnimationTimer() {
 			public void handle(long now) {
 				GameManager.update();
-				GameHUD.setProgress(GameHUD.getTimerProgressBar(), timeRemaining, timeMapSecond);
-				timeRemaining -= TIME_TICK;
-				if(timeRemaining<=0) {
+				GameHUD.setProgress(GameHUD.getTimerProgressBar(), timeRemained, timeMapSecond);
+				timeRemained -= TIME_TICK;
+				if(timeRemained<=0) {
 					GameHUD.setProgress(GameHUD.getTimerProgressBar(), 0, timeMapSecond);
 					// level failed
 				}
@@ -136,15 +136,6 @@ public class GameScene extends Scene {
 		GameScene.isPause = isPause;
 	}
 	
-//	public static void updatePauseScreen() {
-//		if(GameScene.isPause) {
-//			pane.getChildren().add(pauseGameLeaderboard);
-//		}
-//		else {
-//			pane.getChildren().remove(pane.getChildren().size()-1);
-//		}
-//	}
-	
 	public static void setTimeMapSecond(double second) {
 		timeMapSecond = second;
 	}
@@ -159,7 +150,7 @@ public class GameScene extends Scene {
 	}
 	
 	private void createPauseGameLeaderboardSubScene() {
-		GameScene.pauseGameLeaderboard = new GameSubScene(new PauseGameLeaderBox(), "pauseGameLeaderboard", 300, 300);
+		GameScene.pauseGameLeaderboard = new GameSubScene(new PauseGameLeaderBox(), "pauseGameLeaderboard", 800,350);
 		GameManager.getAppRoot().getChildren().add(pauseGameLeaderboard);		
 	}
 	
@@ -176,12 +167,12 @@ public class GameScene extends Scene {
 		GameScene.gameHud = gameHud;
 	}
 
-	public static double getTimeRemaining() {
-		return timeRemaining;
+	public static AnimationTimer getTimer() {
+		return timer;
 	}
 
-	public static void setTimeRemaining(double timeRemaining) {
-		GameScene.timeRemaining = timeRemaining;
+	public static void setTimer(AnimationTimer timer) {
+		GameScene.timer = timer;
 	}
 
 	public static GameSubScene getShop() {

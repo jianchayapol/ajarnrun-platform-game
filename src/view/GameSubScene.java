@@ -75,8 +75,9 @@ public class GameSubScene extends SubScene {
 			DrawStringUtility.fillLeaderBoard(this);
 			break;
 		case "pauseGameLeaderboard":
-			setLayoutX(width / 2);
-			setLayoutY(height / 2);
+			setLayoutX(0);
+			setLayoutY(-height-20);
+			setOpacity(0.65);
 			setEffect(new DropShadow());
 			break;
 		default:
@@ -89,9 +90,12 @@ public class GameSubScene extends SubScene {
 		transition.setDuration(Duration.seconds(0.5));
 		transition.setNode(this);
 		double width = this.getWidth();
+		double height = this.getHeight();
+				
 		switch (altText) {
-
+		
 		// ================= mainView SubScene =============================
+		
 		case "infoButtonUnpressed":
 			transition.setToX(width + 120);
 			transition.setToY(0);
@@ -108,23 +112,24 @@ public class GameSubScene extends SubScene {
 			transition.setToX(width + 120);
 			transition.setToY(0);
 			break;
+		
+		// ================= GameView SubScene =============================
+		
 		case "levelEnding":
 			transition.setToX(width + 120);
 			transition.setToY(0);
-			break;
-
-		// ================= GameView SubScene =============================
+			break;	
 		case "shop":
 			transition.setToX(-width - 120);
 			transition.setToY(0);
 			break;
 		case "pauseGameUnpressed":
-			transition.setToX(-width - 120);
-			transition.setToY(0);
+			transition.setToX(0);
+			transition.setToY(height+135);
 			break;
 		case "pauseGamePressed":
-			transition.setToX(width + 120);
-			transition.setToY(0);
+			transition.setToX(0);
+			transition.setToY(-height-135);
 			break;
 
 		default:

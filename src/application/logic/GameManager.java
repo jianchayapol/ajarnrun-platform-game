@@ -56,7 +56,7 @@ public class GameManager {
 	/* ==================== USE IN CONSTRUCTOR ==================== */
 	
 	private static void setLevelWidth() {
-		levelCount = 1;
+		levelCount = 2;
 		levelWidth = Level.ALL_LEVEL[levelCount][0].length() * BLOCK_WIDTH;
 	}
 	

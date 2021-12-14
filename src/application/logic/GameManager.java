@@ -108,56 +108,67 @@ public class GameManager {
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "1");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					nodeCount++;
 					break;
 				case '2':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "2");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					nodeCount++;
 					break;
 				case '3':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "3");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					nodeCount++;
 					break;
 				case '4':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "4");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					nodeCount++;
 					break;
 				case '5':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "5");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					nodeCount++;
 					break;
 				case 'A':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "f1");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					nodeCount++;
 					break;
 				case 'B':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "f2");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					nodeCount++;
 					break;
 				case 'C':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "f3");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					nodeCount++;
 					break;
 				case 'D':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "f4");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					nodeCount++;
 					break;
 				case 'E':
 					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "E");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					nodeCount++;
 					break;
 				case 'e':
 					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "e");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					nodeCount++;
 					break;
 				
 				// FINISH BLOCK
@@ -526,5 +537,27 @@ public class GameManager {
 	
 	public static void setPlayerEXP(int EXP) {
 		playerEXP = EXP;
+	}
+	
+	/* ============================== SET PLAYER'S STATS ============================== */
+	
+	public static int getPlayerMaxHP() {
+		return playerMaxHP;
+	}
+	
+	public static int getPlayerCurrentHP() {
+		return playerCurrentHP;
+	}
+	
+	public static int getPlayerCoin() {
+		return playerCoin;
+	}
+	
+	public static int getPlayerEXP() {
+		return playerEXP;
+	}
+	
+	public static boolean isDead() {
+		return isDead;
 	}
 }

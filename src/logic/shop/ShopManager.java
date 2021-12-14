@@ -1,7 +1,7 @@
 package logic.shop;
 
 import exception.BuyItemFailedException;
-import view.ShopScene;
+import gui.element.ShopPane;
 
 public class ShopManager {
 	
@@ -15,7 +15,7 @@ public class ShopManager {
 			}
 		}
 		catch(Exception e) {
-			ShopScene.setErrorMessage(e.getMessage());
+			ShopPane.setErrorMessage(e.getMessage());
 			System.out.println(e.getMessage());
 		}
 		return false;

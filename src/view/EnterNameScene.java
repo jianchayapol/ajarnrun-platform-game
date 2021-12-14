@@ -76,7 +76,7 @@ public class EnterNameScene extends Scene {
 		textField.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 		textField.setPrefWidth(290);
 		textField.setMaxWidth(290);
-		FontLoader.setFont(textField, FontType.TELEGRAMA, 28);
+		FontLoader.setFont(textField, FontType.PSLCD, 30);
 		textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 		    @Override
 		    public void handle(KeyEvent key) {

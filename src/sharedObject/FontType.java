@@ -2,5 +2,6 @@ package sharedObject;
 
 public enum FontType {
 	YANONE,
-	TELEGRAMA
+	TELEGRAMA,
+	PSLCD,
 }

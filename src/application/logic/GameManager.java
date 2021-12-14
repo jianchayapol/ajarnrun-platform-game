@@ -17,6 +17,7 @@ import view.ViewManager;
 public class GameManager {
 	public static HashMap<KeyCode, Boolean> keys = new HashMap<KeyCode, Boolean>();
 	private static ArrayList<Node> platforms = new ArrayList<Node>();
+	private static ArrayList<String> collisionArrayChecker = new ArrayList<String>();
 	private static Player player;
 	private static boolean canJump;
 	private static int levelWidth;
@@ -34,8 +35,15 @@ public class GameManager {
 	
 	// Level Finish Checker
 	private static boolean isLevelFinish;
+	private static boolean isLevelSuccess;
 	private static int finishPositionX;
 	private static int finishPositionY;
+	
+	// Player's stats
+	private static int moveSpeed; /* MOVE (PIXEL per SECOND) */
+	private static int jumpPower; 
+	private static int playerHP;
+	private static boolean isDead;
 	
 	static {
 		RenderableHolder.loadResource();
@@ -51,6 +59,7 @@ public class GameManager {
 		setTime(0);
 		initializeKeysValue();
 		setIsLevelFinish(false);
+		setIsLevelSuccess(false);
 	}
 	
 	/* ============================== PRIVATE STATIC METHOD ============================== */
@@ -273,8 +282,16 @@ public class GameManager {
 		movePlayerY(player.getVelocityY());
 		player.update();
 		
+		// Check if finish the level (success)
 		if (player.getTranslateY() + player.getHeight() >= finishPositionY && player.getTranslateX() + player.getWidth() == finishPositionX) {
 			setIsLevelFinish(true);
+			setIsLevelSuccess(true);
+		}
+		
+		// Check if finish the level (fail-dead)
+		if (playerHP <= 0) {
+			setIsLevelFinish(true);
+			setIsLevelSuccess(false);
 		}
 	}
 	
@@ -298,7 +315,6 @@ public class GameManager {
 		setTime(10);
 		initializeKeysValue();
 	}
-	
 	
 	/* ============================== GETTER/SETTER ============================== */
 	
@@ -338,8 +354,16 @@ public class GameManager {
 		isLevelFinish = isFinish;
 	}
 	
+	public static void setIsLevelSuccess(boolean isSuccess) {
+		isLevelSuccess = isSuccess;
+	}
+	
 	public static boolean getIsLevelFinish() {
 		return isLevelFinish;
+	}
+	
+	public static boolean getIsLevelSuccess() {
+		return isLevelSuccess;
 	}
 	
 	public static int getLevelCount() {
@@ -349,5 +373,39 @@ public class GameManager {
 	public static AnchorPane getUIRoot() {
 		return uiRoot;
 	}
+
 	
+	/* ========================= GETTER/SETTER PLAYER'S STATS ========================= */
+	
+	public static int getMoveSpeed() {
+		return moveSpeed;
+	}
+
+	public static int getJumpPower() {
+		return jumpPower;
+	}
+
+	public static int getPlayerHP() {
+		return playerHP;
+	}
+
+	public static boolean isDead() {
+		return isDead;
+	}
+
+	public static void setMoveSpeed(int moveSpeed) {
+		GameManager.moveSpeed = moveSpeed;
+	}
+
+	public static void setJumpPower(int jumpPower) {
+		GameManager.jumpPower = jumpPower;
+	}
+
+	public static void setPlayerHP(int playerHP) {
+		GameManager.playerHP = playerHP;
+	}
+
+	public static void setDead(boolean isDead) {
+		GameManager.isDead = isDead;
+	}
 }

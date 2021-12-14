@@ -3,45 +3,41 @@ package gui.element;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import sharedObject.FontLoader;
 import sharedObject.FontType;
 import sharedObject.RenderableHolder;
 
-public class ShopPane extends StackPane {
-
+public class ShopPane extends AnchorPane {
+	
+	private static AnchorPane shopStore;
+	private static Rectangle rec;
 	private static VBox shelfBox;
 	private static StackPane shopPane;
 	private static Label errorMessage;
 	private ArrayList<ShopItemBox> shelf;
-
 	private static final String[] items = { "run", "jump", "lp", "time" };
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 800;
-
 	public ShopPane() {
-		this.setPrefSize(WIDTH, HEIGHT);
-
-		// Background
-		setBackgroundImage(RenderableHolder.entrance_background_Image);
-
+		
+		super();
+	
 		// initialize
 		initializeShopPane();
 		initializeErrorMessage();
 
 		// set up
 		setupPane();
+		
 	}
 
 	// =================== private static method ==============================
@@ -66,34 +62,28 @@ public class ShopPane extends StackPane {
 	}
 
 	private void setupPane() {
-		StackPane pane = new StackPane();
-		pane.getChildren().addAll(shopPane);
-		pane.setAlignment(Pos.CENTER);
-		VBox shelfBoxMain = new VBox(42);
-		shelfBoxMain.setPadding(new Insets(33));
+		VBox shelfBoxMain = new VBox(40);
 		shelfBoxMain.setAlignment(Pos.BOTTOM_CENTER);
 		shelfBoxMain.getChildren().addAll(shelfBox, errorMessage);
 		errorMessage.setAlignment(Pos.BOTTOM_RIGHT);
-		this.getChildren().addAll(pane, shelfBoxMain);
-	}
-
-	// setup
-	private void setBackgroundImage(Image bgImg) {
-		ImageView bg = new ImageView(bgImg);
-		bg.setFitHeight(HEIGHT);
-		bg.setFitWidth(WIDTH);
-		bg.setBlendMode(BlendMode.DARKEN);
-
-		Rectangle rec = new Rectangle(WIDTH, HEIGHT);
+		shopStore = new AnchorPane();
+		shopStore.getChildren().addAll(shopPane, shelfBoxMain);
+		shelfBoxMain.setLayoutX(70);
+		shelfBoxMain.setLayoutY(117);
+		
+		rec = new Rectangle(WIDTH, HEIGHT);
 		rec.setFill(Color.BLACK);
-		rec.setOpacity(0.7);
-
-		this.getChildren().addAll(bg, rec);
+		rec.setOpacity(0.6);
+		
+		
+		shopStore.setLayoutX(200);
+		shopStore.setLayoutY(20);
+		this.getChildren().addAll(rec,shopStore);
 	}
+
 
 	private void setupShopItemBox() {
-		shelfBox = new VBox(52);
-		shelfBox.setPadding(new Insets(5));
+		shelfBox = new VBox(37);
 		shelfBox.setAlignment(Pos.CENTER);
 
 		// initialize ShopItemBox by item name

@@ -9,7 +9,7 @@ public class ShopItem {
 	private String Description;
 	private Image image;
 	private int price;
-
+	
 	public ShopItem(String itemName) {
 		switch (itemName) {
 		case "run":
@@ -64,4 +64,3 @@ public class ShopItem {
 		return "$ " + String.valueOf(price);
 	}
 }
-

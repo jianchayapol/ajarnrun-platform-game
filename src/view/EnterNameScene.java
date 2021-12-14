@@ -19,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -38,26 +39,29 @@ public class EnterNameScene extends Scene {
 	private static TextField textField;
 	private static Label text1;
 	private static Label errorMessage;
+	private static ImageButton homeButton;
 
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 800;
 
 	public EnterNameScene(Stage primaryStage) {
 		super(new StackPane());
-		((StackPane)this.getRoot()).setPrefSize(WIDTH, HEIGHT);
+		((StackPane) this.getRoot()).setPrefSize(WIDTH, HEIGHT);
 		// Background
 		setBackgroundImage(RenderableHolder.entrance_background_Image);
-
+	
 		// initialize
 		initializeTextField();
 		initializeProgBar();
 		initializeRectangle();
 		initializeEnterNameLabel();
 		initializeErrorMessage();
-
+		implementExitEventListener();
+		initializeImageButton();
+		
 		// set up
 		setupPane();
-		
+
 		// Stage
 		primaryStage.setScene(this);
 		EnterNameScene.primaryStage = primaryStage;
@@ -65,6 +69,18 @@ public class EnterNameScene extends Scene {
 
 	public static Stage getPrimaryStage() {
 		return primaryStage;
+	}
+	
+	public static Scene getScene() {
+		return primaryStage.getScene();
+	}
+	
+	public static void setScene(Scene scene) {
+		EnterNameScene.primaryStage.setScene(scene);
+	}
+	
+	public static void setPrimaryStage(Stage stage) {
+		EnterNameScene.primaryStage = stage;
 	}
 
 	// =================== private static method ==============================
@@ -78,13 +94,13 @@ public class EnterNameScene extends Scene {
 		textField.setMaxWidth(290);
 		FontLoader.setFont(textField, FontType.PSLCD, 30);
 		textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-		    @Override
-		    public void handle(KeyEvent key) {
-		        if (key.getCode().equals(KeyCode.ENTER)) {
-		            playButton.playButtonPress();
-		        }
-		    }
-		});	
+			@Override
+			public void handle(KeyEvent key) {
+				if (key.getCode().equals(KeyCode.ENTER)) {
+					playButton.playButtonPress();
+				}
+			}
+		});
 	}
 
 	private static void initializeProgBar() {
@@ -117,6 +133,21 @@ public class EnterNameScene extends Scene {
 		errorMessage.setAlignment(Pos.BOTTOM_CENTER);
 	}
 
+	private void initializeImageButton() {
+		homeButton = new ImageButton(ImageButtonType.HOME);
+	}
+	
+	private void implementExitEventListener() {
+		((StackPane) this.getRoot()).setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent key) {
+				if (key.getCode().equals(KeyCode.ESCAPE)) {
+					EnterNameScene.primaryStage.close();
+				}
+			}
+		});
+	}
+
 	private void setupPane() {
 		StackPane pane = new StackPane();
 		enterPane = new StackPane();
@@ -127,10 +158,23 @@ public class EnterNameScene extends Scene {
 		vbox.setAlignment(Pos.CENTER);
 		playButton.setLayoutY(400);
 		pane.setAlignment(Pos.CENTER);
-		((StackPane)this.getRoot()).getChildren().addAll(pane);
-		((StackPane)this.getRoot()).setAlignment(Pos.CENTER);
+		pane.setPadding(new Insets(25));
+		
+		HBox buttonBox = new HBox(20);
+		buttonBox.getChildren().addAll(homeButton);
+		buttonBox.setPadding(new Insets(25));
+		buttonBox.setAlignment(Pos.TOP_RIGHT);
+		
+		VBox mainBox = new VBox(45);
+		mainBox.getChildren().addAll(buttonBox,pane);
+		mainBox.setPadding(new Insets(10));
+		
+		pane.setAlignment(Pos.CENTER);
+		
+		((StackPane) this.getRoot()).getChildren().addAll(mainBox);
+		((StackPane) this.getRoot()).setAlignment(Pos.CENTER);
 	}
-	
+
 	// setup
 	private void setBackgroundImage(Image bgImg) {
 		ImageView bg = new ImageView(bgImg);
@@ -142,10 +186,11 @@ public class EnterNameScene extends Scene {
 		rec.setFill(Color.BLACK);
 		rec.setOpacity(0.8);
 
-		((StackPane)this.getRoot()).getChildren().addAll(bg, rec);
+		((StackPane) this.getRoot()).getChildren().addAll(bg, rec);
 	}
 
-	// =================== public static method : USED IN NameInputUtility class ==============================
+	// =================== public static method : USED IN NameInputUtility class
+	// ==============================
 
 	public static String getEnteredName() {
 		return textField.getText();
@@ -158,7 +203,7 @@ public class EnterNameScene extends Scene {
 	public static String getErrorMessage() {
 		return EnterNameScene.errorMessage.getText();
 	}
-	
+
 	public static ImageButton getImageButton() {
 		return EnterNameScene.playButton;
 	}
@@ -225,7 +270,7 @@ public class EnterNameScene extends Scene {
 					@Override
 					public void run() {
 						GameScene gameScene = new GameScene(GameManager.getAppRoot(), primaryStage);
-						}
+					}
 				});
 			} catch (Exception e) {
 				e.printStackTrace();

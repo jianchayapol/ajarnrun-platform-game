@@ -2,13 +2,10 @@ package gui.element;
 
 import gui.button.ImageButton;
 import gui.button.ImageButtonType;
-import gui.button.MainButton;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -21,7 +18,6 @@ import javafx.scene.paint.Color;
 import logic.shop.ShopItem;
 import sharedObject.FontLoader;
 import sharedObject.FontType;
-import sharedObject.RenderableHolder;
 
 public class ShopItemBox extends StackPane{
 	
@@ -32,8 +28,8 @@ public class ShopItemBox extends StackPane{
 	private HBox mainBox;
 	private ImageButton buyButton;
 	private static final int IMAGE_SIZE = 40;
-	private static final int WIDTH = 140;
-	private static final int HEIGHT = 25;
+	private static final int WIDTH = 265;
+	private static final int HEIGHT = 60;
 	
 	public ShopItemBox(String name) {
 		item = new ShopItem(name);

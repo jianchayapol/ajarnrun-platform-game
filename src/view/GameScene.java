@@ -8,11 +8,15 @@ import gui.element.PauseGameLeaderBox;
 import gui.element.ShopPane;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import sharedObject.AudioLoader;
 
@@ -24,19 +28,22 @@ public class GameScene extends Scene {
 	private static boolean isPlayingThemeSong;
 	private static boolean isVisible = true;
 	private static boolean isPause = false;
-	private static GameSubScene shop;
+	private static Pane shop;
+	private static Pane levelEnding;
 	private static GameSubScene pauseGameLeaderboard;
-	private static GameSubScene levelEnding;
 	private static double timeMapSecond;
 	private static double timeRemained;
 	private static AnimationTimer timer;
+	
+	private static final int HEIGHT = 600;
+	private static final int WIDTH = 800;
 	
 	public GameScene(Pane parent, Stage primaryStage) {
 		super(parent);
 		initializeEventHandler();
 		setUpStage(primaryStage);
 		setGameHud(GameManager.getUIRoot());
-		createPauseGameLeaderboardSubScene();////////
+		createPauseGameLeaderboardSubScene();
 		runScene();
 		stage = primaryStage;
 	}
@@ -66,11 +73,7 @@ public class GameScene extends Scene {
 	}
 	
 	private void runScene() {
-		//draft-----------------------
-//		createShopSubScene();
-		// createLevelEndingSubScene(LevelEndingType.COMPLETED);
 		
-		//draft-----------------------
 		setTimeMapSecond(120);
 		timeRemained = getTimeMapSecond();
 		timer = new AnimationTimer() {
@@ -97,6 +100,7 @@ public class GameScene extends Scene {
 			}
 		};
 		timer.start();
+		//createShopSubScene();
 	}
 	
 	public static Stage getStage() {
@@ -147,21 +151,11 @@ public class GameScene extends Scene {
 		return timeMapSecond;
 	}
 	
-	private void createShopSubScene() {
-		GameScene.shop = new GameSubScene(new ShopPane(), "shop", 350, 560);
-		GameManager.getAppRoot().getChildren().add(shop);
-	}
-	
 	private void createPauseGameLeaderboardSubScene() {
 		GameScene.pauseGameLeaderboard = new GameSubScene(new PauseGameLeaderBox(), "pauseGameLeaderboard", 800,350);
 		GameManager.getAppRoot().getChildren().add(pauseGameLeaderboard);		
 	}
 	
-	private void createLevelEndingSubScene(LevelEndingType type) {
-		GameScene.levelEnding = new GameSubScene(new LevelEndingBox(type), "levelEnding", 300, 300);
-		GameManager.getAppRoot().getChildren().add(levelEnding);
-	}
-
 	public static GameHUD getGameHud() {
 		return gameHud;
 	}

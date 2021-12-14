@@ -12,6 +12,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
@@ -21,15 +22,15 @@ public class ViewManager {
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 800;
 	private AnchorPane mainPane;
-	private Scene mainScene;
-	private Stage mainStage;
+	private static Scene mainScene;
+	private static Stage mainStage;
 	private ImageView bg;
 	private MainButton newGameButton;
 	private MainButton leaderBoardButton;
 	private MainButton exitButton;
 	private MainButton info;
 	private ImageButton muteButton;
-	
+
 	private static boolean isPlayingThemeSong;
 	private static boolean isMainViewVisible;
 
@@ -64,8 +65,7 @@ public class ViewManager {
 		implementLeaderboardEventListener();
 		implementExitEventListener();
 		implementAboutUsEventListener();
-		initializeKeyboardHandler();
-		
+
 		// Create main scene and stage
 		this.mainScene = new Scene(mainPane, WIDTH, HEIGHT);
 		this.mainStage = new Stage();
@@ -98,7 +98,8 @@ public class ViewManager {
 		newGameButton = new MainButton("New Game");
 		leaderBoardButton = new MainButton("Leaderboard");
 		exitButton = new MainButton("Exit");
-		newGameButton.setLayoutY(HEIGHT - (3 * initialHeight) - newGameButton.getPrefHeight() - leaderBoardButton.getPrefHeight() - exitButton.getPrefHeight());
+		newGameButton.setLayoutY(HEIGHT - (3 * initialHeight) - newGameButton.getPrefHeight()
+				- leaderBoardButton.getPrefHeight() - exitButton.getPrefHeight());
 		newGameButton.setLayoutX(20.00);
 		leaderBoardButton.setLayoutY(newGameButton.getLayoutY() + initialHeight + newGameButton.getPrefHeight());
 		leaderBoardButton.setLayoutX(20.00);
@@ -112,7 +113,7 @@ public class ViewManager {
 		mainPane.getChildren().add(newGameButton);
 		mainPane.getChildren().add(leaderBoardButton);
 		mainPane.getChildren().add(exitButton);
-		
+
 	}
 
 	private void setBackgroundImage(Image bgImg) {
@@ -163,6 +164,11 @@ public class ViewManager {
 				EnterNameScene enterNameScene = new EnterNameScene(mainStage);
 			}
 		});
+		newGameButton.setOnKeyPressed(e -> {
+			if (e.getCode() == KeyCode.N && e.isControlDown()) {
+				EnterNameScene enterNameScene = new EnterNameScene(mainStage);
+			}
+		});
 	}
 
 	private void implementLeaderboardEventListener() {
@@ -189,6 +195,14 @@ public class ViewManager {
 				ViewManager.this.getStage().close();
 			}
 		});
+		mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent key) {
+				if (key.getCode().equals(KeyCode.ESCAPE)) {
+					ViewManager.this.getStage().close();
+				}
+			}
+		});
 	}
 
 	private void implementAboutUsEventListener() {
@@ -208,16 +222,8 @@ public class ViewManager {
 			}
 		});
 	}
-	
-	private void initializeKeyboardHandler() {
-		this.newGameButton.setOnKeyPressed(e -> {
-		    if (e.getCode() == KeyCode.N && e.isControlDown()) {
-		    	EnterNameScene enterNameScene = new EnterNameScene(mainStage);
-		    }
-		});
-	}
-	
-	public Stage getStage() {
+
+	public static Stage getStage() {
 		return mainStage;
 	}
 
@@ -225,6 +231,10 @@ public class ViewManager {
 		return mainPane;
 	}
 	
+	public static Scene getMainScene() {
+		return mainScene;
+	}
+
 	public void setIsLeaderBoardPressed(boolean isPressed) {
 		this.isLeaderBoardPressed = isPressed;
 	}
@@ -280,7 +290,7 @@ public class ViewManager {
 	public static void setIsPlayingThemeSong(boolean isPlayingThemeSong) {
 		ViewManager.isPlayingThemeSong = isPlayingThemeSong;
 	}
-	
+
 	public static void stopViewManager() {
 		ViewManager.setIsVisible(false);
 		AudioLoader.Entrance_Theme_Song.stop();

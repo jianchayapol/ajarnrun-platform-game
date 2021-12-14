@@ -42,7 +42,7 @@ public class RenderableHolder {
 	// Background
 	public static Image entrance_background_Image;
 	public static Image normalLevelImage;
-
+	public static Image subscene_background_Image;
 	// Player
 	public static Image player_sprite_Image;
 
@@ -54,7 +54,8 @@ public class RenderableHolder {
 	public static Image play_button_Image;
 	public static Image continue_button_Image;
 	public static Image skip_button_Image;
-
+	public static Image home_button_Image;
+	
 	// Logo
 	public static Image logo;
 
@@ -155,7 +156,8 @@ public class RenderableHolder {
 		// Background
 		RenderableHolder.entrance_background_Image = loadImage("mainSceneBackground_withoutLogo_fixed.png");
 		RenderableHolder.normalLevelImage = loadImage("demo_level_background.png");
-
+		RenderableHolder.subscene_background_Image = loadImage("SubScene_background.png");
+		
 		// Pane
 		RenderableHolder.money_tag_Image = loadImage("moneyTag.png");
 		RenderableHolder.shop_Image = loadImage("shop-pane.png");
@@ -170,6 +172,7 @@ public class RenderableHolder {
 		RenderableHolder.play_button_Image = loadImageButton("start.png");
 		RenderableHolder.skip_button_Image = loadImageButton("skip-button.png");
 		RenderableHolder.continue_button_Image = loadImageButton("continue-button.png");
+		RenderableHolder.home_button_Image = loadImageButton("home-button.png");
 
 		// Platform
 		RenderableHolder.greenOne = loadImage("platform/green_01.png");

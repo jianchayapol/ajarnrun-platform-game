@@ -2,6 +2,10 @@ package view;
 
 import application.logic.GameManager;
 import gui.element.GameHUD;
+import gui.element.LevelEndingBox;
+import gui.element.LevelEndingType;
+import gui.element.PauseGameLeaderBox;
+import gui.element.ShopPane;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -22,8 +26,10 @@ public class GameScene extends Scene {
 	private static boolean isPlayingThemeSong;
 	private static boolean isVisible = true;
 	private static boolean isPause = false;
-	private static StackPane pauseGameLeaderboard = new StackPane();
 	private static AnchorPane pane;
+	private GameSubScene shop;
+	private GameSubScene pauseGameLeaderboard;
+	private GameSubScene levelEnding;
 	
 	// test field
 	private static double timeMapSecond;
@@ -134,14 +140,6 @@ public class GameScene extends Scene {
 		}
 	}
 
-	public static StackPane getPauseGameLeaderboard() {
-		return pauseGameLeaderboard;
-	}
-
-	public static void setPauseGameLeaderboard(StackPane pauseGameLeaderboard) {
-		GameScene.pauseGameLeaderboard = pauseGameLeaderboard;
-	}
-
 	public static boolean getIsPause() {
 		return isPause;
 	}
@@ -150,14 +148,14 @@ public class GameScene extends Scene {
 		GameScene.isPause = isPause;
 	}
 	
-	public static void updatePauseScreen() {
-		if(GameScene.isPause) {
-			pane.getChildren().add(pauseGameLeaderboard);
-		}
-		else {
-			pane.getChildren().remove(pane.getChildren().size()-1);
-		}
-	}
+//	public static void updatePauseScreen() {
+//		if(GameScene.isPause) {
+//			pane.getChildren().add(pauseGameLeaderboard);
+//		}
+//		else {
+//			pane.getChildren().remove(pane.getChildren().size()-1);
+//		}
+//	}
 	
 	public static void setTimeMapSecond(double second) {
 		timeMapSecond = second;
@@ -166,5 +164,19 @@ public class GameScene extends Scene {
 	public static double getTimeMapSecond() {
 		return timeMapSecond;
 	}
-
+	
+	private void createShopSubScene() {
+		this.shop = new GameSubScene(new ShopPane(), "shop", 350, 560);
+		GameManager.getAppRoot().getChildren().add(shop);
+	}
+	
+	private void createPauseGameLeaderboardSubScene() {
+		this.pauseGameLeaderboard = new GameSubScene(new PauseGameLeaderBox(), "pauseGameLeaderboard", 300, 300);
+		GameManager.getAppRoot().getChildren().add(pauseGameLeaderboard);		
+	}
+	
+	private void createLevelEndingSubScene(LevelEndingType type) {
+		this.levelEnding = new GameSubScene(new LevelEndingBox(type), "levelEnding", 300, 300);
+		GameManager.getAppRoot().getChildren().add(levelEnding);
+	}
 }

@@ -69,6 +69,12 @@ public class GameSubScene extends SubScene {
 			setOpacity(0.65);
 			setEffect(new DropShadow());
 			break;
+		case "howToPlay":
+			setLayoutX(0);
+			setLayoutY(-height-100);
+			setOpacity(0.65);
+			setEffect(new DropShadow());
+			break;
 		default:
 			break;
 		}
@@ -112,6 +118,14 @@ public class GameSubScene extends SubScene {
 		case "pauseGamePressed":
 			transition.setToX(0);
 			transition.setToY(-height-135);
+			break;
+		case "howToPlayUnpressed":
+			transition.setToX(0);
+			transition.setToY(height+148);
+			break;
+		case "howToPlayPressed":
+			transition.setToX(0);
+			transition.setToY(-height-148);
 			break;
 
 		default:

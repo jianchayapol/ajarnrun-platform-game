@@ -2,21 +2,13 @@ package view;
 
 import application.logic.GameManager;
 import gui.element.GameHUD;
-import gui.element.LevelEndingBox;
-import gui.element.LevelEndingType;
 import gui.element.PauseGameLeaderBox;
-import gui.element.ShopPane;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import sharedObject.AudioLoader;
 
@@ -37,6 +29,7 @@ public class GameScene extends Scene {
 	
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 800;
+	
 	
 	public GameScene(Pane parent, Stage primaryStage) {
 		super(parent);
@@ -79,16 +72,18 @@ public class GameScene extends Scene {
 		timer = new AnimationTimer() {
 			public void handle(long now) {
 				GameManager.update();
-				GameHUD.setProgress(GameHUD.getTimerProgressBar(), timeRemained, timeMapSecond);
+				updateHUD();
 				timeRemained -= TIME_TICK;
 				if(timeRemained<=0) {
 					GameHUD.setProgress(GameHUD.getTimerProgressBar(), 0, timeMapSecond);
-					// level failed
+					GameManager.setIsDead(true);
 				}
 				
 				if (GameManager.getIsLevelFinish()) {
 					this.stop();
 					GameManager.setUpNextLevel();
+					System.out.println(GameManager.getLevelCount());
+					GameHUD.setLevelLabel(GameManager.getLevelCount());
 					GameScene.this.setGameHud(GameManager.getUIRoot());
 					GameScene.setTimeMapSecond(120);
 					timeRemained = getTimeMapSecond();
@@ -102,6 +97,12 @@ public class GameScene extends Scene {
 		};
 		timer.start();
 		//createShopSubScene();
+	}
+	
+	private static void updateHUD() {
+		GameHUD.setMoneyLabel(GameManager.getPlayerCoin());
+		GameHUD.setProgress(GameHUD.getTimerProgressBar(), timeRemained, timeMapSecond);
+		GameHUD.setProgress(GameHUD.getHpProgressBar(), GameManager.getPlayerCurrentHP(), GameManager.getPlayerMaxHP());
 	}
 	
 	public static Stage getStage() {

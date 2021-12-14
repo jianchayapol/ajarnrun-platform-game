@@ -55,6 +55,8 @@ public class RenderableHolder {
 	public static Image continue_button_Image;
 	public static Image skip_button_Image;
 	public static Image home_button_Image;
+	public static Image resume_button_Image;
+	public static Image question_button_Image;
 	
 	// Logo
 	public static Image logo;
@@ -234,7 +236,9 @@ public class RenderableHolder {
 		RenderableHolder.skip_button_Image = loadImageButton("skip-button.png");
 		RenderableHolder.continue_button_Image = loadImageButton("continue-button.png");
 		RenderableHolder.home_button_Image = loadImageButton("home-button.png");
-
+		RenderableHolder.resume_button_Image = loadImageButton("play-btn.png");
+		RenderableHolder.question_button_Image = loadImageButton("help.png");
+		
 		// Platform
 		RenderableHolder.greenOne = loadImage("platform/green_01.png");
 		RenderableHolder.greenTwo = loadImage("platform/green_02.png");

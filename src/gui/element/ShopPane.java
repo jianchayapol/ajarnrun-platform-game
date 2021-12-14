@@ -23,7 +23,7 @@ public class ShopPane extends AnchorPane {
 	private static VBox shelfBox;
 	private static StackPane shopPane;
 	private static Label errorMessage;
-	private ArrayList<ShopItemBox> shelf;
+	private static ArrayList<ShopItemBox> shelf;
 	private static final String[] items = { "run", "jump", "lp", "time" };
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 800;
@@ -91,7 +91,7 @@ public class ShopPane extends AnchorPane {
 		for (String name : items) {
 			shelf.add(new ShopItemBox(name));
 		}
-		Collections.shuffle(shelf);
+		ShopPane.shuffleItems();
 		for (int i = 0; i < shelf.size(); i++) {
 			shelfBox.getChildren().add(shelf.get(i));
 		}
@@ -105,6 +105,10 @@ public class ShopPane extends AnchorPane {
 
 	public static String getErrorMessage() {
 		return ShopPane.errorMessage.getText();
+	}
+	
+	public static void shuffleItems() {
+		Collections.shuffle(ShopPane.shelf);
 	}
 
 }

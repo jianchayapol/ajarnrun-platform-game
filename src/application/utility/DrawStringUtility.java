@@ -15,6 +15,18 @@ import sharedObject.FontType;
 
 public class DrawStringUtility {
 	
+	private static final String[] instructions = {
+			"Keyboard Input",
+			"  Press W : Jump                Press ESC : Back to Main Menu",
+		    "  Press A : Move Player Left    Press D : Move Player Right     ",
+			"",
+			"  Your Task is to help Ajarn to collect",
+			"all the students' notebooks that are missing",
+			"and run for your life as fast as possible!",
+			"",
+			"                     As you know what to do   .. Ajarn Run !!"
+	};
+	
 	public static void fillLeaderBoard(SubScene subscene) {
 		Label header = new Label("Rank" + "  " + "Lv." + "  " + "Player" + "  " + "Exp");
 		header.setTextFill(Color.DARKRED);
@@ -96,6 +108,23 @@ public class DrawStringUtility {
 
 	}
 
+	public static void fillHowToPlay(AnchorPane pane) {
+		
+		int posX = 25;
+		int posY = 10;
+		
+		for (int i = 0; i < instructions.length; i++) {
+			Label line = new Label(instructions[i]);
+			line.setLayoutX(posX);
+			line.setLayoutY(posY);
+			line.setTextFill(Color.WHITE);
+			posY+=40;
+			FontLoader.setFont(line, FontType.TELEGRAMA,18);
+			pane.getChildren().add(line);
+		}
+
+	}
+	
 	private static void setUpText(Label line, int i) {
 		switch (i) {
 		case 1:

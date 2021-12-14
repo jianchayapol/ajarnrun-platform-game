@@ -69,6 +69,10 @@ public class GameScene extends Scene {
 					// level failed
 					return;
 				}
+				
+				if (GameManager.getIsLevelFinish()) {
+					this.stop();
+				}
 //				if(success) {
 //					// level complete
 //					return;

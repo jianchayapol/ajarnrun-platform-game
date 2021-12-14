@@ -173,11 +173,11 @@ public class GameScene extends Scene {
 		GameScene.timer = timer;
 	}
 
-	public static GameSubScene getShop() {
+	public static Pane getShop() {
 		return shop;
 	}
 
-	public static void setShop(GameSubScene shop) {
+	public static void setShop(Pane shop) {
 		GameScene.shop = shop;
 	}
 
@@ -189,11 +189,11 @@ public class GameScene extends Scene {
 		GameScene.pauseGameLeaderboard = pauseGameLeaderboard;
 	}
 
-	public GameSubScene getLevelEnding() {
+	public Pane getLevelEnding() {
 		return levelEnding;
 	}
 
-	public static void setLevelEnding(GameSubScene levelEnding) {
+	public static void setLevelEnding(Pane levelEnding) {
 		GameScene.levelEnding = levelEnding;
 	}
 }

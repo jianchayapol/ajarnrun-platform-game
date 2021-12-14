@@ -13,19 +13,11 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.util.Duration;
 
-public class MainViewSubScene extends SubScene {
+public class GameSubScene extends SubScene {
 
 	private static final String BACKGROUND_IMAGE = "/mainSceneBackground_withoutLogo_fixed.png";
 
-	public MainViewSubScene(Parent mainPane, double width, double height) {
-		super(mainPane, width, height);
-		prefWidth(width);
-		prefHeight(height);
-		BackgroundImage img = new BackgroundImage(new Image(BACKGROUND_IMAGE, 800, 600, false, true),
-				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);
-	}
-
-	public MainViewSubScene(String imageURL, String altText, int width, int height) {
+	public GameSubScene(String imageURL, String altText, int width, int height) {
 		super(new AnchorPane(), width, height);
 		prefWidth(width);
 		prefHeight(height);

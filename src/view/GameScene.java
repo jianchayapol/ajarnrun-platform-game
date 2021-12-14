@@ -24,10 +24,15 @@ public class GameScene extends Scene {
 	private static boolean isPause = false;
 	private static StackPane pauseGameLeaderboard = new StackPane();
 	private static AnchorPane pane;
+	
+	// test field
+	private static double timeMapSecond;
 	public GameScene(Pane parent, Stage primaryStage) {
 		super(parent);
 		initializeEventHandler();
 		setUpStage(primaryStage);
+		setGameHud(GameManager.getUIRoot());
+		setPauseGameLeaderboard(GameManager.getUIRoot());
 		runScene();
 		stage = primaryStage;
 	}
@@ -46,9 +51,6 @@ public class GameScene extends Scene {
 	}
 	
 	private void setUpStage(Stage primaryStage) {
-		gameHud = new GameHUD();
-		((AnchorPane)this.getRoot()).getChildren().add(gameHud);
-		((AnchorPane)this.getRoot()).getChildren().add(pauseGameLeaderboard);
 		setPauseLayout();
 		pane = ((AnchorPane)this.getRoot());
 		primaryStage.setTitle("Ajarn Ja Run!");
@@ -56,22 +58,35 @@ public class GameScene extends Scene {
 		setAudio();
 	}
 	
+	private void setGameHud(Pane pane) {
+		gameHud = new GameHUD();
+		pane.getChildren().add(gameHud);
+	}
+	
+	private void setPauseGameLeaderboard(Pane pane) {
+		pane.getChildren().add(pauseGameLeaderboard);
+	}
+	
 	private void runScene() {
-		double mapTimeSecond = 120; // 2 minutes
-		timeRemaining = mapTimeSecond;
+		setTimeMapSecond(120);
+		timeRemaining = getTimeMapSecond();
 		AnimationTimer timer = new AnimationTimer() {
 			public void handle(long now) {
 				GameManager.update();
-				GameHUD.setProgress(GameHUD.getTimerProgressBar(), timeRemaining, mapTimeSecond);
+				GameHUD.setProgress(GameHUD.getTimerProgressBar(), timeRemaining, timeMapSecond);
 				timeRemaining -= TIME_TICK;
 				if(timeRemaining<=0) {
-					GameHUD.setProgress(GameHUD.getTimerProgressBar(),0,mapTimeSecond);
+					GameHUD.setProgress(GameHUD.getTimerProgressBar(), 0, timeMapSecond);
 					// level failed
-					return;
 				}
 				
 				if (GameManager.getIsLevelFinish()) {
 					this.stop();
+					GameManager.setUpNextLevel();
+					GameScene.this.setGameHud(GameManager.getUIRoot());
+					GameScene.this.setPauseGameLeaderboard(GameManager.getUIRoot());
+					GameScene.setTimeMapSecond(120);
+					this.start();
 				}
 //				if(success) {
 //					// level complete
@@ -142,6 +157,14 @@ public class GameScene extends Scene {
 		else {
 			pane.getChildren().remove(pane.getChildren().size()-1);
 		}
+	}
+	
+	public static void setTimeMapSecond(double second) {
+		timeMapSecond = second;
+	}
+	
+	public static double getTimeMapSecond() {
+		return timeMapSecond;
 	}
 
 }

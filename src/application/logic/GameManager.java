@@ -42,10 +42,11 @@ public class GameManager {
 		setLevelWidth();
 		setLevelPlatform();
 		initializePlayer();
-		setCanJump(true);
+		addPlayerToGameRoot();
 		setGameRootLayoutX();
 		addGameRoot();
 		addUIRoot();
+		setCanJump(true);
 		setIsMute(false);
 		setTime(0);
 		initializeKeysValue();
@@ -56,7 +57,7 @@ public class GameManager {
 	/* ==================== USE IN CONSTRUCTOR ==================== */
 	
 	private static void setLevelWidth() {
-		levelCount = 0;
+		levelWidth = 0;
 		levelWidth = Level.ALL_LEVEL[levelCount][0].length() * BLOCK_WIDTH;
 	}
 	
@@ -130,6 +131,9 @@ public class GameManager {
 	
 	private static void initializePlayer() {
 		player = new Player(RenderableHolder.spritePlayerStanding, 0, 0, 200, 1);
+	}
+	
+	private static void addPlayerToGameRoot() {
 		gameRoot.getChildren().add(player);
 	}
 	
@@ -164,48 +168,38 @@ public class GameManager {
 		keys.put(KeyCode.D, false);
 	}
 	
+	private static void initializeLevelCount() {
+		levelCount = 0;
+	}
+	
 	private static void levelCountInclement() {
 		levelCount++;
 	}
 	
-	/* ==================== USED IN update() METHOD ==================== */
+	/* ==================== USED TO SET UP NEW LEVEL ==================== */
 	
-//	private static void movePlayerX(int moveX) {
-//		boolean moveRight = moveX > 0;
-//		for (int i = 0; i < Math.abs(moveX); i++) {
-//			for (Node platform: platforms) {
-//				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
-//					if (moveRight) {
-//						if (player.getTranslateX() + player.getWidth() - 30 == platform.getTranslateX()) {
-//							return;
-//						}
-//					} else if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH + 5) {
-//						return;
-//					}
-//				}
-//			}
-//			player.setTranslateX(player.getTranslateX() + (moveRight ? 1: -1));
-//		}
-//	}
-//	
-//	private static void movePlayerY(int moveY) {
-//		boolean moveDown = moveY > 0;
-//		for (int i = 0; i < Math.abs(moveY); i++) {
-//			for (Node platform: platforms) {
-//				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
-//					if (moveDown) {
-//						if (player.getTranslateY() + player.getHeight() == platform.getTranslateY()) {
-//							player.setTranslateY(player.getTranslateY() - 1);
-//							setCanJump(true);
-//						}
-//					} else if (player.getTranslateY() == platform.getTranslateY() + 61) {
-//						return ;
-//					}
-//				}
-//			}
-//			player.setTranslateY(player.getTranslateY() + (moveDown ? 1: -1));
-//		}
-//	}
+	private static void clearUIRoot() {
+		uiRoot.getChildren().clear();
+	}
+	
+	private static void clearGameRoot() {
+		gameRoot.getChildren().clear();
+	}
+	
+	private static void clearAppRoot() {
+		appRoot.getChildren().clear();
+	}
+	
+	private static void clearPlatforms() {
+		platforms.clear();
+	}
+	
+	private static void resetFinishPosition() {
+		finishPositionX = 0;
+		finishPositionY = 0;
+	}
+	
+	/* ==================== USED IN update() METHOD ==================== */
 	
 	private static void movePlayerX(int value) {
 		boolean movingRight = value > 0;
@@ -217,7 +211,7 @@ public class GameManager {
 							return;
 						}
 					} else {
-						if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH - 20) {
+						if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH - 15) {
 							return;
 						}
 					}
@@ -238,7 +232,7 @@ public class GameManager {
 							return;
 						}
 					} else {
-						if (player.getTranslateY() == platform.getTranslateY() + 45) {
+						if (player.getTranslateY() == platform.getTranslateY() + BLOCK_HEIGHT - 15) {
 							return;
 						}
 					}
@@ -263,7 +257,7 @@ public class GameManager {
 	
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
-			jumpPlayer(25);
+			jumpPlayer(27);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
 			jumpPlayer(3);
@@ -287,6 +281,22 @@ public class GameManager {
 	public static void setUpNextLevel() {
 		setIsLevelFinish(false);
 		levelCountInclement();
+		resetFinishPosition();
+		setLevelWidth();
+		clearUIRoot();
+		clearGameRoot();
+		clearAppRoot();
+		clearPlatforms();
+		setLevelPlatform();
+		initializePlayer();
+		addPlayerToGameRoot();
+		setGameRootLayoutX();
+		addGameRoot();
+		addUIRoot();
+		setCanJump(true);
+		setIsMute(false);
+		setTime(10);
+		initializeKeysValue();
 	}
 	
 	
@@ -330,6 +340,14 @@ public class GameManager {
 	
 	public static boolean getIsLevelFinish() {
 		return isLevelFinish;
+	}
+	
+	public static int getLevelCount() {
+		return levelCount;
+	}
+	
+	public static AnchorPane getUIRoot() {
+		return uiRoot;
 	}
 	
 }

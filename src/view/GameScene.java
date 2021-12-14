@@ -2,21 +2,13 @@ package view;
 
 import application.logic.GameManager;
 import gui.element.GameHUD;
-import gui.element.LevelEndingBox;
-import gui.element.LevelEndingType;
 import gui.element.PauseGameLeaderBox;
-import gui.element.ShopPane;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import sharedObject.AudioLoader;
 
@@ -173,11 +165,11 @@ public class GameScene extends Scene {
 		GameScene.timer = timer;
 	}
 
-	public static GameSubScene getShop() {
+	public static Pane getShop() {
 		return shop;
 	}
 
-	public static void setShop(GameSubScene shop) {
+	public static void setShop(Pane shop) {
 		GameScene.shop = shop;
 	}
 
@@ -189,11 +181,11 @@ public class GameScene extends Scene {
 		GameScene.pauseGameLeaderboard = pauseGameLeaderboard;
 	}
 
-	public GameSubScene getLevelEnding() {
+	public Pane getLevelEnding() {
 		return levelEnding;
 	}
 
-	public static void setLevelEnding(GameSubScene levelEnding) {
+	public static void setLevelEnding(Pane levelEnding) {
 		GameScene.levelEnding = levelEnding;
 	}
 }

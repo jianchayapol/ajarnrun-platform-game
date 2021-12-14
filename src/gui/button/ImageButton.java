@@ -76,6 +76,10 @@ public class ImageButton extends ImageView {
 			}
 			setSize(30, 30);
 			break;
+		case HOME:
+			image = RenderableHolder.home_button_Image;
+			setSize(45, 45);
+			break;
 		default:
 			setSize(0, 0);
 			break;
@@ -107,6 +111,9 @@ public class ImageButton extends ImageView {
 					break;
 				case PAUSE:
 					setUpPauseScreen();
+					break;
+				case HOME:
+					setBackToHome();
 					break;
 				default:
 					break;
@@ -188,8 +195,11 @@ public class ImageButton extends ImageView {
 		initImageButton(ImageButtonType.PAUSE);
 	}
 
-	// =========================== GETTERS - SETTERS
-	// =================================
+	private void setBackToHome() {
+		EnterNameScene.setScene(ViewManager.getMainScene());
+	}
+	
+	// =================== GETTER / SETTER ======================
 
 	public void setSize(int w, int h) {
 		this.width = w;

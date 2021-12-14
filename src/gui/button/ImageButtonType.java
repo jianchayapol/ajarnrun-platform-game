@@ -8,4 +8,5 @@ public enum ImageButtonType {
 	NULL,
 	BUY,
 	PAUSE,
+	HOME,
 }

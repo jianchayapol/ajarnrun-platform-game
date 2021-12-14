@@ -26,7 +26,8 @@ import sharedObject.RenderableHolder;
 
 public class LevelEndingBox extends StackPane {
 
-	private static StackPane mainPane;
+	private static Rectangle bgRec;
+	private static AnchorPane mainPane;
 	private static VBox infoBox;
 	private static VBox controlBox;
 	private static Label moneyPlusLabel;
@@ -35,12 +36,21 @@ public class LevelEndingBox extends StackPane {
 	private static ImageButton imgButton;
 	private Rectangle rec = new Rectangle(280, 380);
 
+	private static final int HEIGHT = 600;
+	private static final int WIDTH = 800;
+	
 	public LevelEndingBox(LevelEndingType type) {
-		mainPane = new StackPane();
+		mainPane = new AnchorPane();
 		initComponents(type);
-		mainPane.setAlignment(Pos.CENTER);
 		mainPane.getChildren().addAll(rec, controlBox);
-		this.getChildren().addAll(mainPane);
+		controlBox.setLayoutX(75);
+		controlBox.setLayoutY(173);
+		bgRec = new Rectangle(WIDTH, HEIGHT);
+		bgRec.setFill(Color.BLACK);
+		bgRec.setOpacity(0.8);
+		
+		this.setAlignment(Pos.CENTER);
+		this.getChildren().addAll(bgRec,mainPane);
 	}
 
 	private void initComponents(LevelEndingType type) {
@@ -61,7 +71,7 @@ public class LevelEndingBox extends StackPane {
 			break;
 		}
 		rec.setFill(new ImagePattern(bg));
-		this.setAlignment(Pos.CENTER);
+		
 		setMoneyPlusLabel();
 		setupCenterBox();
 
@@ -76,18 +86,17 @@ public class LevelEndingBox extends StackPane {
 		imgButton.setLayoutX(50);
 		controlBox = new VBox(50);
 		controlBox.getChildren().addAll(infoBox,imgButton);
-		controlBox.setPadding(new Insets(143));
 		controlBox.setAlignment(Pos.BOTTOM_CENTER);
 	}
 
 	private static void setMoneyPlusLabel() {
-		moneyPlusLabel = new Label("   $ " + "170");
+		moneyPlusLabel = new Label("  $ " + "170");
 		FontLoader.setFont(moneyPlusLabel, FontType.TELEGRAMA, 18);
 		moneyPlusLabel.setTextFill(Color.WHITE);
 	}
 
 	private static void setLevelLabel() {
-		levelUpLabel = new Label("   lv." + "10");
+		levelUpLabel = new Label("  lv." + "10");
 		FontLoader.setFont(levelUpLabel, FontType.TELEGRAMA, 19);
 		levelUpLabel.setTextFill(Color.INDIANRED);
 	}

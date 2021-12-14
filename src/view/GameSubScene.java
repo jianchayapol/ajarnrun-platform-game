@@ -12,12 +12,13 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class GameSubScene extends SubScene {
-
-	private static final String MAIN_VIEW_BACKGROUND_IMAGE = "/mainSceneBackground_withoutLogo_fixed.png";
-
+	
+	
 	// ================= Constructor: MainView SubScene ===============================
 
 	public GameSubScene(String imageURL, String altText, int width, int height) {
@@ -62,18 +63,6 @@ public class GameSubScene extends SubScene {
 		subSceneRoot.getChildren().add(pane);
 
 		switch (altText) {
-		
-		case "levelEnding":
-			setLayoutX(0);
-			setLayoutY(0);
-			setEffect(new DropShadow());
-			break;
-		case "shop":
-			setLayoutX(0);
-			setLayoutY(0);
-			setEffect(new DropShadow());
-			DrawStringUtility.fillLeaderBoard(this);
-			break;
 		case "pauseGameLeaderboard":
 			setLayoutX(0);
 			setLayoutY(-height-20);
@@ -89,9 +78,10 @@ public class GameSubScene extends SubScene {
 		TranslateTransition transition = new TranslateTransition();
 		transition.setDuration(Duration.seconds(0.5));
 		transition.setNode(this);
+		
 		double width = this.getWidth();
 		double height = this.getHeight();
-				
+		
 		switch (altText) {
 		
 		// ================= mainView SubScene =============================
@@ -114,15 +104,7 @@ public class GameSubScene extends SubScene {
 			break;
 		
 		// ================= GameView SubScene =============================
-		
-		case "levelEnding":
-			transition.setToX(width + 120);
-			transition.setToY(0);
-			break;	
-		case "shop":
-			transition.setToX(-width - 120);
-			transition.setToY(0);
-			break;
+
 		case "pauseGameUnpressed":
 			transition.setToX(0);
 			transition.setToY(height+135);
@@ -137,5 +119,5 @@ public class GameSubScene extends SubScene {
 		}
 		transition.play();
 	}
-
+	
 }

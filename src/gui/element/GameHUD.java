@@ -28,6 +28,7 @@ public class GameHUD extends HBox {
 	private static ImageView image;
 	private static Label levelLabel;
 	private static Label nameLabel;
+	private static Label moneyLabel;
 	private static ProgressBar progBar;
 	private static VBox timerBox;
 
@@ -123,14 +124,25 @@ public class GameHUD extends HBox {
 		return pane;
 	}
 
+	private static void setupMoneyLabel() {
+		moneyLabel = new Label("0");
+		FontLoader.setFont(moneyLabel, FontType.TELEGRAMA, 20);
+	}
+	
+	public static void setMoneyLabel(String text) {
+		moneyLabel.setText(text);
+	}
+	
 	private static void initPlayerBox() {
 		playerBox = new HBox(30);
 		playerBox.setMaxSize(350, 120);
 
+		StackPane moneyPane = new StackPane();
+		setupMoneyLabel();
 		moneyBox = new MoneyBox();
 		HBox infoBox1 = new HBox(20);
 		moneyBox.setPrefSize(100, 34);
-
+		moneyPane.getChildren().addAll(moneyBox,moneyLabel);
 		infoBox1.getChildren().addAll(nameLabel, moneyBox);
 
 		VBox infoBox2 = new VBox(8);

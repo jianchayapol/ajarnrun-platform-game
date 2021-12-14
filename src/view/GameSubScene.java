@@ -59,7 +59,7 @@ public class GameSubScene extends SubScene {
 		prefWidth(width);
 		prefHeight(height);
 		AnchorPane subSceneRoot = (AnchorPane) this.getRoot();
-		subSceneRoot.getChildren().add(subSceneRoot);
+		subSceneRoot.getChildren().add(pane);
 
 		switch (altText) {
 		
@@ -100,11 +100,11 @@ public class GameSubScene extends SubScene {
 			transition.setToX(-width - 120);
 			transition.setToY(0);
 			break;
-		case "leaderBoardUnpressed":
+		case "leaderboardUnpressed":
 			transition.setToX(-width - 120);
 			transition.setToY(0);
 			break;
-		case "leaderBoardPressed":
+		case "leaderboardPressed":
 			transition.setToX(width + 120);
 			transition.setToY(0);
 			break;

@@ -180,14 +180,12 @@ public class ImageButton extends ImageView {
 	private void setUpPauseScreen() {
 		GameScene.setIsPause(!GameScene.getIsPause());
 		initImageButton(ImageButtonType.PAUSE);
-//		if(GameScene.getIsPause()) {
-//			PauseGameLeaderBox leaderBox = new PauseGameLeaderBox();
-//			GameScene.setPauseGameLeaderboard(leaderBox);
-//			GameScene.updatePauseScreen();
-//		}
-//		else {
-//			GameScene.updatePauseScreen();
-//		}
+		if(GameScene.getIsPause()) {
+			GameScene.getPauseGameLeaderboard().moveSubScene("leaderboardPressed");
+		}
+		else {
+			GameScene.getPauseGameLeaderboard().moveSubScene("leaderboardUnpressed");
+		}
 		
 	}
 

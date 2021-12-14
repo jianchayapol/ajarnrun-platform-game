@@ -284,6 +284,11 @@ public class GameManager {
 		}
 	}
 	
+	public static void setUpNextLevel() {
+		setIsLevelFinish(false);
+		levelCountInclement();
+	}
+	
 	
 	/* ============================== GETTER/SETTER ============================== */
 	
@@ -327,8 +332,4 @@ public class GameManager {
 		return isLevelFinish;
 	}
 	
-	public static void setUpNextLevel() {
-		setIsLevelFinish(false);
-		levelCountInclement();
-	}
 }

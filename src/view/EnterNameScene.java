@@ -30,7 +30,7 @@ import sharedObject.RenderableHolder;
 
 public class EnterNameScene extends Scene {
 	private static Stage primaryStage;
-	private ImageButton playButton = new ImageButton(ImageButtonType.PLAY);
+	private static ImageButton playButton = new ImageButton(ImageButtonType.PLAY);
 	private static StackPane enterPane;
 	private static ProgressBar progBar;
 	private static Rectangle rec;
@@ -77,6 +77,14 @@ public class EnterNameScene extends Scene {
 		textField.setPrefWidth(290);
 		textField.setMaxWidth(290);
 		FontLoader.setFont(textField, FontType.TELEGRAMA, 28);
+		textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		    @Override
+		    public void handle(KeyEvent key) {
+		        if (key.getCode().equals(KeyCode.ENTER)) {
+		            playButton.playButtonPress();
+		        }
+		    }
+		});	
 	}
 
 	private static void initializeProgBar() {
@@ -150,7 +158,10 @@ public class EnterNameScene extends Scene {
 	public static String getErrorMessage() {
 		return EnterNameScene.errorMessage.getText();
 	}
-
+	
+	public static ImageButton getImageButton() {
+		return EnterNameScene.playButton;
+	}
 	// ProgressBar
 
 	public static void setProgBar(double d) {

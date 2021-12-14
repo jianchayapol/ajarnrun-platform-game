@@ -64,10 +64,8 @@ public class DrawStringUtility {
 		header.setTextFill(Color.WHITE);
 		FontLoader.setFont(header, FontType.TELEGRAMA,18);
 
-		int posX = 10;
-		int posY = 100;
-
-		posY += 20;
+		int posX = 45;
+		int posY = 10;
 
 		header.setLayoutX(posX);
 		header.setLayoutY(posY);
@@ -80,15 +78,15 @@ public class DrawStringUtility {
 		ArrayList<String> data = CSVUtility.readCSV();
 
 		int n = data.size();
-		if (n > 9)
-			n = 9;
+		if (n > 5)
+			n = 5;
 		posX += 3;
-		posY += 15;
+		posY += 10;
 		for (int i = 1; i <= n; i++) {
 			posY += 40;
 			String[] stat = data.get(i - 1).split(",");
 			Label line = new Label(fillString("[" + String.valueOf(i) + "]", 6) + fillString(stat[1], 5)
-					+ fillString(stat[0], 9) + fillString(stat[2], 4));
+					+ fillString(stat[0], 10) + fillString(stat[2], 4));
 			line.setLayoutX(posX);
 			line.setLayoutY(posY);
 			line.setTextFill(Color.WHITE);

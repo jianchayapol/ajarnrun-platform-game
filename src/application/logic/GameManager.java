@@ -21,6 +21,7 @@ public class GameManager {
 	private static boolean canJump;
 	private static int levelWidth;
 	private static boolean isMute;
+	private static int levelCount;
 	
 	private static AnchorPane appRoot = new AnchorPane();
 	private static AnchorPane gameRoot = new AnchorPane();
@@ -31,32 +32,40 @@ public class GameManager {
 	
 	private static int time;
 	
+	// Level Finish Checker
+	private static boolean isLevelFinish;
+	private static int finishPositionX;
+	private static int finishPositionY;
+	
 	static {
 		RenderableHolder.loadResource();
 		setLevelWidth();
-		setFirstLevelPlatform();
+		setLevelPlatform();
 		initializePlayer();
-		setCanJump(true);
+		addPlayerToGameRoot();
 		setGameRootLayoutX();
 		addGameRoot();
 		addUIRoot();
+		setCanJump(true);
 		setIsMute(false);
 		setTime(0);
 		initializeKeysValue();
+		setIsLevelFinish(false);
 	}
 	
 	/* ============================== PRIVATE STATIC METHOD ============================== */
 	/* ==================== USE IN CONSTRUCTOR ==================== */
 	
 	private static void setLevelWidth() {
-		levelWidth = Level.LEVEL1[0].length() * BLOCK_WIDTH;
+		levelWidth = 0;
+		levelWidth = Level.ALL_LEVEL[levelCount][0].length() * BLOCK_WIDTH;
 	}
 	
-	private static void setFirstLevelPlatform() {
+	private static void setLevelPlatform() {
 		Rectangle background = new Rectangle(ViewManager.getScreenWidth(), ViewManager.getScreenHeight());
 		background.setFill(new ImagePattern(RenderableHolder.normalLevelImage));
-		for (int i = 0; i < Level.LEVEL1.length; i++) {
-			String line = Level.LEVEL1[i];
+		for (int i = 0; i < Level.ALL_LEVEL[levelCount].length; i++) {
+			String line = Level.ALL_LEVEL[levelCount][i];
 			for (int j = 0; j < line.length(); j++) {
 				ImageView platform;
 				switch (line.charAt(j)) {
@@ -107,6 +116,11 @@ public class GameManager {
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					break;
+				
+				// FINISH BLOCK
+				case 'X':
+					finishPositionX = j*BLOCK_WIDTH;
+					finishPositionY = i*BLOCK_HEIGHT;
 				default:
 					break;
 				}
@@ -117,6 +131,9 @@ public class GameManager {
 	
 	private static void initializePlayer() {
 		player = new Player(RenderableHolder.spritePlayerStanding, 0, 0, 200, 1);
+	}
+	
+	private static void addPlayerToGameRoot() {
 		gameRoot.getChildren().add(player);
 	}
 	
@@ -151,44 +168,38 @@ public class GameManager {
 		keys.put(KeyCode.D, false);
 	}
 	
-	/* ==================== USED IN update() METHOD ==================== */
+	private static void initializeLevelCount() {
+		levelCount = 0;
+	}
 	
-//	private static void movePlayerX(int moveX) {
-//		boolean moveRight = moveX > 0;
-//		for (int i = 0; i < Math.abs(moveX); i++) {
-//			for (Node platform: platforms) {
-//				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
-//					if (moveRight) {
-//						if (player.getTranslateX() + player.getWidth() - 30 == platform.getTranslateX()) {
-//							return;
-//						}
-//					} else if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH + 5) {
-//						return;
-//					}
-//				}
-//			}
-//			player.setTranslateX(player.getTranslateX() + (moveRight ? 1: -1));
-//		}
-//	}
-//	
-//	private static void movePlayerY(int moveY) {
-//		boolean moveDown = moveY > 0;
-//		for (int i = 0; i < Math.abs(moveY); i++) {
-//			for (Node platform: platforms) {
-//				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
-//					if (moveDown) {
-//						if (player.getTranslateY() + player.getHeight() == platform.getTranslateY()) {
-//							player.setTranslateY(player.getTranslateY() - 1);
-//							setCanJump(true);
-//						}
-//					} else if (player.getTranslateY() == platform.getTranslateY() + 61) {
-//						return ;
-//					}
-//				}
-//			}
-//			player.setTranslateY(player.getTranslateY() + (moveDown ? 1: -1));
-//		}
-//	}
+	private static void levelCountInclement() {
+		levelCount++;
+	}
+	
+	/* ==================== USED TO SET UP NEW LEVEL ==================== */
+	
+	private static void clearUIRoot() {
+		uiRoot.getChildren().clear();
+	}
+	
+	private static void clearGameRoot() {
+		gameRoot.getChildren().clear();
+	}
+	
+	private static void clearAppRoot() {
+		appRoot.getChildren().clear();
+	}
+	
+	private static void clearPlatforms() {
+		platforms.clear();
+	}
+	
+	private static void resetFinishPosition() {
+		finishPositionX = 0;
+		finishPositionY = 0;
+	}
+	
+	/* ==================== USED IN update() METHOD ==================== */
 	
 	private static void movePlayerX(int value) {
 		boolean movingRight = value > 0;
@@ -200,7 +211,7 @@ public class GameManager {
 							return;
 						}
 					} else {
-						if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH - 20) {
+						if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH - 15) {
 							return;
 						}
 					}
@@ -221,7 +232,7 @@ public class GameManager {
 							return;
 						}
 					} else {
-						if (player.getTranslateY() == platform.getTranslateY() + 45) {
+						if (player.getTranslateY() == platform.getTranslateY() + BLOCK_HEIGHT - 15) {
 							return;
 						}
 					}
@@ -246,7 +257,7 @@ public class GameManager {
 	
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
-			jumpPlayer(25);
+			jumpPlayer(27);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
 			jumpPlayer(3);
@@ -261,7 +272,31 @@ public class GameManager {
 		}
 		movePlayerY(player.getVelocityY());
 		player.update();
-//		System.out.println(player.getVelocityY());
+		
+		if (player.getTranslateY() + player.getHeight() >= finishPositionY && player.getTranslateX() + player.getWidth() == finishPositionX) {
+			setIsLevelFinish(true);
+		}
+	}
+	
+	public static void setUpNextLevel() {
+		setIsLevelFinish(false);
+		levelCountInclement();
+		resetFinishPosition();
+		setLevelWidth();
+		clearUIRoot();
+		clearGameRoot();
+		clearAppRoot();
+		clearPlatforms();
+		setLevelPlatform();
+		initializePlayer();
+		addPlayerToGameRoot();
+		setGameRootLayoutX();
+		addGameRoot();
+		addUIRoot();
+		setCanJump(true);
+		setIsMute(false);
+		setTime(10);
+		initializeKeysValue();
 	}
 	
 	
@@ -299,7 +334,20 @@ public class GameManager {
 		return keys.getOrDefault(key, false);
 	}
 	
-	public static void getPlayerTranslateY() {
-		System.out.println(player.getTranslateY());
+	public static void setIsLevelFinish(boolean isFinish) {
+		isLevelFinish = isFinish;
 	}
+	
+	public static boolean getIsLevelFinish() {
+		return isLevelFinish;
+	}
+	
+	public static int getLevelCount() {
+		return levelCount;
+	}
+	
+	public static AnchorPane getUIRoot() {
+		return uiRoot;
+	}
+	
 }

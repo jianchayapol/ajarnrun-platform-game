@@ -34,6 +34,9 @@ public class FontLoader {
 			case TELEGRAMA:
 				text.setFont(Font.loadFont(new FileInputStream("res/font/telegraw.ttf"), size));
 				break;
+			case PSLCD:
+				text.setFont(Font.loadFont(new FileInputStream("res/font/PSLCD3310.ttf"), size));
+				break;
 			}
 		} catch (Exception e) {
 			text.setFont(Font.font("Verdana", size));

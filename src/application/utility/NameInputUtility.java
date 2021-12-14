@@ -6,7 +6,7 @@ import view.EnterNameScene;
 public class NameInputUtility {
 	
 	public static boolean isAlphaNumeric(String s) {
-        return s != null && s.matches("^[a-zA-Z0-9]*$");
+        return (s=s.strip()) != null && s.matches("^[a-zA-Z0-9]*$");
     }
 	
 	public static boolean checkEnteredName(String name) {

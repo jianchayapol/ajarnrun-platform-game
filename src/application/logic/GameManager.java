@@ -17,6 +17,7 @@ import view.ViewManager;
 public class GameManager {
 	public static HashMap<KeyCode, Boolean> keys = new HashMap<KeyCode, Boolean>();
 	private static ArrayList<Node> platforms = new ArrayList<Node>();
+	
 	private static Player player;
 	private static boolean canJump;
 	private static int levelWidth;
@@ -30,6 +31,8 @@ public class GameManager {
 	private static final int BLOCK_WIDTH = 60;
 	private static final int BLOCK_HEIGHT = 60;
 	
+	
+	// Time
 	private static int time;
 	
 	// Level Finish Checker
@@ -37,24 +40,54 @@ public class GameManager {
 	private static int finishPositionX;
 	private static int finishPositionY;
 	
+	// Player's stat
+	private static int playerCurrentHP;
+	private static int playerMaxHP;
+	private static int playerCoin;
+	private static int playerEXP;
+	private static boolean isDead;
+	
+	// Enemy
+	private static HashMap<Node, Boolean> enemy = new HashMap<Node, Boolean>();
+	
+	// Item
+	private static HashMap<Node, Integer> item = new HashMap<Node, Integer>();
+	
+	// Node Counter
+	private static int nodeCount;
+	
 	static {
 		RenderableHolder.loadResource();
+		initializeLevelCount();
+		initializeNodeCount();
 		setLevelWidth();
 		setLevelPlatform();
 		initializePlayer();
+		initializePlayerMaxHP();
+		initializePlayerCurrentHP();
+		initializePlayerCoin();
+		initializePlayerEXP();
 		addPlayerToGameRoot();
 		setGameRootLayoutX();
 		addGameRoot();
 		addUIRoot();
 		setCanJump(true);
 		setIsMute(false);
-		setTime(0);
+		setTime(120);
 		initializeKeysValue();
 		setIsLevelFinish(false);
 	}
 	
 	/* ============================== PRIVATE STATIC METHOD ============================== */
 	/* ==================== USE IN CONSTRUCTOR ==================== */
+	
+	private static void initializeLevelCount() {
+		levelCount = 0;
+	}
+	
+	private static void initializeNodeCount() {
+		nodeCount = 0;
+	}
 	
 	private static void setLevelWidth() {
 		levelWidth = 0;
@@ -116,6 +149,16 @@ public class GameManager {
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					break;
+				case 'E':
+					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "E");
+					gameRoot.getChildren().add(platform);
+					platforms.add(platform);
+					break;
+				case 'e':
+					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "e");
+					gameRoot.getChildren().add(platform);
+					platforms.add(platform);
+					break;
 				
 				// FINISH BLOCK
 				case 'X':
@@ -131,6 +174,22 @@ public class GameManager {
 	
 	private static void initializePlayer() {
 		player = new Player(RenderableHolder.spritePlayerStanding, 0, 0, 200, 1);
+	}
+	
+	private static void initializePlayerMaxHP() {
+		playerMaxHP = 100;
+	}
+	
+	private static void initializePlayerCurrentHP() {
+		playerCurrentHP = playerMaxHP;
+	}
+	
+	private static void initializePlayerCoin() {
+		playerCoin = 0;
+	}
+	
+	private static void initializePlayerEXP() {
+		playerEXP = 0;
 	}
 	
 	private static void addPlayerToGameRoot() {
@@ -168,10 +227,6 @@ public class GameManager {
 		keys.put(KeyCode.D, false);
 	}
 	
-	private static void initializeLevelCount() {
-		levelCount = 0;
-	}
-	
 	private static void levelCountInclement() {
 		levelCount++;
 	}
@@ -201,6 +256,100 @@ public class GameManager {
 	
 	/* ==================== USED IN update() METHOD ==================== */
 	
+	/* TEST TEST */
+	
+	public static void testMoveX(int value) {
+		boolean movingRight = value > 0;
+		// all checker
+		int playerTopY = (int) player.getTranslateY();
+		int playerBottomY = playerTopY + player.getHeight();
+		int playerLeftX = (int) player.getTranslateX();
+		int playerRightX = playerLeftX + player.getWidth();
+		
+		int rowFeet = (int) (playerBottomY/60);
+		if (playerBottomY % BLOCK_WIDTH == 0) {
+			rowFeet -= 1;
+		}
+		int rowHead;
+		if ((rowFeet + 1)*BLOCK_WIDTH - playerBottomY > 20) {
+			rowHead = rowFeet - 2;
+ 		} else {
+ 			rowHead = rowFeet - 1;
+ 		}
+		
+		int columnLeft = (int) (playerLeftX/60);
+		if (playerRightX % BLOCK_HEIGHT == 0) {
+			columnLeft -= 1;
+		}
+		int columnRight;
+		if (playerLeftX - columnLeft > 25) {
+			columnRight = columnLeft + 2;
+		} else {
+			columnRight = columnLeft + 1;
+		}
+		for (int i = 0; i < Math.abs(value); i++) {
+			if (movingRight) {
+				if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnRight+1) != '0' || Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnRight+1) != '0') {
+					if (playerRightX >= (columnRight+1)*BLOCK_WIDTH) {
+//						player.setTranslateX(player.getTranslateX() - 1);
+					} else {
+						player.setTranslateX(player.getTranslateX() + 1);
+					} 
+					
+				} else {
+					player.setTranslateX(player.getTranslateX() + 1);
+				}
+			} else if (!movingRight) {
+				if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnLeft-1) != '0' || Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnLeft-1) != '0') {
+					if (playerLeftX <= (columnLeft*BLOCK_WIDTH)) {
+//						player.setTranslateX(player.getTranslateX() + 1);
+					} else {
+						player.setTranslateX(player.getTranslateX() - 1);
+					}
+				} else {
+					player.setTranslateX(player.getTranslateX() - 1);
+				}
+			}
+		}
+	}
+	
+	private static void testMoveY(int value) {
+		boolean movingDown = value > 0;
+		// all checker
+		int playerTopY = (int) player.getTranslateY();
+		int playerBottomY = playerTopY + player.getHeight();
+		int playerLeftX = (int) player.getTranslateX();
+		int playerRightX = playerLeftX + player.getWidth();
+		
+		int rowFeet = (int) (playerBottomY/60);
+		if (playerBottomY % BLOCK_WIDTH == 0) {
+			rowFeet -= 1;
+		}
+		int rowHead;
+		if ((rowFeet + 1)*BLOCK_WIDTH - playerBottomY > 20) {
+			rowHead = rowFeet - 2;
+ 		} else {
+ 			rowHead = rowFeet - 1;
+ 		}
+		
+		int columnLeft = (int) (playerLeftX/60);
+		if (playerRightX % BLOCK_HEIGHT == 0) {
+			columnLeft -= 1;
+		}
+		int columnRight;
+		if (playerLeftX - columnLeft > 15) {
+			columnRight = columnLeft + 1;
+		} else {
+			columnRight = columnLeft + 1;
+		}
+		
+		for (int i = 0; i < Math.abs(value); i++) {
+			
+		}
+	}
+	
+	/* TEST TEST */
+	
 	private static void movePlayerX(int value) {
 		boolean movingRight = value > 0;
 		for (int i = 0; i < Math.abs(value); i++) {
@@ -228,7 +377,7 @@ public class GameManager {
 				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
 					if (movingDown) {
 						if (player.getTranslateY() + player.getHeight() == platform.getTranslateY()) {
-							canJump = true;
+							setCanJump(true);
 							return;
 						}
 					} else {
@@ -253,19 +402,25 @@ public class GameManager {
 		return keys.getOrDefault(key, false);
 	}
 	
+	private static void setPlayerCurrentHP(int HP) {
+		playerCurrentHP = HP;
+	}
+	
 	/* ============================== PUBLIC STATIC METHOD ============================== */
 	
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
-			jumpPlayer(27);
+			jumpPlayer(30);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
-			jumpPlayer(3);
-			movePlayerX(-5);
+//			jumpPlayer(3);
+//			movePlayerX(-5);
+			testMoveX(-5);
 		}
 		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 5 - player.getWidth()) {
-			jumpPlayer(3);
-			movePlayerX(5);
+//			jumpPlayer(3);
+//			movePlayerX(5);
+			testMoveX(5);
 		}
 		if (player.getVelocityY() < 10) {
 			player.setVelocityY(player.getVelocityY() + 1);
@@ -276,6 +431,9 @@ public class GameManager {
 		if (player.getTranslateY() + player.getHeight() >= finishPositionY && player.getTranslateX() + player.getWidth() == finishPositionX) {
 			setIsLevelFinish(true);
 		}
+		
+//		System.out.println("translateX = " + player.getTranslateX());
+//		System.out.println("translateX (cast int) = " + (int) player.getTranslateX()); // it works
 	}
 	
 	public static void setUpNextLevel() {
@@ -289,6 +447,7 @@ public class GameManager {
 		clearPlatforms();
 		setLevelPlatform();
 		initializePlayer();
+		setPlayerCurrentHP(playerMaxHP);
 		addPlayerToGameRoot();
 		setGameRootLayoutX();
 		addGameRoot();
@@ -298,7 +457,6 @@ public class GameManager {
 		setTime(10);
 		initializeKeysValue();
 	}
-	
 	
 	/* ============================== GETTER/SETTER ============================== */
 	
@@ -350,4 +508,23 @@ public class GameManager {
 		return uiRoot;
 	}
 	
+	public static int getTime() {
+		return time;
+	}
+	
+	/* ============================== SET PLAYER'S STATS ============================== */
+	
+	public static void setPlayerMaxHP(int maxHP) {
+		playerMaxHP = maxHP;
+	}
+	
+	// setPlayerCurrentHP is not a public method
+	
+	public static void setPlayerCoin(int coin) {
+		playerCoin = coin;
+	}
+	
+	public static void setPlayerEXP(int EXP) {
+		playerEXP = EXP;
+	}
 }

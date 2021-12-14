@@ -1,11 +1,8 @@
-package view;
+package gui.element;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import gui.element.LevelEndingBox;
-import gui.element.LevelEndingType;
-import gui.element.ShopItemBox;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -22,9 +19,8 @@ import sharedObject.FontLoader;
 import sharedObject.FontType;
 import sharedObject.RenderableHolder;
 
-public class ShopScene extends Scene {
+public class ShopPane extends StackPane {
 
-	private static Stage primaryStage;
 	private static VBox shelfBox;
 	private static StackPane shopPane;
 	private static Label errorMessage;
@@ -34,9 +30,8 @@ public class ShopScene extends Scene {
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 800;
 
-	public ShopScene(Stage primaryStage) {
-		super(new StackPane());
-		((StackPane) this.getRoot()).setPrefSize(WIDTH, HEIGHT);
+	public ShopPane() {
+		this.setPrefSize(WIDTH, HEIGHT);
 
 		// Background
 		setBackgroundImage(RenderableHolder.entrance_background_Image);
@@ -47,14 +42,6 @@ public class ShopScene extends Scene {
 
 		// set up
 		setupPane();
-
-		// Stage
-		primaryStage.setScene(this);
-		ShopScene.primaryStage = primaryStage;
-	}
-
-	public static Stage getPrimaryStage() {
-		return primaryStage;
 	}
 
 	// =================== private static method ==============================
@@ -83,11 +70,11 @@ public class ShopScene extends Scene {
 		pane.getChildren().addAll(shopPane);
 		pane.setAlignment(Pos.CENTER);
 		VBox shelfBoxMain = new VBox(42);
+		shelfBoxMain.setPadding(new Insets(33));
 		shelfBoxMain.setAlignment(Pos.BOTTOM_CENTER);
 		shelfBoxMain.getChildren().addAll(shelfBox, errorMessage);
-		shelfBoxMain.setPadding(new Insets(33));
-		((StackPane) this.getRoot()).getChildren().addAll(pane, shelfBoxMain);
 		errorMessage.setAlignment(Pos.BOTTOM_RIGHT);
+		this.getChildren().addAll(pane, shelfBoxMain);
 	}
 
 	// setup
@@ -101,7 +88,7 @@ public class ShopScene extends Scene {
 		rec.setFill(Color.BLACK);
 		rec.setOpacity(0.7);
 
-		((StackPane) this.getRoot()).getChildren().addAll(bg, rec);
+		this.getChildren().addAll(bg, rec);
 	}
 
 	private void setupShopItemBox() {
@@ -123,11 +110,11 @@ public class ShopScene extends Scene {
 	// =================== public static method ==============================
 
 	public static void setErrorMessage(String text) {
-		ShopScene.errorMessage.setText(text);
+		ShopPane.errorMessage.setText(text);
 	}
 
 	public static String getErrorMessage() {
-		return ShopScene.errorMessage.getText();
+		return ShopPane.errorMessage.getText();
 	}
 
 }

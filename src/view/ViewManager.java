@@ -35,8 +35,8 @@ public class ViewManager {
 	private boolean isLeaderBoardPressed;
 	private boolean isInfoPressed;
 
-	private MainViewSubScene aboutUs;
-	private MainViewSubScene leaderBoard;
+	private GameSubScene aboutUs;
+	private GameSubScene leaderBoard;
 
 	public ViewManager() {
 		this.mainPane = new AnchorPane();
@@ -146,12 +146,12 @@ public class ViewManager {
 	}
 
 	private void createAboutUsSubScene() {
-		this.aboutUs = new MainViewSubScene("/image/aboutUsDemo2.png", "infoButton", 350, 560);
+		this.aboutUs = new GameSubScene("/image/aboutUsDemo2.png", "infoButton", 350, 560);
 		this.mainPane.getChildren().add(aboutUs);
 	}
 
 	private void createLeaderBoardSubScene() {
-		leaderBoard = new MainViewSubScene("/image/leaderboardDemo2.png", "leaderBoard", 350, 560);
+		leaderBoard = new GameSubScene("/image/leaderboardDemo2.png", "leaderBoard", 350, 560);
 		this.mainPane.getChildren().add(leaderBoard);
 	}
 
@@ -159,7 +159,6 @@ public class ViewManager {
 		newGameButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				EnterNameScene enterNameScene = new EnterNameScene(mainStage);
-				//shopScene = new ShopScene(mainStage);
 			}
 		});
 	}

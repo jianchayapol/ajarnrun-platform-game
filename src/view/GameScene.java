@@ -88,6 +88,7 @@ public class GameScene extends Scene {
 					GameManager.setUpNextLevel();
 					GameScene.this.setGameHud(GameManager.getUIRoot());
 					GameScene.setTimeMapSecond(120);
+					timeRemained = getTimeMapSecond();
 					this.start();
 				}
 //				if(success) {

@@ -70,6 +70,10 @@ public class RenderableHolder {
 	public static Image spritePlayerStandingBackward;
 	public static Image spritePlayerJump;
 	public static Image spritePlayerJumpBackward;
+	
+	// Enemy
+	public static Image enemyOneLeft;
+	public static Image enemyTwoLeft;
 
 	// ---------------------------------------------------------
 	static {
@@ -108,36 +112,65 @@ public class RenderableHolder {
 		switch (fileNumber) {
 		case "1":
 			block = new ImageView(RenderableHolder.greenOne);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "2":
 			block = new ImageView(RenderableHolder.greenTwo);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "3":
 			block = new ImageView(RenderableHolder.greenThree);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "4":
 			block = new ImageView(RenderableHolder.greenFour);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "5":
 			block = new ImageView(RenderableHolder.greenFive);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "f1":
 			block = new ImageView(RenderableHolder.floatOne);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "f2":
 			block = new ImageView(RenderableHolder.floatTwo);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "f3":
 			block = new ImageView(RenderableHolder.floatThree);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "f4":
 			block = new ImageView(RenderableHolder.floatFour);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
+			break;
+		case "E":
+			block = new ImageView(RenderableHolder.enemyOneLeft);
+			block.setFitWidth(50);
+			block.setFitHeight(50);
+			break;
+		case "e":
+			block = new ImageView(RenderableHolder.enemyTwoLeft);
+			block.setFitWidth(50);
+			block.setFitHeight(50);
 			break;
 		default:
 			block = new ImageView(RenderableHolder.greenOne);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
+			break;
 		}
-		block.setFitWidth(BLOCK_WIDTH);
-		block.setFitHeight(BLOCK_HEIGHT);
 		block.setTranslateX(posX);
 		block.setTranslateY(posY);
 		return block;
@@ -197,6 +230,10 @@ public class RenderableHolder {
 		RenderableHolder.spritePlayerStandingBackward = loadImage("sprite/sprite_player_standing_backward.png");
 		RenderableHolder.spritePlayerJump = loadImage("sprite/sprite_player_jump.png");
 		RenderableHolder.spritePlayerJumpBackward = loadImage("sprite/sprite_player_jump_backward.png");
+		
+		// Enemy
+		RenderableHolder.enemyOneLeft = loadImage("enemy/enemy_1.png");
+		RenderableHolder.enemyTwoLeft = loadImage("enemy/enemy_2.png");
 	}
 
 }

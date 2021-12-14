@@ -170,9 +170,31 @@ public class GameManager {
 					platforms.add(platform);
 					nodeCount++;
 					break;
+				case 'M':
+					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "coin");
+					gameRoot.getChildren().add(platform);
+					platforms.add(platform);
+					nodeCount++;
+					break;
+				case 'K':
+					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "book1");
+					gameRoot.getChildren().add(platform);
+					platforms.add(platform);
+					nodeCount++;
+					break;
+				case 'k':
+					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "book2");
+					gameRoot.getChildren().add(platform);
+					platforms.add(platform);
+					nodeCount++;
+					break;
 				
 				// FINISH BLOCK
 				case 'X':
+					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "finish");
+					gameRoot.getChildren().add(platform);
+					platforms.add(platform);
+					nodeCount++;
 					finishPositionX = j*BLOCK_WIDTH;
 					finishPositionY = i*BLOCK_HEIGHT;
 				default:
@@ -417,6 +439,8 @@ public class GameManager {
 		playerCurrentHP = HP;
 	}
 	
+	
+	
 	/* ============================== PUBLIC STATIC METHOD ============================== */
 	
 	public static void update() {
@@ -465,7 +489,7 @@ public class GameManager {
 		addUIRoot();
 		setCanJump(true);
 		setIsMute(false);
-		setTime(10);
+		setTime(120);
 		initializeKeysValue();
 	}
 	
@@ -539,7 +563,7 @@ public class GameManager {
 		playerEXP = EXP;
 	}
 	
-	/* ============================== SET PLAYER'S STATS ============================== */
+	/* ============================== GET PLAYER'S STATS ============================== */
 	
 	public static int getPlayerMaxHP() {
 		return playerMaxHP;

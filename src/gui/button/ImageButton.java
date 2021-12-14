@@ -127,10 +127,9 @@ public class ImageButton extends ImageView {
 		});
 	}
 
-	// =================================== SETUP
-	// ==========================================
+	// ====================== SETUP =========================
 
-	private void setUpNameInput() {
+	public void setUpNameInput() {
 		String name = EnterNameScene.getEnteredName();
 		if (NameInputUtility.checkEnteredName(name)) {
 			// Add to CSV file
@@ -144,7 +143,7 @@ public class ImageButton extends ImageView {
 			EnterNameScene.startGameScene();
 		}
 	}
-
+	
 	private void setUpSound() {
 		GameManager.setIsMute(!GameManager.getIsMute());
 		initImageButton(ImageButtonType.SOUND);
@@ -176,31 +175,21 @@ public class ImageButton extends ImageView {
 			break;
 		}
 	}
-	
+
 	private void setUpPauseScreen() {
+		if (GameScene.getIsPause()) {
+			GameScene.getPauseGameLeaderboard().moveSubScene("pauseGamePressed");
+			GameScene.getTimer().start();
+		} else {
+			GameScene.getPauseGameLeaderboard().moveSubScene("pauseGameUnpressed");
+			GameScene.getTimer().stop();
+		}
 		GameScene.setIsPause(!GameScene.getIsPause());
 		initImageButton(ImageButtonType.PAUSE);
-//		if(GameScene.getIsPause()) {
-//			PauseGameLeaderBox leaderBox = new PauseGameLeaderBox();
-//			GameScene.setPauseGameLeaderboard(leaderBox);
-//			GameScene.updatePauseScreen();
-//		}
-//		else {
-//			GameScene.updatePauseScreen();
-//		}
-		
 	}
 
 	// =========================== GETTERS - SETTERS
 	// =================================
-
-	public static Image getImg() {
-		return image;
-	}
-
-	public static void setImg(Image img) {
-		ImageButton.image = img;
-	}
 
 	public void setSize(int w, int h) {
 		this.width = w;
@@ -213,6 +202,10 @@ public class ImageButton extends ImageView {
 
 	public static void setAltText(String altText) {
 		ImageButton.altText = altText;
+	}
+	
+	public void playButtonPress() {
+		setUpNameInput();
 	}
 
 }

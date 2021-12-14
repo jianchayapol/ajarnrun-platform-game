@@ -24,7 +24,6 @@ public class GameScene extends Scene {
 	private static boolean isPlayingThemeSong;
 	private static boolean isVisible = true;
 	private static boolean isPause = false;
-	private static AnchorPane pane;
 	private static GameSubScene shop;
 	private static GameSubScene pauseGameLeaderboard;
 	private static GameSubScene levelEnding;
@@ -56,7 +55,6 @@ public class GameScene extends Scene {
 	}
 	
 	private void setUpStage(Stage primaryStage) {
-		pane = ((AnchorPane)this.getRoot());
 		primaryStage.setTitle("Ajarn Ja Run!");
 		primaryStage.setScene(this);
 		setAudio();
@@ -68,6 +66,11 @@ public class GameScene extends Scene {
 	}
 	
 	private void runScene() {
+		//draft-----------------------
+//		createShopSubScene();
+		// createLevelEndingSubScene(LevelEndingType.COMPLETED);
+		
+		//draft-----------------------
 		setTimeMapSecond(120);
 		timeRemained = getTimeMapSecond();
 		timer = new AnimationTimer() {

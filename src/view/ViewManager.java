@@ -47,6 +47,9 @@ public class ViewManager {
 	private GameSubScene aboutUs;
 	private GameSubScene leaderBoard;
 	private static GameSubScene howToPlay;
+	private static GameScene gameScene;
+	
+	private static EnterNameScene enterNameScene;
 	
 	public ViewManager() {
 		this.mainPane = new AnchorPane();
@@ -80,6 +83,7 @@ public class ViewManager {
 		this.mainStage = new Stage();
 		this.mainStage.setScene(mainScene);
 		this.mainStage.setResizable(false);
+		
 	}
 
 	private void createSettingButton() {
@@ -103,7 +107,11 @@ public class ViewManager {
 			themeSong.stop();
 		}
 	}
-
+	
+	public static GameScene getGameScene() {
+		return gameScene;
+	}
+	
 	private void createMainButton() {
 		double initialHeight = 20;
 
@@ -174,12 +182,14 @@ public class ViewManager {
 	private void implementNewGameEventListener() {
 		newGameButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				EnterNameScene enterNameScene = new EnterNameScene(mainStage);
+				enterNameScene = new EnterNameScene(mainStage);
+				mainStage.setScene(enterNameScene);
 			}
 		});
 		newGameButton.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.N && e.isControlDown()) {
-				EnterNameScene enterNameScene = new EnterNameScene(mainStage);
+				enterNameScene = new EnterNameScene(mainStage);
+				mainStage.setScene(enterNameScene);
 			}
 		});
 	}
@@ -206,14 +216,6 @@ public class ViewManager {
 		exitButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				ViewManager.mainStage.close();
-			}
-		});
-		mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent key) {
-				if (key.getCode().equals(KeyCode.ESCAPE)) {
-					ViewManager.mainStage.close();
-				}
 			}
 		});
 	}

@@ -63,12 +63,16 @@ public class EnterNameScene extends Scene {
 		setupPane();
 
 		// Stage
-		primaryStage.setScene(this);
 		EnterNameScene.primaryStage = primaryStage;
+		EnterNameScene.setScene(this);
 	}
-
+	
 	public static Stage getPrimaryStage() {
 		return primaryStage;
+	}
+	
+	public static void setScene() {
+		//...
 	}
 	
 	public static Scene getScene() {
@@ -207,6 +211,7 @@ public class EnterNameScene extends Scene {
 	public static ImageButton getImageButton() {
 		return EnterNameScene.playButton;
 	}
+	
 	// ProgressBar
 
 	public static void setProgBar(double d) {
@@ -252,10 +257,10 @@ public class EnterNameScene extends Scene {
 
 	// Pane & Scene
 	public static void setupLoading() {
+		GameManager.setPlayerName(getEnteredName());
 		getEnterPane().getChildren().remove(1);
 		setErrorMessage(null);
 		setLabel("loading..");
-		GameManager.setPlayerName(getEnteredName());
 		startProgress();
 	}
 
@@ -270,7 +275,7 @@ public class EnterNameScene extends Scene {
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
-						GameScene gameScene = new GameScene(GameManager.getAppRoot(), primaryStage);
+						GameScene gameScene = new GameScene(GameManager.getAppRoot(), EnterNameScene.getPrimaryStage());
 					}
 				});
 			} catch (Exception e) {

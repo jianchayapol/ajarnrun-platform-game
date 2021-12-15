@@ -1,21 +1,15 @@
 package gui.element;
 
+import application.logic.GameManager;
 import gui.button.ImageButton;
 import gui.button.ImageButtonType;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -24,7 +18,7 @@ import sharedObject.FontLoader;
 import sharedObject.FontType;
 import sharedObject.RenderableHolder;
 
-public class LevelEndingBox extends StackPane {
+public class LevelEndingBox extends AnchorPane {
 
 	private static Rectangle bgRec;
 	private static AnchorPane mainPane;
@@ -49,7 +43,9 @@ public class LevelEndingBox extends StackPane {
 		bgRec.setFill(Color.BLACK);
 		bgRec.setOpacity(0.8);
 		
-		this.setAlignment(Pos.CENTER);
+		mainPane.setLayoutX(245);
+		mainPane.setLayoutY(120);
+		
 		this.getChildren().addAll(bgRec,mainPane);
 	}
 
@@ -57,15 +53,13 @@ public class LevelEndingBox extends StackPane {
 		switch (type) {
 		case COMPLETED:
 			setLevelUpLabel();
-			imgButton = new ImageButton(ImageButtonType.CONTINUE_LV);
+			imgButton = new ImageButton(ImageButtonType.CONTINUE_TOSHOP);
 			bg = RenderableHolder.level_passed_Image;
-			this.setOpacity(0.85);
 			break;
 		case FAILED:
 			setLevelLabel();
-			imgButton = new ImageButton(ImageButtonType.SKIP_LV);
+			imgButton = new ImageButton(ImageButtonType.EXIT_GAME);
 			bg = RenderableHolder.level_failed_Image;
-			this.setOpacity(0.8);
 			break;
 		default:
 			break;
@@ -90,13 +84,13 @@ public class LevelEndingBox extends StackPane {
 	}
 
 	private static void setMoneyPlusLabel() {
-		moneyPlusLabel = new Label("  $ " + "170");
+		moneyPlusLabel = new Label("  $ " + String.valueOf(GameManager.getPlayerCoin()));
 		FontLoader.setFont(moneyPlusLabel, FontType.TELEGRAMA, 18);
 		moneyPlusLabel.setTextFill(Color.WHITE);
 	}
 
 	private static void setLevelLabel() {
-		levelUpLabel = new Label("  lv." + "10");
+		levelUpLabel = new Label("  lv." + String.valueOf(GameManager.getPlayerCoin()));
 		FontLoader.setFont(levelUpLabel, FontType.TELEGRAMA, 19);
 		levelUpLabel.setTextFill(Color.INDIANRED);
 	}

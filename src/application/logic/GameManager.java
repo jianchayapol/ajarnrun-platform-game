@@ -185,7 +185,6 @@ public class GameManager {
 					enemies.put((Enemy) platform, random.nextBoolean());
 					nodeCount++;
 					break;
-
 				// Item
 				case 'M':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "coin");

@@ -56,7 +56,7 @@ public class EnterNameScene extends Scene {
 		initializeRectangle();
 		initializeEnterNameLabel();
 		initializeErrorMessage();
-		implementExitEventListener();
+		implementBackHandler();
 		initializeImageButton();
 		
 		// set up
@@ -137,12 +137,12 @@ public class EnterNameScene extends Scene {
 		homeButton = new ImageButton(ImageButtonType.HOME);
 	}
 	
-	private void implementExitEventListener() {
+	private void implementBackHandler() {
 		((StackPane) this.getRoot()).setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent key) {
 				if (key.getCode().equals(KeyCode.ESCAPE)) {
-					EnterNameScene.primaryStage.close();
+					EnterNameScene.setScene(ViewManager.getMainScene());
 				}
 			}
 		});

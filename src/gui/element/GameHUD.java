@@ -60,7 +60,7 @@ public class GameHUD extends HBox {
 	}
 
 	public static void setMoneyLabel(int coin) {
-		moneyLabel.setText("    $" + String.valueOf(coin));
+		moneyLabel.setText("    " + String.valueOf(coin));
 	}
 
 	public static void setNameLabel(String name) {
@@ -143,9 +143,9 @@ public class GameHUD extends HBox {
 	}
 
 	private static void setupMoneyLabel() {
-		moneyLabel = new Label("    $" + "0");
+		moneyLabel = new Label("    " + "0");
 		moneyLabel.setTextFill(Color.WHITE);
-		FontLoader.setFont(moneyLabel, FontType.TELEGRAMA, 18);
+		FontLoader.setFont(moneyLabel, FontType.TELEGRAMA, 17);
 	}
 
 	private static void initPlayerBox() {

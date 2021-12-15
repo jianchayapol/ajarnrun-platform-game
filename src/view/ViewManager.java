@@ -205,14 +205,14 @@ public class ViewManager {
 	private void implementExitEventListener() {
 		exitButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				//////////////////
+				ViewManager.mainStage.close();
 			}
 		});
 		mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent key) {
 				if (key.getCode().equals(KeyCode.ESCAPE)) {
-					
+					ViewManager.mainStage.close();
 				}
 			}
 		});

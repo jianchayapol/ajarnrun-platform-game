@@ -3,6 +3,8 @@ package gui.element;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import gui.button.ImageButton;
+import gui.button.ImageButtonType;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -10,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import sharedObject.FontLoader;
 import sharedObject.FontType;
@@ -27,6 +28,8 @@ public class ShopPane extends AnchorPane {
 	private static final String[] items = { "run", "jump", "lp", "time" };
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 800;
+	private static ImageButton nextLvButton = new ImageButton(ImageButtonType.CONTINUE_NEXT_LV);
+	
 	public ShopPane() {
 		
 		super();
@@ -64,7 +67,7 @@ public class ShopPane extends AnchorPane {
 	private void setupPane() {
 		VBox shelfBoxMain = new VBox(40);
 		shelfBoxMain.setAlignment(Pos.BOTTOM_CENTER);
-		shelfBoxMain.getChildren().addAll(shelfBox, errorMessage);
+		shelfBoxMain.getChildren().addAll(shelfBox);
 		errorMessage.setAlignment(Pos.BOTTOM_RIGHT);
 		shopStore = new AnchorPane();
 		shopStore.getChildren().addAll(shopPane, shelfBoxMain);
@@ -74,11 +77,15 @@ public class ShopPane extends AnchorPane {
 		rec = new Rectangle(WIDTH, HEIGHT);
 		rec.setFill(Color.BLACK);
 		rec.setOpacity(0.6);
-		
-		
-		shopStore.setLayoutX(200);
-		shopStore.setLayoutY(20);
-		this.getChildren().addAll(rec,shopStore);
+	
+		VBox controlBox = new VBox(3);
+		controlBox.getChildren().addAll(shopStore,nextLvButton);
+		controlBox.setLayoutX(200);
+		controlBox.setLayoutY(3);
+		controlBox.setAlignment(Pos.CENTER);
+		errorMessage.setLayoutX(550);
+		errorMessage.setLayoutY(535);
+		this.getChildren().addAll(rec,controlBox,errorMessage);
 	}
 
 

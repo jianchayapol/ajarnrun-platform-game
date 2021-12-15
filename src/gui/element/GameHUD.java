@@ -116,10 +116,11 @@ public class GameHUD extends HBox {
 	}
 
 	private static void initLevelLabel() {
-		levelLabel = new Label("Lv.1");
+		levelLabel = new Label();
 		FontLoader.setFont(levelLabel, FontType.TELEGRAMA, 22);
 		levelLabel.setTextFill(Color.DARKRED);
 		levelLabel.setAlignment(Pos.BASELINE_LEFT);
+		setLevelLabel(GameManager.getLevelCount()+1);
 	}
 
 	private static void initButtonBox() {

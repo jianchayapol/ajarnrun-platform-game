@@ -6,7 +6,10 @@ import view.ViewManager;
 import application.logic.*;
 import application.utility.CSVUtility;
 import application.utility.NameInputUtility;
+import gui.element.LevelEndingBox;
+import gui.element.LevelEndingType;
 import gui.element.PauseGameLeaderBox;
+import gui.element.ShopPane;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.effect.DropShadow;
@@ -56,12 +59,17 @@ public class ImageButton extends ImageView {
 			image = RenderableHolder.play_button_Image;
 			setSize(139, 50);
 			break;
-		case CONTINUE_LV:
+		case CONTINUE_TOSHOP:
 			image = RenderableHolder.continue_button_Image;
 			setSize(139, 50);
 			break;
-		case SKIP_LV:
-			image = RenderableHolder.skip_button_Image;
+			
+		case CONTINUE_NEXT_LV:
+			image = RenderableHolder.continue_button_Image;
+			setSize(139, 50);
+			break;
+		case EXIT_GAME:
+			image = RenderableHolder.quit_Image;
 			setSize(139, 50);
 			break;
 		case BUY:
@@ -106,9 +114,14 @@ public class ImageButton extends ImageView {
 				case PLAY:
 					setUpNameInput();
 					break;
-				case CONTINUE_LV:
+				case CONTINUE_TOSHOP:
+					setUpContinueToShop();
 					break;
-				case SKIP_LV:
+				case CONTINUE_NEXT_LV:
+					setUpContinueNextLv();
+					break;
+				case EXIT_GAME:
+					setGameExit();
 					break;
 				case BUY:
 					setUpBuyItem();
@@ -170,7 +183,16 @@ public class ImageButton extends ImageView {
 			GameScene.playThemeSong();
 		}
 	}
+	
+	private void setUpContinueToShop() {
+		GameManager.getAppRoot().getChildren().remove(GameManager.getAppRoot().getChildren().size()-1);
+		GameManager.getAppRoot().getChildren().add(new ShopPane());
+	}
 
+	private void setUpContinueNextLv() {
+		GameScene.initializeNextLevel();
+	}
+	
 	private void setUpBuyItem() {
 		switch (altText) {
 		case "run":
@@ -213,6 +235,10 @@ public class ImageButton extends ImageView {
 	
 	private void setBackToHome() {
 		EnterNameScene.setScene(ViewManager.getMainScene());
+	}
+	
+	private void setGameExit() {
+		GameScene.getStage().close();
 	}
 	
 	// =================== GETTER / SETTER ======================

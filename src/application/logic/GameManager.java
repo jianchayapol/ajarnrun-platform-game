@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import gui.element.GameHUD;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -13,6 +14,8 @@ import javafx.scene.shape.Rectangle;
 import logic.level.Level;
 import player.Player;
 import sharedObject.RenderableHolder;
+import view.EnterNameScene;
+import view.GameScene;
 import view.ViewManager;
 
 public class GameManager {
@@ -23,7 +26,7 @@ public class GameManager {
 	private static boolean canJump;
 	private static int levelWidth;
 	private static boolean isMute;
-	private static int levelCount = 1;
+	private static int levelCount;
 
 	private static AnchorPane appRoot = new AnchorPane();
 	private static AnchorPane gameRoot = new AnchorPane();
@@ -57,6 +60,7 @@ public class GameManager {
 
 	// Node Counter
 	private static int nodeCount;
+	private static GameScene gameScene;
 
 	static {
 		RenderableHolder.loadResource();
@@ -85,7 +89,7 @@ public class GameManager {
 	 * ==============================
 	 */
 	/* ==================== USE IN CONSTRUCTOR ==================== */
-
+	
 	private static void initializeLevelCount() {
 		levelCount = 0;
 	}
@@ -459,14 +463,14 @@ public class GameManager {
 			jumpPlayer(30);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
-//			jumpPlayer(3);
-//			movePlayerX(-5);
-			testMoveX(-5);
+			jumpPlayer(3);
+			movePlayerX(-5);
+//			testMoveX(-5);
 		}
 		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 5 - player.getWidth()) {
-//			jumpPlayer(3);
-//			movePlayerX(5);
-			testMoveX(5);
+			jumpPlayer(3);
+			movePlayerX(5);
+//			testMoveX(5);
 		}
 		if (player.getVelocityY() < 10) {
 			player.setVelocityY(player.getVelocityY() + 1);

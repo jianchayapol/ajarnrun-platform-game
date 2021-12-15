@@ -8,7 +8,6 @@ import gui.element.LevelEndingType;
 import gui.element.PauseGameLeaderBox;
 import gui.element.EndingLevelTextBox;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -28,9 +27,6 @@ public class GameScene extends Scene {
 	private static boolean isVisible = true;
 	private static boolean isPause = false;
 
-	private static Pane shop;
-	private static Pane levelEnding;
-	private static Pane congratsBox;
 	private static GameSubScene pauseGameLeaderboard;
 
 	private static double timeMapSecond;
@@ -54,9 +50,6 @@ public class GameScene extends Scene {
 		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
 				GameManager.setKeysValue(event.getCode(), true);
-				if (event.getCode().equals(KeyCode.ESCAPE)) {
-					setBackToMain();
-				}
 			}
 		});
 		this.setOnKeyReleased(new EventHandler<KeyEvent>() {
@@ -77,17 +70,6 @@ public class GameScene extends Scene {
 		pane.getChildren().add(gameHud);
 	}
 
-	public static void setBackToMain() {
-		stage.setScene(ViewManager.getMainScene());
-		isPlayingThemeSong = false;
-		isVisible = false;
-		timer.stop();
-		playThemeSong();
-		ViewManager.setIsVisible(true);
-		ViewManager.setIsPlayingThemeSong(true);
-		ViewManager.playThemeSong();
-	}
-
 	private void runScene() {
 
 		setTimeMapSecond(120);
@@ -105,9 +87,9 @@ public class GameScene extends Scene {
 
 				boolean isTimeUp = timeRemained <= 0 && !GameManager.getIsLevelFinish();
 				boolean isWasted = GameManager.isDead();
-				boolean isMissingBook = false; //
+				boolean isMissingBook = GameManager.isMissingBook();//
 				boolean isWinGame = GameManager.getLevelCount() == Level.ALL_LEVEL.length - 1;
-			
+
 				// ------------------------ Level Failed ------------------------------
 				if (isTimeUp || isMissingBook || isWasted) {
 					String altText = "";
@@ -130,7 +112,8 @@ public class GameScene extends Scene {
 					}
 				}
 				// ------------------------ Level Completed ------------------------------
-				if (GameManager.getIsLevelFinish()) {
+				if (GameManager.getIsLevelFinish() && !isMissingBook) {
+					levelCompleteUpdateStat((int) timeRemained);
 					levelCompleteCounter++;
 					if (levelCompleteCounter == 1) {
 						GameManager.getAppRoot().getChildren().add(new EndingLevelTextBox("complete"));
@@ -158,10 +141,15 @@ public class GameScene extends Scene {
 		GameManager.getAppRoot().getChildren().remove(GameManager.getAppRoot().getChildren().size() - 1);
 	}
 
+	private static void levelCompleteUpdateStat(int timeRemained) {
+		GameManager.updateLeaderboard(timeRemained);
+		GameManager.setPlayerTotalCoin(GameManager.getPlayerTotalCoin() + GameManager.getPlayerCoin());
+	}
+
 	public static void initializeNextLevel() {
 		timer.stop();
 		GameManager.setUpNextLevel();
-		GameHUD.setLevelLabel(GameManager.getLevelCount() + 1);
+		GameHUD.setLevelLabel();
 		GameScene.setGameHud(GameManager.getUIRoot());
 		GameScene.setTimeMapSecond(120);
 		timeRemained = getTimeMapSecond();
@@ -169,7 +157,7 @@ public class GameScene extends Scene {
 	}
 
 	private static void updateHUD() {
-		GameHUD.setMoneyLabel(GameManager.getPlayerCoin());
+		GameHUD.setMoneyLabel();
 		GameHUD.setProgress(GameHUD.getTimerProgressBar(), timeRemained, timeMapSecond);
 		GameHUD.setProgress(GameHUD.getHpProgressBar(), GameManager.getPlayerCurrentHP(), GameManager.getPlayerMaxHP());
 	}
@@ -222,7 +210,7 @@ public class GameScene extends Scene {
 		return timeMapSecond;
 	}
 
-	private void createPauseGameLeaderboardSubScene() {
+	public static void createPauseGameLeaderboardSubScene() {
 		GameScene.pauseGameLeaderboard = new GameSubScene(new PauseGameLeaderBox(), "pauseGameLeaderboard", 800, 350);
 		GameManager.getAppRoot().getChildren().add(pauseGameLeaderboard);
 	}
@@ -243,14 +231,6 @@ public class GameScene extends Scene {
 		GameScene.timer = timer;
 	}
 
-	public static Pane getShop() {
-		return shop;
-	}
-
-	public static void setShop(Pane shop) {
-		GameScene.shop = shop;
-	}
-
 	public static GameSubScene getPauseGameLeaderboard() {
 		return pauseGameLeaderboard;
 	}
@@ -259,11 +239,4 @@ public class GameScene extends Scene {
 		GameScene.pauseGameLeaderboard = pauseGameLeaderboard;
 	}
 
-	public Pane getLevelEnding() {
-		return levelEnding;
-	}
-
-	public static void setLevelEnding(Pane levelEnding) {
-		GameScene.levelEnding = levelEnding;
-	}
 }

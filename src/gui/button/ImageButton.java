@@ -17,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import logic.shop.ShopItem;
 import logic.shop.ShopManager;
 import sharedObject.AudioLoader;
 import sharedObject.RenderableHolder;
@@ -27,7 +28,7 @@ public class ImageButton extends ImageView {
 	private int width;
 	private static Image image;
 	private static String altText;
-
+	
 	// constructor1 : normal
 	public ImageButton(ImageButtonType imageButtonType) {
 		super();
@@ -190,22 +191,33 @@ public class ImageButton extends ImageView {
 	}
 
 	private void setUpContinueNextLv() {
-		GameScene.initializeNextLevel();
+		if(! GameManager.isPressedNextLv()) { 
+			GameManager.setIsPressedNextLv(true);
+			GameScene.initializeNextLevel();
+		}
 	}
 	
 	private void setUpBuyItem() {
 		switch (altText) {
 		case "run":
-			ShopManager.buyShopItem(10);
+			if(ShopManager.buyShopItem(ShopItem.getRunPrice())) {
+				GameManager.makeRunFast();
+			}
 			break;
 		case "jump":
-			ShopManager.buyShopItem(10);
+			if(ShopManager.buyShopItem(ShopItem.getJumpPrice())) {
+				GameManager.makeJumpHigh();
+			}
 			break;
 		case "time":
-			ShopManager.buyShopItem(10);
+			if(ShopManager.buyShopItem(ShopItem.getTimePrice())) {
+				
+			}
 			break;
 		case "lp":
-			ShopManager.buyShopItem(10);
+			if(ShopManager.buyShopItem(ShopItem.getLpPrice())) {
+				GameManager.upgradePlayerMaxHP();
+			}
 			break;
 		default:
 			break;
@@ -259,5 +271,6 @@ public class ImageButton extends ImageView {
 	public void playButtonPress() {
 		setUpNameInput();
 	}
+	
 
 }

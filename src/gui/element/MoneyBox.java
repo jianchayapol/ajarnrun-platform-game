@@ -11,31 +11,30 @@ import sharedObject.RenderableHolder;
 public class MoneyBox extends StackPane{
 	
 	private ImageView moneyTag;
-	private Label priceText;
+	private static Label moneyText;
 	
 	public MoneyBox(){
 		super();
 		setupMoneyTag();
 		setupPriceTag();
-		this.getChildren().addAll(moneyTag,priceText);
+		this.getChildren().addAll(moneyTag,moneyText);
 		this.setAlignment(Pos.CENTER);
 	}
 	
 	private void setupMoneyTag() {
-		
 		moneyTag = new ImageView(RenderableHolder.money_tag_Image);
 		moneyTag.setFitHeight(36);
 		moneyTag.setFitWidth(106);
 	}
 	
 	private void setupPriceTag() {
-		priceText = new Label();
-		updatePriceText();
+		moneyText = new Label();
+		updateMoneyText();
 	}
 	
-	private void updatePriceText() {
+	public static void updateMoneyText() {
 		int coin = GameManager.getPlayerCoin();
-		priceText.setText(String.valueOf(coin));
+		moneyText.setText(String.valueOf(coin));
 	}
 	
 	

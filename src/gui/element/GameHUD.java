@@ -41,10 +41,17 @@ public class GameHUD extends HBox {
 	// =============== public static methods =========================
 
 	public static void setProgress(ProgressBar progBar, double current, double max) {
+		if (current > max) {
+			current = max;
+		}
+		if (current < 0) {
+			current = 0;
+		}
 		double progress = current * 1.0 / max;
 		progBar.setProgress(progress);
-		if (progress <= 0.1d)
+		if (progress <= 0.1d) {
 			progBar.setStyle("-fx-accent: red");
+		}
 	}
 
 	public static ProgressBar getTimerProgressBar() {
@@ -55,11 +62,13 @@ public class GameHUD extends HBox {
 		return progBar;
 	}
 
-	public static void setLevelLabel(int level) {
+	public static void setLevelLabel() {
+		int level = GameManager.getLevelCount() + 1;
 		levelLabel.setText("Lv." + String.valueOf(level));
 	}
 
-	public static void setMoneyLabel(int coin) {
+	public static void setMoneyLabel() {
+		int coin = GameManager.getPlayerCoin();
 		moneyLabel.setText("    " + String.valueOf(coin));
 	}
 
@@ -120,7 +129,7 @@ public class GameHUD extends HBox {
 		FontLoader.setFont(levelLabel, FontType.TELEGRAMA, 22);
 		levelLabel.setTextFill(Color.DARKRED);
 		levelLabel.setAlignment(Pos.BASELINE_LEFT);
-		setLevelLabel(GameManager.getLevelCount()+1);
+		setLevelLabel();
 	}
 
 	private static void initButtonBox() {
@@ -144,6 +153,7 @@ public class GameHUD extends HBox {
 	}
 
 	private static void setupMoneyLabel() {
+		int money = GameManager.getPlayerCoin();
 		moneyLabel = new Label("    " + "0");
 		moneyLabel.setTextFill(Color.WHITE);
 		FontLoader.setFont(moneyLabel, FontType.TELEGRAMA, 17);

@@ -41,32 +41,31 @@ public class CSVUtility {
 		try {
 			reader = new BufferedReader(new FileReader("res/csv" + filename));
 			String line = null;
-			
+
 			while ((line = reader.readLine()) != null) {
 				String[] l = line.split(",");
-				if(text[0].equals(l[0])) {
-					if(Integer.parseInt(l[1])<Integer.parseInt(text[1]) ) {
-						 isHighScore = true;
-					}
-					else if(Integer.parseInt(l[1])==Integer.parseInt(text[1]) && Integer.parseInt(l[2])<Integer.parseInt(text[2])) {
+				if (text[0].equals(l[0])) {
+					if (Integer.parseInt(l[1]) < Integer.parseInt(text[1])) {
 						isHighScore = true;
-					}
-					else {
+					} else if (Integer.parseInt(l[1]) == Integer.parseInt(text[1])
+							&& Integer.parseInt(l[2]) < Integer.parseInt(text[2])) {
+						isHighScore = true;
+					} else {
 						lines.add(line);
 					}
-				}else {
+				} else {
 					lines.add(line);
 				}
 			}
-			
+
 			String textToWrite = "";
-			
+
 			writer = new BufferedWriter(new FileWriter(new File("res/csv" + filename), false));
 			for (String s : lines) {
-				textToWrite += (s.split(",")[0] + "," +s.split(",")[1]+ "," + s.split(",")[2] + "\n");
+				textToWrite += (s.split(",")[0] + "," + s.split(",")[1] + "," + s.split(",")[2] + "\n");
 			}
-			
-			if(isHighScore) {
+
+			if (isHighScore) {
 				for (int i = 0; i < text.length; i++) {
 					textToWrite += escapeSpecialCharacters(text[i]);
 					if (i != text.length - 1) {
@@ -75,7 +74,7 @@ public class CSVUtility {
 				}
 				textToWrite += "\n";
 			}
-			
+
 			writer.write(textToWrite);
 			writer.close();
 
@@ -107,13 +106,27 @@ public class CSVUtility {
 		}
 	}
 
-	public static String escapeSpecialCharacters(String data) {
+	private static String escapeSpecialCharacters(String data) {
 		String escapedData = data.replaceAll("\\R", " ");
 		if (data.contains(",") || data.contains("\"") || data.contains("'")) {
 			data = data.replace("\"", "\"\"");
 			escapedData = "\"" + data + "\"";
 		}
 		return escapedData;
+	}
+
+	public static int getPlayerExp(String name) {
+		try {
+			ArrayList<String> data = CSVUtility.readCSV();
+			for (String s : data) {
+				if (s.split(",")[0].equals(name)) {
+					return Integer.parseInt(s.split(",")[2]);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return 0;
 	}
 
 }

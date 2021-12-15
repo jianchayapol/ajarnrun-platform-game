@@ -44,7 +44,7 @@ public class ShopPane extends AnchorPane {
 		initializeErrorMessage();
 		// setup
 		setupPane();	
-
+		setupMoneyBox();
 		this.getChildren().addAll(rec,controlBox,errorMessage,moneyBox);
 	}
 
@@ -83,12 +83,12 @@ public class ShopPane extends AnchorPane {
 		shelfBoxMain.setLayoutY(117);
 		setupRec();
 		setupControlBox();
-		setupMoneyBox();
 	}
 
 	private void setupMoneyBox() {
-		moneyBox.setLayoutX(400);
-		moneyBox.setLayoutY(100);
+		moneyBox.setLayoutX(600);
+		moneyBox.setLayoutY(50);
+		
 	}
 	
 	private void setupRec() {
@@ -133,5 +133,10 @@ public class ShopPane extends AnchorPane {
 	public static void shuffleItems() {
 		Collections.shuffle(ShopPane.shelf);
 	}
+	
+	public static ArrayList<ShopItemBox> getShelf(){
+		return shelf;
+	}
+	
 
 }

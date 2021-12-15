@@ -16,15 +16,16 @@ public class RenderableHolder {
 	private static final int BLOCK_HEIGHT = GameManager.getBlockHeight();
 
 	// Platform
-	private static Image greenOne;
-	private static Image greenTwo;
-	private static Image greenThree;
-	private static Image greenFour;
-	private static Image greenFive;
-	private static Image floatOne;
-	private static Image floatTwo;
-	private static Image floatThree;
-	private static Image floatFour;
+	public static Image greenOne;
+	public static Image greenTwo;
+	public static Image greenThree;
+	public static Image greenFour;
+	public static Image greenFive;
+	public static Image floatOne;
+	public static Image floatTwo;
+	public static Image floatThree;
+	public static Image floatFour;
+	public static Image hurtPlatformOne;
 
 	// Pane
 	public static Image money_tag_Image;
@@ -257,6 +258,7 @@ public class RenderableHolder {
 		RenderableHolder.floatTwo = loadImage("platform/floatGreen_02.png");
 		RenderableHolder.floatThree = loadImage("platform/floatGreen_03.png");
 		RenderableHolder.floatFour = loadImage("platform/floatGreen_04.png");
+		RenderableHolder.hurtPlatformOne = loadImage("platform/cactus.png");
 
 		// Logo
 		RenderableHolder.logo = loadImage("Logo.png");

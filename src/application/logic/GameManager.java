@@ -12,6 +12,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import logic.level.Level;
+import platform.Coin;
+import platform.FinishFlag;
+import platform.HurtPlatform;
+import platform.base.Collectable;
+import platform.base.Damagable;
+import platform.Book;
 import player.Character;
 import player.Enemy;
 import player.Player;
@@ -26,14 +32,14 @@ public class GameManager {
 	private static boolean canJump;
 	private static int levelWidth;
 	private static boolean isMute;
-	private static int levelCount = 1;
+	private static int levelCount;
 
 	private static AnchorPane appRoot = new AnchorPane();
 	private static AnchorPane gameRoot = new AnchorPane();
 	private static AnchorPane uiRoot = new AnchorPane();
 
-	private static final int BLOCK_WIDTH = 60;
-	private static final int BLOCK_HEIGHT = 60;
+	private static final int BLOCK_WIDTH = 120;
+	private static final int BLOCK_HEIGHT = 120;
 
 	// Time
 	private static int time;
@@ -63,6 +69,8 @@ public class GameManager {
 	
 	private static ArrayList<Node> books = new ArrayList<Node>();
 	private static ArrayList<Integer> booksIndex = new ArrayList<Integer>();
+	
+	private static int bookCount;
 
 	// Node Counter
 	private static int nodeCount;
@@ -72,6 +80,7 @@ public class GameManager {
 		initializeLevelCount();
 		initializeNodeCount();
 		setLevelWidth();
+		initializeBookCount();
 		setLevelPlatform();
 		initializePlayer();
 		initializePlayerMaxHP();
@@ -106,6 +115,10 @@ public class GameManager {
 	private static void setLevelWidth() {
 		levelWidth = 0;
 		levelWidth = Level.ALL_LEVEL[levelCount][0].length() * BLOCK_WIDTH;
+	}
+	
+	private static void initializeBookCount() {
+		bookCount = 0;
 	}
 
 	private static void setLevelPlatform() {
@@ -172,26 +185,10 @@ public class GameManager {
 					platforms.add(platform);
 					nodeCount++;
 					break;
-				case 'E':
-					platform = new Enemy(RenderableHolder.enemyOneLeft, 1, 0, j * BLOCK_WIDTH + 5, i * BLOCK_HEIGHT + 5,
-							4 + random.nextInt(5));
-					gameRoot.getChildren().add(platform);
-					platforms.add(platform);
-					enemies.put((Enemy) platform, random.nextBoolean());
-					nodeCount++;
-					break;
-				case 'e':
-					platform = new Enemy(RenderableHolder.enemyTwoLeft, 1, 0, j * BLOCK_WIDTH + 5, i * BLOCK_HEIGHT + 5,
-							4 + random.nextInt(5));
-					gameRoot.getChildren().add(platform);
-					platforms.add(platform);
-					enemies.put((Enemy) platform, random.nextBoolean());
-					nodeCount++;
-					break;
 					
 				// Item
 				case 'M':
-					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "coin");
+					platform = new Coin(RenderableHolder.coin, BLOCK_WIDTH, BLOCK_HEIGHT, j * BLOCK_WIDTH, i*BLOCK_HEIGHT);
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					// For collecting item logic
@@ -200,24 +197,31 @@ public class GameManager {
 					nodeCount++;
 					break;
 				case 'K':
-					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "book1");
+					platform = new Book(RenderableHolder.bookOne, BLOCK_WIDTH, BLOCK_HEIGHT, j * BLOCK_WIDTH, i*BLOCK_HEIGHT);
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					// For collecting item logic
 					books.add(platform);
 					booksIndex.add(nodeCount);
 					nodeCount++;
+					bookCount++;
 					break;
 				case 'k':
-					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "book2");
+					platform = new Book(RenderableHolder.bookTwo, BLOCK_WIDTH, BLOCK_HEIGHT, j * BLOCK_WIDTH, i*BLOCK_HEIGHT);
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					books.add(platform);
 					booksIndex.add(nodeCount);
 					nodeCount++;
+					bookCount++;
 					break;
+				case 'H':
+					platform = new HurtPlatform(RenderableHolder.hurtPlatformOne, BLOCK_WIDTH, BLOCK_HEIGHT, j * BLOCK_WIDTH, i*BLOCK_HEIGHT);
+					gameRoot.getChildren().add(platform);
+					platforms.add(platform);
+					nodeCount++;
 				case 'X':
-					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "finish");
+					platform = new FinishFlag(RenderableHolder.finish, BLOCK_WIDTH, BLOCK_HEIGHT, j * BLOCK_WIDTH, i*BLOCK_HEIGHT);
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					nodeCount++;
@@ -234,6 +238,8 @@ public class GameManager {
 
 	private static void initializePlayer() {
 		player = new Player(RenderableHolder.spritePlayerStanding, 0, 0, 200, 1);
+		
+		nodeCount++;
 	}
 
 	private static void initializePlayerMaxHP() {
@@ -254,6 +260,8 @@ public class GameManager {
 
 	private static void addPlayerToGameRoot() {
 		gameRoot.getChildren().add(player);
+		// test add player to platforms
+		platforms.add(player);
 	}
 
 	private static void setGameRootLayoutX() {
@@ -318,153 +326,97 @@ public class GameManager {
 
 	private static void movePlayerX(int value) {
 		boolean movingRight = value > 0;
-		// all checker
-		int playerTopY = (int) player.getTranslateY();
-		int playerBottomY = playerTopY + player.getHeight();
-		int playerLeftX = (int) player.getTranslateX();
-		int playerRightX = playerLeftX + player.getWidth();
-
-		int rowFeet = (int) (playerBottomY / 60);
-		if (playerBottomY % BLOCK_WIDTH == 0) {
-			rowFeet -= 1;
-		}
-		int rowHead = 0;
-		if ((rowFeet + 1) * BLOCK_WIDTH - playerBottomY > 20) {
-			rowHead = rowFeet - 2;
-		} else {
-			rowHead = rowFeet - 1;
-		}
-
-		int columnLeft = (int) (playerLeftX / 60);
-		if (playerRightX % BLOCK_HEIGHT == 0) {
-			columnLeft -= 1;
-		}
-		int columnRight = 0;
-		if (playerLeftX - columnLeft > 25) {
-			columnRight = columnLeft + 2;
-		} else {
-			columnRight = columnLeft + 1;
-		}
-		int maxColumn = Level.ALL_LEVEL[levelCount][0].length() - 1;
-		int maxRow = Level.ALL_LEVEL[levelCount].length;
-		System.out.println("ColumnRight = " + columnRight);
-		System.out.println("ColumnLeft = " + columnLeft);
-		System.out.println("Head = " + rowHead);
-		System.out.println("Feet = " + rowFeet);
-		for (int i = 0; i < Math.abs(value); i++) {
-			if (movingRight) {
-				if (columnRight >= maxColumn) {
-					if (player.getTranslateX() + player.getWidth() <= levelWidth - 60) {
-						player.setTranslateX(player.getTranslateX() + 1);
-					} else {
-						break;
-					}
-				} else {
-					if (rowHead <= 0 && rowFeet <= 0) {
-						player.setTranslateX(player.getTranslateX() + 1);
-					} else if (rowHead >= 10 && rowFeet >= 10) {
-						player.setTranslateX(player.getTranslateX() + 1);
-					} else if (rowHead <= 0) {
-						if (Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnRight + 1) != '0') {
-							// try chaning playerRightX into playerRightX = playerLeftX + player.getWidth();
-							if (player.getTranslateX() + player.getWidth() >= (columnRight + 1) * BLOCK_WIDTH) {
-							} else {
-								player.setTranslateX(player.getTranslateX() + 1);
+			for (int i = 0; i < Math.abs(value); i++) {
+				boolean canWalk = true;
+				for (Node platform : platforms) {
+					if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
+						if (movingRight) {
+							if (player.getTranslateX() + player.getWidth() + 1 == platform.getTranslateX()) {
+								if (platform instanceof Collectable) {
+									canWalk = true;
+								} else if (platform instanceof Damagable) {
+									// DECREASE HP
+									player.setTranslateX(player.getTranslateX() - 5);
+									canWalk = false;
+									break;
+								} else {
+									canWalk = false;
+									break;
+								}
 							}
 						} else {
-							player.setTranslateX(player.getTranslateX() + 1);
-						}
-					} else if (rowFeet >= maxRow) {
-						if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnRight + 1) != '0') {
-							if (player.getTranslateX() + player.getWidth() >= (columnRight + 1) * BLOCK_WIDTH) {
-							} else {
-								player.setTranslateX(player.getTranslateX() + 1);
+							if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH + 1) {
+								if (platform instanceof Collectable) {
+									canWalk = true;
+									break;
+								} else if (platform instanceof Damagable) {
+									// DECREASE HP
+									player.setTranslateX(player.getTranslateX() + 5);
+									canWalk = false;
+									break;
+								}
 							}
-						} else {
-							player.setTranslateX(player.getTranslateX() + 1);
-						}
-					} else {
-						// check if head is out of bound
-						if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnRight + 1) != '0'
-								|| Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnRight + 1) != '0') {
-							if (player.getTranslateX() + player.getWidth() >= (columnRight + 1) * BLOCK_WIDTH) {
-							} else {
-								player.setTranslateX(player.getTranslateX() + 1);
-							}
-						} else {
-							player.setTranslateX(player.getTranslateX() + 1);
 						}
 					}
 				}
-			} else if (!movingRight) {
-				if (columnLeft <= 0) {
-					if (player.getTranslateX() >= 60) {
-						player.setTranslateX(player.getTranslateX() - 1);
-					} else {
-						break;
-					}
-				} else {
-					if (rowHead <= 0 && rowFeet <= 0) {
-						player.setTranslateX(player.getTranslateX() - 1);
-					} else if (rowHead >= 10 & rowFeet >= 10) {
-						player.setTranslateX(player.getTranslateX() - 1);
-					} else if (rowHead <= 0) {
-						if (Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnLeft - 1) != '0') {
-							if (playerLeftX <= (columnLeft * BLOCK_WIDTH)) {
-							} else {
-								player.setTranslateX(player.getTranslateX() - 1);
-							}
-						} else {
-							player.setTranslateX(player.getTranslateX() - 1);
-						}
-					} else if (rowFeet > maxRow) {
-						if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnLeft - 1) != '0') {
-							if (playerLeftX <= (columnLeft * BLOCK_WIDTH)) {
-							} else {
-								player.setTranslateX(player.getTranslateX() - 1);
-							}
-						} else {
-							player.setTranslateX(player.getTranslateX() - 1);
-						}
-					} else {
-						if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnLeft - 1) != '0'
-								|| Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnLeft - 1) != '0') {
-							if (playerLeftX <= (columnLeft * BLOCK_WIDTH)) {
-
-							} else {
-								player.setTranslateX(player.getTranslateX() - 1);
-							}
-						} else {
-							player.setTranslateX(player.getTranslateX() - 1);
-						}
-					}
-
-				}
+				if (canWalk) {
+					player.setTranslateX(player.getTranslateX() + (movingRight ? 1 : -1));
+				} 
 			}
-		}
 	}
 
 	private static void movePlayerY(int value) {
 		boolean movingDown = value > 0;
 		for (int i = 0; i < Math.abs(value); i++) {
+			boolean canWalk = true;
 			for (Node platform : platforms) {
 				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
 					if (movingDown) {
 						if (player.getTranslateY() + player.getHeight() == platform.getTranslateY()) {
-							setCanJump(true);
-							return;
+							if (platform instanceof Collectable) {
+								canWalk = true;
+								setCanJump(false);
+								break;
+							} else if (platform instanceof Damagable) {
+								// DECREASE HP
+								player.setTranslateY(player.getTranslateY() - 10);
+								canWalk = false;
+								setCanJump(true);
+								break;
+							} else {
+								canWalk = false;
+								setCanJump(true);
+								break;
+							}
+						} else {
+							canWalk = true;
 						}
 					} else {
-						if (player.getTranslateY() == platform.getTranslateY() + BLOCK_HEIGHT - 15) {
-							return;
-						}
-						if (player.getTranslateY() + player.getHeight() < 60) {
-							return;
-						}
+						if (player.getTranslateY() == platform.getTranslateY() + BLOCK_HEIGHT) {
+							if (platform instanceof Collectable) {
+								canWalk = true;
+								setCanJump(false);
+								break;
+							} else if (platform instanceof Damagable) {
+								// DECREASE HP
+								player.setTranslateY(player.getTranslateY() + 10);
+								canWalk = false;
+								setCanJump(true);
+								break;
+							} else {
+								canWalk = false;
+								setCanJump(true);
+								break;
+							}
+						} 
+					
 					}
 				}
+			
 			}
-			player.setTranslateY(player.getTranslateY() + (movingDown ? 1 : -1));
+			if (canWalk) {
+				player.setTranslateY(player.getTranslateY() + (movingDown ? 1: -1));
+			}
 		}
 	}
 
@@ -484,43 +436,57 @@ public class GameManager {
 	}
 	
 	private static void checkCoinCollect() {
-		ArrayList<Integer> indexForDelete = new ArrayList<Integer>();
-		for (int i = 0; i < coins.size(); i++) {
-			if (player.getTranslateX() <= coins.get(i).getTranslateX()
-					&& coins.get(i).getTranslateX() <= player.getTranslateX() + player.getWidth()
-					&& player.getTranslateY() <= coins.get(i).getTranslateY()
-					&& coins.get(i).getTranslateY() <= player.getTranslateY() + player.getHeight()) {
-				
-				// COIN MUST BE COLLECTED WITH INDEX coinsIndex.get(i) not i
-				
-				GameManager.setPlayerCoin(GameManager.getPlayerCoin() + 5 + random.nextInt(10));
-				
-				// COIN ADDED, NOW REMOVE IT
-				gameRoot.getChildren().remove(coinsIndex.get(i));
-				platforms.remove(coinsIndex.get(i));
-				
-				// TRY CHANGE coinsIndex
-				for (int j = i; j < coins.size(); j ++) {
-					coinsIndex.set(j, coinsIndex.get(j) - 1);
-				}
-				indexForDelete.add(i);
+		for (Node coin : coins) {
+			boolean boundXLeftMin = coin.getTranslateX() <= player.getTranslateX() + player.getWidth();
+			boolean boundXLeftMax = player.getTranslateX() + player.getWidth() <= coin.getTranslateX() + BLOCK_WIDTH;
+			boolean boundXRightMin = coin.getTranslateX() <= player.getTranslateX();
+			boolean d = player.getTranslateX() <= coin.getTranslateX() + BLOCK_WIDTH;
+			
+			// e, f, g, h check translateY
+			boolean boundYTopMin = coin.getTranslateY() <= player.getTranslateY() + player.getHeight();
+			boolean boundYTopMax = player.getTranslateY() + player.getHeight() <= coin.getTranslateY() + BLOCK_HEIGHT;
+			boolean boundYBottomMin = coin.getTranslateY() <= player.getTranslateY();
+			boolean boundYBottomMax = player.getTranslateY() <= coin.getTranslateY() + BLOCK_HEIGHT;
+
+			if (((boundXLeftMin && boundXLeftMax) || (boundXRightMin && d)) && ((boundYTopMin && boundYTopMax) || (boundYBottomMin && boundYBottomMax))) {
+				GameManager.setPlayerCoin(GameManager.getPlayerCoin() + 5);
+				gameRoot.getChildren().remove(coin);
+				platforms.remove(coin);
+				coins.remove(coin);
+				break;
 			}
-		}
-		for (int k = indexForDelete.size(); k > 0; k--) {
-			coins.remove(k-1);
-			coinsIndex.remove(k-1);
 		}
 	}
 	
 	private static void checkBookCollect() {
+		for (Node book : books) {
+			boolean boundXLeftMin = book.getTranslateX() <= player.getTranslateX() + player.getWidth();
+			boolean boundXLeftMax = player.getTranslateX() + player.getWidth() <= book.getTranslateX() + BLOCK_WIDTH;
+			boolean boundXRightMin = book.getTranslateX() <= player.getTranslateX();
+			boolean d = player.getTranslateX() <= book.getTranslateX() + BLOCK_WIDTH;
+			
+			// e, f, g, h check translateY
+			boolean boundYTopMin = book.getTranslateY() <= player.getTranslateY() + player.getHeight();
+			boolean boundYTopMax = player.getTranslateY() + player.getHeight() <= book.getTranslateY() + BLOCK_HEIGHT;
+			boolean boundYBottomMin = book.getTranslateY() <= player.getTranslateY();
+			boolean boundYBottomMax = player.getTranslateY() <= book.getTranslateY() + BLOCK_HEIGHT;
+
+			if (((boundXLeftMin && boundXLeftMax) || (boundXRightMin && d)) && ((boundYTopMin && boundYTopMax) || (boundYBottomMin && boundYBottomMax))) {
+				gameRoot.getChildren().remove(book);
+				platforms.remove(book);
+				books.remove(book);
+				break;
+			}
+		}
 	}
 
 	/* ============================== PUBLIC STATIC METHOD ============================== */
 
-
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
-			jumpPlayer(30);
+			jumpPlayer(35);
+//			gameRoot.getChildren().remove(gameRoot.getChildren().size() - 2);
+//			platforms.remove(platforms.size() - 2);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
 			movePlayerX(-5);
@@ -541,8 +507,6 @@ public class GameManager {
 		
 		checkCoinCollect();
 		checkBookCollect();
-		
-		// test delete, it works
 	}
 
 	public static void setUpNextLevel() {
@@ -551,6 +515,7 @@ public class GameManager {
 		levelCountInclement();
 		resetFinishPosition();
 		setLevelWidth();
+		initializeBookCount();
 		clearUIRoot();
 		clearGameRoot();
 		clearAppRoot();

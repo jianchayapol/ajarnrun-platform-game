@@ -177,10 +177,6 @@ public class GameManager {
 					break;
 
 				// FINISH BLOCK
-				case 'X':
-					finishPositionX = j * BLOCK_WIDTH;
-					finishPositionY = i * BLOCK_HEIGHT;
-
 				case 'M':
 					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "coin");
 					gameRoot.getChildren().add(platform);
@@ -208,6 +204,7 @@ public class GameManager {
 					nodeCount++;
 					finishPositionX = j*BLOCK_WIDTH;
 					finishPositionY = i*BLOCK_HEIGHT;
+					break;
 				default:
 					break;
 				}

@@ -41,6 +41,9 @@ public class GameHUD extends HBox {
 	// =============== public static methods =========================
 
 	public static void setProgress(ProgressBar progBar, double current, double max) {
+		if (current < 0) {
+			current = 0;
+		}
 		double progress = current * 1.0 / max;
 		progBar.setProgress(progress);
 		if (progress <= 0.1d)

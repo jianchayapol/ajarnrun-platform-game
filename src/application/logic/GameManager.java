@@ -220,6 +220,7 @@ public class GameManager {
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					nodeCount++;
+					break;
 				case 'X':
 					platform = new FinishFlag(RenderableHolder.finish, BLOCK_WIDTH, BLOCK_HEIGHT, j * BLOCK_WIDTH, i*BLOCK_HEIGHT);
 					gameRoot.getChildren().add(platform);
@@ -243,7 +244,7 @@ public class GameManager {
 	}
 
 	private static void initializePlayerMaxHP() {
-		playerMaxHP = 100;
+		playerMaxHP = 150;
 	}
 
 	private static void initializePlayerCurrentHP() {
@@ -345,7 +346,8 @@ public class GameManager {
 							if (platform instanceof Collectable) {
 							} else if (platform instanceof Damagable) {
 								setPlayerCurrentHP(getPlayerCurrentHP() - 5 - random.nextInt(5));
-								player.setTranslateX(player.getTranslateX() - 10);
+								player.setTranslateX(player.getTranslateX() + 10);
+								return;
 							} else {
 								return;
 							}
@@ -366,7 +368,7 @@ public class GameManager {
 						if (player.getTranslateY() + player.getHeight() == platform.getTranslateY()) {
 							if (platform instanceof Collectable) {
 							} else if (platform instanceof Damagable) {
-								setPlayerCurrentHP(getPlayerCurrentHP() - 5 - random.nextInt(5));
+								setPlayerCurrentHP(getPlayerCurrentHP() - 1);
 								player.setTranslateY(player.getTranslateY() - 20);
 								setCanJump(true);
 								return;
@@ -380,7 +382,7 @@ public class GameManager {
 							if (platform instanceof Collectable) {
 								
 							} else if (platform instanceof Damagable) {
-								setPlayerCurrentHP(getPlayerCurrentHP() - 5 - random.nextInt(5));
+								setPlayerCurrentHP(getPlayerCurrentHP() - 1);
 								return;
 							} else {
 								return;

@@ -2,6 +2,7 @@ package application.logic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import gui.element.GameHUD;
 import javafx.scene.Node;
@@ -11,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import logic.level.Level;
+import player.Enemy;
 import player.Player;
 import sharedObject.RenderableHolder;
 import view.ViewManager;
@@ -50,10 +52,13 @@ public class GameManager {
 	private static boolean isDead;
 
 	// Enemy
-	private static HashMap<Node, Boolean> enemy = new HashMap<Node, Boolean>();
+	private static HashMap<Enemy, Boolean> enemies = new HashMap<Enemy, Boolean>();
+	private static Random random = new Random();
+	private static boolean canEnemyRun;
 
 	// Item
-	private static HashMap<Node, Integer> item = new HashMap<Node, Integer>();
+	private static ArrayList<Node> item = new ArrayList<Node>();
+	private static ArrayList<Integer> itemIndex = new ArrayList<Integer>();
 
 	// Node Counter
 	private static int nodeCount;
@@ -164,38 +169,64 @@ public class GameManager {
 					nodeCount++;
 					break;
 				case 'E':
-					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "E");
+					platform = new Enemy(RenderableHolder.enemyOneLeft, 3 + random.nextInt(3), 0, j*BLOCK_WIDTH, i*BLOCK_HEIGHT, 4 + random.nextInt(5));
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					enemies.put((Enemy) platform, random.nextBoolean());
 					nodeCount++;
 					break;
 				case 'e':
-					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "e");
+					platform = new Enemy(RenderableHolder.enemyTwoLeft, 3 + random.nextInt(3), 0, j*BLOCK_WIDTH, i*BLOCK_HEIGHT, 4 + random.nextInt(5));
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					enemies.put((Enemy) platform, random.nextBoolean());
 					nodeCount++;
 					break;
-
-				// FINISH BLOCK
+				
+				// Item
 				case 'M':
 					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "coin");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					// For collecting item logic
+					item.add(platform);
+					itemIndex.add(nodeCount);
 					nodeCount++;
 					break;
 				case 'K':
 					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "book1");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					// For collecting item logic
+					item.add(platform);
+					itemIndex.add(nodeCount);
 					nodeCount++;
 					break;
 				case 'k':
 					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "book2");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
+					item.add(platform);
+					itemIndex.add(nodeCount);
 					nodeCount++;
 					break;
-				
+//				
+//				// START BLOCK
+//				case 'S':
+//					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "start");
+//					gameRoot.getChildren().add(platform);
+//					platforms.add(platform);
+//					nodeCount++;
+//					break;
+//				case 'U':
+//					platform = new ImageView();
+//					platform.setFitHeight(BLOCK_HEIGHT);
+//					platform.setFitWidth(BLOCK_WIDTH);
+//					gameRoot.getChildren().add(platform);
+//					platforms.add(platform);
+//					nodeCount++;
+//					break;
+
 				// FINISH BLOCK
 				case 'X':
 					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "finish");
@@ -311,7 +342,7 @@ public class GameManager {
 		if (playerBottomY % BLOCK_WIDTH == 0) {
 			rowFeet -= 1;
 		}
-		int rowHead;
+		int rowHead = 0;
 		if ((rowFeet + 1) * BLOCK_WIDTH - playerBottomY > 20) {
 			rowHead = rowFeet - 2;
 		} else {
@@ -322,35 +353,105 @@ public class GameManager {
 		if (playerRightX % BLOCK_HEIGHT == 0) {
 			columnLeft -= 1;
 		}
-		int columnRight;
+		int columnRight = 0;
 		if (playerLeftX - columnLeft > 25) {
 			columnRight = columnLeft + 2;
 		} else {
 			columnRight = columnLeft + 1;
 		}
+		int maxColumn = Level.ALL_LEVEL[levelCount][0].length() - 1;
+		int maxRow = Level.ALL_LEVEL[levelCount].length;
 		for (int i = 0; i < Math.abs(value); i++) {
+			
+			// Figure out the row and column
+			
+			
 			if (movingRight) {
-				if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnRight + 1) != '0'
-						|| Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnRight + 1) != '0') {
-					if (playerRightX >= (columnRight + 1) * BLOCK_WIDTH) {
-//						player.setTranslateX(player.getTranslateX() - 1);
-					} else {
+				if (columnRight >= maxColumn) {
+					if (player.getTranslateX() + player.getWidth() <= levelWidth - 60) {
 						player.setTranslateX(player.getTranslateX() + 1);
+					} else {
+						break;
 					}
-
 				} else {
-					player.setTranslateX(player.getTranslateX() + 1);
+					if (rowHead <= 0 && rowFeet <= 0) {
+						player.setTranslateX(player.getTranslateX() + 1);
+					} else if (rowHead >= 10 && rowFeet >= 10) {
+						player.setTranslateX(player.getTranslateX() + 1);
+					} else if (rowHead <= 0 ) {
+						if (Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnRight + 1) != '0') {
+							if (playerRightX >= (columnRight + 1) * BLOCK_WIDTH) {
+							} else {
+								player.setTranslateX(player.getTranslateX() + 1);
+							}
+						} else {
+							player.setTranslateX(player.getTranslateX() + 1);
+						}
+					} else if (rowFeet >= maxRow) {
+						if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnRight + 1) != '0') {
+							if (playerRightX >= (columnRight + 1) * BLOCK_WIDTH) {
+							} else {
+								player.setTranslateX(player.getTranslateX() + 1);
+							}
+						} else {
+							player.setTranslateX(player.getTranslateX() + 1);
+						}
+					} else {
+					// check if head is out of bound
+						if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnRight + 1) != '0'
+								|| Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnRight + 1) != '0') {
+							if (playerRightX >= (columnRight + 1) * BLOCK_WIDTH) {
+							} else {
+								player.setTranslateX(player.getTranslateX() + 1);
+							}
+		
+						} else {
+							player.setTranslateX(player.getTranslateX() + 1);
+						}
+					}
 				}
 			} else if (!movingRight) {
-				if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnLeft - 1) != '0'
-						|| Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnLeft - 1) != '0') {
-					if (playerLeftX <= (columnLeft * BLOCK_WIDTH)) {
-//						player.setTranslateX(player.getTranslateX() + 1);
-					} else {
+				if (columnLeft <= 0) {
+					if (player.getTranslateX() >= 60) {
 						player.setTranslateX(player.getTranslateX() - 1);
+					} else {
+						break;
 					}
 				} else {
-					player.setTranslateX(player.getTranslateX() - 1);
+					if (rowHead <= 0 && rowFeet <= 0) {
+						player.setTranslateX(player.getTranslateX() - 1);
+					}else if (rowHead>= 10 & rowFeet >= 10) {
+						player.setTranslateX(player.getTranslateX() - 1);
+					} else if (rowHead <= 0 ) {
+						if (Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnLeft - 1) != '0') {
+							if (playerLeftX <= (columnLeft * BLOCK_WIDTH)) {
+							} else {
+								player.setTranslateX(player.getTranslateX() - 1);
+							}
+						} else {
+							player.setTranslateX(player.getTranslateX() - 1);
+						}
+					} else if (rowFeet > maxRow) {
+						if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnLeft - 1) != '0') {
+							if (playerLeftX <= (columnLeft * BLOCK_WIDTH)) {
+							} else {
+								player.setTranslateX(player.getTranslateX() - 1);
+							}
+						} else {
+							player.setTranslateX(player.getTranslateX() - 1);
+						}
+					} else {
+						if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnLeft - 1) != '0' || Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnLeft - 1) != '0') {
+							if (playerLeftX <= (columnLeft * BLOCK_WIDTH)) {
+								
+							} else {
+								player.setTranslateX(player.getTranslateX() - 1);
+							}
+						} else {
+							player.setTranslateX(player.getTranslateX() - 1);
+						}
+					}
+					
 				}
 			}
 		}
@@ -427,6 +528,9 @@ public class GameManager {
 						if (player.getTranslateY() == platform.getTranslateY() + BLOCK_HEIGHT - 15) {
 							return;
 						}
+						if (player.getTranslateY() + player.getHeight() < 60) {
+							return;
+						}
 					}
 				}
 			}
@@ -448,6 +552,28 @@ public class GameManager {
 	private static void setPlayerCurrentHP(int HP) {
 		playerCurrentHP = HP;
 	}
+	
+//	private static void enemyMove(boolean isMovingRight) {
+//		for (Enemy enemy : enemies.keySet()) {
+//			for (int i = 0; i < enemy.getVelocityX(); i++) {
+//				canEnemyRun = false;
+//				if (isMovingRight) {
+//					for (Node platform : platforms) {
+//						if (enemy.getTranslateX() + enemy.getWidth() == platform.getTranslateX()) {
+//							canEnemyRun = false;
+//						} else {
+//							canEnemyRun = true;
+//						}
+//					}
+//					if (canEnemyRun) {
+//						enemy.setTranslateX(enemy.getTranslateX());
+//					}
+//				} else {
+//					for ()
+//				}
+//			}
+//		}
+//	}
   
 	/* ============================== PUBLIC STATIC METHOD ============================== */
 	

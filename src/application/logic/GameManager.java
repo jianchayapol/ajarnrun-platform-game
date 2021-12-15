@@ -335,7 +335,7 @@ public class GameManager {
 								if (platform instanceof Collectable) {
 									canWalk = true;
 								} else if (platform instanceof Damagable) {
-									// DECREASE HP
+									
 									player.setTranslateX(player.getTranslateX() - 5);
 									canWalk = false;
 									break;
@@ -343,6 +343,8 @@ public class GameManager {
 									canWalk = false;
 									break;
 								}
+							} else {
+								
 							}
 						} else {
 							if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH + 1) {

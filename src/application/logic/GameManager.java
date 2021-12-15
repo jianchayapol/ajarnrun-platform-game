@@ -58,8 +58,11 @@ public class GameManager {
 	private static boolean canEnemyRun;
 
 	// Item
-	private static ArrayList<Node> item = new ArrayList<Node>();
-	private static ArrayList<Integer> itemIndex = new ArrayList<Integer>();
+	private static ArrayList<Node> coins = new ArrayList<Node>();
+	private static ArrayList<Integer> coinsIndex = new ArrayList<Integer>();
+	
+	private static ArrayList<Node> books = new ArrayList<Node>();
+	private static ArrayList<Integer> booksIndex = new ArrayList<Integer>();
 
 	// Node Counter
 	private static int nodeCount;
@@ -185,14 +188,15 @@ public class GameManager {
 					enemies.put((Enemy) platform, random.nextBoolean());
 					nodeCount++;
 					break;
+					
 				// Item
 				case 'M':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "coin");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					// For collecting item logic
-					item.add(platform);
-					itemIndex.add(nodeCount);
+					coins.add(platform);
+					coinsIndex.add(nodeCount);
 					nodeCount++;
 					break;
 				case 'K':
@@ -200,36 +204,18 @@ public class GameManager {
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					// For collecting item logic
-					item.add(platform);
-					itemIndex.add(nodeCount);
+					books.add(platform);
+					booksIndex.add(nodeCount);
 					nodeCount++;
 					break;
 				case 'k':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "book2");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
-					item.add(platform);
-					itemIndex.add(nodeCount);
+					books.add(platform);
+					booksIndex.add(nodeCount);
 					nodeCount++;
 					break;
-//				
-//				// START BLOCK
-//				case 'S':
-//					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "start");
-//					gameRoot.getChildren().add(platform);
-//					platforms.add(platform);
-//					nodeCount++;
-//					break;
-//				case 'U':
-//					platform = new ImageView();
-//					platform.setFitHeight(BLOCK_HEIGHT);
-//					platform.setFitWidth(BLOCK_WIDTH);
-//					gameRoot.getChildren().add(platform);
-//					platforms.add(platform);
-//					nodeCount++;
-//					break;
-
-				// FINISH BLOCK
 				case 'X':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "finish");
 					gameRoot.getChildren().add(platform);
@@ -330,8 +316,6 @@ public class GameManager {
 
 	/* ==================== USED IN update() METHOD ==================== */
 
-	/* TEST TEST */
-
 	private static void movePlayerX(int value) {
 		boolean movingRight = value > 0;
 		// all checker
@@ -363,6 +347,10 @@ public class GameManager {
 		}
 		int maxColumn = Level.ALL_LEVEL[levelCount][0].length() - 1;
 		int maxRow = Level.ALL_LEVEL[levelCount].length;
+		System.out.println("ColumnRight = " + columnRight);
+		System.out.println("ColumnLeft = " + columnLeft);
+		System.out.println("Head = " + rowHead);
+		System.out.println("Feet = " + rowFeet);
 		for (int i = 0; i < Math.abs(value); i++) {
 			if (movingRight) {
 				if (columnRight >= maxColumn) {
@@ -456,8 +444,6 @@ public class GameManager {
 		}
 	}
 
-	/* TEST TEST */
-
 	private static void movePlayerY(int value) {
 		boolean movingDown = value > 0;
 		for (int i = 0; i < Math.abs(value); i++) {
@@ -496,33 +482,41 @@ public class GameManager {
 	private static void setPlayerCurrentHP(int HP) {
 		playerCurrentHP = HP;
 	}
+	
+	private static void checkCoinCollect() {
+		ArrayList<Integer> indexForDelete = new ArrayList<Integer>();
+		for (int i = 0; i < coins.size(); i++) {
+			if (player.getTranslateX() <= coins.get(i).getTranslateX()
+					&& coins.get(i).getTranslateX() <= player.getTranslateX() + player.getWidth()
+					&& player.getTranslateY() <= coins.get(i).getTranslateY()
+					&& coins.get(i).getTranslateY() <= player.getTranslateY() + player.getHeight()) {
+				
+				// COIN MUST BE COLLECTED WITH INDEX coinsIndex.get(i) not i
+				
+				GameManager.setPlayerCoin(GameManager.getPlayerCoin() + 5 + random.nextInt(10));
+				
+				// COIN ADDED, NOW REMOVE IT
+				gameRoot.getChildren().remove(coinsIndex.get(i));
+				platforms.remove(coinsIndex.get(i));
+				
+				// TRY CHANGE coinsIndex
+				for (int j = i; j < coins.size(); j ++) {
+					coinsIndex.set(j, coinsIndex.get(j) - 1);
+				}
+				indexForDelete.add(i);
+			}
+		}
+		for (int k = indexForDelete.size(); k > 0; k--) {
+			coins.remove(k-1);
+			coinsIndex.remove(k-1);
+		}
+	}
+	
+	private static void checkBookCollect() {
+	}
 
-//	private static void enemyMove(boolean isMovingRight) {
-//		for (Enemy enemy : enemies.keySet()) {
-//			for (int i = 0; i < enemy.getVelocityX(); i++) {
-//				canEnemyRun = false;
-//				if (isMovingRight) {
-//					for (Node platform : platforms) {
-//						if (enemy.getTranslateX() + enemy.getWidth() == platform.getTranslateX()) {
-//							canEnemyRun = false;
-//						} else {
-//							canEnemyRun = true;
-//						}
-//					}
-//					if (canEnemyRun) {
-//						enemy.setTranslateX(enemy.getTranslateX());
-//					}
-//				} else {
-//					for ()
-//				}
-//			}
-//		}
-//	}
+	/* ============================== PUBLIC STATIC METHOD ============================== */
 
-	/*
-	 * ============================== PUBLIC STATIC METHOD
-	 * ==============================
-	 */
 
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
@@ -544,10 +538,16 @@ public class GameManager {
 				&& player.getTranslateX() + player.getWidth() == finishPositionX) {
 			setIsLevelFinish(true);
 		}
+		
+		checkCoinCollect();
+		checkBookCollect();
+		
+		// test delete, it works
 	}
 
 	public static void setUpNextLevel() {
 		setIsLevelFinish(false);
+		initializeNodeCount();
 		levelCountInclement();
 		resetFinishPosition();
 		setLevelWidth();

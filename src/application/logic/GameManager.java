@@ -299,7 +299,7 @@ public class GameManager {
 		finishPositionY = 0;
 	}
 
-	/* ==================== USED IN update() METHOD ==================== */
+  /* ==================== USED IN update() METHOD ==================== */
 
 	private static void movePlayerX(int value) {
 		boolean movingRight = value > 0;
@@ -374,7 +374,7 @@ public class GameManager {
 			setCanJump(false);
 		}
 	}
-
+  
 	private static boolean isPressed(KeyCode key) {
 		return keys.getOrDefault(key, false);
 	}
@@ -650,11 +650,6 @@ public class GameManager {
 		}
 		return exp;
 	}
-
-	/*
-	 * ============================== GET PLAYER'S STATS
-	 * ==============================
-	 */
 
 	public static int getPlayerMaxHP() {
 		return playerMaxHP;

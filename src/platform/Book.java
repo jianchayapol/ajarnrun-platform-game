@@ -1,3 +1,4 @@
+
 package platform;
 
 import javafx.scene.image.Image;
@@ -10,3 +11,4 @@ public class Book extends SpecialPlatform implements Collectable {
 		setTranslateY(translateY);
 	}
 }
+

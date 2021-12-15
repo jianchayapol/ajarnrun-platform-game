@@ -592,11 +592,6 @@ public class GameManager {
 	 * ==============================
 	 */
 
-	/*
-	 * ============================== GET PLAYER'S STATS
-	 * ==============================
-	 */
-
 	public static int getPlayerMaxHP() {
 		return playerMaxHP;
 	}

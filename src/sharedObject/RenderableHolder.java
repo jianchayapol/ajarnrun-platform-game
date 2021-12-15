@@ -39,11 +39,13 @@ public class RenderableHolder {
 	public static Image jump_item;
 	public static Image lp_bonus_item;
 	public static Image time_bonus_item;
+	public static Image congrats_Image;
 
 	// Background
 	public static Image entrance_background_Image;
 	public static Image normalLevelImage;
 	public static Image subscene_background_Image;
+	
 	// Player
 	public static Image player_sprite_Image;
 
@@ -58,6 +60,7 @@ public class RenderableHolder {
 	public static Image home_button_Image;
 	public static Image resume_button_Image;
 	public static Image question_button_Image;
+	public static Image quit_Image;
 	
 	// Logo
 	public static Image logo;
@@ -247,6 +250,9 @@ public class RenderableHolder {
 		RenderableHolder.home_button_Image = loadImageButton("home-button.png");
 		RenderableHolder.resume_button_Image = loadImageButton("play-btn.png");
 		RenderableHolder.question_button_Image = loadImageButton("help.png");
+		RenderableHolder.quit_Image = loadImageButton("quit.png");
+		RenderableHolder.congrats_Image = loadImage("congrats.png");
+		
 		
 		// Platform
 		RenderableHolder.greenOne = loadImage("platform/green_01.png");

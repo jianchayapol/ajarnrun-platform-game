@@ -21,7 +21,7 @@ import sharedObject.FontType;
 
 public class ShopItemBox extends StackPane{
 	
-	private ShopItem item;
+	private static ShopItem item;
 	private ImageView itemImage;
 	private Label nameTag;
 	private Label priceTag;
@@ -80,7 +80,7 @@ public class ShopItemBox extends StackPane{
 		itemImage.setFitHeight(IMAGE_SIZE);
 	}
 	private void setUpPriceTag() {
-		priceTag = new Label(item.getPriceText());
+		priceTag = new Label(item.getPriceText(item.getItemName()));
 		FontLoader.setFont(priceTag, FontType.TELEGRAMA, 16);
 	}
 	private void setUpNameTag() {
@@ -88,4 +88,5 @@ public class ShopItemBox extends StackPane{
 		nameTag.setTextFill(Color.SADDLEBROWN);
 		FontLoader.setFont(nameTag, FontType.TELEGRAMA, 15);	
 	}
+	
 }

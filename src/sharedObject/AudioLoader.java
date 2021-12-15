@@ -16,15 +16,7 @@ public class AudioLoader {
 			ClassLoader.getSystemResource("audio/jumping.wav").toString());
 	public static AudioClip Pick_Up_Item_Sound = new AudioClip(
 			ClassLoader.getSystemResource("audio/picking-up-item.wav").toString());
-//	public static AudioClip Footstep_Sound = new AudioClip(ClassLoader.getSystemResource("audio/cutting.mp3").toString());
-//	public static AudioClip Hurting_Sound = new AudioClip(ClassLoader.getSystemResource("audio/cutting.mp3").toString());
-//	public static AudioClip Hitting_Sound = new AudioClip(ClassLoader.getSystemResource("audio/cutting.mp3").toString());
-//	public static AudioClip Jumping_Sound = new AudioClip(ClassLoader.getSystemResource("audio/frying.mp3").toString());
-//	public static AudioClip Congrats_Sound = new AudioClip(ClassLoader.getSystemResource("audio/congratulation.mp3").toString());
-//	
 	public static AudioClip Entrance_Theme_Song = new AudioClip(
 			ClassLoader.getSystemResource("audio/entrance_music.mp3").toString());
 	public static AudioClip Game_Theme_Song = new AudioClip(ClassLoader.getSystemResource("audio/game.mp3").toString());
-//	public static AudioClip End_Screen = new AudioClip(ClassLoader.getSystemResource("audio/EndScreen.mp3").toString());
-	
 }

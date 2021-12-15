@@ -100,11 +100,11 @@ public class GameSubScene extends SubScene {
 			transition.setToX(-width - 120);
 			transition.setToY(0);
 			break;
-		case "leaderboardUnpressed":
+		case "leaderBoardUnpressed":
 			transition.setToX(-width - 120);
 			transition.setToY(0);
 			break;
-		case "leaderboardPressed":
+		case "leaderBoardPressed":
 			transition.setToX(width + 120);
 			transition.setToY(0);
 			break;

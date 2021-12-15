@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import logic.level.Level;
+import player.Character;
 import player.Enemy;
 import player.Player;
 import sharedObject.RenderableHolder;
@@ -78,7 +79,7 @@ public class GameManager {
 		setGameRootLayoutX();
 		addGameRoot();
 		addUIRoot();
-		setCanJump(true);
+		setCanJump(false);
 		setIsMute(false);
 		setTime(120);
 		initializeKeysValue();
@@ -169,23 +170,25 @@ public class GameManager {
 					nodeCount++;
 					break;
 				case 'E':
-					platform = new Enemy(RenderableHolder.enemyOneLeft, 3 + random.nextInt(3), 0, j*BLOCK_WIDTH, i*BLOCK_HEIGHT, 4 + random.nextInt(5));
+					platform = new Enemy(RenderableHolder.enemyOneLeft, 1, 0, j * BLOCK_WIDTH + 5, i * BLOCK_HEIGHT + 5,
+							4 + random.nextInt(5));
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					enemies.put((Enemy) platform, random.nextBoolean());
 					nodeCount++;
 					break;
 				case 'e':
-					platform = new Enemy(RenderableHolder.enemyTwoLeft, 3 + random.nextInt(3), 0, j*BLOCK_WIDTH, i*BLOCK_HEIGHT, 4 + random.nextInt(5));
+					platform = new Enemy(RenderableHolder.enemyTwoLeft, 1, 0, j * BLOCK_WIDTH + 5, i * BLOCK_HEIGHT + 5,
+							4 + random.nextInt(5));
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					enemies.put((Enemy) platform, random.nextBoolean());
 					nodeCount++;
 					break;
-				
+
 				// Item
 				case 'M':
-					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "coin");
+					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "coin");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					// For collecting item logic
@@ -194,7 +197,7 @@ public class GameManager {
 					nodeCount++;
 					break;
 				case 'K':
-					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "book1");
+					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "book1");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					// For collecting item logic
@@ -203,7 +206,7 @@ public class GameManager {
 					nodeCount++;
 					break;
 				case 'k':
-					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "book2");
+					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "book2");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					item.add(platform);
@@ -229,12 +232,12 @@ public class GameManager {
 
 				// FINISH BLOCK
 				case 'X':
-					platform = RenderableHolder.createImageViewForPlatform(j*BLOCK_WIDTH, i*BLOCK_HEIGHT, "finish");
+					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "finish");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					nodeCount++;
-					finishPositionX = j*BLOCK_WIDTH;
-					finishPositionY = i*BLOCK_HEIGHT;
+					finishPositionX = j * BLOCK_WIDTH;
+					finishPositionY = i * BLOCK_HEIGHT;
 					break;
 				default:
 					break;
@@ -330,7 +333,7 @@ public class GameManager {
 
 	/* TEST TEST */
 
-	public static void testMoveX(int value) {
+	private static void movePlayerX(int value) {
 		boolean movingRight = value > 0;
 		// all checker
 		int playerTopY = (int) player.getTranslateY();
@@ -362,10 +365,6 @@ public class GameManager {
 		int maxColumn = Level.ALL_LEVEL[levelCount][0].length() - 1;
 		int maxRow = Level.ALL_LEVEL[levelCount].length;
 		for (int i = 0; i < Math.abs(value); i++) {
-			
-			// Figure out the row and column
-			
-			
 			if (movingRight) {
 				if (columnRight >= maxColumn) {
 					if (player.getTranslateX() + player.getWidth() <= levelWidth - 60) {
@@ -378,9 +377,10 @@ public class GameManager {
 						player.setTranslateX(player.getTranslateX() + 1);
 					} else if (rowHead >= 10 && rowFeet >= 10) {
 						player.setTranslateX(player.getTranslateX() + 1);
-					} else if (rowHead <= 0 ) {
+					} else if (rowHead <= 0) {
 						if (Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnRight + 1) != '0') {
-							if (playerRightX >= (columnRight + 1) * BLOCK_WIDTH) {
+							// try chaning playerRightX into playerRightX = playerLeftX + player.getWidth();
+							if (player.getTranslateX() + player.getWidth() >= (columnRight + 1) * BLOCK_WIDTH) {
 							} else {
 								player.setTranslateX(player.getTranslateX() + 1);
 							}
@@ -389,7 +389,7 @@ public class GameManager {
 						}
 					} else if (rowFeet >= maxRow) {
 						if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnRight + 1) != '0') {
-							if (playerRightX >= (columnRight + 1) * BLOCK_WIDTH) {
+							if (player.getTranslateX() + player.getWidth() >= (columnRight + 1) * BLOCK_WIDTH) {
 							} else {
 								player.setTranslateX(player.getTranslateX() + 1);
 							}
@@ -397,14 +397,13 @@ public class GameManager {
 							player.setTranslateX(player.getTranslateX() + 1);
 						}
 					} else {
-					// check if head is out of bound
+						// check if head is out of bound
 						if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnRight + 1) != '0'
 								|| Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnRight + 1) != '0') {
-							if (playerRightX >= (columnRight + 1) * BLOCK_WIDTH) {
+							if (player.getTranslateX() + player.getWidth() >= (columnRight + 1) * BLOCK_WIDTH) {
 							} else {
 								player.setTranslateX(player.getTranslateX() + 1);
 							}
-		
 						} else {
 							player.setTranslateX(player.getTranslateX() + 1);
 						}
@@ -420,9 +419,9 @@ public class GameManager {
 				} else {
 					if (rowHead <= 0 && rowFeet <= 0) {
 						player.setTranslateX(player.getTranslateX() - 1);
-					}else if (rowHead>= 10 & rowFeet >= 10) {
+					} else if (rowHead >= 10 & rowFeet >= 10) {
 						player.setTranslateX(player.getTranslateX() - 1);
-					} else if (rowHead <= 0 ) {
+					} else if (rowHead <= 0) {
 						if (Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnLeft - 1) != '0') {
 							if (playerLeftX <= (columnLeft * BLOCK_WIDTH)) {
 							} else {
@@ -441,9 +440,10 @@ public class GameManager {
 							player.setTranslateX(player.getTranslateX() - 1);
 						}
 					} else {
-						if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnLeft - 1) != '0' || Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnLeft - 1) != '0') {
+						if (Level.ALL_LEVEL[levelCount][rowHead].charAt(columnLeft - 1) != '0'
+								|| Level.ALL_LEVEL[levelCount][rowFeet].charAt(columnLeft - 1) != '0') {
 							if (playerLeftX <= (columnLeft * BLOCK_WIDTH)) {
-								
+
 							} else {
 								player.setTranslateX(player.getTranslateX() - 1);
 							}
@@ -451,68 +451,13 @@ public class GameManager {
 							player.setTranslateX(player.getTranslateX() - 1);
 						}
 					}
-					
+
 				}
 			}
-		}
-	}
-
-	private static void testMoveY(int value) {
-		boolean movingDown = value > 0;
-		// all checker
-		int playerTopY = (int) player.getTranslateY();
-		int playerBottomY = playerTopY + player.getHeight();
-		int playerLeftX = (int) player.getTranslateX();
-		int playerRightX = playerLeftX + player.getWidth();
-
-		int rowFeet = (int) (playerBottomY / 60);
-		if (playerBottomY % BLOCK_WIDTH == 0) {
-			rowFeet -= 1;
-		}
-		int rowHead;
-		if ((rowFeet + 1) * BLOCK_WIDTH - playerBottomY > 20) {
-			rowHead = rowFeet - 2;
-		} else {
-			rowHead = rowFeet - 1;
-		}
-
-		int columnLeft = (int) (playerLeftX / 60);
-		if (playerRightX % BLOCK_HEIGHT == 0) {
-			columnLeft -= 1;
-		}
-		int columnRight;
-		if (playerLeftX - columnLeft > 15) {
-			columnRight = columnLeft + 1;
-		} else {
-			columnRight = columnLeft + 1;
-		}
-
-		for (int i = 0; i < Math.abs(value); i++) {
-
 		}
 	}
 
 	/* TEST TEST */
-
-	private static void movePlayerX(int value) {
-		boolean movingRight = value > 0;
-		for (int i = 0; i < Math.abs(value); i++) {
-			for (Node platform : platforms) {
-				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
-					if (movingRight) {
-						if (player.getTranslateX() + player.getWidth() - 20 == platform.getTranslateX()) {
-							return;
-						}
-					} else {
-						if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH - 15) {
-							return;
-						}
-					}
-				}
-			}
-			player.setTranslateX(player.getTranslateX() + (movingRight ? 1 : -1));
-		}
-	}
 
 	private static void movePlayerY(int value) {
 		boolean movingDown = value > 0;
@@ -552,7 +497,7 @@ public class GameManager {
 	private static void setPlayerCurrentHP(int HP) {
 		playerCurrentHP = HP;
 	}
-	
+
 //	private static void enemyMove(boolean isMovingRight) {
 //		for (Enemy enemy : enemies.keySet()) {
 //			for (int i = 0; i < enemy.getVelocityX(); i++) {
@@ -574,22 +519,21 @@ public class GameManager {
 //			}
 //		}
 //	}
-  
-	/* ============================== PUBLIC STATIC METHOD ============================== */
-	
+
+	/*
+	 * ============================== PUBLIC STATIC METHOD
+	 * ==============================
+	 */
+
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
 			jumpPlayer(30);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
-//			jumpPlayer(3);
-//			movePlayerX(-5);
-			testMoveX(-5);
+			movePlayerX(-5);
 		}
 		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 5 - player.getWidth()) {
-//			jumpPlayer(3);
-//			movePlayerX(5);
-			testMoveX(5);
+			movePlayerX(5);
 		}
 		if (player.getVelocityY() < 10) {
 			player.setVelocityY(player.getVelocityY() + 1);
@@ -601,9 +545,6 @@ public class GameManager {
 				&& player.getTranslateX() + player.getWidth() == finishPositionX) {
 			setIsLevelFinish(true);
 		}
-
-//		System.out.println("translateX = " + player.getTranslateX());
-//		System.out.println("translateX (cast int) = " + (int) player.getTranslateX()); // it works
 	}
 
 	public static void setUpNextLevel() {
@@ -716,8 +657,11 @@ public class GameManager {
 	 * ==============================
 	 */
 
-	/* ============================== GET PLAYER'S STATS ============================== */
-	
+	/*
+	 * ============================== GET PLAYER'S STATS
+	 * ==============================
+	 */
+
 	public static int getPlayerMaxHP() {
 		return playerMaxHP;
 	}

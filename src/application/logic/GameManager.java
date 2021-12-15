@@ -326,99 +326,70 @@ public class GameManager {
 
 	private static void movePlayerX(int value) {
 		boolean movingRight = value > 0;
-			for (int i = 0; i < Math.abs(value); i++) {
-				boolean canWalk = true;
-				for (Node platform : platforms) {
-					if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
-						if (movingRight) {
-							if (player.getTranslateX() + player.getWidth() + 1 == platform.getTranslateX()) {
-								if (platform instanceof Collectable) {
-									canWalk = true;
-								} else if (platform instanceof Damagable) {
-									
-									player.setTranslateX(player.getTranslateX() - 5);
-									canWalk = false;
-									break;
-								} else {
-									canWalk = false;
-									break;
-								}
+		for (int i = 0; i < Math.abs(value); i++) {
+			for (Node platform : platforms) {
+				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
+					if (movingRight) {
+						if (player.getTranslateX() + player.getWidth() + 1 == platform.getTranslateX()) {
+							if (platform instanceof Collectable) {
+							} else if (platform instanceof Damagable) {
+								setPlayerCurrentHP(getPlayerCurrentHP() - 5 - random.nextInt(5));
+								player.setTranslateX(player.getTranslateX() - 10);
+								return;
 							} else {
-								
+								return;
 							}
-						} else {
-							if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH + 1) {
-								if (platform instanceof Collectable) {
-									canWalk = true;
-									break;
-								} else if (platform instanceof Damagable) {
-									// DECREASE HP
-									player.setTranslateX(player.getTranslateX() + 5);
-									canWalk = false;
-									break;
-								}
+						}
+					} else {
+						if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH + 1) {
+							if (platform instanceof Collectable) {
+							} else if (platform instanceof Damagable) {
+								setPlayerCurrentHP(getPlayerCurrentHP() - 5 - random.nextInt(5));
+								player.setTranslateX(player.getTranslateX() - 10);
+							} else {
+								return;
 							}
 						}
 					}
 				}
-				if (canWalk) {
-					player.setTranslateX(player.getTranslateX() + (movingRight ? 1 : -1));
-				} 
 			}
+			player.setTranslateX(player.getTranslateX() + (movingRight ? 1 : -1));
+		}
 	}
 
 	private static void movePlayerY(int value) {
 		boolean movingDown = value > 0;
 		for (int i = 0; i < Math.abs(value); i++) {
-			boolean canWalk = true;
 			for (Node platform : platforms) {
 				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
 					if (movingDown) {
 						if (player.getTranslateY() + player.getHeight() == platform.getTranslateY()) {
 							if (platform instanceof Collectable) {
-								canWalk = true;
-								setCanJump(false);
-								break;
 							} else if (platform instanceof Damagable) {
-								// DECREASE HP
-								player.setTranslateY(player.getTranslateY() - 10);
-								canWalk = false;
+								setPlayerCurrentHP(getPlayerCurrentHP() - 5 - random.nextInt(5));
+								player.setTranslateY(player.getTranslateY() - 20);
 								setCanJump(true);
-								break;
+								return;
 							} else {
-								canWalk = false;
 								setCanJump(true);
-								break;
+								return;
 							}
-						} else {
-							canWalk = true;
 						}
 					} else {
 						if (player.getTranslateY() == platform.getTranslateY() + BLOCK_HEIGHT) {
 							if (platform instanceof Collectable) {
-								canWalk = true;
-								setCanJump(false);
-								break;
+								
 							} else if (platform instanceof Damagable) {
-								// DECREASE HP
-								player.setTranslateY(player.getTranslateY() + 10);
-								canWalk = false;
-								setCanJump(true);
-								break;
+								setPlayerCurrentHP(getPlayerCurrentHP() - 5 - random.nextInt(5));
+								return;
 							} else {
-								canWalk = false;
-								setCanJump(true);
-								break;
+								return;
 							}
-						} 
-					
+						}
 					}
 				}
-			
 			}
-			if (canWalk) {
-				player.setTranslateY(player.getTranslateY() + (movingDown ? 1: -1));
-			}
+			player.setTranslateY(player.getTranslateY() + (movingDown ? 1 : -1));
 		}
 	}
 
@@ -487,8 +458,6 @@ public class GameManager {
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
 			jumpPlayer(35);
-//			gameRoot.getChildren().remove(gameRoot.getChildren().size() - 2);
-//			platforms.remove(platforms.size() - 2);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
 			movePlayerX(-5);

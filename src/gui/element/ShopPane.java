@@ -21,26 +21,31 @@ public class ShopPane extends AnchorPane {
 	
 	private static AnchorPane shopStore;
 	private static Rectangle rec;
+	
 	private static VBox shelfBox;
+	private static VBox controlBox;
+	
 	private static StackPane shopPane;
 	private static Label errorMessage;
+	
 	private static ArrayList<ShopItemBox> shelf;
 	private static final String[] items = { "run", "jump", "lp", "time" };
-	private static final int HEIGHT = 600;
-	private static final int WIDTH = 800;
+
+	private static MoneyBox moneyBox = new MoneyBox();
 	private static ImageButton nextLvButton = new ImageButton(ImageButtonType.CONTINUE_NEXT_LV);
 	
-	public ShopPane() {
-		
-		super();
+	private static final int HEIGHT = 600;
+	private static final int WIDTH = 800;
 	
+	public ShopPane() {
+		super();
 		// initialize
 		initializeShopPane();
 		initializeErrorMessage();
+		// setup
+		setupPane();	
 
-		// set up
-		setupPane();
-		
+		this.getChildren().addAll(rec,controlBox,errorMessage,moneyBox);
 	}
 
 	// =================== private static method ==============================
@@ -62,33 +67,44 @@ public class ShopPane extends AnchorPane {
 		errorMessage = new Label("");
 		errorMessage.setTextFill(Color.YELLOW);
 		FontLoader.setFont(errorMessage, FontType.TELEGRAMA, 18);
+		errorMessage.setAlignment(Pos.BOTTOM_RIGHT);
+		errorMessage.setLayoutX(550);
+		errorMessage.setLayoutY(535);
 	}
 
 	private void setupPane() {
 		VBox shelfBoxMain = new VBox(40);
 		shelfBoxMain.setAlignment(Pos.BOTTOM_CENTER);
-		shelfBoxMain.getChildren().addAll(shelfBox);
-		errorMessage.setAlignment(Pos.BOTTOM_RIGHT);
+		shelfBoxMain.getChildren().add(shelfBox);
+		
 		shopStore = new AnchorPane();
 		shopStore.getChildren().addAll(shopPane, shelfBoxMain);
 		shelfBoxMain.setLayoutX(70);
 		shelfBoxMain.setLayoutY(117);
-		
+		setupRec();
+		setupControlBox();
+		setupMoneyBox();
+	}
+
+	private void setupMoneyBox() {
+		moneyBox.setLayoutX(400);
+		moneyBox.setLayoutY(100);
+	}
+	
+	private void setupRec() {
 		rec = new Rectangle(WIDTH, HEIGHT);
 		rec.setFill(Color.BLACK);
 		rec.setOpacity(0.6);
-	
-		VBox controlBox = new VBox(3);
+	}
+
+	private void setupControlBox() {
+		controlBox = new VBox(3);
 		controlBox.getChildren().addAll(shopStore,nextLvButton);
 		controlBox.setLayoutX(200);
 		controlBox.setLayoutY(3);
 		controlBox.setAlignment(Pos.CENTER);
-		errorMessage.setLayoutX(550);
-		errorMessage.setLayoutY(535);
-		this.getChildren().addAll(rec,controlBox,errorMessage);
 	}
-
-
+	
 	private void setupShopItemBox() {
 		shelfBox = new VBox(37);
 		shelfBox.setAlignment(Pos.CENTER);

@@ -45,9 +45,10 @@ public class GameManager {
 	private static int time;
 
 	// Level Finish Checker
-	private static boolean isLevelFinish;
+	private static boolean isDead;
 	private static int finishPositionX;
 	private static int finishPositionY;
+	private static boolean isLevelFinish;
 
 	// Player's stat
 	private static String playerName;
@@ -55,30 +56,17 @@ public class GameManager {
 	private static int playerMaxHP;
 	private static int playerCoin;
 	private static int playerEXP;
-
-	private static boolean isDead;
-
-	// Enemy
-	private static HashMap<Enemy, Boolean> enemies = new HashMap<Enemy, Boolean>();
 	private static Random random = new Random();
-	private static boolean canEnemyRun;
 
 	// Item
 	private static ArrayList<Node> coins = new ArrayList<Node>();
-	private static ArrayList<Integer> coinsIndex = new ArrayList<Integer>();
-	
 	private static ArrayList<Node> books = new ArrayList<Node>();
-	private static ArrayList<Integer> booksIndex = new ArrayList<Integer>();
-	
 	private static int bookCount;
-
-	// Node Counter
-	private static int nodeCount;
+	private static boolean isMissingBook = false;
 
 	static {
 		RenderableHolder.loadResource();
 		initializeLevelCount();
-		initializeNodeCount();
 		setLevelWidth();
 		initializeBookCount();
 		setLevelPlatform();
@@ -93,23 +81,16 @@ public class GameManager {
 		addUIRoot();
 		setCanJump(false);
 		setIsMute(false);
-		setTime(120);
+		setTime(40);
 		initializeKeysValue();
 		setIsLevelFinish(false);
 	}
 
-	/*
-	 * ============================== PRIVATE STATIC METHOD
-	 * ==============================
-	 */
+	/* ============================== PRIVATE STATIC METHOD ============================== */
 	/* ==================== USE IN CONSTRUCTOR ==================== */
 
 	private static void initializeLevelCount() {
 		levelCount = 0;
-	}
-
-	private static void initializeNodeCount() {
-		nodeCount = 0;
 	}
 
 	private static void setLevelWidth() {
@@ -135,55 +116,46 @@ public class GameManager {
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "1");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
-					nodeCount++;
 					break;
 				case '2':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "2");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
-					nodeCount++;
 					break;
 				case '3':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "3");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
-					nodeCount++;
 					break;
 				case '4':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "4");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
-					nodeCount++;
 					break;
 				case '5':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "5");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
-					nodeCount++;
 					break;
 				case 'A':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "f1");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
-					nodeCount++;
 					break;
 				case 'B':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "f2");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
-					nodeCount++;
 					break;
 				case 'C':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "f3");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
-					nodeCount++;
 					break;
 				case 'D':
 					platform = RenderableHolder.createImageViewForPlatform(j * BLOCK_WIDTH, i * BLOCK_HEIGHT, "f4");
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
-					nodeCount++;
 					break;
 					
 				// Item
@@ -193,8 +165,6 @@ public class GameManager {
 					platforms.add(platform);
 					// For collecting item logic
 					coins.add(platform);
-					coinsIndex.add(nodeCount);
-					nodeCount++;
 					break;
 				case 'K':
 					platform = new Book(RenderableHolder.bookOne, BLOCK_WIDTH, BLOCK_HEIGHT, j * BLOCK_WIDTH, i*BLOCK_HEIGHT);
@@ -202,8 +172,6 @@ public class GameManager {
 					platforms.add(platform);
 					// For collecting item logic
 					books.add(platform);
-					booksIndex.add(nodeCount);
-					nodeCount++;
 					bookCount++;
 					break;
 				case 'k':
@@ -211,20 +179,17 @@ public class GameManager {
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
 					books.add(platform);
-					booksIndex.add(nodeCount);
-					nodeCount++;
 					bookCount++;
 					break;
 				case 'H':
 					platform = new HurtPlatform(RenderableHolder.hurtPlatformOne, BLOCK_WIDTH, BLOCK_HEIGHT, j * BLOCK_WIDTH, i*BLOCK_HEIGHT);
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
-					nodeCount++;
+					break;
 				case 'X':
 					platform = new FinishFlag(RenderableHolder.finish, BLOCK_WIDTH, BLOCK_HEIGHT, j * BLOCK_WIDTH, i*BLOCK_HEIGHT);
 					gameRoot.getChildren().add(platform);
 					platforms.add(platform);
-					nodeCount++;
 					finishPositionX = j * BLOCK_WIDTH;
 					finishPositionY = i * BLOCK_HEIGHT;
 					break;
@@ -238,12 +203,10 @@ public class GameManager {
 
 	private static void initializePlayer() {
 		player = new Player(RenderableHolder.spritePlayerStanding, 0, 0, 200, 1);
-		
-		nodeCount++;
 	}
 
 	private static void initializePlayerMaxHP() {
-		playerMaxHP = 100;
+		playerMaxHP = 250;
 	}
 
 	private static void initializePlayerCurrentHP() {
@@ -326,99 +289,68 @@ public class GameManager {
 
 	private static void movePlayerX(int value) {
 		boolean movingRight = value > 0;
-			for (int i = 0; i < Math.abs(value); i++) {
-				boolean canWalk = true;
-				for (Node platform : platforms) {
-					if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
-						if (movingRight) {
-							if (player.getTranslateX() + player.getWidth() + 1 == platform.getTranslateX()) {
-								if (platform instanceof Collectable) {
-									canWalk = true;
-								} else if (platform instanceof Damagable) {
-									// DECREASE HP
-									player.setTranslateX(player.getTranslateX() - 5);
-									canWalk = false;
-									break;
-								} else {
-									canWalk = false;
-									break;
-								}
+		for (int i = 0; i < Math.abs(value); i++) {
+			for (Node platform : platforms) {
+				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
+					if (movingRight) {
+						if (player.getTranslateX() + player.getWidth() + 1 == platform.getTranslateX()) {
+							if (platform instanceof Collectable) {
+							} else if (platform instanceof Damagable) {
+								setPlayerCurrentHP(getPlayerCurrentHP() - 5 - random.nextInt(5));
+								return;
 							} else {
-								
+								return;
 							}
-						} else {
-							if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH + 1) {
-								if (platform instanceof Collectable) {
-									canWalk = true;
-									break;
-								} else if (platform instanceof Damagable) {
-									// DECREASE HP
-									player.setTranslateX(player.getTranslateX() + 5);
-									canWalk = false;
-									break;
-								}
+						}
+					} else {
+						if (player.getTranslateX() == platform.getTranslateX() + BLOCK_WIDTH + 1) {
+							if (platform instanceof Collectable) {
+							} else if (platform instanceof Damagable) {
+								setPlayerCurrentHP(getPlayerCurrentHP() - 5 - random.nextInt(5));
+								return;
+							} else {
+								return;
 							}
 						}
 					}
 				}
-				if (canWalk) {
-					player.setTranslateX(player.getTranslateX() + (movingRight ? 1 : -1));
-				} 
 			}
+			player.setTranslateX(player.getTranslateX() + (movingRight ? 1 : -1));
+		}
 	}
 
 	private static void movePlayerY(int value) {
 		boolean movingDown = value > 0;
 		for (int i = 0; i < Math.abs(value); i++) {
-			boolean canWalk = true;
 			for (Node platform : platforms) {
 				if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
 					if (movingDown) {
 						if (player.getTranslateY() + player.getHeight() == platform.getTranslateY()) {
 							if (platform instanceof Collectable) {
-								canWalk = true;
-								setCanJump(false);
-								break;
 							} else if (platform instanceof Damagable) {
-								// DECREASE HP
-								player.setTranslateY(player.getTranslateY() - 10);
-								canWalk = false;
+								setPlayerCurrentHP(getPlayerCurrentHP() - 1);
 								setCanJump(true);
-								break;
+								return;
 							} else {
-								canWalk = false;
 								setCanJump(true);
-								break;
+								return;
 							}
-						} else {
-							canWalk = true;
 						}
 					} else {
 						if (player.getTranslateY() == platform.getTranslateY() + BLOCK_HEIGHT) {
 							if (platform instanceof Collectable) {
-								canWalk = true;
-								setCanJump(false);
-								break;
+								
 							} else if (platform instanceof Damagable) {
-								// DECREASE HP
-								player.setTranslateY(player.getTranslateY() + 10);
-								canWalk = false;
-								setCanJump(true);
-								break;
+								setPlayerCurrentHP(getPlayerCurrentHP() - 1);
+								return;
 							} else {
-								canWalk = false;
-								setCanJump(true);
-								break;
+								return;
 							}
-						} 
-					
+						}
 					}
 				}
-			
 			}
-			if (canWalk) {
-				player.setTranslateY(player.getTranslateY() + (movingDown ? 1: -1));
-			}
+			player.setTranslateY(player.getTranslateY() + (movingDown ? 1 : -1));
 		}
 	}
 
@@ -486,9 +418,7 @@ public class GameManager {
 
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
-			jumpPlayer(35);
-//			gameRoot.getChildren().remove(gameRoot.getChildren().size() - 2);
-//			platforms.remove(platforms.size() - 2);
+			jumpPlayer(32);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
 			movePlayerX(-5);
@@ -500,20 +430,30 @@ public class GameManager {
 			player.setVelocityY(player.getVelocityY() + 1);
 		}
 		movePlayerY(player.getVelocityY());
-		player.update();
-
+		player.update();		
+		checkCoinCollect();
+		checkBookCollect();
+		
+		// Check level finish
 		if (player.getTranslateY() + player.getHeight() >= finishPositionY
 				&& player.getTranslateX() + player.getWidth() == finishPositionX) {
 			setIsLevelFinish(true);
 		}
+		if (bookCount > 0) {
+			setIsMissingBook(true);
+		}
 		
-		checkCoinCollect();
-		checkBookCollect();
+		if (player.getTranslateY() > 600) {
+			setIsDead(true);
+		}
+		
+		if (getPlayerCurrentHP() <= 0) {
+			setIsDead(true);
+		}
 	}
 
 	public static void setUpNextLevel() {
 		setIsLevelFinish(false);
-		initializeNodeCount();
 		levelCountInclement();
 		resetFinishPosition();
 		setLevelWidth();
@@ -591,10 +531,7 @@ public class GameManager {
 		return time;
 	}
 
-	/*
-	 * ============================== SET PLAYER'S STATS
-	 * ==============================
-	 */
+	/* ============================== SET PLAYER'S STATS ============================== */
 
 	public static void setPlayerMaxHP(int maxHP) {
 		playerMaxHP = maxHP;
@@ -617,16 +554,12 @@ public class GameManager {
 	public static void setIsDead(boolean isDead) {
 		GameManager.isDead = isDead;
 	}
+	
+	public static void setIsMissingBook(boolean isMissing) {
+		isMissingBook = isMissing;
+	}
 
-	/*
-	 * ============================== GET PLAYER'S STATS
-	 * ==============================
-	 */
-
-	/*
-	 * ============================== GET PLAYER'S STATS
-	 * ==============================
-	 */
+	/* ============================== GET PLAYER'S STATS ============================== */
 
 	public static int getPlayerMaxHP() {
 		return playerMaxHP;

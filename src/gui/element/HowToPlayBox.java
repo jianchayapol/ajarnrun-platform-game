@@ -68,4 +68,22 @@ public class HowToPlayBox extends StackPane {
 		img.setLayoutY(150);
 	}
 
+	// =====================  instructions Text ===============================
+	
+	public static final String[] instructions = {
+			"Keyboard Input",
+			"  Press W : Jump                Press ESC : Back to Main Menu",
+		    "  Press A : Move Player Left    Press D : Move Player Right     ",
+			"",
+			"  Your Task is to help Ajarn to collect",
+			"all the students' notebooks that are missing",
+			"and run for your life as fast as possible!", "",
+			"Remind you that .. ","You need to collect all the notebooks!",
+			"                     As you know what to do   .. Ajarn Run !!"
+	};
+	
+	public static String[] getInstructions() {
+		return instructions;
+	}
+
 }

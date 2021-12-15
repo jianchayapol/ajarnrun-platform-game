@@ -92,56 +92,61 @@ public class GameScene extends Scene {
 
 		setTimeMapSecond(120);
 		timeRemained = getTimeMapSecond();
-		boolean isWinGame = GameManager.getLevelCount() == Level.ALL_LEVEL.length - 1;
 
 		timer = new AnimationTimer() {
 
-			private Thread timerThread;
-
-			int levelCompleteCounter = 0;
 			int timeUpCounter = 0;
+			int levelCompleteCounter = 0;
 
 			public void handle(long now) {
 				GameManager.update();
 				updateHUD();
 				timeRemained -= TIME_TICK;
-				
-				if (timeRemained <= 0 && !GameManager.getIsLevelFinish()) {
+
+				boolean isTimeUp = timeRemained <= 0 && !GameManager.getIsLevelFinish();
+				boolean isWasted = GameManager.isDead();
+				boolean isMissingBook = false; //
+				boolean isWinGame = GameManager.getLevelCount() == Level.ALL_LEVEL.length - 1;
+			
+				// ------------------------ Level Failed ------------------------------
+				if (isTimeUp || isMissingBook || isWasted) {
+					String altText = "";
+					if (isTimeUp)
+						altText = "timeUp";
+					else if (isMissingBook)
+						altText = "notebook";
+					else if (isWasted)
+						altText = "wasted";
+
 					GameHUD.setProgress(GameHUD.getTimerProgressBar(), 0, timeMapSecond);
-					// Level Failed
 					timeUpCounter++;
 					if (timeUpCounter == 1) {
-						GameManager.getAppRoot().getChildren().add(new EndingLevelTextBox("timeUp"));
+						GameManager.getAppRoot().getChildren().add(new EndingLevelTextBox(altText));
 					}
-					if (timeUpCounter >= 100) {
+					if (timeUpCounter >= 150) {
 						this.stop();
-						GameManager.getAppRoot().getChildren()
-								.remove(GameManager.getAppRoot().getChildren().size() - 1);
+						removeAppRootLatestItem();
 						GameManager.getAppRoot().getChildren().add(new LevelEndingBox(LevelEndingType.FAILED));
 					}
 				}
-
-				boolean lv = true;
-
-				if (GameManager.getIsLevelFinish()) { 
-					if (isWinGame) {
-						// All Level Completed
-					} else {
-						// Level Completed
-						
-						levelCompleteCounter++;
-						
-						if (levelCompleteCounter == 1) {
-							GameManager.getAppRoot().getChildren().add(new EndingLevelTextBox("complete"));
+				// ------------------------ Level Completed ------------------------------
+				if (GameManager.getIsLevelFinish()) {
+					levelCompleteCounter++;
+					if (levelCompleteCounter == 1) {
+						GameManager.getAppRoot().getChildren().add(new EndingLevelTextBox("complete"));
+					}
+					if (levelCompleteCounter >= 150) {
+						this.stop();
+						removeAppRootLatestItem();
+						// ------------------------ Complete Last Level -----------------------
+						if (isWinGame) {
+							GameManager.getAppRoot().getChildren().add(new CongratsBox());
 						}
-						if (levelCompleteCounter >= 100) {
-							this.stop();
-							GameManager.getAppRoot().getChildren()
-									.remove(GameManager.getAppRoot().getChildren().size() - 1);
+						// ------------------------ Level Complete ------------------------------
+						else {
 							GameManager.getAppRoot().getChildren().add(new LevelEndingBox(LevelEndingType.COMPLETED));
 						}
 					}
-
 				}
 			}
 		};
@@ -149,10 +154,14 @@ public class GameScene extends Scene {
 
 	}
 
+	private static void removeAppRootLatestItem() {
+		GameManager.getAppRoot().getChildren().remove(GameManager.getAppRoot().getChildren().size() - 1);
+	}
+
 	public static void initializeNextLevel() {
 		timer.stop();
 		GameManager.setUpNextLevel();
-		GameHUD.setLevelLabel(GameManager.getLevelCount()+1);
+		GameHUD.setLevelLabel(GameManager.getLevelCount() + 1);
 		GameScene.setGameHud(GameManager.getUIRoot());
 		GameScene.setTimeMapSecond(120);
 		timeRemained = getTimeMapSecond();

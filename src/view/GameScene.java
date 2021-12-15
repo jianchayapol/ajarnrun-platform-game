@@ -54,6 +54,7 @@ public class GameScene extends Scene {
 		});
 	}
 	
+	
 	private void setUpStage(Stage primaryStage) {
 		primaryStage.setTitle("Ajarn Ja Run!");
 		primaryStage.setScene(this);

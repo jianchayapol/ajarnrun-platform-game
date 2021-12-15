@@ -87,6 +87,9 @@ public class RenderableHolder {
 	
 	// Finish flag
 	public static Image finish;
+	
+	// Start flag
+	public static Image start;
 
 	// ---------------------------------------------------------
 	static {
@@ -193,6 +196,11 @@ public class RenderableHolder {
 			block.setFitWidth(BLOCK_WIDTH);
 			block.setFitHeight(BLOCK_HEIGHT);
 			break;
+		case "start":
+			block = new ImageView(RenderableHolder.start);
+			block.setFitWidth(BLOCK_WIDTH);
+			block.setFitHeight(BLOCK_HEIGHT);
+			break;
 		case "finish":
 			block = new ImageView(RenderableHolder.finish);
 			block.setFitWidth(BLOCK_WIDTH);
@@ -280,6 +288,9 @@ public class RenderableHolder {
 		
 		// Finish flag
 		RenderableHolder.finish = loadImage("platform/finish.png");
+		
+		// Start flag
+		RenderableHolder.start = loadImage("platform/start.png");
 	}
 
 }

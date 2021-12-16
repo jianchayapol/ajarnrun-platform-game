@@ -187,7 +187,6 @@ public class ImageButton extends ImageView {
 	}
 	
 	private void setUpContinueToShop() {
-		GameManager.getUIRoot().getChildren().clear();
 		GameManager.getAppRoot().getChildren().remove(GameManager.getAppRoot().getChildren().size()-1);
 		GameManager.getAppRoot().getChildren().add(new ShopPane());
 		MoneyBox.updateMoneyText();

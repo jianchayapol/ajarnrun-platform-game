@@ -36,7 +36,7 @@ public class CSVUtility {
 	public static void appendToCSV(String[] text) {
 		BufferedReader reader = null;
 		BufferedWriter writer = null;
-		boolean isHighScore = false;
+		boolean isHighScore = true;
 		ArrayList<String> lines = new ArrayList<>();
 		try {
 			reader = new BufferedReader(new FileReader("res/csv" + filename));

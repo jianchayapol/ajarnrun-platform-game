@@ -179,7 +179,7 @@ public class GameManager {
 		setLevelFinish(false);
 	}
 
-	/* ============================== PRIVATE STATIC METHODb ============================== */
+	/* ============================== PRIVATE STATIC METHOD ============================== */
 	/* ==================== USE IN CONSTRUCTOR ==================== */
 	
 	/**
@@ -753,7 +753,7 @@ public class GameManager {
 		return BLOCK_WIDTH;
 	}
 	/**
-	 * BLOCK_HEIGHT public stati getter.
+	 * BLOCK_HEIGHT public static getter.
 	 * @return
 	 */
 

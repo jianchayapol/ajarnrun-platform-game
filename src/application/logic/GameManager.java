@@ -63,6 +63,7 @@ public class GameManager {
 	private static int playerEXP;
 	private static Random random = new Random();
 	private static int jumpBonus;
+	private static int speedBonus;
 
 	// Item
 	private static ArrayList<Node> coins = new ArrayList<Node>();
@@ -78,6 +79,7 @@ public class GameManager {
 		setLevelPlatform();
 		initializePlayer();
 		setJumpBonus(0);
+		setSpeedBonus(0);
 		initializePlayerMaxHP();
 		initializePlayerCurrentHP();
 		initializePlayerCoin();
@@ -220,6 +222,10 @@ public class GameManager {
 	private static void setJumpBonus(int bonus) {
 		jumpBonus = bonus;
 	}
+	
+	private static void setSpeedBonus(int bonus) {
+		speedBonus = bonus;
+	}
 
 	private static void initializePlayerMaxHP() {
 		playerMaxHP = 250;
@@ -232,10 +238,6 @@ public class GameManager {
 	private static void initializePlayerCoin() {
 		playerCoin = 0;
 		playerTotalCoin = 0;
-	}
-	
-	private static void initializeNewPlayer() {
-		player = new Player(RenderableHolder.spritePlayerStanding, player.getVelocityX(), player.getVelocityY(), 200, 1);
 	}
 
 	private static void initializePlayerEXP() {
@@ -448,10 +450,10 @@ public class GameManager {
 			jumpPlayer(32 + jumpBonus);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
-			movePlayerX(-player.getVelocityX());
+			movePlayerX(-5-speedBonus);
 		}
 		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 5 - player.getWidth()) {
-			movePlayerX(player.getVelocityX());
+			movePlayerX(5+speedBonus);
 		}
 		if (player.getVelocityY() < 10) {
 			player.setVelocityY(player.getVelocityY() + 1);
@@ -608,10 +610,16 @@ public class GameManager {
 
 	public static void makeJumpHigh() {
 		jumpBonus++;
+		if (jumpBonus >= 5) {
+			jumpBonus = 5;
+		}
 	}
 
 	public static void makeRunFast() {
-		GameManager.player.setVelocityY(player.getVelocityX() + 2);
+		speedBonus++;
+		if (speedBonus >= 5) {
+			speedBonus = 5;
+		}
 	}
 
 	public static void upgradePlayerMaxHP() {

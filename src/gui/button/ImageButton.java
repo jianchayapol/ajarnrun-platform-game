@@ -201,29 +201,21 @@ public class ImageButton extends ImageView {
 		switch (altText) {
 		case "run":
 			if(ShopManager.buyShopItem(ShopItem.getRunPrice())) {
-				System.out.println("BUY RUN");
-				System.out.println(altText);
 				GameManager.makeRunFast();
 			}
 			break;
 		case "jump":
 			if(ShopManager.buyShopItem(ShopItem.getJumpPrice())) {
-				System.out.println("BUY JUMP");
-				System.out.println(altText);
 				GameManager.makeJumpHigh();
 			}
 			break;
 		case "time":
 			if(ShopManager.buyShopItem(ShopItem.getTimePrice())) {
-				System.out.println("BUY TIME");
-				System.out.println(altText);
-				
+				GameManager.upgradeMapTime();
 			}
 			break;
 		case "lp":
 			if(ShopManager.buyShopItem(ShopItem.getLpPrice())) {
-				System.out.println("BUY LP");
-				System.out.println(altText);
 				GameManager.upgradePlayerMaxHP();
 			}
 			break;

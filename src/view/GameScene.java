@@ -151,8 +151,9 @@ public class GameScene extends Scene {
 		GameManager.setUpNextLevel();
 		GameHUD.setLevelLabel();
 		GameScene.setGameHud(GameManager.getUIRoot());
-		GameScene.setTimeMapSecond(120);
+		GameScene.setTimeMapSecond(90);
 		timeRemained = getTimeMapSecond();
+		
 		timer.start();
 	}
 

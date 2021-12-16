@@ -10,10 +10,10 @@ public class ShopItem {
 	private Image image;
 	private int price;
 
-	private static final int RUN_PRICE = 30;
-	private static final int TIME_PRICE = 31;
-	private static final int JUMP_PRICE = 32;
-	private static final int LP_PRICE = 33;
+	private static final int RUN_PRICE = 50;
+	private static final int TIME_PRICE = 35;
+	private static final int JUMP_PRICE = 65;
+	private static final int LP_PRICE = 30;
 
 	public ShopItem(String name) {
 		switch (name) {

@@ -471,7 +471,7 @@ public class GameManager {
 		addUIRoot();
 		setCanJump(true);
 		setIsMute(false);
-		setTime(120);
+		setTime(80);
 		initializeKeysValue();
 	}
 

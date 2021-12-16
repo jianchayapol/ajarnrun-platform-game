@@ -28,7 +28,6 @@ public class Player extends Character implements Moveable, Jumpable {
 		setFitWidth(WIDTH);
 		setFitHeight(HEIGHT);
 		initializeBooleanValues();
-	}
 	
 	private void initializeBooleanValues() {
 		if ((GameManager.getKeysValue(KeyCode.A) && GameManager.getKeysValue(KeyCode.D)) || (!GameManager.getKeysValue(KeyCode.A) && !GameManager.getKeysValue(KeyCode.D))) {
@@ -45,6 +44,8 @@ public class Player extends Character implements Moveable, Jumpable {
 			this.isMovingLeft = true;
 			this.isFacingRight = false;
 			this.isStandingX = false;
+		} else {
+			
 		}
 		if (this.getVelocityY() == 10 || this.getTranslateY() >= 480 - this.HEIGHT - 15) {
 			this.isStandingY = true;

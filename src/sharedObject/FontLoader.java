@@ -7,8 +7,24 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
 
+/**
+ * This FontLoader class is for setting font for GUI components, MainButton,
+ * Label, and TextField
+ * 
+ * @author jianchayapol
+ *
+ */
 public class FontLoader {
 
+	/**
+	 * Method for setting font for Label by the type and size given by the
+	 * parameters. use method Font.loadFont() to load the font from the font path by
+	 * the FontType and set fontSize.
+	 * 
+	 * @param label
+	 * @param type
+	 * @param size
+	 */
 	public static void setFont(Label label, FontType type, int size) {
 		try {
 			switch (type) {
@@ -24,6 +40,15 @@ public class FontLoader {
 		}
 	}
 
+	/**
+	 * Method for setting font for TextField by the type and size given by the
+	 * parameters. use method Font.loadFont() to load the font from the font path by
+	 * the FontType and set fontSize.
+	 * 
+	 * @param label
+	 * @param type
+	 * @param size
+	 */
 	public static void setFont(TextField text, FontType type, int size) {
 		try {
 			String fontPath = null;
@@ -43,6 +68,15 @@ public class FontLoader {
 		}
 	}
 
+	/**
+	 * Method for setting font for mainButton by the type and size given by the
+	 * parameters. use method Font.loadFont() to load the font from the font path by
+	 * the FontType and set fontSize.
+	 * 
+	 * @param label
+	 * @param type
+	 * @param size
+	 */
 	public static void setFont(MainButton mainButton, FontType type, int size) {
 		try {
 			String fontPath = null;

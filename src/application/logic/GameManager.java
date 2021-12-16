@@ -20,6 +20,7 @@ import platform.base.Collectable;
 import platform.base.Damagable;
 import platform.Book;
 import player.Player;
+import sharedObject.AudioLoader;
 import sharedObject.RenderableHolder;
 import view.GameScene;
 import view.ViewManager;
@@ -164,10 +165,11 @@ public class GameManager {
 	 */
 	private static boolean isMissingBook = false;
 	/**
-	 * A static constructor for GameManager class.
-	 * It starts with call loadResource() method from RenderableHolder to initialize all its fields.
-	 * The reason why this class will always be called before RenderableHolder class is RenderableHolder need to get block's width and hiehgt from this class.
-	 * Then, it initialize almost all the fields dependently on usability's order.
+	 * A static constructor for GameManager class. It starts with call
+	 * loadResource() method from RenderableHolder to initialize all its fields. The
+	 * reason why this class will always be called before RenderableHolder class is
+	 * RenderableHolder need to get block's width and hiehgt from this class. Then,
+	 * it initialize almost all the fields dependently on usability's order.
 	 */
 	static {
 		RenderableHolder.loadResource();
@@ -192,7 +194,10 @@ public class GameManager {
 		setLevelFinish(false);
 	}
 
-	/* ============================== PRIVATE STATIC METHOD ============================== */
+	/*
+	 * ============================== PRIVATE STATIC METHOD
+	 * ==============================
+	 */
 
 	/* ==================== USE IN CONSTRUCTOR ==================== */
 
@@ -758,9 +763,10 @@ public class GameManager {
 	}
 
 	/**
-	 * This method is called when the player has finished a level.
-	 * This method will reset everything that need to be resetted, which, some of the methods are the same in the constructor.
-	 * All you need to focus is that after calling this method, the next level is ready to be played.
+	 * This method is called when the player has finished a level. This method will
+	 * reset everything that need to be resetted, which, some of the methods are the
+	 * same in the constructor. All you need to focus is that after calling this
+	 * method, the next level is ready to be played.
 	 */
 
 	public static void setUpNextLevel() {
@@ -840,14 +846,11 @@ public class GameManager {
 	}
 
 	/**
-<<<<<<< HEAD
-	 * BLOCK_HEIGHT public static getter.
-||||||| 0c072d0
-	 * BLOCK_HEIGHT public stati getter.
-=======
-	 * BLOCK_HEIGHT public static getter.
+	 * <<<<<<< HEAD BLOCK_HEIGHT public static getter. ||||||| 0c072d0 BLOCK_HEIGHT
+	 * public stati getter. ======= BLOCK_HEIGHT public static getter.
 	 * 
->>>>>>> 6272fa4129686c4bc22a62558bd7a76a6734a3d1
+	 * >>>>>>> 6272fa4129686c4bc22a62558bd7a76a6734a3d1
+	 * 
 	 * @return
 	 */
 	public static int getBlockHeight() {

@@ -1,10 +1,6 @@
 package sharedObject;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 import application.logic.GameManager;
 import exception.ImageNotFoundException;
 import javafx.scene.image.Image;
@@ -183,6 +179,13 @@ public class RenderableHolder {
 	static {
 	}
 
+	/**
+	 * Method for loading Image file by the file path from the given parameter.
+	 * 
+	 * @param fileName
+	 * @throws ImageNotFoundException if unable to load file
+	 * @return Image in case it's successfully load
+	 */
 	public static Image loadImage(String fileName) {
 		try {
 			URL image = ClassLoader.getSystemResource("image/" + fileName);
@@ -197,6 +200,14 @@ public class RenderableHolder {
 		return null;
 	}
 
+	/**
+	 * Method for loading Image file for ImageButton by the file path from the given
+	 * parameter.
+	 * 
+	 * @param fileName
+	 * @throws ImageNotFoundException if unable to load file
+	 * @return Image in case it's successfully load
+	 */
 	public static Image loadImageButton(String fileName) {
 		try {
 			URL image = ClassLoader.getSystemResource("button/" + fileName);
@@ -211,85 +222,68 @@ public class RenderableHolder {
 		return null;
 	}
 
+	/**
+	 * Method for Creating ImageView for the Platform entity with the fileNumber
+	 * given from the parameter, the method will create the ImageView object for
+	 * each cases of the fileNumber and setFitWidth to BLOCK_WIDTH and setFitHeight
+	 * to BLOCK_HEIGHT, and setTranslateX(), setTranslateY() to posX, posY
+	 * respectively.
+	 * 
+	 * @param posX
+	 * @param posY
+	 * @param fileNumber
+	 * @return
+	 */
 	public static ImageView createImageViewForPlatform(int posX, int posY, String fileNumber) {
 		ImageView block;
 		switch (fileNumber) {
 		case "1":
 			block = new ImageView(RenderableHolder.greenOne);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "2":
 			block = new ImageView(RenderableHolder.greenTwo);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "3":
 			block = new ImageView(RenderableHolder.greenThree);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "4":
 			block = new ImageView(RenderableHolder.greenFour);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "5":
 			block = new ImageView(RenderableHolder.greenFive);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "f1":
 			block = new ImageView(RenderableHolder.floatOne);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "f2":
 			block = new ImageView(RenderableHolder.floatTwo);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "f3":
 			block = new ImageView(RenderableHolder.floatThree);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "f4":
 			block = new ImageView(RenderableHolder.floatFour);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "book1":
 			block = new ImageView(RenderableHolder.bookOne);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "book2":
 			block = new ImageView(RenderableHolder.bookTwo);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "coin":
 			block = new ImageView(RenderableHolder.coin);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		case "start":
 			block = new ImageView(RenderableHolder.start);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
-			break;
 		case "finish":
 			block = new ImageView(RenderableHolder.finish);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		default:
 			block = new ImageView(RenderableHolder.greenOne);
-			block.setFitWidth(BLOCK_WIDTH);
-			block.setFitHeight(BLOCK_HEIGHT);
 			break;
 		}
+		block.setFitWidth(BLOCK_WIDTH);
+		block.setFitHeight(BLOCK_HEIGHT);
 		block.setTranslateX(posX);
 		block.setTranslateY(posY);
 		return block;
@@ -297,8 +291,9 @@ public class RenderableHolder {
 
 	/**
 	 * loadResource is a method that initialize all Image fields using loadImage.
-	 * The reason why we do not simply use new Image(url) because if the path was incorrect, it will hard to find which part cause the error.
-	 * You can think of this method as a object initializer.
+	 * The reason why we do not simply use new Image(url) because if the path was
+	 * incorrect, it will hard to find which part cause the error. You can think of
+	 * this method as a object initializer.
 	 */
 	public static void loadResource() {
 
@@ -313,7 +308,7 @@ public class RenderableHolder {
 		RenderableHolder.entrance_background_Image = loadImage("mainSceneBackground_withoutLogo_fixed.png");
 		RenderableHolder.normalLevelImage = loadImage("demo_level_background.png");
 		RenderableHolder.subscene_background_Image = loadImage("SubScene_background.png");
-		
+
 		// Pane
 		RenderableHolder.money_tag_Image = loadImage("moneyTag.png");
 		RenderableHolder.shop_Image = loadImage("shop-pane.png");
@@ -321,8 +316,8 @@ public class RenderableHolder {
 		RenderableHolder.level_failed_Image = loadImage("failedLevel.png");
 
 		// Button
-		RenderableHolder.pause_button_Image =  loadImageButton("pause.png");
-		RenderableHolder.buy_button_Image =  loadImageButton("buy-button.png");
+		RenderableHolder.pause_button_Image = loadImageButton("pause.png");
+		RenderableHolder.buy_button_Image = loadImageButton("buy-button.png");
 		RenderableHolder.unmute_button_Image = loadImageButton("unmute.png");
 		RenderableHolder.mute_button_Image = loadImageButton("mute.png");
 		RenderableHolder.play_button_Image = loadImageButton("start.png");
@@ -333,8 +328,7 @@ public class RenderableHolder {
 		RenderableHolder.question_button_Image = loadImageButton("help.png");
 		RenderableHolder.quit_Image = loadImageButton("quit.png");
 		RenderableHolder.congrats_Image = loadImage("congrats.png");
-		
-		
+
 		// Platform
 		RenderableHolder.greenOne = loadImage("platform/green_01.png");
 		RenderableHolder.greenTwo = loadImage("platform/green_02.png");
@@ -352,7 +346,7 @@ public class RenderableHolder {
 
 		// Player
 		RenderableHolder.playerImage = loadImage("character_maleAdventurer_attack0.png");
-		
+
 		// Sprite
 		RenderableHolder.spritePlayerAttack = loadImage("sprite/sprite_player_attack.png");
 		RenderableHolder.spritePlayerAttackBackward = loadImage("sprite/sprite_player_attack_backward.png");
@@ -367,10 +361,10 @@ public class RenderableHolder {
 		RenderableHolder.bookOne = loadImage("platform/book_1.png");
 		RenderableHolder.bookTwo = loadImage("platform/book_2.png");
 		RenderableHolder.coin = loadImage("platform/coin.png");
-		
+
 		// Finish flag
 		RenderableHolder.finish = loadImage("platform/finish.png");
-		
+
 		// Start flag
 		RenderableHolder.start = loadImage("platform/start.png");
 	}

@@ -82,7 +82,6 @@ public class GameManager {
 	private static int playerCurrentHP;
 	private static int playerMaxHP;
 	private static int playerCoin;
-	private static int playerTotalCoin;
 	private static int playerEXP;
 	private static Random random = new Random();
 	private static int jumpBonus;
@@ -118,7 +117,10 @@ public class GameManager {
 		setIsLevelFinish(false);
 	}
 
-	/* ============================== PRIVATE STATIC METHOD ============================== */
+	/*
+	 * ============================== PRIVATE STATIC METHOD
+	 * ==============================
+	 */
 	/* ==================== USE IN CONSTRUCTOR ==================== */
 
 	private static void initializeLevelCount() {
@@ -241,11 +243,11 @@ public class GameManager {
 	private static void initializePlayer() {
 		player = new Player(RenderableHolder.spritePlayerStanding, 5, 0, 200, 1);
 	}
-	
+
 	private static void setJumpBonus(int bonus) {
 		jumpBonus = bonus;
 	}
-	
+
 	private static void setSpeedBonus(int bonus) {
 		speedBonus = bonus;
 	}
@@ -260,7 +262,6 @@ public class GameManager {
 
 	private static void initializePlayerCoin() {
 		playerCoin = 0;
-		playerTotalCoin = 0;
 	}
 
 	private static void initializePlayerEXP() {
@@ -331,7 +332,7 @@ public class GameManager {
 		finishPositionY = 0;
 	}
 
-  /* ==================== USED IN update() METHOD ==================== */
+	/* ==================== USED IN update() METHOD ==================== */
 
 	private static void movePlayerX(int value) {
 		boolean movingRight = value > 0;
@@ -406,7 +407,7 @@ public class GameManager {
 			setCanJump(false);
 		}
 	}
-  
+
 	private static boolean isPressed(KeyCode key) {
 		return keys.getOrDefault(key, false);
 	}
@@ -473,19 +474,19 @@ public class GameManager {
 			jumpPlayer(32 + jumpBonus);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
-			movePlayerX(-5-speedBonus);
+			movePlayerX(-5 - speedBonus);
 		}
 		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 5 - player.getWidth()) {
-			movePlayerX(5+speedBonus);
+			movePlayerX(5 + speedBonus);
 		}
 		if (player.getVelocityY() < 10) {
 			player.setVelocityY(player.getVelocityY() + 1);
 		}
 		movePlayerY(player.getVelocityY());
-		player.update();		
+		player.update();
 		checkCoinCollect();
 		checkBookCollect();
-		
+
 		// Check level finish
 		if (!isLevelFinish) {
 			boolean boundXLeftMin = finishPositionX <= player.getTranslateX() + player.getWidth();
@@ -498,7 +499,7 @@ public class GameManager {
 			boolean boundYTopMax = player.getTranslateY() + player.getHeight() <= finishPositionY + BLOCK_HEIGHT;
 			boolean boundYBottomMin = finishPositionY <= player.getTranslateY();
 			boolean boundYBottomMax = player.getTranslateY() <= finishPositionY + BLOCK_HEIGHT;
-			
+
 			if (((boundXLeftMin && boundXLeftMax) || (boundXRightMin && boundXRightMax))
 					&& ((boundYTopMin && boundYTopMax) || (boundYBottomMin && boundYBottomMax))) {
 				setIsLevelFinish(true);
@@ -516,7 +517,7 @@ public class GameManager {
 		if (getPlayerCurrentHP() <= 0) {
 			setIsDead(true);
 		}
-		
+
 		if (getPlayerCurrentHP() <= 0) {
 			setIsDead(true);
 		}
@@ -611,7 +612,10 @@ public class GameManager {
 		return time;
 	}
 
-	/* ============================== SET PLAYER'S STATS ============================== */
+	/*
+	 * ============================== SET PLAYER'S STATS
+	 * ==============================
+	 */
 
 	public static void setPlayerMaxHP(int maxHP) {
 		playerMaxHP = maxHP;
@@ -621,10 +625,6 @@ public class GameManager {
 
 	public static void setPlayerCoin(int coin) {
 		playerCoin = coin;
-	}
-
-	public static void setPlayerTotalCoin(int coin) {
-		playerTotalCoin = coin;
 	}
 
 	public static void setPlayerEXP(int EXP) {
@@ -638,12 +638,15 @@ public class GameManager {
 	public static void setIsDead(boolean isDead) {
 		GameManager.isDead = isDead;
 	}
-	
+
 	public static void setIsMissingBook(boolean isMissing) {
 		isMissingBook = isMissing;
 	}
-	
-	/* ============================== GET PLAYER'S STATS ============================== */
+
+	/*
+	 * ============================== GET PLAYER'S STATS
+	 * ==============================
+	 */
 
 	public static void makeJumpHigh() {
 		jumpBonus++;
@@ -665,47 +668,20 @@ public class GameManager {
 	}
 
 	public static void upgradeMapTime() {
-		double time = GameScene.getTimeMapSecond() + random.nextDouble()*20;
+		double time = GameScene.getTimeMapSecond() + random.nextDouble() * 20;
 		GameScene.setTimeMapSecond(time);
-	}
-
-	public static void updateLeaderboard(int timeRemained) {
-		String name = GameManager.getPlayerName();
-		String level = String.valueOf(GameManager.getLevelCount() + 1);
-		int exp = GameManager.getPlayerEXP();
-		int newExp = calculateNewExp(exp, timeRemained);
-		String calculatedExp = String.valueOf(newExp);
-		String[] data = { name, level, calculatedExp };
-		CSVUtility.appendToCSV(data);
 	}
 
 	public static void updateLeaderboard() {
 		String name = GameManager.getPlayerName();
 		String level = String.valueOf(GameManager.getLevelCount() + 1);
-		int exp = GameManager.getPlayerEXP();
-		String calculatedExp = String.valueOf(exp);
+		GameManager.setPlayerEXP(GameManager.getPlayerCoin()*100);
+		String calculatedExp = String.valueOf(GameManager.getPlayerEXP());
 		String[] data = { name, level, calculatedExp };
 		CSVUtility.appendToCSV(data);
 	}
+
 	
-	public static int calculateNewExp(int exp, int timeRemained) {
-		int timeMap = (int) GameScene.getTimeMapSecond();
-		int factor = (GameManager.levelCount + 1) * 100;
-		double portion = (timeMap-timeRemained) / timeMap;
-		int newExp = exp + (int) (portion * factor);
-		GameManager.setPlayerEXP(newExp);
-		return newExp;
-	}
-	
-	public static int calculateFinalLevelExp() {
-		int exp = GameManager.getPlayerEXP();
-		if(exp<320) {
-			exp = 320;
-			GameManager.setPlayerEXP(exp);
-			GameManager.updateLeaderboard();
-		}
-		return exp;
-	}
 
 	public static int getPlayerMaxHP() {
 		return playerMaxHP;
@@ -717,10 +693,6 @@ public class GameManager {
 
 	public static int getPlayerCoin() {
 		return playerCoin;
-	}
-
-	public static int getPlayerTotalCoin() {
-		return playerTotalCoin;
 	}
 
 	public static int getPlayerEXP() {

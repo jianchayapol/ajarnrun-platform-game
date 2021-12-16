@@ -194,7 +194,7 @@ public class ImageButton extends ImageView {
 
 	private void setUpContinueNextLv() {
 		if(! GameManager.isPressedNextLv()) { 
-			GameManager.setIsPressedNextLv(true);
+			GameManager.setPressedNextLv(true);
 			GameScene.initializeNextLevel();
 		}
 	}

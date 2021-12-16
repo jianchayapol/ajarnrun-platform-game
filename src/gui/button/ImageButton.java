@@ -8,6 +8,7 @@ import application.utility.CSVUtility;
 import application.utility.NameInputUtility;
 import gui.element.LevelEndingBox;
 import gui.element.LevelEndingType;
+import gui.element.MoneyBox;
 import gui.element.PauseGameLeaderBox;
 import gui.element.ShopPane;
 import javafx.event.EventHandler;
@@ -186,8 +187,10 @@ public class ImageButton extends ImageView {
 	}
 	
 	private void setUpContinueToShop() {
+		GameManager.getUIRoot().getChildren().clear();
 		GameManager.getAppRoot().getChildren().remove(GameManager.getAppRoot().getChildren().size()-1);
 		GameManager.getAppRoot().getChildren().add(new ShopPane());
+		MoneyBox.updateMoneyText();
 	}
 
 	private void setUpContinueNextLv() {

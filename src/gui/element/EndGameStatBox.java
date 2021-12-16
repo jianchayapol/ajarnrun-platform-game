@@ -49,12 +49,12 @@ public class EndGameStatBox extends VBox {
 			break;
 		case "coin":
 			image = new ImageView(RenderableHolder.coin);
-			progressLabel = new Label(String.valueOf(GameManager.getPlayerTotalCoin()));
+			progressLabel = new Label(String.valueOf(GameManager.getPlayerCoin()));
 			break;
 		case "exp":
 			type += " ";
 			image = new ImageView(RenderableHolder.finish);
-			int exp = GameManager.calculateFinalLevelExp();
+			int exp = GameManager.getPlayerEXP();
 			progressLabel = new Label(String.valueOf(exp));
 			
 			break;

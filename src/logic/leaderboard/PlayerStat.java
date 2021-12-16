@@ -19,7 +19,7 @@ public class PlayerStat implements Comparable<PlayerStat> {
 	 */
 	public String name;
 
-	/*
+	/**
 	 * An integer of player's level. This field represents the player's level
 	 * completing.
 	 */
@@ -71,7 +71,7 @@ public class PlayerStat implements Comparable<PlayerStat> {
 		return name;
 	}
 
-	/*
+	/**
 	 * Set the correct format of name By using checkEnteredName(String name) from
 	 * NameInputUtility class to check is the name is in the correct format or not,
 	 * then Set the name.

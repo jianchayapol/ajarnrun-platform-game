@@ -153,8 +153,9 @@ public class RenderableHolder {
 	 * button Image for ImageButton with ImageButtonType.PLAY
 	 */
 	public static Image play_button_Image;
+
 	/**
-	 * button Image for ImageButton with ImageButtonType.CONINUE_NEXT_LV &
+	 * button Image for ImageButton with ImageButtonType.CONINUE_NEXT_LV
 	 * ImageButtonType.CONTINUE_TO_SHOP
 	 */
 	public static Image continue_button_Image;
@@ -281,7 +282,7 @@ public class RenderableHolder {
 	 * parameter.
 	 * 
 	 * @param fileName
-	 * @throws ImageNotFoundException if unable to load file
+	 * throws ImageNotFoundException if unable to load file
 	 * @return Image in case it's successfully load
 	 */
 	public static Image loadImageButton(String fileName) {

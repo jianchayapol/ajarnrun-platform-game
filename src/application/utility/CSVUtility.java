@@ -29,10 +29,24 @@ public class CSVUtility {
 
 	/**
 	 * An public static method for reading all data in this the csv file by reading
+<<<<<<< HEAD
 	 * through each line of the file and add to the ArrayList of String
+||||||| 626e6b5
+	 * through each line of the file and add to the ArrayList<String>
+=======
+	 * through each line of the file and add to the ArrayList
+>>>>>>> 7b3919d7b2b41a11359d0f6515506feffd1473dd
 	 * 
+<<<<<<< HEAD
 	 * @return an ArrayList<String> containing all text data in format of {
 	 *         "Name,1,0", "Name2,1,0", ... }
+||||||| 626e6b5
+	 * @return an ArrayList<String> containing all text data in format of {
+	 * "Name,1,0", "Name2,1,0", ... }
+=======
+	 * @return an ArrayList containing all text data in format of {
+	 * "Name,1,0", "Name2,1,0", ... }
+>>>>>>> 7b3919d7b2b41a11359d0f6515506feffd1473dd
 	 */
 	public static ArrayList<String> readCSV() {
 		BufferedReader reader = null;
@@ -60,7 +74,13 @@ public class CSVUtility {
 	 * name exists, but the new one is greater, we will mark the new one as a
 	 * HighScore ,and filter the exists one out. While reading the file, if the name
 	 * doesn't match with the toAddText name, will be automatically appended to the
+<<<<<<< HEAD
 	 * temporary ArrayList of String tmpLines. Finally, If the toAddText is a new
+||||||| 626e6b5
+	 * temporary ArrayList<String> tmpLines. Finally, If the toAddText is a new
+=======
+	 * temporary ArrayList tmpLines. Finally, If the toAddText is a new
+>>>>>>> 7b3919d7b2b41a11359d0f6515506feffd1473dd
 	 * HighScore, add it to the file
 	 * 
 	 * @param toAddText A Sting[] of length 3 that contains player's name, level,
@@ -126,7 +146,7 @@ public class CSVUtility {
 
 	/**
 	 * A public static method to update the csv file to become the correct sorted
-	 * order. By Getting the SortedSet<PlayerStat> stats, and overwrite the file
+	 * order. By Getting the SortedSet stats, and overwrite the file
 	 * with all the data obtained from each element of stats. [ Note: use the GETTER
 	 * to obtained all the PlayerStat object's field.] then write the text to the
 	 * .csv file in the correct format of "Name,1,0"

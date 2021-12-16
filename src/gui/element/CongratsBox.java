@@ -17,26 +17,49 @@ import sharedObject.RenderableHolder;
 import view.GameScene;
 
 /**
- * CongratsBox extends StackPane is the class that presents when player
- * completed all the level.
- * 
- * @author jianchayapol
+ * CongratsBox is a JavaFx StackPane that will be shown when you finish the game.
+ * The player will see there exp and level.
+ * @author Mos
  *
  */
-public class CongratsBox extends StackPane {
 
-	
+public class CongratsBox extends StackPane {
+	/**
+	 * A rectangle that will be used as a background
+	 */
 	private static Rectangle bgRec;
+	/**
+	 * mainBox
+	 */
 	private static VBox mainBox;
+	/**
+	 * statPane that contains player's stats
+	 */
 	private static VBox statPane;
+	/**
+	 * centerPane that will be at the center of the screen
+	 */
 	private static HBox centerBox;
-	private static MainButton leaderboardButton;
+	/**
+	 * exitButton
+	 */
 	private static MainButton exitButton;
-	private Rectangle rec = new Rectangle(280, 380);
+	/**
+	 * Player's image to be shown in congrats box
+	 */
 	private static ImageView peopleImage = new ImageView(RenderableHolder.playerImage);
+	/**
+	 * Congrats image
+	 */
 	private static ImageView congratsImage = new ImageView(RenderableHolder.congrats_Image);
 
+	/**
+	 * Screen's height
+	 */
 	private static final int HEIGHT = 600;
+	/**
+	 * Screen's width
+	 */
 	private static final int WIDTH = 800;
 
 	/**

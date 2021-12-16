@@ -86,7 +86,7 @@ public class GameScene extends Scene {
 				updateHUD();
 				timeRemained -= TIME_TICK;
 
-				boolean isTimeUp = timeRemained <= 0 && !GameManager.getIsLevelFinish();
+				boolean isTimeUp = timeRemained <= 0 && !GameManager.isLevelFinish();
 				boolean isWasted = GameManager.isDead();
 				boolean isMissingBook = GameManager.isMissingBook();//
 				boolean isWinGame = GameManager.getLevelCount() == Level.ALL_LEVEL.length - 1;
@@ -113,7 +113,7 @@ public class GameScene extends Scene {
 					}
 				}
 				// ------------------------ Level Completed ------------------------------
-				if (GameManager.getIsLevelFinish() && !isMissingBook) {
+				if (GameManager.isLevelFinish() && !isMissingBook) {
 					
 					GameManager.updateLeaderboard();
 					MoneyBox.updateMoneyText();
@@ -167,7 +167,7 @@ public class GameScene extends Scene {
 	}
 
 	private void setAudio() {
-		GameScene.isPlayingThemeSong = !GameManager.getIsMute();
+		GameScene.isPlayingThemeSong = !GameManager.isMute();
 		playThemeSong();
 	}
 
@@ -185,7 +185,7 @@ public class GameScene extends Scene {
 
 	public static void playThemeSong() {
 		AudioClip themeSong = AudioLoader.Game_Theme_Song;
-		if (isPlayingThemeSong && !GameManager.getIsMute()) {
+		if (isPlayingThemeSong && !GameManager.isMute()) {
 			themeSong.setVolume(0.45);
 			themeSong.setCycleCount(AudioClip.INDEFINITE);
 			themeSong.play();

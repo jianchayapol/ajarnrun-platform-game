@@ -61,7 +61,7 @@ public class MainButton extends Button {
 
 		setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(!GameManager.getIsMute()) AudioLoader.Mouse_Click.play();
+				if(!GameManager.isMute()) AudioLoader.Mouse_Click.play();
 				setButtonPressedStyle();
 			}
 		});

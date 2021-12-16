@@ -23,34 +23,113 @@ import javafx.scene.layout.HBox;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
+/**
+ * ViewManager is the class that control the first state of the game that you know as Main Menu.
+ * This class basically create a main scene and a main stage, then pass it to Main class.
+ * This class is also the class that contain all buttons that you see in Main Menu, like New Game, Leaderboard, about us etc.
+ * The way this class work is that it contain all buttons and implement event handlers to each of them.
+ * Some buttons might initialize new object or scene, but there's one button that doesn't do that, that is mute button which call a method from AutioLoader class.
+ * @author Mos
+ *
+ */
 public class ViewManager {
+	/**
+	 * Screen's height
+	 */
 	private static final int HEIGHT = 600;
+	/**
+	 * Screen's width
+	 */
 	private static final int WIDTH = 800;
+	/**
+	 * mainPane is an AnchorPane that will be in mainScene. You can think of it as a background pane.
+	 */
 	private AnchorPane mainPane;
+	/**
+	 * mainScene is a scene that will be setted in mainStage.
+	 */
 	private static Scene mainScene;
+	/**
+	 * mainStage is a stage that will be initialized in this class. Its pointer will be shared with parimaryStage in Main class.
+	 */
 	private static Stage mainStage;
+	/**
+	 * Background (bg) is an ImageView that we will initiailze and use it as a background for this scene.
+	 */
 	private ImageView bg;
+	/**
+	 * NewGameButton is a button that we can click to go to next state of the game.
+	 * The next state that we can go to from clicking newGameButton is EnterNameScene
+	 */
 	private MainButton newGameButton;
+	/**
+	 * leaderBoardButton is a button that when we click, a leaderboard subscene will show up, if we click at this button again, the subscene will move back.
+	 */
 	private MainButton leaderBoardButton;
+	/**
+	 * exitButton is a button which we click when we want to exit the game.
+	 */
 	private MainButton exitButton;
+	/**
+	 * info is a button that when we click, an about us sebscene will show up, if we click at this button again, the subscene will move back.
+	 */
 	private MainButton info;
+	/**
+	 * muteButton is a button which we click when we want to turn off the music, and when you want to turn on the music, simply click this button again.
+	 */
 	private ImageButton muteButton;
+	/**
+	 * howToButton is button that when we click, how to play subscene will show up and tell us how to play the game.
+	 */
 	private ImageButton howToButton;
-	
+	/**
+	 * A boolean that check if the background music is playing or not.
+	 */
 	private static boolean isPlayingThemeSong;
+	/**
+	 * A boolean that check if the main view is visible or not.
+	 * This field mainly use for the logic about stage's current scene.
+	 */
 	private static boolean isMainViewVisible;
-	
+	/**
+	 * A boolean to check if leaderboard is being shown or not (since leaderboard will be shown when we click the button).
+	 */
 	private boolean isLeaderBoardPressed;
+	/**
+	 * A boolean to check if aboutus subscene is being shown or not (since aboutus subscene will be shown when we click the button).
+	 */
 	private boolean isInfoPressed;
+	/**
+	 * A bolean to check if how to play subscene is being shown or not (since how to play subscene will be shown when we click the button).
+	 */
 	private static boolean isShowHowToPlay;
-	
+	/**
+	 * aboutUs is a GameSubScene object (extends JavaFx SubScene) that will be shown when when we click info button.
+	 */
 	private GameSubScene aboutUs;
+	/**
+	 * leaderBoard is a GameSubScene object (extends JavaFx SubScene) that will be shown when we click info button.
+	 */
 	private GameSubScene leaderBoard;
+	/**
+	 * howToPlay is a GameSubScene object (extends JavaFx SubScene) that will be shown when we click info button.
+	 */
 	private static GameSubScene howToPlay;
+	/**
+	 * gameScene is a GameScene object (extends JavaFx Scene) that we be initiallize when we enter the third state of the game.
+	 */
 	private static GameScene gameScene;
-	
+	/**
+	 * enterNameScene is and EnterNameScene object (extends JavaFx Scene) that the player will see when they click newGameButton.
+	 * This whole scene is the only scene in the second state of the game.
+	 */
 	private static EnterNameScene enterNameScene;
-	
+	/**
+	 * A constructor of ViewManager class.
+	 * When this class is initialize, it starts by initialize new AnchorPane.
+	 * Then it sets initial boolean values, then, it create a logo and also all buttons and implement their event handler.
+	 * Lastly, it initializes mainScene and Stage.
+	 */
 	public ViewManager() {
 		this.mainPane = new AnchorPane();
 		setBackgroundImage(RenderableHolder.entrance_background_Image);
@@ -99,7 +178,7 @@ public class ViewManager {
 
 	public static void playThemeSong() {
 		AudioClip themeSong = AudioLoader.Entrance_Theme_Song;
-		if (isPlayingThemeSong && !GameManager.getIsMute()) {
+		if (isPlayingThemeSong && !GameManager.isMute()) {
 			themeSong.setVolume(0.5);
 			themeSong.setCycleCount(AudioClip.INDEFINITE);
 			themeSong.play();

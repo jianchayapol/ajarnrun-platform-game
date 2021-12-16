@@ -10,26 +10,72 @@ import javafx.util.Duration;
 import player.base.Jumpable;
 import player.base.Moveable;
 import sharedObject.RenderableHolder;
-
+/**
+ * Player class is a class that can be used to initialize player in gameplay state (the player that you control).
+ * This class implements Moveable and Jumpable which are Marker interfaces.
+ * This class also has its own SpriteAnimation imported from SpriteAnimationClass and lots of boolean value to check which animation the player object should be showing.
+ * @author Mos
+ *
+ */
 public class Player extends Character implements Moveable, Jumpable {
+	/**
+	 * player's width
+	 */
 	private final int WIDTH = 75;
+	/**
+	 * player's height
+	 */
 	private final int HEIGHT = 100;
+	/**
+	 * player's jump power
+	 */
 	private int jumpHeight = 21;
+	/**
+	 * boolean that check if player is moving to the right.
+	 */
 	private boolean isMovingRight;
+	/**
+	 * boolean that check if player is facing to the right.
+	 */
 	private boolean isFacingRight;
+	/**
+	 * boolean that check if player is moving to the left (isMovingRight isn't always equal to !isMovingLeft)
+	 */
 	private boolean isMovingLeft;
+	/**
+	 * boolean that check if player is facing to the left.
+	 */
 	private boolean isFacingLeft;
+	/**
+	 * boolean that check if player isn't moving horizontally.
+	 */
 	private boolean isStandingX;
+	/**
+	 * boolean that check if player isn't moving vertically
+	 */
 	private boolean isStandingY;
+	/**
+	 * an Animation object that will be use to create SpriteAnimation object.
+	 */
 	private Animation animation;
-	
+	/**
+	 * Player's constructor simply pass first three parameter to super constructor.
+	 * The last two parameter is use to setFitWidth and fitHeight (since a Player's object is also an ImageView's object)
+	 * @param image
+	 * @param velocityX
+	 * @param velocityY
+	 * @param translateX
+	 * @param translateY
+	 */
 	public Player(Image image, int velocityX, int velocityY, int translateX, int translateY){
 		super(image, velocityX, velocityY, translateX, translateY);
 		setFitWidth(WIDTH);
 		setFitHeight(HEIGHT);
 		initializeBooleanValues();
 	}
-	
+	/**
+	 * This method is use to calculate the result of boolean values that will be passed to the createSprite method.
+	 */
 	private void initializeBooleanValues() {
 		if ((GameManager.getKeysValue(KeyCode.A) && GameManager.getKeysValue(KeyCode.D)) || (!GameManager.getKeysValue(KeyCode.A) && !GameManager.getKeysValue(KeyCode.D))) {
 			this.isStandingX = true;
@@ -56,15 +102,24 @@ public class Player extends Character implements Moveable, Jumpable {
 	}
 	
 	/* ==================== GETTER/SETTER ==================== */
-	
+	/**
+	 * Player's height public getter.
+	 * @return Player's height
+	 */
 	public int getHeight() {
 		return HEIGHT;
 	}
-	
+	/**
+	 * Player's width public getter.
+	 * @return Player's width
+	 */
 	public int getWidth() {
 		return WIDTH;
 	}	
-	
+	/**
+	 * Player's jumpHeight public getter.
+ 	 * @return player's jumpHeight
+	 */
 	public int getJumpHeight() {
 		return jumpHeight;
 	}

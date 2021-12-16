@@ -89,7 +89,7 @@ public class GameManager {
 		addGameRoot();
 		addUIRoot();
 		setCanJump(false);
-		setIsMute(false);
+		setMute(false);
 		setTime(40);
 		initializeKeysValue();
 		setIsLevelFinish(false);
@@ -520,7 +520,7 @@ public class GameManager {
 		addGameRoot();
 		addUIRoot();
 		setCanJump(true);
-		setIsMute(false);
+		setMute(false);
 		setTime(80);
 		initializeKeysValue();
 		GameScene.createPauseGameLeaderboardSubScene();
@@ -538,11 +538,11 @@ public class GameManager {
 		GameManager.appRoot = appRoot;
 	}
 
-	public static void setIsMute(boolean isMute) {
+	public static void setMute(boolean isMute) {
 		GameManager.isMute = isMute;
 	}
 
-	public static boolean getIsMute() {
+	public static boolean isMute() {
 		return isMute;
 	}
 

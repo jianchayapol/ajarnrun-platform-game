@@ -11,10 +11,29 @@ import java.util.SortedSet;
 
 import logic.leaderboard.PlayerStat;
 
+/**
+ * This CSVUtility public class is an utility that provides useful static methods
+ * for all CSV File management which includes Reading, Writing, Adding, and
+ * Sorting File leader-board.csv
+ * 
+ * @author jianchayapol
+ *
+ */
+
 public class CSVUtility {
 
-	public static String filename = "/leader-board.csv";
+	/*
+	 * An String of filename [.csv] This file collects all player's statistics data.
+	 */
+	private static String filename = "/leader-board.csv";
 
+	/*
+	 * An public static method for reading all data in this the csv file by reading
+	 * through each line of the file and add to the ArrayList<String>
+	 * 
+	 * @return an ArrayList<String> containing all text data in format of {
+	 * "Name,1,0", "Name2,1,0", ... }
+	 */
 	public static ArrayList<String> readCSV() {
 		BufferedReader reader = null;
 		try {
@@ -33,54 +52,69 @@ public class CSVUtility {
 		}
 	}
 
-	public static void appendToCSV(String[] text) {
+	/*
+	 * An public static method for appending the player's progress to the CSV file
+	 * by reading through each line of the file and check conditions of adding to
+	 * filter some line that does not match the condition out. condition: If the
+	 * name of toAddText is not exists in the file, mark it as new HighScore. If
+	 * name exists, but the new one is greater, we will mark the new one as a
+	 * HighScore ,and filter the exists one out. While reading the file, if the name
+	 * doesn't match with the toAddText name, will be automatically appended to the
+	 * temporary ArrayList<String> tmpLines. Finally, If the toAddText is a new
+	 * HighScore, add it to the file
+	 * 
+	 * @param toAddText A Sting[] of length 3 that contains player's name, level,
+	 * and, exp respectively
+	 */
+	public static void appendToCSV(String[] toAddText) {
 		BufferedReader reader = null;
 		BufferedWriter writer = null;
 		boolean isHighScore = false;
-		ArrayList<String> lines = new ArrayList<>();
+		ArrayList<String> tmpLines = new ArrayList<>();
 		try {
 			reader = new BufferedReader(new FileReader("res/csv" + filename));
 			String line = null;
+
 			boolean isExist = false;
 			while ((line = reader.readLine()) != null) {
-				String[] l = line.split(",");
-				if (text[0].equals(l[0])) {
+
+				String[] textSplitted = line.split(",");
+				String name = toAddText[0];
+				String otherName = textSplitted[0];
+				int level = Integer.parseInt(toAddText[1]);
+				int otherLevel = Integer.parseInt(textSplitted[1]);
+				int exp = Integer.parseInt(toAddText[2]);
+				int otherExp = Integer.parseInt(textSplitted[2]);
+
+				if (name.equals(otherName)) {
 					isExist = true;
-					if (Integer.parseInt(l[1]) <= Integer.parseInt(text[1])) {
+					if (level >= otherLevel) {
 						isHighScore = true;
-					} else if (Integer.parseInt(l[1]) == Integer.parseInt(text[1])
-							&& Integer.parseInt(l[2]) < Integer.parseInt(text[2])) {
+					} else if ((level == otherLevel) && (otherExp == exp)) {
 						isHighScore = true;
 					} else {
-						lines.add(line);
+						tmpLines.add(line);
 					}
 				} else {
-					lines.add(line);
+					tmpLines.add(line);
 				}
-				
+
 				if (!isExist) {
 					isHighScore = true;
 				}
-
 			}
 
+			// Writing to CSV File 
+			
 			String textToWrite = "";
-
 			writer = new BufferedWriter(new FileWriter(new File("res/csv" + filename), false));
-			for (String s : lines) {
+			for (String s : tmpLines) {
 				textToWrite += (s.split(",")[0] + "," + s.split(",")[1] + "," + s.split(",")[2] + "\n");
 			}
-
 			if (isHighScore) {
-				for (int i = 0; i < text.length; i++) {
-					textToWrite += escapeSpecialCharacters(text[i]);
-					if (i != text.length - 1) {
-						textToWrite += ",";
-					}
-				}
-				textToWrite += "\n";
+				textToWrite += getCSVFormat(toAddText);
 			}
-
+			
 			writer.write(textToWrite);
 			writer.close();
 
@@ -90,12 +124,21 @@ public class CSVUtility {
 		}
 	}
 
+	/**
+	 * A public static method to update the csv file to become the correct sorted
+	 * order. By Getting the SortedSet<PlayerStat> stats, and overwrite the file
+	 * with all the data obtained from each element of stats. [ Note: use the GETTER
+	 * to obtained all the PlayerStat object's field.] then write the text to the
+	 * .csv file in the correct format of "Name,1,0"
+	 * 
+	 * @param stats
+	 */
 	public static void updateSortCSV(SortedSet<PlayerStat> stats) {
 		BufferedWriter writer = null;
 		try {
 
 			writer = new BufferedWriter(new FileWriter(new File("res/csv" + filename), false));
-
+			// obtain all the PlayerStat's fields to write to csv file.
 			String textToWrite = "";
 			for (PlayerStat p : stats) {
 				String name = p.getName();
@@ -112,6 +155,13 @@ public class CSVUtility {
 		}
 	}
 
+	/**
+	 * private static method called to remove all the CSV file case sensitive like
+	 * special characters, commas.
+	 * 
+	 * @param data
+	 * @return escapedData the String output that escaped all sensitive cases.
+	 */
 	private static String escapeSpecialCharacters(String data) {
 		String escapedData = data.replaceAll("\\R", " ");
 		if (data.contains(",") || data.contains("\"") || data.contains("'")) {
@@ -121,18 +171,23 @@ public class CSVUtility {
 		return escapedData;
 	}
 
-	public static int getPlayerExp(String name) {
-		try {
-			ArrayList<String> data = CSVUtility.readCSV();
-			for (String s : data) {
-				if (s.split(",")[0].equals(name)) {
-					return Integer.parseInt(s.split(",")[2]);
-				}
+	/*
+	 * An private static method to get the correct CSV Format of String "Name,1,0"
+	 * from the Array of String By looping through the String[] text and joining
+	 * each element that are formatted correctly together with comma (",").
+	 * 
+	 * @return textToWrite the correct format of string to write to A
+	 */
+	private static String getCSVFormat(String[] text) {
+		String textToWrite = "";
+		for (int i = 0; i < text.length; i++) {
+			textToWrite += escapeSpecialCharacters(text[i]);
+			if (i != text.length - 1) {
+				textToWrite += ",";
 			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
-		return 0;
+		textToWrite += "\n";
+		return textToWrite;
 	}
 
 }

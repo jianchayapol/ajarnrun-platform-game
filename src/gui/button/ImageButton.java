@@ -50,7 +50,7 @@ public class ImageButton extends ImageView {
 
 		switch (imageButtonType) {
 		case SOUND:
-			if (GameManager.getIsMute()) {
+			if (GameManager.isMute()) {
 				image = RenderableHolder.mute_button_Image;
 			} else {
 				image = RenderableHolder.unmute_button_Image;
@@ -174,7 +174,7 @@ public class ImageButton extends ImageView {
 	}
 	
 	private void setUpSound() {
-		GameManager.setIsMute(!GameManager.getIsMute());
+		GameManager.setMute(!GameManager.isMute());
 		initImageButton(ImageButtonType.SOUND);
 		if (ViewManager.isVisible()) {
 			ViewManager.setIsPlayingThemeSong(!ViewManager.isPlayingThemeSong());

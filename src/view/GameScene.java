@@ -167,7 +167,7 @@ public class GameScene extends Scene {
 	}
 
 	private void setAudio() {
-		GameScene.isPlayingThemeSong = !GameManager.getIsMute();
+		GameScene.isPlayingThemeSong = !GameManager.isMute();
 		playThemeSong();
 	}
 
@@ -185,7 +185,7 @@ public class GameScene extends Scene {
 
 	public static void playThemeSong() {
 		AudioClip themeSong = AudioLoader.Game_Theme_Song;
-		if (isPlayingThemeSong && !GameManager.getIsMute()) {
+		if (isPlayingThemeSong && !GameManager.isMute()) {
 			themeSong.setVolume(0.45);
 			themeSong.setCycleCount(AudioClip.INDEFINITE);
 			themeSong.play();

@@ -2,6 +2,7 @@ package logic.shop;
 
 import application.logic.GameManager;
 import exception.BuyItemFailedException;
+import gui.element.GameHUD;
 import gui.element.MoneyBox;
 import gui.element.ShopPane;
 import sharedObject.AudioLoader;
@@ -13,7 +14,6 @@ public class ShopManager {
 			if (price <= GameManager.getPlayerCoin()) {
 				int coinLeft = GameManager.getPlayerCoin() - price;
 				GameManager.setPlayerCoin(coinLeft);
-//				ShopPane.shuffleItems();
 				MoneyBox.updateMoneyText();
 				AudioLoader.Pick_Up_Item_Sound.play();
 				return true;

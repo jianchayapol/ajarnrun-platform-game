@@ -18,34 +18,34 @@ import sharedObject.FontType;
 import sharedObject.RenderableHolder;
 
 public class ShopPane extends AnchorPane {
-	
+
 	private static AnchorPane shopStore;
 	private static Rectangle rec;
-	
+
 	private static VBox shelfBox;
 	private static VBox controlBox;
-	
+
 	private static StackPane shopPane;
 	private static Label errorMessage;
-	
+
 	private static ArrayList<ShopItemBox> shelf;
 	private static final String[] items = { "run", "jump", "lp", "time" };
 
 	private static MoneyBox moneyBox = new MoneyBox();
 	private static ImageButton nextLvButton = new ImageButton(ImageButtonType.CONTINUE_NEXT_LV);
-	
+
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 800;
-	
+
 	public ShopPane() {
 		super();
 		// initialize
 		initializeShopPane();
 		initializeErrorMessage();
 		// setup
-		setupPane();	
+		setupPane();
 		setupMoneyBox();
-		this.getChildren().addAll(rec,controlBox,errorMessage,moneyBox);
+		this.getChildren().addAll(rec, controlBox, errorMessage, moneyBox);
 	}
 
 	// =================== private static method ==============================
@@ -76,7 +76,7 @@ public class ShopPane extends AnchorPane {
 		VBox shelfBoxMain = new VBox(40);
 		shelfBoxMain.setAlignment(Pos.BOTTOM_CENTER);
 		shelfBoxMain.getChildren().add(shelfBox);
-		
+
 		shopStore = new AnchorPane();
 		shopStore.getChildren().addAll(shopPane, shelfBoxMain);
 		shelfBoxMain.setLayoutX(70);
@@ -88,9 +88,8 @@ public class ShopPane extends AnchorPane {
 	private void setupMoneyBox() {
 		moneyBox.setLayoutX(600);
 		moneyBox.setLayoutY(50);
-		
 	}
-	
+
 	private void setupRec() {
 		rec = new Rectangle(WIDTH, HEIGHT);
 		rec.setFill(Color.BLACK);
@@ -99,12 +98,12 @@ public class ShopPane extends AnchorPane {
 
 	private void setupControlBox() {
 		controlBox = new VBox(3);
-		controlBox.getChildren().addAll(shopStore,nextLvButton);
+		controlBox.getChildren().addAll(shopStore, nextLvButton);
 		controlBox.setLayoutX(200);
 		controlBox.setLayoutY(3);
 		controlBox.setAlignment(Pos.CENTER);
 	}
-	
+
 	private void setupShopItemBox() {
 		shelfBox = new VBox(37);
 		shelfBox.setAlignment(Pos.CENTER);
@@ -129,14 +128,17 @@ public class ShopPane extends AnchorPane {
 	public static String getErrorMessage() {
 		return ShopPane.errorMessage.getText();
 	}
-	
+
 	public static void shuffleItems() {
 		Collections.shuffle(ShopPane.shelf);
 	}
-	
-	public static ArrayList<ShopItemBox> getShelf(){
+
+	public static ArrayList<ShopItemBox> getShelf() {
 		return shelf;
 	}
-	
+
+	public static void setMoneyText() {
+		MoneyBox.updateMoneyText();
+	}
 
 }

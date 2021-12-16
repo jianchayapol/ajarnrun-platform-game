@@ -29,7 +29,6 @@ public class GameHUD extends HBox {
 	private static ImageView image;
 	private static Label levelLabel;
 	private static Label nameLabel;
-	private static Label moneyLabel;
 	private static ProgressBar progBar;
 	private static VBox timerBox;
 

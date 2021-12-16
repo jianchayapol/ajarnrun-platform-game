@@ -5,6 +5,7 @@ import gui.element.CongratsBox;
 import gui.element.GameHUD;
 import gui.element.LevelEndingBox;
 import gui.element.LevelEndingType;
+import gui.element.MoneyBox;
 import gui.element.PauseGameLeaderBox;
 import gui.element.EndingLevelTextBox;
 import javafx.animation.AnimationTimer;
@@ -69,7 +70,7 @@ public class GameScene extends Scene {
 		gameHud = new GameHUD();
 		pane.getChildren().add(gameHud);
 	}
-
+	
 	private void runScene() {
 
 		setTimeMapSecond(120);
@@ -113,7 +114,9 @@ public class GameScene extends Scene {
 				}
 				// ------------------------ Level Completed ------------------------------
 				if (GameManager.getIsLevelFinish() && !isMissingBook) {
-					levelCompleteUpdateStat((int) timeRemained);
+					
+					GameManager.updateLeaderboard();
+					MoneyBox.updateMoneyText();
 					levelCompleteCounter++;
 					if (levelCompleteCounter == 1) {
 						GameManager.getAppRoot().getChildren().add(new EndingLevelTextBox("complete"));
@@ -121,6 +124,7 @@ public class GameScene extends Scene {
 					if (levelCompleteCounter >= 150) {
 						this.stop();
 						removeAppRootLatestItem();
+						MoneyBox.updateMoneyText();
 						// ------------------------ Complete Last Level -----------------------
 						if (isWinGame) {
 							GameManager.getAppRoot().getChildren().add(new CongratsBox());
@@ -141,11 +145,6 @@ public class GameScene extends Scene {
 		GameManager.getAppRoot().getChildren().remove(GameManager.getAppRoot().getChildren().size() - 1);
 	}
 
-	private static void levelCompleteUpdateStat(int timeRemained) {
-		GameManager.updateLeaderboard(timeRemained);
-		GameManager.setPlayerTotalCoin(GameManager.getPlayerTotalCoin() + GameManager.getPlayerCoin());
-	}
-
 	public static void initializeNextLevel() {
 		timer.stop();
 		GameManager.setUpNextLevel();
@@ -153,7 +152,7 @@ public class GameScene extends Scene {
 		GameScene.setGameHud(GameManager.getUIRoot());
 		GameScene.setTimeMapSecond(90);
 		timeRemained = getTimeMapSecond();
-		
+
 		timer.start();
 	}
 

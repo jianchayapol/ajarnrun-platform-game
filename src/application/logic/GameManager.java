@@ -192,10 +192,8 @@ public class GameManager {
 		setLevelFinish(false);
 	}
 
-	/*
-	 * ============================== PRIVATE STATIC METHOD
-	 * ==============================
-	 */
+	/* ============================== PRIVATE STATIC METHOD ============================== */
+
 	/* ==================== USE IN CONSTRUCTOR ==================== */
 
 	/**
@@ -842,8 +840,14 @@ public class GameManager {
 	}
 
 	/**
+<<<<<<< HEAD
+	 * BLOCK_HEIGHT public static getter.
+||||||| 0c072d0
+	 * BLOCK_HEIGHT public stati getter.
+=======
 	 * BLOCK_HEIGHT public static getter.
 	 * 
+>>>>>>> 6272fa4129686c4bc22a62558bd7a76a6734a3d1
 	 * @return
 	 */
 	public static int getBlockHeight() {

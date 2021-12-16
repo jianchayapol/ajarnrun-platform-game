@@ -150,6 +150,7 @@ public class EnterNameScene extends Scene {
 	 * 
 	 * @return scene of primaryStage
 	 */
+
 	public static Scene getScene() {
 		return primaryStage.getScene();
 	}

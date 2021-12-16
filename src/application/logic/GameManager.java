@@ -10,6 +10,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import gui.element.GameHUD;
+import gui.element.MoneyBox;
 import logic.level.Level;
 import platform.Coin;
 import platform.FinishFlag;
@@ -56,12 +58,21 @@ public class GameManager {
 	 * A boolean to check if the song is muted or not at that frame.
 	 */
 	private static boolean isMute;
-	
+	/**
+	 * A boolean to check has player click continue button yet
+	 */
 	private static boolean isPressedNextLv;
-
+	/**
+	 * An integer to count a level. It is also used as an index.
+	 */
 	private static int levelCount;
-
+	/**
+	 * An anchor pane (appRoot) is the main pane is game scene.
+	 */
 	private static AnchorPane appRoot = new AnchorPane();
+	/**
+	 * 
+	 */
 	private static AnchorPane gameRoot = new AnchorPane();
 	private static AnchorPane uiRoot = new AnchorPane();
 
@@ -674,7 +685,7 @@ public class GameManager {
 
 	public static void updateLeaderboard() {
 		String name = GameManager.getPlayerName();
-		String level = String.valueOf(GameManager.getLevelCount() + 1);
+		String level = String.valueOf(levelCount + 2);
 		GameManager.setPlayerEXP(GameManager.getPlayerCoin()*100);
 		String calculatedExp = String.valueOf(GameManager.getPlayerEXP());
 		String[] data = { name, level, calculatedExp };

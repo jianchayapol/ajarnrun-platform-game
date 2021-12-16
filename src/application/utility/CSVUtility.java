@@ -36,26 +36,32 @@ public class CSVUtility {
 	public static void appendToCSV(String[] text) {
 		BufferedReader reader = null;
 		BufferedWriter writer = null;
-		boolean isHighScore = true;
+		boolean isHighScore = false;
 		ArrayList<String> lines = new ArrayList<>();
 		try {
 			reader = new BufferedReader(new FileReader("res/csv" + filename));
 			String line = null;
-
+			boolean isExist = false;
 			while ((line = reader.readLine()) != null) {
 				String[] l = line.split(",");
 				if (text[0].equals(l[0])) {
-					if (Integer.parseInt(l[1]) < Integer.parseInt(text[1])) {
+					isExist = true;
+					if (Integer.parseInt(l[1]) <= Integer.parseInt(text[1])) {
 						isHighScore = true;
 					} else if (Integer.parseInt(l[1]) == Integer.parseInt(text[1])
 							&& Integer.parseInt(l[2]) < Integer.parseInt(text[2])) {
-						isHighScore = true;
-					} else {
 						lines.add(line);
+					} else {
+						isHighScore = true;
 					}
 				} else {
 					lines.add(line);
 				}
+				
+				if (!isExist) {
+					isHighScore = true;
+				}
+
 			}
 
 			String textToWrite = "";

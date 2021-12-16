@@ -9,9 +9,13 @@ import application.logic.GameManager;
 import exception.ImageNotFoundException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 /**
- * RenderableHolder is a static class that hold all shared images and ImageView's objects.
- * All other classes can directly call and get items from this class since most of the fields are public static (except BLOCK_WIDTH and BLOCK_HEIGHT because you can get it from GameManager.
+ * RenderableHolder is a static class that hold all shared images and
+ * ImageView's objects. All other classes can directly call and get items from
+ * this class since most of the fields are public static (except BLOCK_WIDTH and
+ * BLOCK_HEIGHT because you can get it from GameManager.
+ * 
  * @author Mos
  *
  */
@@ -21,7 +25,8 @@ public class RenderableHolder {
 	 */
 	private static final int BLOCK_WIDTH = GameManager.getBlockWidth();
 	/**
-	 * Block's height. This is one of the only two fields that are not public fields.
+	 * Block's height. This is one of the only two fields that are not public
+	 * fields.
 	 */
 	private static final int BLOCK_HEIGHT = GameManager.getBlockHeight();
 
@@ -85,7 +90,7 @@ public class RenderableHolder {
 	public static Image entrance_background_Image;
 	public static Image normalLevelImage;
 	public static Image subscene_background_Image;
-	
+
 	// Player
 	public static Image player_sprite_Image;
 
@@ -101,7 +106,7 @@ public class RenderableHolder {
 	public static Image resume_button_Image;
 	public static Image question_button_Image;
 	public static Image quit_Image;
-	
+
 	// Logo
 	/**
 	 * Image for logo in Main Menu
@@ -113,7 +118,7 @@ public class RenderableHolder {
 	 * Image for initializing Play object in gameplay state.
 	 */
 	public static Image playerImage;
-	
+
 	// Sprite
 	/**
 	 * Image for Player's SpriteAnimation: Attack
@@ -161,13 +166,13 @@ public class RenderableHolder {
 	 * Image for item: Coin
 	 */
 	public static Image coin;
-	
+
 	// Finish flag
 	/**
 	 * Image for item: Finish Flag
 	 */
 	public static Image finish;
-	
+
 	// Start flag
 	/**
 	 * Image for item: Start Flag
@@ -289,6 +294,7 @@ public class RenderableHolder {
 		block.setTranslateY(posY);
 		return block;
 	}
+
 	/**
 	 * loadResource is a method that initialize all Image fields using loadImage.
 	 * The reason why we do not simply use new Image(url) because if the path was incorrect, it will hard to find which part cause the error.

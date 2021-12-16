@@ -66,7 +66,7 @@ public class ShopItem {
 
 	/**
 	 * This constructor constructs new ShopItem by the String name By the name,
-	 * setup all the field by the item's image, its name and its description
+	 * setup all the field by the item's image, name and description
 	 * Use RenderableHolder to access the public static Image field.
 	 * @param name
 	 */
@@ -95,22 +95,42 @@ public class ShopItem {
 		this.itemName = name;
 	}
 
+	/**
+	 * This method is for Getting item's name.
+	 * @return String of item's name
+	 */
 	public String getItemName() {
 		return itemName;
 	}
 
+	/**
+	 * This method is for Getting item's image.
+	 * @return item's image
+	 */
 	public Image getImage() {
 		return image;
 	}
 
+	/**
+	 * This method is for Getting item's description.
+	 * @return item's description
+	 */
 	public String getDescription() {
 		return Description;
 	}
 
+	/**
+	 * This method is for setting item's description
+	 * @param description
+	 */
 	public void setDescription(String description) {
 		Description = description;
 	}
 
+	/**
+	 * This method is for Getting item's price by item's name in format of "$ price".
+	 * @return String of item's price in format of "$ price"
+	 */
 	public String getPriceText(String itemName) {
 		switch (itemName) {
 		case "run":
@@ -122,22 +142,38 @@ public class ShopItem {
 		case "lp":
 			return "$ " + String.valueOf(LP_PRICE);
 		default:
-			return "$ " + "1000";
+			return "";
 		}
 	}
 
+	/**
+	 * This method is for Getting "run" item's price
+	 * @return an integer of "run" item's price.
+	 */
 	public static int getRunPrice() {
 		return RUN_PRICE;
 	}
 
+	/**
+	 * This method is for Getting "time" item's price
+	 * @return an integer of "time" item's price.
+	 */
 	public static int getTimePrice() {
 		return TIME_PRICE;
 	}
 
+	/**
+	 * This method is for Getting "jump" item's price
+	 * @return an integer of "jump" item's price.
+	 */
 	public static int getJumpPrice() {
 		return JUMP_PRICE;
 	}
 
+	/**
+	 * This method is for Getting "lp" item's price
+	 * @return an integer of "lp" item's price.
+	 */
 	public static int getLpPrice() {
 		return LP_PRICE;
 	}

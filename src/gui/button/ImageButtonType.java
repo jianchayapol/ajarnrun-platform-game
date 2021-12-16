@@ -1,5 +1,10 @@
 package gui.button;
 
+/**
+ * This enum represents all the types of ImageButton
+ * @author jianchayapol
+ *
+ */
 public enum ImageButtonType {
 	SOUND,
 	PLAY,

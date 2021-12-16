@@ -44,7 +44,7 @@ public class EndGameStatBox extends VBox {
 
 		switch (type) {
 		case "name":
-			image = new ImageView(RenderableHolder.enemyOneLeft);
+			image = new ImageView(RenderableHolder.bookOne);
 			progressLabel = new Label(GameManager.getPlayerName());
 			break;
 		case "coin":

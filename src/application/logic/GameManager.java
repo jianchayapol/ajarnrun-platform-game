@@ -193,7 +193,7 @@ public class GameManager {
 	}
 
 	/*
-	 * ============================== PRIVATE STATIC METHODb
+	 * ============================== PRIVATE STATIC METHOD
 	 * ==============================
 	 */
 	/* ==================== USE IN CONSTRUCTOR ==================== */

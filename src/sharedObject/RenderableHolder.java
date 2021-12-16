@@ -78,10 +78,6 @@ public class RenderableHolder {
 	public static Image spritePlayerJump;
 	public static Image spritePlayerJumpBackward;
 	
-	// Enemy
-	public static Image enemyOneLeft;
-	public static Image enemyTwoLeft;
-	
 	// Item
 	public static Image bookOne;
 	public static Image bookTwo;
@@ -173,16 +169,6 @@ public class RenderableHolder {
 			block.setFitWidth(BLOCK_WIDTH);
 			block.setFitHeight(BLOCK_HEIGHT);
 			break;
-		case "E":
-			block = new ImageView(RenderableHolder.enemyOneLeft);
-			block.setFitWidth(50);
-			block.setFitHeight(50);
-			break;
-		case "e":
-			block = new ImageView(RenderableHolder.enemyTwoLeft);
-			block.setFitWidth(50);
-			block.setFitHeight(50);
-			break;
 		case "book1":
 			block = new ImageView(RenderableHolder.bookOne);
 			block.setFitWidth(BLOCK_WIDTH);
@@ -264,7 +250,7 @@ public class RenderableHolder {
 		RenderableHolder.floatTwo = loadImage("platform/floatGreen_02.png");
 		RenderableHolder.floatThree = loadImage("platform/floatGreen_03.png");
 		RenderableHolder.floatFour = loadImage("platform/floatGreen_04.png");
-		RenderableHolder.hurtPlatformOne = loadImage("platform/cactus.png");
+		RenderableHolder.hurtPlatformOne = loadImage("platform/lava.png");
 
 		// Logo
 		RenderableHolder.logo = loadImage("Logo.png");
@@ -281,10 +267,6 @@ public class RenderableHolder {
 		RenderableHolder.spritePlayerStandingBackward = loadImage("sprite/sprite_player_standing_backward.png");
 		RenderableHolder.spritePlayerJump = loadImage("sprite/sprite_player_jump.png");
 		RenderableHolder.spritePlayerJumpBackward = loadImage("sprite/sprite_player_jump_backward.png");
-		
-		// Enemy
-		RenderableHolder.enemyOneLeft = loadImage("enemy/enemy_1.png");
-		RenderableHolder.enemyTwoLeft = loadImage("enemy/enemy_2.png");
 		
 		// Item
 		RenderableHolder.bookOne = loadImage("platform/book_1.png");

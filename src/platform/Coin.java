@@ -10,7 +10,4 @@ public class Coin extends SpecialPlatform implements Collectable {
 		setTranslateY(translateY);
 	}
 	
-	public void printCoordinate() {
-		System.out.println("X = " + this.getTranslateX() + " Y = " +   this.getTranslateY());
-	}
 }

@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import player.base.Jumpable;
-import player.base.Moveable;
+import player.base.Movable;
 import sharedObject.RenderableHolder;
 /**
  * Player class is a class that can be used to initialize player in gameplay state (the player that you control).
@@ -17,7 +17,7 @@ import sharedObject.RenderableHolder;
  * @author Mos
  *
  */
-public class Player extends Character implements Moveable, Jumpable {
+public class Player extends Character implements Movable, Jumpable {
 	/**
 	 * player's width
 	 */

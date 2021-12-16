@@ -6,7 +6,6 @@ import gui.button.ImageButton;
 import gui.button.ImageButtonType;
 import gui.button.MainButton;
 import gui.element.HowToPlayBox;
-import gui.element.PauseGameLeaderBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,7 +15,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -28,7 +26,7 @@ import javafx.stage.Stage;
  * This class basically create a main scene and a main stage, then pass it to Main class.
  * This class is also the class that contain all buttons that you see in Main Menu, like New Game, Leaderboard, about us etc.
  * The way this class work is that it contain all buttons and implement event handlers to each of them.
- * Some buttons might initialize new object or scene, but there's one button that doesn't do that, that is mute button which call a method from AutioLoader class.
+ * Some buttons might initialize new object or scene, but there's one button that doesn't do that, that is mute button which call a method from AudioLoader class.
  * @author Mos
  *
  */
@@ -46,15 +44,15 @@ public class ViewManager {
 	 */
 	private AnchorPane mainPane;
 	/**
-	 * mainScene is a scene that will be setted in mainStage.
+	 * mainScene is a scene that will be set in mainStage.
 	 */
 	private static Scene mainScene;
 	/**
-	 * mainStage is a stage that will be initialized in this class. Its pointer will be shared with parimaryStage in Main class.
+	 * mainStage is a stage that will be initialized in this class. Its pointer will be shared with primaryStage in Main class.
 	 */
 	private static Stage mainStage;
 	/**
-	 * Background (bg) is an ImageView that we will initiailze and use it as a background for this scene.
+	 * Background (bg) is an ImageView that we will initialize and use it as a background for this scene.
 	 */
 	private ImageView bg;
 	/**
@@ -354,7 +352,7 @@ public class ViewManager {
 		return newGameButton;
 	}
 
-	public MainButton getLoadGameButton() {
+	public MainButton getLeaderBoardButton() {
 		return leaderBoardButton;
 	}
 

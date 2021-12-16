@@ -16,16 +16,55 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import sharedObject.FontLoader;
 import sharedObject.FontType;
-
+/**
+ * PauseGameLeaderBox is a JavaFx StackPane that will be shown when player click pause button while playing in any level of the game.
+ * 
+ * @author Jian
+ *
+ */
 public class PauseGameLeaderBox extends StackPane{
+	/**
+	 * A background image
+	 */
 	private static Rectangle rec;
+	/**
+	 * mainPane 
+	 */
 	private static AnchorPane mainPane;
+	/**
+	 * textPane that contains texts
+	 */
 	private static StackPane textPane;
+	/**
+	 * centerBox is the mainPane
+	 */
 	private static VBox centerBox;
-	
+	/**
+	 * Screen's width
+	 */
 	private static final int WIDTH = 800;
+	/**
+	 * Screen's height
+	 */
 	private static final int HEIGHT = 350;
-	
+	/**
+	 * Set up background using setUpBackground() method.
+	 * Create a Label with text "Pause"
+	 * Change Label font and font size.
+	 * Change Label color to white.
+	 * Initialize mainPane as an AnchorPane
+	 * Draw leaderboard text using DrawStringUtility.fillLeaderBoard method
+	 * Initialize textPane as a StackPane
+	 * Add background and mainPane to textPane.
+	 * Set textPane's alignment to center left.
+	 * Set centerBox's padding to 5
+	 * Add Label and mainPane to centerBox
+	 * Set centerBox's alignment to center.
+	 * set centerBox's maxWidth to 400
+	 * Add all item to this class' object
+	 * Set alignment to center
+	 * Set pref size to WIDTH and HEIGHT
+	 */
 	public PauseGameLeaderBox() {
 		setUpBackground();
 		centerBox = new VBox(15);
@@ -46,7 +85,9 @@ public class PauseGameLeaderBox extends StackPane{
 		this.setAlignment(Pos.CENTER);
 		this.setPrefSize(WIDTH,HEIGHT);
 	}
-	
+	/**
+	 * Initialize rec as a Rectangle object with WIDTH width, HEIGHT height, black color and opacity 0.9
+	 */
 	private void setUpBackground() {
 		rec = new Rectangle(WIDTH,HEIGHT);
 		rec.setFill(Color.BLACK);

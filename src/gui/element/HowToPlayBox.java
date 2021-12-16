@@ -97,7 +97,9 @@ public class HowToPlayBox extends StackPane {
 		centerBox.setAlignment(Pos.CENTER);
 		centerBox.setMaxWidth(400);
 	}
-	
+	/**
+	 * set Image's fitSize and layout
+	 */
 	private void setUpImage() {
 		img.setFitWidth(100);
 		img.setFitHeight(140);
@@ -111,7 +113,7 @@ public class HowToPlayBox extends StackPane {
 	 */
 	public static final String[] instructions = {
 			"Keyboard Input",
-			"  Press W : Jump                Press ESC : Back to Main Menu",
+			"  Press W : Jump                ",
 		    "  Press A : Move Player Left    Press D : Move Player Right     ",
 			"",
 			"  Your Task is to help Ajarn to collect",

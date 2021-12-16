@@ -61,11 +61,11 @@ public class Player extends Character implements Movable, Jumpable {
 	/**
 	 * Player's constructor simply pass first three parameter to super constructor.
 	 * The last two parameter is use to setFitWidth and fitHeight (since a Player's object is also an ImageView's object)
-	 * @param image
-	 * @param velocityX
-	 * @param velocityY
-	 * @param translateX
-	 * @param translateY
+	 * @param image Used to set player's image
+	 * @param velocityX Used to set player's horizontal velocity
+	 * @param velocityY Used to set player's vertical velocity
+	 * @param translateX Used to set blocks positionX
+	 * @param translateY Used to set blocks positionY
 	 */
 	public Player(Image image, int velocityX, int velocityY, int translateX, int translateY){
 		super(image, velocityX, velocityY, translateX, translateY);

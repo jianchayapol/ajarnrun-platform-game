@@ -405,7 +405,7 @@ public class GameManager {
 
 			if (((boundXLeftMin && boundXLeftMax) || (boundXRightMin && d))
 					&& ((boundYTopMin && boundYTopMax) || (boundYBottomMin && boundYBottomMax))) {
-				GameManager.setPlayerCoin(GameManager.getPlayerCoin() + 5);
+				GameManager.setPlayerCoin(GameManager.getPlayerCoin() + 5 + random.nextInt(5));
 				gameRoot.getChildren().remove(coin);
 				platforms.remove(coin);
 				coins.remove(coin);
@@ -607,11 +607,11 @@ public class GameManager {
 	/* ============================== GET PLAYER'S STATS ============================== */
 
 	public static void makeJumpHigh() {
-		jumpBonus += 5;
+		jumpBonus++;
 	}
 
 	public static void makeRunFast() {
-		GameManager.player.setVelocityY(player.getVelocityX() + 3);
+		GameManager.player.setVelocityY(player.getVelocityX() + 2);
 	}
 
 	public static void upgradePlayerMaxHP() {

@@ -34,10 +34,10 @@ public class EnterNameScene extends Scene {
 	private static ImageButton playButton = new ImageButton(ImageButtonType.PLAY);
 	private static StackPane enterPane;
 	private static ProgressBar progBar;
-	private static Rectangle rec;
-	private static double value;
+	private static Rectangle darkRectangle;
+	private static double progressValue;
 	private static TextField textField;
-	private static Label text1;
+	private static Label headerText;
 	private static Label errorMessage;
 	private static ImageButton homeButton;
 
@@ -69,10 +69,6 @@ public class EnterNameScene extends Scene {
 	
 	public static Stage getPrimaryStage() {
 		return primaryStage;
-	}
-	
-	public static void setScene() {
-		//...
 	}
 	
 	public static Scene getScene() {
@@ -114,18 +110,18 @@ public class EnterNameScene extends Scene {
 	}
 
 	private void initializeRectangle() {
-		rec = new Rectangle(450, 320);
-		rec.setFill(Color.WHITESMOKE);
-		rec.setOpacity(0.2);
-		rec.setLayoutX(30);
-		rec.setLayoutY(30);
+		darkRectangle = new Rectangle(450, 320);
+		darkRectangle.setFill(Color.WHITESMOKE);
+		darkRectangle.setOpacity(0.2);
+		darkRectangle.setLayoutX(30);
+		darkRectangle.setLayoutY(30);
 	}
 
 	private void initializeEnterNameLabel() {
-		text1 = new Label("Enter your name!");
-		text1.setTextFill(Color.WHITESMOKE);
-		FontLoader.setFont(text1, FontType.TELEGRAMA, 32);
-		text1.setAlignment(Pos.CENTER);
+		headerText = new Label("Enter your name!");
+		headerText.setTextFill(Color.WHITESMOKE);
+		FontLoader.setFont(headerText, FontType.TELEGRAMA, 32);
+		headerText.setAlignment(Pos.CENTER);
 	}
 
 	private void initializeErrorMessage() {
@@ -157,8 +153,8 @@ public class EnterNameScene extends Scene {
 		enterPane = new StackPane();
 		enterPane.getChildren().addAll(progBar, textField);
 		VBox vbox = new VBox(30);
-		vbox.getChildren().addAll(text1, enterPane, playButton, errorMessage);
-		pane.getChildren().addAll(rec, vbox);
+		vbox.getChildren().addAll(headerText, enterPane, playButton, errorMessage);
+		pane.getChildren().addAll(darkRectangle, vbox);
 		vbox.setAlignment(Pos.CENTER);
 		playButton.setLayoutY(400);
 		pane.setAlignment(Pos.CENTER);
@@ -226,8 +222,8 @@ public class EnterNameScene extends Scene {
 	}
 
 	public static void simulateProgressIncrement(Double start) {
-		value = start;
-		while (value < 1d) {
+		progressValue = start;
+		while (progressValue < 1d) {
 			try {
 				Thread.sleep(10);
 				Thread thread = new Thread(() -> {
@@ -235,7 +231,7 @@ public class EnterNameScene extends Scene {
 						Platform.runLater(new Runnable() {
 							@Override
 							public void run() {
-								setProgBar(value);
+								setProgBar(progressValue);
 							}
 						});
 					} catch (Exception e) {
@@ -243,7 +239,7 @@ public class EnterNameScene extends Scene {
 					}
 				});
 				thread.start();
-				value += 0.01d;
+				progressValue += 0.01d;
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -252,7 +248,7 @@ public class EnterNameScene extends Scene {
 
 	// Label
 	public static void setLabel(String text) {
-		EnterNameScene.text1.setText(text);
+		EnterNameScene.headerText.setText(text);
 	}
 
 	// Pane & Scene

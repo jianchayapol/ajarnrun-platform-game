@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import player.base.Jumpable;
-import player.base.Moveable;
+import player.base.Movable;
 import sharedObject.RenderableHolder;
 /**
  * Player class is a class that can be used to initialize player in gameplay state (the player that you control).
@@ -17,7 +17,7 @@ import sharedObject.RenderableHolder;
  * @author Mos
  *
  */
-public class Player extends Character implements Moveable, Jumpable {
+public class Player extends Character implements Movable, Jumpable {
 	/**
 	 * player's width
 	 */
@@ -127,28 +127,70 @@ public class Player extends Character implements Moveable, Jumpable {
 	/* ============================== ANIMATION SPRITE ============================== */
 	
 	/* =============== update method =============== */
-	
+	/**
+	 * A method that will be called every frame as the game is running.
+	 * This method will call initilizeBooleanValues method and craeteSprite method.
+	 */
 	public void update() {
 		initializeBooleanValues();
 		createSprite();
 	}
 	
 	/* =============== sprite method =============== */
-
+	/**
+	 * Image of a player running facing right
+	 */
 	private final Image SPRITE_RUN = RenderableHolder.spritePlayerRun;
+	/**
+	 * Image of a player running facing left
+	 */
 	private final Image SPRITE_RUN_BW = RenderableHolder.spritePlayerRunBackward;
+	/**
+	 * Image of a player attacking facing right
+	 */
 	private final Image SPRITE_ATTACK = RenderableHolder.spritePlayerAttack;
+	/**
+	 * Image of a player attacking facing left
+	 */
 	private final Image SPRITE_ATTACK_BW = RenderableHolder.spritePlayerAttackBackward;
+	/**
+	 * Image of a player standing facing right
+	 */
 	private final Image SPRITE_STANDING = RenderableHolder.spritePlayerStanding;
+	/**
+	 * Image of a player standing facing left
+	 */
 	private final Image SPRITE_STANDING_BW = RenderableHolder.spritePlayerStandingBackward;
+	/**
+	 * Image of a player jumping facing right
+	 */
 	private final Image SPRITE_JUMP = RenderableHolder.spritePlayerJump;
+	/**
+	 * Image of a player jumping facing left
+	 */
 	private final Image SPRITE_JUMP_BW = RenderableHolder.spritePlayerJumpBackward;
-		
+	/**
+	 * COLUMNS for SpriteAnimation's object
+	 */
 	private static final int COLUMNS = 3;
+	/**
+	 * COUNT for SpriteAnimation's object
+	 */
 	private static final int COUNT = 3;
+	/**
+	 * OFFSET_X for SpriteAnimation's object
+	 */
 	private static final int OFFSET_X = 0;
+	/**
+	 * OFFSET_Y for SpriteAnimation's object
+	 */
 	private static final int OFFSET_Y = 0;
 	
+	/**
+	 * This method will check player's gesture and create a SpriteAnimation depending on that gesture.
+	 * This method also use final fields in this class, such as, Image objects and some integers.
+	 * Then call method run from SpriteAnimation's object.
+	 */
 	void createSprite() {
 		if (!isStandingY) {
 			if (isFacingLeft) {

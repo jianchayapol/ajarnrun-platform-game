@@ -262,7 +262,7 @@ public class ViewManager {
 	 * This method also setFitWidth and setFitHeight to be Screen's width and height
 	 * respectively. Then add bg to mainPane.
 	 * 
-	 * @param bgImg
+	 * @param bgImg Used to set background image
 	 */
 	private void setBackgroundImage(Image bgImg) {
 		this.bg = new ImageView(bgImg);

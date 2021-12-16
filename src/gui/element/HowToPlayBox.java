@@ -118,12 +118,19 @@ public class HowToPlayBox extends StackPane {
 	/**
 	 * A String that will be shown in howToPlayer SubScene
 	 */
-	public static final String[] instructions = { "Keyboard Input", "  Press W : Jump ",
-			"  Press A : Move Player Left    Press D : Move Player Right     ", "",
-			"  Your Task is to help Ajarn to collect", "all the students' notebooks that are missing",
-			"and run for your life as fast as possible!", "", "Remind you that .. ",
-			"You need to collect all the notebooks!", "                     As you know what to do   .. Ajarn Run !!" };
 
+	public static final String[] instructions = {
+			"Keyboard Input",
+			"  Press W : Jump                ",
+		    "  Press A : Move Player Left    Press D : Move Player Right     ",
+			"",
+			"  Your Task is to help Ajarn to collect",
+			"all the students' notebooks that are missing",
+			"and run for your life as fast as possible!", "",
+			"Remind you that .. ","You need to collect all the notebooks!",
+			"                     As you know what to do   .. Ajarn Run !!"
+	};
+	
 	/**
 	 * instructions public static getter
 	 * 

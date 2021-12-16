@@ -352,7 +352,7 @@ public class GameManager {
 	/**
 	 * A method that is used to set integer jumpBonus.
 	 * 
-	 * @param bonus
+	 * @param bonus A bonus given to player's jump power
 	 */
 	private static void setJumpBonus(int bonus) {
 		jumpBonus = bonus;
@@ -361,7 +361,7 @@ public class GameManager {
 	/**
 	 * A method that is used to set integer speedBonus.
 	 * 
-	 * @param bonus
+	 * @param bonus A bonus that given to player's move speed
 	 */
 	private static void setSpeedBonus(int bonus) {
 		speedBonus = bonus;
@@ -440,7 +440,7 @@ public class GameManager {
 	/**
 	 * A method that is used to set boolean canJump.
 	 * 
-	 * @param canJump
+	 * @param canJump A boolean used to set value for canJump
 	 */
 	private static void setCanJump(boolean canJump) {
 		GameManager.canJump = canJump;
@@ -846,11 +846,24 @@ public class GameManager {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * <<<<<<< HEAD BLOCK_HEIGHT public static getter. ||||||| 0c072d0 BLOCK_HEIGHT
 	 * public stati getter. ======= BLOCK_HEIGHT public static getter.
 	 * 
 	 * >>>>>>> 6272fa4129686c4bc22a62558bd7a76a6734a3d1
 	 * 
+||||||| ac0e078
+<<<<<<< HEAD
+	 * BLOCK_HEIGHT public static getter.
+||||||| 0c072d0
+	 * BLOCK_HEIGHT public stati getter.
+=======
+	 * BLOCK_HEIGHT public static getter.
+	 * 
+>>>>>>> 6272fa4129686c4bc22a62558bd7a76a6734a3d1
+=======
+	 * BLOCK_HEIGHT public static getter.
+>>>>>>> 526730c78d636fc05da5951068068670f88a618b
 	 * @return
 	 */
 	public static int getBlockHeight() {

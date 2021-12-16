@@ -6,6 +6,7 @@ import java.util.Random;
 
 import application.utility.CSVUtility;
 import gui.element.GameHUD;
+import gui.element.MoneyBox;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -452,7 +453,8 @@ public class GameManager {
 		player.update();
 		checkCoinCollect();
 		checkBookCollect();
-
+		MoneyBox.updateMoneyText();
+		
 		// Check level finish
 		if (player.getTranslateY() + player.getHeight() >= finishPositionY
 				&& player.getTranslateX() + player.getWidth() == finishPositionX) {

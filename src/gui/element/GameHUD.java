@@ -68,8 +68,7 @@ public class GameHUD extends HBox {
 	}
 
 	public static void setMoneyLabel() {
-		int coin = GameManager.getPlayerCoin();
-		moneyLabel.setText("    " + String.valueOf(coin));
+		MoneyBox.updateMoneyText();
 	}
 
 	public static void setNameLabel(String name) {
@@ -153,10 +152,11 @@ public class GameHUD extends HBox {
 	}
 
 	private static void setupMoneyLabel() {
-		int money = GameManager.getPlayerCoin();
-		moneyLabel = new Label("    " + "0");
-		moneyLabel.setTextFill(Color.WHITE);
-		FontLoader.setFont(moneyLabel, FontType.TELEGRAMA, 17);
+//		int money = GameManager.getPlayerCoin();
+//		moneyLabel = new Label("    " + "0");
+//		moneyLabel.setTextFill(Color.WHITE);
+//		FontLoader.setFont(moneyLabel, FontType.TELEGRAMA, 17);
+//		
 	}
 
 	private static void initPlayerBox() {
@@ -164,11 +164,11 @@ public class GameHUD extends HBox {
 		playerBox.setMaxSize(480, 120);
 		playerBox.setPrefWidth(430);
 		StackPane moneyPane = new StackPane();
-		setupMoneyLabel();
+//		setupMoneyLabel();
 		moneyBox = new MoneyBox();
 		HBox infoBox1 = new HBox(20);
 		moneyBox.setPrefSize(100, 34);
-		moneyPane.getChildren().addAll(moneyBox, moneyLabel);
+		moneyPane.getChildren().addAll(moneyBox);
 		moneyPane.setAlignment(Pos.CENTER_LEFT);
 		infoBox1.getChildren().addAll(nameLabel, moneyPane);
 

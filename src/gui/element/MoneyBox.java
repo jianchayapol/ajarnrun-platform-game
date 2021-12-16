@@ -6,6 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import sharedObject.FontLoader;
+import sharedObject.FontType;
 import sharedObject.RenderableHolder;
 
 public class MoneyBox extends StackPane{
@@ -35,6 +38,8 @@ public class MoneyBox extends StackPane{
 	public static void updateMoneyText() {
 		int coin = GameManager.getPlayerCoin();
 		moneyText.setText(String.valueOf(coin));
+		FontLoader.setFont(moneyText, FontType.TELEGRAMA, 17);
+		moneyText.setTextFill(Color.WHITE);
 	}
 	
 	

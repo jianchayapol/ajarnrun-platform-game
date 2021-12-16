@@ -80,8 +80,8 @@ public class GameScene extends Scene {
 	 * The constructor then call setUpStage method to set itself as a scene and also set stage's title.
 	 * Then it initailize pauseGameLeaderboard using createPauseGameLeaderboardSubScene method.
 	 * Lastly, the constructor run itself with runScene method.
-	 * @param parent
-	 * @param primaryStage
+	 * @param parent This class' object parent node
+	 * @param primaryStage ViewManager's primaryStage
 	 */
 	public GameScene(Pane parent, Stage primaryStage) {
 		super(parent);
@@ -118,7 +118,7 @@ public class GameScene extends Scene {
 	}
 	/** 
 	 * Initialize gameHud and add it to pane
-	 * @param pane
+	 * @param pane The parent node that will add gameHude inside
 	 */
 	private static void setGameHud(Pane pane) {
 		gameHud = new GameHUD();
@@ -250,7 +250,7 @@ public class GameScene extends Scene {
 	}
 	/**
 	 * isPlayingThemeSong public static setter
-	 * @param isPlayingThemeSong
+	 * @param isPlayingThemeSong Used to set the value to isPlayingThemeSong
 	 */
 	public static void setIsPlayingThemeSong(boolean isPlayingThemeSong) {
 		GameScene.isPlayingThemeSong = isPlayingThemeSong;
@@ -284,7 +284,7 @@ public class GameScene extends Scene {
 	}
 	/**
 	 * isPause public static setter
-	 * @param isPause
+	 * @param isPause Used to set the value of isPause
 	 */
 	public static void setIsPause(boolean isPause) {
 		GameScene.isPause = isPause;
@@ -320,7 +320,7 @@ public class GameScene extends Scene {
 	}
 	/**
 	 * gameHud public static setter
-	 * @param gameHud Used to share the same address (object) as the GameScene's gamehud
+	 * @param gameHud Used to share the same address (object) as the GameScene's gameHud
 	 */
 	public static void setGameHud(GameHUD gameHud) {
 		GameScene.gameHud = gameHud;
@@ -334,7 +334,7 @@ public class GameScene extends Scene {
 	}
 	/**
 	 * timer public static setter
-	 * @param timer
+	 * @param timer Used to share the same address (object) as the GameScene's timer
 	 */
 	public static void setTimer(AnimationTimer timer) {
 		GameScene.timer = timer;
@@ -348,7 +348,7 @@ public class GameScene extends Scene {
 	}
 	/**
 	 * pauseGameLeaderboard public static setter
-	 * @param pauseGameLeaderboard
+	 * @param pauseGameLeaderboard Used to share the same address (object) as the GameScene's pauseGameLeaderboard
 	 */
 	public static void setPauseGameLeaderboard(GameSubScene pauseGameLeaderboard) {
 		GameScene.pauseGameLeaderboard = pauseGameLeaderboard;

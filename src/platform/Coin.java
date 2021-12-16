@@ -17,10 +17,10 @@ public class Coin extends SpecialPlatform implements Collectable {
 	 * last two parameters will be used to setTranslate.
 	 * 
 	 * @param image      Block's image
-	 * @param fitWidth
-	 * @param fitHeight
-	 * @param translateX
-	 * @param translateY
+	 * @param fitWidth Used to set block's fitWidth
+	 * @param fitHeight Used to set block's fitHeight
+	 * @param translateX Used to set blocks positionX
+	 * @param translateY Used to set blocks positionY
 	 */
 	public Coin(Image image, int fitWidth, int fitHeight, int translateX, int translateY) {
 		super(image, fitWidth, fitHeight);

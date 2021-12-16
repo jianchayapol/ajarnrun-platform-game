@@ -40,7 +40,7 @@ public class EndingLevelTextBox extends StackPane {
 	 * The constructor call setUpBackground method and create an empty String called "textToWrite".
 	 * Then the constructor use switch case with 4 cases to set textToWrite to a specific text.
 	 * Lastly, the constructor call method setUpTextLabel and add background and textLabel to the object itself.
-	 * @param text
+	 * @param text An alternative text to be used in switch case's cases to set textToWrite String.
 	 */
 	public EndingLevelTextBox(String text) {
 		
@@ -80,7 +80,7 @@ public class EndingLevelTextBox extends StackPane {
 	/**
 	 * Initialize textLabel with String textToWrite (which is the given parameter).
 	 * Then set some styles and setAlignment to Center.
-	 * @param textToWrite
+	 * @param textToWrite A string used to setLabel for textLabel
 	 */
 	private void setUpTextLabel(String textToWrite) {
 		textLabel = new Label(textToWrite);

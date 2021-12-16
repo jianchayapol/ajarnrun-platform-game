@@ -12,8 +12,8 @@ public class SpecialPlatform extends ImageView {
 	/**
 	 * A constructor that set Image from given parameter, also, setFitWidth and fitHeight from two given integers.
 	 * @param image Platform's image
-	 * @param fitWidth
-	 * @param fitHeight
+	 * @param fitWidth Used to set block's fitWidth
+	 * @param fitHeight Used to set block's fitHeight
 	 */
 	public SpecialPlatform(Image image, int fitWidth, int fitHeight) {
 		super(image);

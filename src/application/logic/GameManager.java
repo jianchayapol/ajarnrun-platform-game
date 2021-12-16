@@ -347,7 +347,7 @@ public class GameManager {
 	/**
 	 * A method that is used to set integer jumpBonus.
 	 * 
-	 * @param bonus
+	 * @param bonus A bonus given to player's jump power
 	 */
 	private static void setJumpBonus(int bonus) {
 		jumpBonus = bonus;
@@ -356,7 +356,7 @@ public class GameManager {
 	/**
 	 * A method that is used to set integer speedBonus.
 	 * 
-	 * @param bonus
+	 * @param bonus A bonus that given to player's move speed
 	 */
 	private static void setSpeedBonus(int bonus) {
 		speedBonus = bonus;
@@ -435,7 +435,7 @@ public class GameManager {
 	/**
 	 * A method that is used to set boolean canJump.
 	 * 
-	 * @param canJump
+	 * @param canJump A boolean used to set value for canJump
 	 */
 	private static void setCanJump(boolean canJump) {
 		GameManager.canJump = canJump;

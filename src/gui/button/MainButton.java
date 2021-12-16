@@ -1,18 +1,14 @@
 package gui.button;
 
-import java.io.FileInputStream;
-
 import application.logic.GameManager;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Font;
 import sharedObject.AudioLoader;
 import sharedObject.FontLoader;
 import sharedObject.FontType;
-import view.ViewManager;
 
 public class MainButton extends Button {
 

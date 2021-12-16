@@ -529,41 +529,68 @@ public class ViewManager {
 	public static int getScreenWidth() {
 		return WIDTH;
 	}
-
+	/**
+	 * isMainViewVisible public static getter
+	 * @return isMainViewVisible
+	 */
 	public static boolean isVisible() {
 		return isMainViewVisible;
 	}
-
+	/**
+	 * isMainViewVisible public static setter
+	 * @param isVisible Used to set isMainViewVisible's value to isVisible
+	 */
 	public static void setIsVisible(boolean isVisible) {
 		ViewManager.isMainViewVisible = isVisible;
 	}
-
+	/**
+	 * isPlayingThemeSong public static getter
+	 * @return isPlayingThemeSong
+	 */
 	public static boolean isPlayingThemeSong() {
 		return isPlayingThemeSong;
 	}
-
+	/**
+	 * isPlayingThemeSong public static setter
+	 * @param isPlayingThemeSong Used to set isPlayingThemeSong's value to isPlayingThemeSong (the given parameter)
+	 */
 	public static void setIsPlayingThemeSong(boolean isPlayingThemeSong) {
 		ViewManager.isPlayingThemeSong = isPlayingThemeSong;
 	}
-
+	/**
+	 * isShowHowToPlayer public static getter
+	 * @return isShowHowToPlay
+	 */
 	public static boolean isShowHowToPlay() {
 		return isShowHowToPlay;
 	}
-
+	/**
+	 * isShowHowToPlay public static setter
+	 * @param isShowHowToPlay Used to set isShowHowToPlayer's value to isShowHowToPlay (the given parameter)
+	 */
 	public static void setShowHowToPlay(boolean isShowHowToPlay) {
 		ViewManager.isShowHowToPlay = isShowHowToPlay;
 	}
-
+	/**
+	 * This method will set isVisible to false and stop the background music
+	 * then set isPlayingThemeSong to be false.
+	 */
 	public static void stopViewManager() {
 		ViewManager.setIsVisible(false);
 		AudioLoader.Entrance_Theme_Song.stop();
 		ViewManager.setIsPlayingThemeSong(false);
 	}
-
+	/**
+	 * (GameSubScene) howToPlayer public static getter
+	 * @return howToPlayer
+	 */
 	public static GameSubScene getHowToPlay() {
 		return howToPlay;
 	}
-
+	/**
+	 * howToPlay public static setter
+	 * @param howToPlay Used to set ViewManager.howToPlay to howToPlay (the given parameter)
+	 */
 	public static void setHowToPlay(GameSubScene howToPlay) {
 		ViewManager.howToPlay = howToPlay;
 	}

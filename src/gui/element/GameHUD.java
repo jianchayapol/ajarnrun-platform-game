@@ -149,7 +149,14 @@ public class GameHUD extends HBox {
 	public static void setNameLabel(String name) {
 		nameLabel.setText(name);
 	}
-
+	
+	/**
+	 * public static method for setting money Label
+	 */
+	public static void setMoneyLabel() {
+		moneyBox.updateMoneyText();
+	}
+	
 	// =============== private static methods =========================
 
 	/**
@@ -311,5 +318,4 @@ public class GameHUD extends HBox {
 		setPadding(new Insets(15));
 		setMaxWidth(800);
 	}
-
 }

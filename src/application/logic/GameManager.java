@@ -652,7 +652,7 @@ public class GameManager {
 
 	public static void updateLeaderboard() {
 		String name = GameManager.getPlayerName();
-		String level = String.valueOf(GameManager.getLevelCount() + 2);
+		String level = String.valueOf(GameManager.getLevelCount() + 1);
 		GameManager.setPlayerEXP(GameManager.getPlayerCoin()*100);
 		String calculatedExp = String.valueOf(GameManager.getPlayerEXP());
 		String[] data = { name, level, calculatedExp };

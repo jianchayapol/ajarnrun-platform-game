@@ -20,7 +20,7 @@ public class ShopManager {
 	 * with the price given from the parameter or not. If enough, will automatically
 	 * reduce your money and return true
 	 * 
-	 * @throws BuyItemFailedException If the player doesn't have enough money and
+	 * throw BuyItemFailedException If the player doesn't have enough money and
 	 *                                return false.
 	 * 
 	 * @param price

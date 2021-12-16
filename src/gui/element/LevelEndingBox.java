@@ -108,7 +108,7 @@ public class LevelEndingBox extends AnchorPane {
 	 * ImagePattern(bg) Setting upLabel by calling setMoneyPlusLabel() and
 	 * setupCenterBox()
 	 * 
-	 * @param type type of level ending which are LevelEndingType.COMPLETED &
+	 * @param type type of level ending which are LevelEndingType.COMPLETED and
 	 *             LevelEndingType.FAILED
 	 */
 	private void initComponents(LevelEndingType type) {
@@ -247,7 +247,7 @@ public class LevelEndingBox extends AnchorPane {
 	/**
 	 * Method for Getting ImgButton
 	 * 
-	 * @return imgButton ImageButton of level ending (continue & exit)
+	 * @return imgButton ImageButton of level ending (continue and exit)
 	 */
 	public ImageButton getImgButton() {
 		return imgButton;
@@ -256,7 +256,7 @@ public class LevelEndingBox extends AnchorPane {
 	/**
 	 * Method for Setting ImgButton
 	 * 
-	 * @param imgButton ImageButton of level ending (continue & exit)
+	 * @param imgButton ImageButton of level ending (continue and exit)
 	 */
 	public void setImgButton(ImageButton imgButton) {
 		LevelEndingBox.imgButton = imgButton;

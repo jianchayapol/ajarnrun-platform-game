@@ -12,9 +12,9 @@ import java.util.SortedSet;
 import logic.leaderboard.PlayerStat;
 
 /**
- * This CSVUtility public class is an utility that provides useful static methods
- * for all CSV File management which includes Reading, Writing, Adding, and
- * Sorting File leader-board.csv
+ * This CSVUtility public class is an utility that provides useful static
+ * methods for all CSV File management which includes Reading, Writing, Adding,
+ * and Sorting File leader-board.csv
  * 
  * @author jianchayapol
  *
@@ -22,17 +22,17 @@ import logic.leaderboard.PlayerStat;
 
 public class CSVUtility {
 
-	/*
+	/**
 	 * An String of filename [.csv] This file collects all player's statistics data.
 	 */
 	private static String filename = "/leader-board.csv";
 
-	/*
+	/**
 	 * An public static method for reading all data in this the csv file by reading
-	 * through each line of the file and add to the ArrayList<String>
+	 * through each line of the file and add to the ArrayList of String
 	 * 
 	 * @return an ArrayList<String> containing all text data in format of {
-	 * "Name,1,0", "Name2,1,0", ... }
+	 *         "Name,1,0", "Name2,1,0", ... }
 	 */
 	public static ArrayList<String> readCSV() {
 		BufferedReader reader = null;
@@ -52,7 +52,7 @@ public class CSVUtility {
 		}
 	}
 
-	/*
+	/**
 	 * An public static method for appending the player's progress to the CSV file
 	 * by reading through each line of the file and check conditions of adding to
 	 * filter some line that does not match the condition out. condition: If the
@@ -60,11 +60,11 @@ public class CSVUtility {
 	 * name exists, but the new one is greater, we will mark the new one as a
 	 * HighScore ,and filter the exists one out. While reading the file, if the name
 	 * doesn't match with the toAddText name, will be automatically appended to the
-	 * temporary ArrayList<String> tmpLines. Finally, If the toAddText is a new
+	 * temporary ArrayList of String tmpLines. Finally, If the toAddText is a new
 	 * HighScore, add it to the file
 	 * 
 	 * @param toAddText A Sting[] of length 3 that contains player's name, level,
-	 * and, exp respectively
+	 *                  and, exp respectively
 	 */
 	public static void appendToCSV(String[] toAddText) {
 		BufferedReader reader = null;
@@ -104,8 +104,8 @@ public class CSVUtility {
 				}
 			}
 
-			// Writing to CSV File 
-			
+			// Writing to CSV File
+
 			String textToWrite = "";
 			writer = new BufferedWriter(new FileWriter(new File("res/csv" + filename), false));
 			for (String s : tmpLines) {
@@ -114,7 +114,7 @@ public class CSVUtility {
 			if (isHighScore) {
 				textToWrite += getCSVFormat(toAddText);
 			}
-			
+
 			writer.write(textToWrite);
 			writer.close();
 
@@ -171,7 +171,7 @@ public class CSVUtility {
 		return escapedData;
 	}
 
-	/*
+	/**
 	 * An private static method to get the correct CSV Format of String "Name,1,0"
 	 * from the Array of String By looping through the String[] text and joining
 	 * each element that are formatted correctly together with comma (",").

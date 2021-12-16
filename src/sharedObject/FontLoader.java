@@ -45,7 +45,7 @@ public class FontLoader {
 	 * parameters. use method Font.loadFont() to load the font from the font path by
 	 * the FontType and set fontSize.
 	 * 
-	 * @param label
+	 * @param text
 	 * @param type
 	 * @param size
 	 */
@@ -73,7 +73,7 @@ public class FontLoader {
 	 * parameters. use method Font.loadFont() to load the font from the font path by
 	 * the FontType and set fontSize.
 	 * 
-	 * @param label
+	 * @param mainButton
 	 * @param type
 	 * @param size
 	 */

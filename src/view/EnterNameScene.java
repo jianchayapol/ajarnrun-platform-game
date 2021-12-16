@@ -318,7 +318,7 @@ public class EnterNameScene extends Scene {
 	 * the rectangle's color to black with 0.8 opacity. Set the two component's
 	 * Width and Height to fit the screen size
 	 * 
-	 * @param bgImg
+	 * @param background image of Entrance_Background
 	 */
 	private void setBackgroundImage(Image bgImg) {
 		ImageView bg = new ImageView(bgImg);
@@ -348,7 +348,7 @@ public class EnterNameScene extends Scene {
 	/**
 	 * Method for Setting Text of errorMessage
 	 * 
-	 * @param text
+	 * @param String of error message text 
 	 */
 	public static void setErrorMessage(String text) {
 		EnterNameScene.errorMessage.setText(text);
@@ -376,7 +376,7 @@ public class EnterNameScene extends Scene {
 	 * Method for setting the progress of the progressBar this method will be used
 	 * in method simulateProgressIncrement(d) in the process of loading animation.
 	 * 
-	 * @param d
+	 * @param progBar progress
 	 */
 	public static void setProgBar(double d) {
 		progBar.setProgress(d);
@@ -397,7 +397,7 @@ public class EnterNameScene extends Scene {
 	 * 0.01d (until the progress reach 1.0d) every 10 ms by calling
 	 * setProgBar(progressValue) method.
 	 * 
-	 * @param start
+	 * @param double of start progress 
 	 */
 	public static void simulateProgressIncrement(Double start) {
 		progressValue = start;
@@ -427,7 +427,7 @@ public class EnterNameScene extends Scene {
 	/**
 	 * Method for Setting text of header Label
 	 * 
-	 * @param text
+	 * @param header text 
 	 */
 	public static void setLabel(String text) {
 		EnterNameScene.headerText.setText(text);

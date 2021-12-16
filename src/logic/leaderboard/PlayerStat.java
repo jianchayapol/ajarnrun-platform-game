@@ -5,7 +5,7 @@ import exception.WrongFormatPlayerNameException;
 import view.EnterNameScene;
 
 /**
- * An public class of PlayerStat that implements Comparable<> to custom its
+ * An public class of PlayerStat that implements Comparable to custom its
  * comparator
  * 
  * @author jianchayapol

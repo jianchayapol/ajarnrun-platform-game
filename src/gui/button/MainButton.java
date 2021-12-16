@@ -64,7 +64,7 @@ public class MainButton extends Button {
 		setLayoutY(getLayoutY() + 4);
 	}
 
-	/*
+	/**
 	 * This method is for setting the style of unpressed button
 	 */
 	private void setButtonUnpressedStyle() {

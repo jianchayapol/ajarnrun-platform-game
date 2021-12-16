@@ -10,13 +10,13 @@ public class ShopItem {
 	private Image image;
 	private int price;
 
-	private static final int RUN_PRICE = 30 + (int) (Math.random() * 20);
-	private static final int TIME_PRICE = 30 + (int) (Math.random() * 20);;
-	private static final int JUMP_PRICE = 30 + (int) (Math.random() * 20);;
-	private static final int LP_PRICE = 30 + (int) (Math.random() * 20);;
+	private static final int RUN_PRICE = 30;
+	private static final int TIME_PRICE = 31;
+	private static final int JUMP_PRICE = 32;
+	private static final int LP_PRICE = 33;
 
-	public ShopItem(String itemName) {
-		switch (itemName) {
+	public ShopItem(String name) {
+		switch (name) {
 		case "run":
 			image = RenderableHolder.run_item;
 			Description = "Booster Speed";
@@ -37,7 +37,7 @@ public class ShopItem {
 		default:
 			break;
 		}
-		this.itemName = itemName;
+		this.itemName = name;
 	}
 
 	public String getItemName() {

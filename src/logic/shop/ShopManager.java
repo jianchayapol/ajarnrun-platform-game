@@ -13,7 +13,7 @@ public class ShopManager {
 			if (price <= GameManager.getPlayerCoin()) {
 				int coinLeft = GameManager.getPlayerCoin() - price;
 				GameManager.setPlayerCoin(coinLeft);
-				ShopPane.shuffleItems();
+//				ShopPane.shuffleItems();
 				MoneyBox.updateMoneyText();
 				AudioLoader.Pick_Up_Item_Sound.play();
 				return true;

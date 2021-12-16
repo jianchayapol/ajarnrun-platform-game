@@ -62,6 +62,7 @@ public class GameManager {
 	private static int playerTotalCoin;
 	private static int playerEXP;
 	private static Random random = new Random();
+	private static int jumpBonus;
 
 	// Item
 	private static ArrayList<Node> coins = new ArrayList<Node>();
@@ -76,6 +77,7 @@ public class GameManager {
 		initializeBookCount();
 		setLevelPlatform();
 		initializePlayer();
+		setJumpBonus(0);
 		initializePlayerMaxHP();
 		initializePlayerCurrentHP();
 		initializePlayerCoin();
@@ -212,7 +214,11 @@ public class GameManager {
 	}
 
 	private static void initializePlayer() {
-		player = new Player(RenderableHolder.spritePlayerStanding, 0, 0, 200, 1);
+		player = new Player(RenderableHolder.spritePlayerStanding, 5, 0, 200, 1);
+	}
+	
+	private static void setJumpBonus(int bonus) {
+		jumpBonus = bonus;
 	}
 
 	private static void initializePlayerMaxHP() {
@@ -226,6 +232,10 @@ public class GameManager {
 	private static void initializePlayerCoin() {
 		playerCoin = 0;
 		playerTotalCoin = 0;
+	}
+	
+	private static void initializeNewPlayer() {
+		player = new Player(RenderableHolder.spritePlayerStanding, player.getVelocityX(), player.getVelocityY(), 200, 1);
 	}
 
 	private static void initializePlayerEXP() {
@@ -435,13 +445,13 @@ public class GameManager {
 
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
-			jumpPlayer(32);
+			jumpPlayer(32 + jumpBonus);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
-			movePlayerX(-5);
+			movePlayerX(-player.getVelocityX());
 		}
 		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 5 - player.getWidth()) {
-			movePlayerX(5);
+			movePlayerX(player.getVelocityX());
 		}
 		if (player.getVelocityY() < 10) {
 			player.setVelocityY(player.getVelocityY() + 1);
@@ -457,7 +467,7 @@ public class GameManager {
 			setIsLevelFinish(true);
 			setIsPressedNextLv(false);
 		}
-		if (isLevelFinish && bookCount != bookCount) {
+		if (isLevelFinish && bookCount > 0) {
 			setIsMissingBook(true);
 		}
 
@@ -467,9 +477,6 @@ public class GameManager {
 
 		if (getPlayerCurrentHP() <= 0) {
 			setIsDead(true);
-		}
-		if (bookCount > 0) {
-			setIsMissingBook(true);
 		}
 		
 		if (getPlayerCurrentHP() <= 0) {
@@ -596,10 +603,11 @@ public class GameManager {
 	public static void setIsMissingBook(boolean isMissing) {
 		isMissingBook = isMissing;
 	}
+	
 	/* ============================== GET PLAYER'S STATS ============================== */
 
 	public static void makeJumpHigh() {
-		GameManager.player.setVelocityY(player.getVelocityY() + 3);
+		jumpBonus += 5;
 	}
 
 	public static void makeRunFast() {

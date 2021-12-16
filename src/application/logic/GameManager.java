@@ -3,9 +3,7 @@ package application.logic;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-
 import application.utility.CSVUtility;
-import gui.element.GameHUD;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -19,21 +17,46 @@ import platform.HurtPlatform;
 import platform.base.Collectable;
 import platform.base.Damagable;
 import platform.Book;
-import player.Character;
-import player.Enemy;
 import player.Player;
 import sharedObject.RenderableHolder;
 import view.GameScene;
 import view.ViewManager;
 
+/**
+ * GameManager is the class that control gameplay state.
+ * It start with initialize share objects, then the level, player, game root, and so on.
+ * The scene that controls gameplay state can call a public static method called update which check all the thing that happen within one frame.
+ * 
+ * @author Mos
+ *
+ */
 public class GameManager {
-	public static HashMap<KeyCode, Boolean> keys = new HashMap<KeyCode, Boolean>();
+	/**
+	 * A HashMap<KeyCode, Boolean> that check which key player is pressing.
+	 */
+	private static HashMap<KeyCode, Boolean> keys = new HashMap<KeyCode, Boolean>();
+	/**
+	 * An ArrayList<Node> that contains all the blocks that player is playing on.
+	 */
 	private static ArrayList<Node> platforms = new ArrayList<Node>();
-
+	
+	/**
+	 * Player object named player is the player themself. This object can be moved as you press a specific key
+	 */
 	private static Player player;
+	/**
+	 * A boolean to check that should player jump at that frame.
+	 */
 	private static boolean canJump;
+	/**
+	 * A levelWidth is the actual level width with the pixel unit.
+	 */
 	private static int levelWidth;
+	/**
+	 * A boolean to check if the song is muted or not at that frame.
+	 */
 	private static boolean isMute;
+	
 	private static boolean isPressedNextLv;
 
 	private static int levelCount;

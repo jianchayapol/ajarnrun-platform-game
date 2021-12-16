@@ -32,7 +32,7 @@ public class LevelEndingBox extends AnchorPane {
 
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 800;
-	
+
 	public LevelEndingBox(LevelEndingType type) {
 		mainPane = new AnchorPane();
 		initComponents(type);
@@ -42,11 +42,11 @@ public class LevelEndingBox extends AnchorPane {
 		bgRec = new Rectangle(WIDTH, HEIGHT);
 		bgRec.setFill(Color.BLACK);
 		bgRec.setOpacity(0.8);
-		
+
 		mainPane.setLayoutX(245);
 		mainPane.setLayoutY(120);
-		
-		this.getChildren().addAll(bgRec,mainPane);
+
+		this.getChildren().addAll(bgRec, mainPane);
 	}
 
 	private void initComponents(LevelEndingType type) {
@@ -65,10 +65,9 @@ public class LevelEndingBox extends AnchorPane {
 			break;
 		}
 		rec.setFill(new ImagePattern(bg));
-		
+
 		setMoneyPlusLabel();
 		setupCenterBox();
-
 	}
 
 	// ====================== private static method(s) ============================
@@ -79,7 +78,7 @@ public class LevelEndingBox extends AnchorPane {
 		infoBox.getChildren().addAll(moneyPlusLabel, levelUpLabel);
 		imgButton.setLayoutX(50);
 		controlBox = new VBox(50);
-		controlBox.getChildren().addAll(infoBox,imgButton);
+		controlBox.getChildren().addAll(infoBox, imgButton);
 		controlBox.setAlignment(Pos.BOTTOM_CENTER);
 	}
 
@@ -90,7 +89,7 @@ public class LevelEndingBox extends AnchorPane {
 	}
 
 	private static void setLevelLabel() {
-		levelUpLabel = new Label("  lv." + String.valueOf(GameManager.getPlayerCoin()));
+		levelUpLabel = new Label("  lv." + String.valueOf(GameManager.getLevelCount() + 1));
 		FontLoader.setFont(levelUpLabel, FontType.TELEGRAMA, 19);
 		levelUpLabel.setTextFill(Color.INDIANRED);
 	}

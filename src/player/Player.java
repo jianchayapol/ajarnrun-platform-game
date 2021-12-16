@@ -28,6 +28,7 @@ public class Player extends Character implements Moveable, Jumpable {
 		setFitWidth(WIDTH);
 		setFitHeight(HEIGHT);
 		initializeBooleanValues();
+	}
 	
 	private void initializeBooleanValues() {
 		if ((GameManager.getKeysValue(KeyCode.A) && GameManager.getKeysValue(KeyCode.D)) || (!GameManager.getKeysValue(KeyCode.A) && !GameManager.getKeysValue(KeyCode.D))) {

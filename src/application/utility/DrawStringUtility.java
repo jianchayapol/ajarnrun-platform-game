@@ -2,6 +2,7 @@ package application.utility;
 
 import java.util.ArrayList;
 
+import gui.element.HowToPlayBox;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Label;
@@ -14,18 +15,6 @@ import sharedObject.FontLoader;
 import sharedObject.FontType;
 
 public class DrawStringUtility {
-	
-	private static final String[] instructions = {
-			"Keyboard Input",
-			"  Press W : Jump                Press ESC : Back to Main Menu",
-		    "  Press A : Move Player Left    Press D : Move Player Right     ",
-			"",
-			"  Your Task is to help Ajarn to collect",
-			"all the students' notebooks that are missing",
-			"and run for your life as fast as possible!",
-			"",
-			"                     As you know what to do   .. Ajarn Run !!"
-	};
 	
 	public static void fillLeaderBoard(SubScene subscene) {
 		Label header = new Label("Rank" + "  " + "Lv." + "  " + "Player" + "  " + "Exp");
@@ -112,6 +101,8 @@ public class DrawStringUtility {
 		
 		int posX = 25;
 		int posY = 10;
+		
+		String[] instructions = HowToPlayBox.getInstructions();
 		
 		for (int i = 0; i < instructions.length; i++) {
 			Label line = new Label(instructions[i]);

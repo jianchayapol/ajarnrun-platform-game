@@ -50,9 +50,9 @@ public class CSVUtility {
 						isHighScore = true;
 					} else if (Integer.parseInt(l[1]) == Integer.parseInt(text[1])
 							&& Integer.parseInt(l[2]) < Integer.parseInt(text[2])) {
-						lines.add(line);
-					} else {
 						isHighScore = true;
+					} else {
+						lines.add(line);
 					}
 				} else {
 					lines.add(line);

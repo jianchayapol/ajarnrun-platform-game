@@ -12,9 +12,12 @@ import javafx.scene.shape.Rectangle;
 import sharedObject.FontLoader;
 import sharedObject.FontType;
 import sharedObject.RenderableHolder;
+
 /**
- * HowToPlayerBox is a JavaFx StackPane with a specific String to be add to itself in order to show player how to play the game.
- * This class' object will be add to howToPlay SubScene (GameSubScene class) as a root.
+ * HowToPlayerBox is a JavaFx StackPane with a specific String to be add to
+ * itself in order to show player how to play the game. This class' object will
+ * be add to howToPlay SubScene (GameSubScene class) as a root.
+ * 
  * @author Jian
  *
  */
@@ -32,8 +35,8 @@ public class HowToPlayBox extends StackPane {
 	 */
 	private static StackPane textPane;
 	/**
-	 * A VBox that will contain the header Label and mainPane
-	 * Then this VBox will be added to this class' object
+	 * A VBox that will contain the header Label and mainPane Then this VBox will be
+	 * added to this class' object
 	 */
 	private static VBox centerBox;
 	/**
@@ -48,14 +51,17 @@ public class HowToPlayBox extends StackPane {
 	 * Height of this class' object
 	 */
 	private static final int HEIGHT = 540;
+
 	/**
-	 * Since this class is a class that is made specifically for one purpose, it will not take any parameter.
-	 * This constructor starts with calling setUpBakground method and initialize centerBox.
-	 * Then create the header Label called howToLabel, set this label's font using FontLoader, set text fill to be yellow
-	 * then add this Label to the centerBox.
-	 * Initialize mainPane as an AnchorPane and use DrawStringUtility's method to draw a how to play text onto the pane.
-	 * Call setUpImage method and setUpPane method then add mainPane to the centerBox.
-	 * Lastly this class' object add both background (bg) and centerBox and setPrefSize and Alignment
+	 * Since this class is a class that is made specifically for one purpose, it
+	 * will not take any parameter. This constructor starts with calling
+	 * setUpBakground method and initialize centerBox. Then create the header Label
+	 * called howToLabel, set this label's font using FontLoader, set text fill to
+	 * be yellow then add this Label to the centerBox. Initialize mainPane as an
+	 * AnchorPane and use DrawStringUtility's method to draw a how to play text onto
+	 * the pane. Call setUpImage method and setUpPane method then add mainPane to
+	 * the centerBox. Lastly this class' object add both background (bg) and
+	 * centerBox and setPrefSize and Alignment
 	 */
 	public HowToPlayBox() {
 		setUpBackground();
@@ -71,8 +77,9 @@ public class HowToPlayBox extends StackPane {
 		this.getChildren().addAll(rec, centerBox);
 		this.setPrefSize(WIDTH, HEIGHT);
 		this.setAlignment(Pos.CENTER);
-		
+
 	}
+
 	/**
 	 * Initialize rec as a Rectangle with Color.rgb(0,34 75) and Opacity(0.9)
 	 */
@@ -81,13 +88,11 @@ public class HowToPlayBox extends StackPane {
 		rec.setFill(Color.rgb(0, 34, 75));
 		rec.setOpacity(0.9);
 	}
+
 	/**
-	 * Add img (Image View) to mainPane.
-	 * Initialize textPane as a StackPane.
-	 * Add rec and mainPane to textPane
-	 * set textPane's alignment to CENTER_LEFT.
-	 * set centerBox's alignment to CENTER.
-	 * set centerBox's max width to 400.
+	 * Add img (Image View) to mainPane. Initialize textPane as a StackPane. Add rec
+	 * and mainPane to textPane set textPane's alignment to CENTER_LEFT. set
+	 * centerBox's alignment to CENTER. set centerBox's max width to 400.
 	 */
 	private void setUpPane() {
 		mainPane.getChildren().add(img);
@@ -97,8 +102,10 @@ public class HowToPlayBox extends StackPane {
 		centerBox.setAlignment(Pos.CENTER);
 		centerBox.setMaxWidth(400);
 	}
+
 	/**
-	 * set Image's fitSize and layout
+	 * Method for setting up image by set fitWidth and fitHeight to 100,140
+	 * respectively and set layoutX, layoutY to 600,150 respectively.
 	 */
 	private void setUpImage() {
 		img.setFitWidth(100);
@@ -107,10 +114,11 @@ public class HowToPlayBox extends StackPane {
 		img.setLayoutY(150);
 	}
 
-	// =====================  instructions Text ===============================
+	// ===================== instructions Text ===============================
 	/**
 	 * A String that will be shown in howToPlayer SubScene
 	 */
+
 	public static final String[] instructions = {
 			"Keyboard Input",
 			"  Press W : Jump                ",
@@ -122,8 +130,10 @@ public class HowToPlayBox extends StackPane {
 			"Remind you that .. ","You need to collect all the notebooks!",
 			"                     As you know what to do   .. Ajarn Run !!"
 	};
+	
 	/**
 	 * instructions public static getter
+	 * 
 	 * @return instructions
 	 */
 	public static String[] getInstructions() {

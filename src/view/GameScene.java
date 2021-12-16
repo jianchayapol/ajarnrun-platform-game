@@ -11,7 +11,6 @@ import gui.element.EndingLevelTextBox;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
@@ -125,6 +124,24 @@ public class GameScene extends Scene {
 		pane.getChildren().add(gameHud);
 	}
 	
+	/**
+	 * Method that implements with the AnimationTimer to run scene of the game level by level.
+	 * Setting up time of the map and time remained to 120 seconds.
+	 * creating new AnimationTimer, initialize timeUpCounter and levelCompleteCounter to be 0.
+	 * In each time of ticker, checking the status of 4 booleans:
+	 * Reduce timeRemained by TIME_TICK (0.01666666666667)
+	 * and call method to update GameManager.update(), MoneyBox.updateMoneyText() and updateHUD()
+	 * Condition for being isTimeUp is timeRemained is 0 and game is not finish, calling method GameManager.isLevelFinish()
+	 * Condition for being isWasted is player dead, calling method GameManager.isDead()
+	 * Condition for being isMissingBook is not collect all the book, calling method GameManager.isMissingBook()
+	 * Condition for being isWinGame is win all the level GameManager.getLevelCount() == Level.ALL_LEVEL.length - 1
+	 * 
+	 * if any boolean match the statement that Level Failed (isTimeUp or isMissingBook or isWasted)
+	 * will directly show LevelEnding textbox for 150ms and continue to levelFailed levelEndingBox.
+	 * if Level Completed but not the last level, will directly goes to shopPane 
+	 * We use method, GameManager.getAppRoot().getChildren().add() to add new Pane
+	 * and use method, removeAppRootLatestItem() to remove the latest pane added.
+	 */
 	private void runScene() {
 
 		setTimeMapSecond(120);

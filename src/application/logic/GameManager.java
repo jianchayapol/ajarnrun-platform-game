@@ -64,6 +64,7 @@ public class GameManager {
 	private static int playerEXP;
 	private static Random random = new Random();
 	private static int jumpBonus;
+	private static int speedBonus;
 
 	// Item
 	private static ArrayList<Node> coins = new ArrayList<Node>();
@@ -79,6 +80,7 @@ public class GameManager {
 		setLevelPlatform();
 		initializePlayer();
 		setJumpBonus(0);
+		setSpeedBonus(0);
 		initializePlayerMaxHP();
 		initializePlayerCurrentHP();
 		initializePlayerCoin();
@@ -221,6 +223,10 @@ public class GameManager {
 	private static void setJumpBonus(int bonus) {
 		jumpBonus = bonus;
 	}
+	
+	private static void setSpeedBonus(int bonus) {
+		speedBonus = bonus;
+	}
 
 	private static void initializePlayerMaxHP() {
 		playerMaxHP = 250;
@@ -233,10 +239,6 @@ public class GameManager {
 	private static void initializePlayerCoin() {
 		playerCoin = 0;
 		playerTotalCoin = 0;
-	}
-	
-	private static void initializeNewPlayer() {
-		player = new Player(RenderableHolder.spritePlayerStanding, player.getVelocityX(), player.getVelocityY(), 200, 1);
 	}
 
 	private static void initializePlayerEXP() {
@@ -396,7 +398,7 @@ public class GameManager {
 			boolean boundXLeftMin = coin.getTranslateX() <= player.getTranslateX() + player.getWidth();
 			boolean boundXLeftMax = player.getTranslateX() + player.getWidth() <= coin.getTranslateX() + BLOCK_WIDTH;
 			boolean boundXRightMin = coin.getTranslateX() <= player.getTranslateX();
-			boolean d = player.getTranslateX() <= coin.getTranslateX() + BLOCK_WIDTH;
+			boolean boundXRightMax = player.getTranslateX() <= coin.getTranslateX() + BLOCK_WIDTH;
 
 			// e, f, g, h check translateY
 			boolean boundYTopMin = coin.getTranslateY() <= player.getTranslateY() + player.getHeight();
@@ -404,7 +406,7 @@ public class GameManager {
 			boolean boundYBottomMin = coin.getTranslateY() <= player.getTranslateY();
 			boolean boundYBottomMax = player.getTranslateY() <= coin.getTranslateY() + BLOCK_HEIGHT;
 
-			if (((boundXLeftMin && boundXLeftMax) || (boundXRightMin && d))
+			if (((boundXLeftMin && boundXLeftMax) || (boundXRightMin && boundXRightMax))
 					&& ((boundYTopMin && boundYTopMax) || (boundYBottomMin && boundYBottomMax))) {
 				GameManager.setPlayerCoin(GameManager.getPlayerCoin() + 5 + random.nextInt(5));
 				gameRoot.getChildren().remove(coin);
@@ -449,10 +451,10 @@ public class GameManager {
 			jumpPlayer(32 + jumpBonus);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
-			movePlayerX(-player.getVelocityX());
+			movePlayerX(-5-speedBonus);
 		}
 		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 5 - player.getWidth()) {
-			movePlayerX(player.getVelocityX());
+			movePlayerX(5+speedBonus);
 		}
 		if (player.getVelocityY() < 10) {
 			player.setVelocityY(player.getVelocityY() + 1);
@@ -463,10 +465,23 @@ public class GameManager {
 		checkBookCollect();
 		
 		// Check level finish
-		if (player.getTranslateY() + player.getHeight() >= finishPositionY
-				&& player.getTranslateX() + player.getWidth() == finishPositionX) {
-			setIsLevelFinish(true);
-			setIsPressedNextLv(false);
+		if (!isLevelFinish) {
+			boolean boundXLeftMin = finishPositionX <= player.getTranslateX() + player.getWidth();
+			boolean boundXLeftMax = player.getTranslateX() + player.getWidth() <= finishPositionX + BLOCK_WIDTH;
+			boolean boundXRightMin = finishPositionX <= player.getTranslateX();
+			boolean boundXRightMax = player.getTranslateX() <= finishPositionX + BLOCK_WIDTH;
+
+			// e, f, g, h check translateY
+			boolean boundYTopMin = finishPositionY <= player.getTranslateY() + player.getHeight();
+			boolean boundYTopMax = player.getTranslateY() + player.getHeight() <= finishPositionY + BLOCK_HEIGHT;
+			boolean boundYBottomMin = finishPositionY <= player.getTranslateY();
+			boolean boundYBottomMax = player.getTranslateY() <= finishPositionY + BLOCK_HEIGHT;
+			
+			if (((boundXLeftMin && boundXLeftMax) || (boundXRightMin && boundXRightMax))
+					&& ((boundYTopMin && boundYTopMax) || (boundYBottomMin && boundYBottomMax))) {
+				setIsLevelFinish(true);
+				setIsPressedNextLv(false);
+			}
 		}
 		if (isLevelFinish && bookCount > 0) {
 			setIsMissingBook(true);
@@ -487,6 +502,7 @@ public class GameManager {
 
 	public static void setUpNextLevel() {
 		setIsLevelFinish(false);
+		setIsPressedNextLv(true);
 		levelCountInclement();
 		resetFinishPosition();
 		setLevelWidth();
@@ -608,20 +624,38 @@ public class GameManager {
 	/* ============================== GET PLAYER'S STATS ============================== */
 
 	public static void makeJumpHigh() {
+<<<<<<< HEAD
 		jumpBonus ++;
+||||||| 1013e14
+		jumpBonus += 5;
+=======
+		jumpBonus++;
+		if (jumpBonus >= 5) {
+			jumpBonus = 5;
+		}
+>>>>>>> c9951cfe47c04e365af541310f1ffd5970ae3b76
 	}
 
 	public static void makeRunFast() {
+<<<<<<< HEAD
 		GameManager.player.setVelocityY(player.getVelocityX() + 2);
+||||||| 1013e14
+		GameManager.player.setVelocityY(player.getVelocityX() + 3);
+=======
+		speedBonus++;
+		if (speedBonus >= 5) {
+			speedBonus = 5;
+		}
+>>>>>>> c9951cfe47c04e365af541310f1ffd5970ae3b76
 	}
 
 	public static void upgradePlayerMaxHP() {
-		int newHP = (int) ((1 + Math.random()) / 2) * GameManager.getPlayerMaxHP();
+		int newHP = GameManager.getPlayerMaxHP() + 30 + random.nextInt(20);
 		GameManager.setPlayerMaxHP(newHP);
 	}
 
 	public static void upgradeMapTime() {
-		int time = (int) ((int) ((1 + Math.random()) / 2) * GameScene.getTimeMapSecond());
+		double time = GameScene.getTimeMapSecond() + random.nextDouble()*20;
 		GameScene.setTimeMapSecond(time);
 	}
 

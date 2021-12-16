@@ -18,10 +18,16 @@ public class LeaderBoard {
 		data = CSVUtility.readCSV();
 		for (String line : getData()) {
 			String[] s = line.split(",");
-			String name = s[0];
-			int level = Integer.parseInt(s[1]);
-			int exp = Integer.parseInt(s[2]);
-			stats.add(new PlayerStat(name, level, exp));
+			if (s.length == 3) {
+				String name = s[0];
+				int level = Integer.parseInt(s[1]);
+				int exp = Integer.parseInt(s[2]);
+				stats.add(new PlayerStat(name, level, exp));
+			}
+//			String name = s[0];
+//			int level = Integer.parseInt(s[1]);
+//			int exp = Integer.parseInt(s[2]);
+//			stats.add(new PlayerStat(name, level, exp));
 		}
 		CSVUtility.updateSortCSV(stats);
 	}

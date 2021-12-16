@@ -63,6 +63,7 @@ public class GameManager {
 	private static int playerTotalCoin;
 	private static int playerEXP;
 	private static Random random = new Random();
+	private static int jumpBonus;
 
 	// Item
 	private static ArrayList<Node> coins = new ArrayList<Node>();
@@ -77,6 +78,7 @@ public class GameManager {
 		initializeBookCount();
 		setLevelPlatform();
 		initializePlayer();
+		setJumpBonus(0);
 		initializePlayerMaxHP();
 		initializePlayerCurrentHP();
 		initializePlayerCoin();
@@ -92,10 +94,7 @@ public class GameManager {
 		setIsLevelFinish(false);
 	}
 
-	/*
-	 * ============================== PRIVATE STATIC METHOD
-	 * ==============================
-	 */
+	/* ============================== PRIVATE STATIC METHOD ============================== */
 	/* ==================== USE IN CONSTRUCTOR ==================== */
 
 	private static void initializeLevelCount() {
@@ -216,7 +215,11 @@ public class GameManager {
 	}
 
 	private static void initializePlayer() {
-		player = new Player(RenderableHolder.spritePlayerStanding, 0, 0, 200, 1);
+		player = new Player(RenderableHolder.spritePlayerStanding, 5, 0, 200, 1);
+	}
+	
+	private static void setJumpBonus(int bonus) {
+		jumpBonus = bonus;
 	}
 
 	private static void initializePlayerMaxHP() {
@@ -230,6 +233,10 @@ public class GameManager {
 	private static void initializePlayerCoin() {
 		playerCoin = 0;
 		playerTotalCoin = 0;
+	}
+	
+	private static void initializeNewPlayer() {
+		player = new Player(RenderableHolder.spritePlayerStanding, player.getVelocityX(), player.getVelocityY(), 200, 1);
 	}
 
 	private static void initializePlayerEXP() {
@@ -300,7 +307,7 @@ public class GameManager {
 		finishPositionY = 0;
 	}
 
-	/* ==================== USED IN update() METHOD ==================== */
+  /* ==================== USED IN update() METHOD ==================== */
 
 	private static void movePlayerX(int value) {
 		boolean movingRight = value > 0;
@@ -375,7 +382,7 @@ public class GameManager {
 			setCanJump(false);
 		}
 	}
-
+  
 	private static boolean isPressed(KeyCode key) {
 		return keys.getOrDefault(key, false);
 	}
@@ -399,7 +406,7 @@ public class GameManager {
 
 			if (((boundXLeftMin && boundXLeftMax) || (boundXRightMin && d))
 					&& ((boundYTopMin && boundYTopMax) || (boundYBottomMin && boundYBottomMax))) {
-				GameManager.setPlayerCoin(GameManager.getPlayerCoin() + 5);
+				GameManager.setPlayerCoin(GameManager.getPlayerCoin() + 5 + random.nextInt(5));
 				gameRoot.getChildren().remove(coin);
 				platforms.remove(coin);
 				coins.remove(coin);
@@ -426,6 +433,7 @@ public class GameManager {
 				gameRoot.getChildren().remove(book);
 				platforms.remove(book);
 				books.remove(book);
+				bookCount--;
 				break;
 			}
 		}
@@ -438,22 +446,21 @@ public class GameManager {
 
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
-			jumpPlayer(32);
+			jumpPlayer(32 + jumpBonus);
 		}
 		if (isPressed(KeyCode.A) && player.getTranslateX() >= 5) {
-			movePlayerX(-5);
+			movePlayerX(-player.getVelocityX());
 		}
 		if (isPressed(KeyCode.D) && player.getTranslateX() <= levelWidth - 5 - player.getWidth()) {
-			movePlayerX(5);
+			movePlayerX(player.getVelocityX());
 		}
 		if (player.getVelocityY() < 10) {
 			player.setVelocityY(player.getVelocityY() + 1);
 		}
 		movePlayerY(player.getVelocityY());
-		player.update();
+		player.update();		
 		checkCoinCollect();
 		checkBookCollect();
-		MoneyBox.updateMoneyText();
 		
 		// Check level finish
 		if (player.getTranslateY() + player.getHeight() >= finishPositionY
@@ -461,7 +468,7 @@ public class GameManager {
 			setIsLevelFinish(true);
 			setIsPressedNextLv(false);
 		}
-		if (isLevelFinish && bookCount != Level.getBookCount(levelCount)) {
+		if (isLevelFinish && bookCount > 0) {
 			setIsMissingBook(true);
 		}
 
@@ -469,6 +476,10 @@ public class GameManager {
 			setIsDead(true);
 		}
 
+		if (getPlayerCurrentHP() <= 0) {
+			setIsDead(true);
+		}
+		
 		if (getPlayerCurrentHP() <= 0) {
 			setIsDead(true);
 		}
@@ -493,7 +504,7 @@ public class GameManager {
 		addUIRoot();
 		setCanJump(true);
 		setIsMute(false);
-		setTime(120);
+		setTime(80);
 		initializeKeysValue();
 		GameScene.createPauseGameLeaderboardSubScene();
 	}
@@ -562,10 +573,7 @@ public class GameManager {
 		return time;
 	}
 
-	/*
-	 * ============================== SET PLAYER'S STATS
-	 * ==============================
-	 */
+	/* ============================== SET PLAYER'S STATS ============================== */
 
 	public static void setPlayerMaxHP(int maxHP) {
 		playerMaxHP = maxHP;
@@ -592,17 +600,19 @@ public class GameManager {
 	public static void setIsDead(boolean isDead) {
 		GameManager.isDead = isDead;
 	}
-
+	
 	public static void setIsMissingBook(boolean isMissing) {
 		isMissingBook = isMissing;
 	}
+	
+	/* ============================== GET PLAYER'S STATS ============================== */
 
 	public static void makeJumpHigh() {
-		GameManager.player.setVelocityY(player.getVelocityY() + 3);
+		jumpBonus ++;
 	}
 
 	public static void makeRunFast() {
-		GameManager.player.setVelocityY(player.getVelocityX() + 3);
+		GameManager.player.setVelocityY(player.getVelocityX() + 2);
 	}
 
 	public static void upgradePlayerMaxHP() {
@@ -652,11 +662,6 @@ public class GameManager {
 		}
 		return exp;
 	}
-
-	/*
-	 * ============================== GET PLAYER'S STATS
-	 * ==============================
-	 */
 
 	public static int getPlayerMaxHP() {
 		return playerMaxHP;

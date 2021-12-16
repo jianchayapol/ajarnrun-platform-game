@@ -27,7 +27,7 @@ public class ImageButton extends ImageView {
 	private int height;
 	private int width;
 	private static Image image;
-	private static String altText;
+	private String altText;
 	
 	// constructor1 : normal
 	public ImageButton(ImageButtonType imageButtonType) {
@@ -41,7 +41,7 @@ public class ImageButton extends ImageView {
 		super();
 		initImageButton(imageButtonType);
 		initEventHandler(imageButtonType);
-		ImageButton.altText = altText;
+		this.altText = altText;
 	}
 
 	// Init Image Button
@@ -201,21 +201,29 @@ public class ImageButton extends ImageView {
 		switch (altText) {
 		case "run":
 			if(ShopManager.buyShopItem(ShopItem.getRunPrice())) {
+				System.out.println("BUY RUN");
+				System.out.println(altText);
 				GameManager.makeRunFast();
 			}
 			break;
 		case "jump":
 			if(ShopManager.buyShopItem(ShopItem.getJumpPrice())) {
+				System.out.println("BUY JUMP");
+				System.out.println(altText);
 				GameManager.makeJumpHigh();
 			}
 			break;
 		case "time":
 			if(ShopManager.buyShopItem(ShopItem.getTimePrice())) {
+				System.out.println("BUY TIME");
+				System.out.println(altText);
 				
 			}
 			break;
 		case "lp":
 			if(ShopManager.buyShopItem(ShopItem.getLpPrice())) {
+				System.out.println("BUY LP");
+				System.out.println(altText);
 				GameManager.upgradePlayerMaxHP();
 			}
 			break;
@@ -260,12 +268,12 @@ public class ImageButton extends ImageView {
 		this.height = h;
 	}
 
-	public static String getAltText() {
-		return altText;
+	public String getAltText() {
+		return this.altText;
 	}
 
-	public static void setAltText(String altText) {
-		ImageButton.altText = altText;
+	public void setAltText(String altText) {
+		this.altText = altText;
 	}
 	
 	public void playButtonPress() {

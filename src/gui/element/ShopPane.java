@@ -31,7 +31,6 @@ public class ShopPane extends AnchorPane {
 	private static ArrayList<ShopItemBox> shelf;
 	private static final String[] items = { "run", "jump", "lp", "time" };
 
-	private static MoneyBox moneyBox = new MoneyBox();
 	private static ImageButton nextLvButton = new ImageButton(ImageButtonType.CONTINUE_NEXT_LV);
 
 	private static final int HEIGHT = 600;
@@ -44,8 +43,7 @@ public class ShopPane extends AnchorPane {
 		initializeErrorMessage();
 		// setup
 		setupPane();
-		setupMoneyBox();
-		this.getChildren().addAll(rec, controlBox, errorMessage, moneyBox);
+		this.getChildren().addAll(rec, controlBox, errorMessage);
 	}
 
 	// =================== private static method ==============================
@@ -83,11 +81,6 @@ public class ShopPane extends AnchorPane {
 		shelfBoxMain.setLayoutY(117);
 		setupRec();
 		setupControlBox();
-	}
-
-	private void setupMoneyBox() {
-		moneyBox.setLayoutX(600);
-		moneyBox.setLayoutY(50);
 	}
 
 	private void setupRec() {
@@ -137,8 +130,5 @@ public class ShopPane extends AnchorPane {
 		return shelf;
 	}
 
-	public static void setMoneyText() {
-		MoneyBox.updateMoneyText();
-	}
 
 }

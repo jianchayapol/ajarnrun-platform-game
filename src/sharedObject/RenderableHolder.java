@@ -9,22 +9,62 @@ import application.logic.GameManager;
 import exception.ImageNotFoundException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+/**
+ * RenderableHolder is a static class that hold all shared images and ImageView's objects.
+ * All other classes can directly call and get items from this class since most of the fields are public static (except BLOCK_WIDTH and BLOCK_HEIGHT because you can get it from GameManager.
+ * @author Mos
+ *
+ */
 public class RenderableHolder {
-	
+	/**
+	 * Block's width. This is one of the only two fields that are not public fields.
+	 */
 	private static final int BLOCK_WIDTH = GameManager.getBlockWidth();
+	/**
+	 * Block's height. This is one of the only two fields that are not public fields.
+	 */
 	private static final int BLOCK_HEIGHT = GameManager.getBlockHeight();
 
 	// Platform
+	/**
+	 * platform's image initialize using "green_01.png"
+	 */
 	public static Image greenOne;
+	/**
+	 * platform's image initialize using "green_02.png"
+	 */
 	public static Image greenTwo;
+	/**
+	 * platform's image initialize using "green_03.png"
+	 */
 	public static Image greenThree;
+	/**
+	 * platform's image initialize using "green_04.png"
+	 */
 	public static Image greenFour;
+	/**
+	 * platform's image initialize using "green_05.png"
+	 */
 	public static Image greenFive;
+	/**
+	 * platform's image initialize using "floatGreen_01.png"
+	 */
 	public static Image floatOne;
+	/**
+	 * platform's image initialize using "floatGreen_02.png"
+	 */
 	public static Image floatTwo;
+	/**
+	 * platform's image initialize using "floatGreen_03.png"
+	 */
 	public static Image floatThree;
+	/**
+	 * platform's image initialize using "floatGreen_04.png"
+	 */
 	public static Image floatFour;
+	/**
+	 * platform's image initialize using "lava.png"
+	 */
 	public static Image hurtPlatformOne;
 
 	// Pane
@@ -63,34 +103,75 @@ public class RenderableHolder {
 	public static Image quit_Image;
 	
 	// Logo
+	/**
+	 * Image for logo in Main Menu
+	 */
 	public static Image logo;
 
 	// Player
+	/**
+	 * Image for initializing Play object in gameplay state.
+	 */
 	public static Image playerImage;
 	
 	// Sprite
+	/**
+	 * Image for Player's SpriteAnimation: Attack
+	 */
 	public static Image spritePlayerAttack;
+	/**
+	 * Image for Player's SpriteAnimation: Attack but facing left
+	 */
 	public static Image spritePlayerAttackBackward;
+	/**
+	 * Image for Player's SpriteAnimation: Run
+	 */
 	public static Image spritePlayerRun;
+	/**
+	 * Image for Player's SpriteAnimation: Run but facing left
+	 */
 	public static Image spritePlayerRunBackward;
+	/**
+	 * Image for Player's SpriteAnimation: Standing
+	 */
 	public static Image spritePlayerStanding;
+	/**
+	 * Image for Player's SpriteAnimation: Standing but facing left
+	 */
 	public static Image spritePlayerStandingBackward;
+	/**
+	 * Image for Player's SpriteAnimation: Jump
+	 */
 	public static Image spritePlayerJump;
+	/**
+	 * Image for Player's SpriteAnimation: Jump but facing left
+	 */
 	public static Image spritePlayerJumpBackward;
-	
-	// Enemy
-	public static Image enemyOneLeft;
-	public static Image enemyTwoLeft;
-	
+
 	// Item
+	/**
+	 * Image for item: Book (1)
+	 */
 	public static Image bookOne;
+	/**
+	 * Image for item: Book (2)
+	 */
 	public static Image bookTwo;
+	/**
+	 * Image for item: Coin
+	 */
 	public static Image coin;
 	
 	// Finish flag
+	/**
+	 * Image for item: Finish Flag
+	 */
 	public static Image finish;
 	
 	// Start flag
+	/**
+	 * Image for item: Start Flag
+	 */
 	public static Image start;
 
 	// ---------------------------------------------------------
@@ -173,16 +254,6 @@ public class RenderableHolder {
 			block.setFitWidth(BLOCK_WIDTH);
 			block.setFitHeight(BLOCK_HEIGHT);
 			break;
-		case "E":
-			block = new ImageView(RenderableHolder.enemyOneLeft);
-			block.setFitWidth(50);
-			block.setFitHeight(50);
-			break;
-		case "e":
-			block = new ImageView(RenderableHolder.enemyTwoLeft);
-			block.setFitWidth(50);
-			block.setFitHeight(50);
-			break;
 		case "book1":
 			block = new ImageView(RenderableHolder.bookOne);
 			block.setFitWidth(BLOCK_WIDTH);
@@ -218,7 +289,11 @@ public class RenderableHolder {
 		block.setTranslateY(posY);
 		return block;
 	}
-
+	/**
+	 * loadResource is a method that initialize all Image fields using loadImage.
+	 * The reason why we do not simply use new Image(url) because if the path was incorrect, it will hard to find which part cause the error.
+	 * You can think of this method as a object initializer.
+	 */
 	public static void loadResource() {
 
 		// RenderableHolder.player_sprite_Image = loadImage("player_sprite_Image.png");
@@ -264,7 +339,7 @@ public class RenderableHolder {
 		RenderableHolder.floatTwo = loadImage("platform/floatGreen_02.png");
 		RenderableHolder.floatThree = loadImage("platform/floatGreen_03.png");
 		RenderableHolder.floatFour = loadImage("platform/floatGreen_04.png");
-		RenderableHolder.hurtPlatformOne = loadImage("platform/cactus.png");
+		RenderableHolder.hurtPlatformOne = loadImage("platform/lava.png");
 
 		// Logo
 		RenderableHolder.logo = loadImage("Logo.png");
@@ -281,11 +356,7 @@ public class RenderableHolder {
 		RenderableHolder.spritePlayerStandingBackward = loadImage("sprite/sprite_player_standing_backward.png");
 		RenderableHolder.spritePlayerJump = loadImage("sprite/sprite_player_jump.png");
 		RenderableHolder.spritePlayerJumpBackward = loadImage("sprite/sprite_player_jump_backward.png");
-		
-		// Enemy
-		RenderableHolder.enemyOneLeft = loadImage("enemy/enemy_1.png");
-		RenderableHolder.enemyTwoLeft = loadImage("enemy/enemy_2.png");
-		
+
 		// Item
 		RenderableHolder.bookOne = loadImage("platform/book_1.png");
 		RenderableHolder.bookTwo = loadImage("platform/book_2.png");

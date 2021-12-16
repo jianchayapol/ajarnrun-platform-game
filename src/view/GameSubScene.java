@@ -15,12 +15,25 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-
+/**
+ * GameSubScene class is a JavaFx SubScene class that will be called to initialize SubScenes in Main Menu, such as about us, leaderboard, How to play.
+ * And also create a SubScene when player pause the game during the gameplay state.
+ * There are 2 constructor in this class. The first constructor takes a String as the first parameter, while the second constructor takes a Pane as the first parameter.
+ * @author Mos
+ *
+ */
 public class GameSubScene extends SubScene {
 	
 	
 	// ================= Constructor: MainView SubScene ===============================
-
+	/**
+	 * This constructor takes a String as the first parameter in order to initiailize an image in order to set SubScene's root background.
+	 * There are two switch cases in this constructor to choose wheater about us SubScene or leaderboard SubScene will be created.
+	 * @param imageURL A url that is used to initialize an Image object
+	 * @param altText A String to choose which SubScene to create.
+	 * @param width Width of SubScene's root
+	 * @param height Height of SubScene's root
+	 */
 	public GameSubScene(String imageURL, String altText, int width, int height) {
 		super(new AnchorPane(), width, height);
 		prefWidth(width);
@@ -43,18 +56,20 @@ public class GameSubScene extends SubScene {
 			setEffect(new DropShadow());
 			DrawStringUtility.fillLeaderBoard(this);
 			break;
-		case "newGame":
-			setLayoutX(width / 2);
-			setLayoutY(height / 2);
-			setEffect(new DropShadow());
-
 		default:
 			break;
 		}
 	}
 
 	// ================= Constructor: GameView SubScene ===============================
-	
+	/**
+	 * This constructor takse a Pane as the first parameter but doesn't use that pane as a SubScene's root, instead, this constructor initialize new AnchorPane and add the Pane parameter to this AnchorPane
+	 * There are two switch cases in this constructor to choose wheater pause game leaderboard SubScene or How to play SubScene will be created.
+	 * @param pane
+	 * @param altText A String to choose which SubScene to create.
+	 * @param width Width of SubScene's root
+	 * @param height Height of SubScene's root
+	 */
 	public GameSubScene(Pane pane, String altText, int width, int height) {
 		super(new AnchorPane(), width, height);
 		prefWidth(width);
@@ -79,7 +94,11 @@ public class GameSubScene extends SubScene {
 			break;
 		}
 	}
-	
+	/**
+	 * This method create a JavaFx TranslateTransition object and set GameSubScene(this) as its Node.
+	 * Then move the Node using TranslateTransition method using altText to tells the TranslateTransition how to move it.
+	 * @param altText
+	 */
 	public void moveSubScene(String altText) {
 		TranslateTransition transition = new TranslateTransition();
 		transition.setDuration(Duration.seconds(0.5));

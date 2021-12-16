@@ -22,15 +22,15 @@ import sharedObject.RenderableHolder;
  */
 public class EndGameStatBox extends VBox {
 
-	/*
+	/**
 	 * HBox that contains name stat
 	 */
 	private HBox nameBox;
-	/*
+	/**
 	 * HBox that contains money stat
 	 */
 	private HBox moneyBox;
-	/*
+	/**
 	 * HBox that contains exp stat
 	 */
 	private HBox expBox;

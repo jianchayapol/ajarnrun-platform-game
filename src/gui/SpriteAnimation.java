@@ -45,14 +45,14 @@ public class SpriteAnimation extends Transition {
     private int lastIndex;
     /**
      * Constructor for SpriteAnimation class, we need to call this constructor and put the ImageView object that we want to make it move.
-     * @param imageView
-     * @param duration
-     * @param count
-     * @param columns
-     * @param offsetX
-     * @param offsetY
-     * @param width
-     * @param height
+     * @param imageView SpriteAnimation's image
+     * @param duration time duration
+     * @param count count
+     * @param columns columns in sprite picture
+     * @param offsetX horizontal offset
+     * @param offsetY vertical offset
+     * @param width player's width
+     * @param height player's height
      */
     public SpriteAnimation(
             ImageView imageView, 

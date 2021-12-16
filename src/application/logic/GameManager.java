@@ -799,7 +799,7 @@ public class GameManager {
 	/**
 	 * appRoot public static getter.
 	 * 
-	 * @return
+	 * @return appRoot
 	 */
 
 	public static AnchorPane getAppRoot() {
@@ -829,7 +829,7 @@ public class GameManager {
 	/**
 	 * isMute public static getter.
 	 * 
-	 * @return
+	 * @return isMute
 	 */
 
 	public static boolean isMute() {
@@ -839,32 +839,15 @@ public class GameManager {
 	/**
 	 * BLOCK_WIDTH public static getter.
 	 * 
-	 * @return
+	 * @return Block's width
 	 */
 	public static int getBlockWidth() {
 		return BLOCK_WIDTH;
 	}
 
 	/**
-<<<<<<< HEAD
-	 * <<<<<<< HEAD BLOCK_HEIGHT public static getter. ||||||| 0c072d0 BLOCK_HEIGHT
-	 * public stati getter. ======= BLOCK_HEIGHT public static getter.
-	 * 
-	 * >>>>>>> 6272fa4129686c4bc22a62558bd7a76a6734a3d1
-	 * 
-||||||| ac0e078
-<<<<<<< HEAD
 	 * BLOCK_HEIGHT public static getter.
-||||||| 0c072d0
-	 * BLOCK_HEIGHT public stati getter.
-=======
-	 * BLOCK_HEIGHT public static getter.
-	 * 
->>>>>>> 6272fa4129686c4bc22a62558bd7a76a6734a3d1
-=======
-	 * BLOCK_HEIGHT public static getter.
->>>>>>> 526730c78d636fc05da5951068068670f88a618b
-	 * @return
+	 * @return Block's height
 	 */
 	public static int getBlockHeight() {
 		return BLOCK_HEIGHT;
@@ -1086,7 +1069,7 @@ public class GameManager {
 	/**
 	 * Player's current HP public static getter.
 	 * 
-	 * @return
+	 * @return player's current HP
 	 */
 
 	public static int getPlayerCurrentHP() {

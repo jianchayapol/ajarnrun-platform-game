@@ -22,16 +22,16 @@ import logic.leaderboard.PlayerStat;
 
 public class CSVUtility {
 
-	/*
+	/**
 	 * An String of filename [.csv] This file collects all player's statistics data.
 	 */
 	private static String filename = "/leader-board.csv";
 
-	/*
+	/**
 	 * An public static method for reading all data in this the csv file by reading
-	 * through each line of the file and add to the ArrayList<String>
+	 * through each line of the file and add to the ArrayList
 	 * 
-	 * @return an ArrayList<String> containing all text data in format of {
+	 * @return an ArrayList containing all text data in format of {
 	 * "Name,1,0", "Name2,1,0", ... }
 	 */
 	public static ArrayList<String> readCSV() {
@@ -52,7 +52,7 @@ public class CSVUtility {
 		}
 	}
 
-	/*
+	/**
 	 * An public static method for appending the player's progress to the CSV file
 	 * by reading through each line of the file and check conditions of adding to
 	 * filter some line that does not match the condition out. condition: If the
@@ -60,7 +60,7 @@ public class CSVUtility {
 	 * name exists, but the new one is greater, we will mark the new one as a
 	 * HighScore ,and filter the exists one out. While reading the file, if the name
 	 * doesn't match with the toAddText name, will be automatically appended to the
-	 * temporary ArrayList<String> tmpLines. Finally, If the toAddText is a new
+	 * temporary ArrayList tmpLines. Finally, If the toAddText is a new
 	 * HighScore, add it to the file
 	 * 
 	 * @param toAddText A Sting[] of length 3 that contains player's name, level,
@@ -126,7 +126,7 @@ public class CSVUtility {
 
 	/**
 	 * A public static method to update the csv file to become the correct sorted
-	 * order. By Getting the SortedSet<PlayerStat> stats, and overwrite the file
+	 * order. By Getting the SortedSet stats, and overwrite the file
 	 * with all the data obtained from each element of stats. [ Note: use the GETTER
 	 * to obtained all the PlayerStat object's field.] then write the text to the
 	 * .csv file in the correct format of "Name,1,0"
@@ -171,7 +171,7 @@ public class CSVUtility {
 		return escapedData;
 	}
 
-	/*
+	/**
 	 * An private static method to get the correct CSV Format of String "Name,1,0"
 	 * from the Array of String By looping through the String[] text and joining
 	 * each element that are formatted correctly together with comma (",").

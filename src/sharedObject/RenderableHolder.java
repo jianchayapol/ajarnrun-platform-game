@@ -69,38 +69,114 @@ public class RenderableHolder {
 	public static Image hurtPlatformOne;
 
 	// Pane
+	/**
+	 * Image of money_tag_Image
+	 */
 	public static Image money_tag_Image;
+	/**
+	 * Image of shop_Image
+	 */
 	public static Image shop_Image;
+	/**
+	 * Image of level_passed_Image
+	 */
 	public static Image level_passed_Image;
+	/**
+	 * Image of level_failed_Image
+	 */
 	public static Image level_failed_Image;
 
 	// Image
+	/**
+	 * Image of green_box1
+	 */
 	public static Image green_box1;
+	/**
+	 * Image of run_item
+	 */
 	public static Image run_item;
+	/**
+	 * Image of jump_item
+	 */
 	public static Image jump_item;
+	/**
+	 * Image of lp_bonus_item
+	 */
 	public static Image lp_bonus_item;
+	/**
+	 * Image of time_bonus_item
+	 */
 	public static Image time_bonus_item;
+	/**
+	 * Image of congrats_Image
+	 */
 	public static Image congrats_Image;
 
 	// Background
+	/**
+	 * Background Image of entrance_background_Image
+	 */
 	public static Image entrance_background_Image;
+	/**
+	 * Background Image of normalLevelImage
+	 */
 	public static Image normalLevelImage;
+	/**
+	 * Background Image of subscene_background_Image;
+	 */
 	public static Image subscene_background_Image;
 
 	// Player
+	/**
+	 * Player Image of player_sprite_Image;
+	 */
 	public static Image player_sprite_Image;
 
 	// Button
+	/**
+	 * button Image for ImageButton with ImageButtonType.PAUSE
+	 */
 	public static Image pause_button_Image;
+	/**
+	 * button Image for ImageButton with ImageButtonType.BUY
+	 */
 	public static Image buy_button_Image;
+	/**
+	 * button Image for ImageButton with ImageButtonType.SOUND
+	 */
 	public static Image mute_button_Image;
+	/**
+	 * button Image for ImageButton with ImageButtonType.SOUND
+	 */
 	public static Image unmute_button_Image;
+	/**
+	 * button Image for ImageButton with ImageButtonType.PLAY
+	 */
 	public static Image play_button_Image;
+	/**
+	 * button Image for ImageButton with ImageButtonType.CONINUE_NEXT_LV
+	 * ImageButtonType.CONTINUE_TO_SHOP
+	 */
 	public static Image continue_button_Image;
+	/**
+	 * button Image for ImageButton with ImageButtonType.SKIP
+	 */
 	public static Image skip_button_Image;
+	/**
+	 * button Image for ImageButton with ImageButtonType.HOME
+	 */
 	public static Image home_button_Image;
+	/**
+	 * button Image for ImageButton with ImageButtonType.RESUME
+	 */
 	public static Image resume_button_Image;
+	/**
+	 * button Image for ImageButton with ImageButtonType.HELP
+	 */
 	public static Image question_button_Image;
+	/**
+	 * button Image for ImageButton with ImageButtonType.EXIT
+	 */
 	public static Image quit_Image;
 
 	// Logo
@@ -183,7 +259,7 @@ public class RenderableHolder {
 	 * Method for loading Image file by the file path from the given parameter.
 	 * 
 	 * @param fileName
-	 * @throws ImageNotFoundException if unable to load file
+	 * throws ImageNotFoundException if unable to load file
 	 * @return Image in case it's successfully load
 	 */
 	public static Image loadImage(String fileName) {
@@ -205,7 +281,7 @@ public class RenderableHolder {
 	 * parameter.
 	 * 
 	 * @param fileName
-	 * @throws ImageNotFoundException if unable to load file
+	 * throws ImageNotFoundException if unable to load file
 	 * @return Image in case it's successfully load
 	 */
 	public static Image loadImageButton(String fileName) {

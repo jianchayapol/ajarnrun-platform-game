@@ -3,18 +3,73 @@ package logic.shop;
 import javafx.scene.image.Image;
 import sharedObject.RenderableHolder;
 
+/**
+ * This ShopItem class of shopping items in ShopeItemBox which builded in
+ * ShopPane.
+ * 
+ * @author jianchayapol
+ *
+ */
 public class ShopItem {
 
+	/**
+	 * A String that represents the item's name, used as the text Label and also the
+	 * altText in the ImageButton class (ImageButtonType.BUY)
+	 */
 	private String itemName;
-	private String Description;
-	private Image image;
-	private int price;
 
+	/**
+	 * A String represent the item's description. The descriptions are shown as a
+	 * text Label in shopItemBox which builded in shopPane after completing each
+	 * level of game.
+	 */
+	private String Description;
+
+	/**
+	 * This Image type field is represent the Image of the item. Used as the
+	 * ImageView in shopItemBox which builded in shopPane after completing each
+	 * level of game.
+	 */
+	private Image image;
+
+	/**
+	 * An private static final integer set up to $50 showing the price of the "run"
+	 * item. Used as the the text Label "$ price" in shopItemBox which builded in
+	 * shopPane after completing each level of game. Used in ShopManager to
+	 * calculate and setup the buy item event.
+	 */
 	private static final int RUN_PRICE = 50;
-	private static final int TIME_PRICE = 35;
+
+	/**
+	 * An private static final integer set up to $65 showing the price of the "jump"
+	 * item. Used as the the text Label "$ price" in shopItemBox which builded in
+	 * shopPane after completing each level of game. Used in ShopManager to
+	 * calculate and setup the buy item event.
+	 */
 	private static final int JUMP_PRICE = 65;
+
+	/**
+	 * An private static final integer set up to $35 showing the price of the "time"
+	 * item. Used as the the text Label "$ price" in shopItemBox which builded in
+	 * shopPane after completing each level of game. Used in ShopManager to
+	 * calculate and setup the buy item event.
+	 */
+	private static final int TIME_PRICE = 35;
+
+	/**
+	 * An private static final integer set up to $30 showing the price of the "lp"
+	 * item. Used as the the text Label "$ price" in shopItemBox which builded in
+	 * shopPane after completing each level of game. Used in ShopManager to
+	 * calculate and setup the buy item event.
+	 */
 	private static final int LP_PRICE = 30;
 
+	/**
+	 * This constructor constructs new ShopItem by the String name By the name,
+	 * setup all the field by the item's image, its name and its description
+	 * Use RenderableHolder to access the public static Image field.
+	 * @param name
+	 */
 	public ShopItem(String name) {
 		switch (name) {
 		case "run":
@@ -42,10 +97,6 @@ public class ShopItem {
 
 	public String getItemName() {
 		return itemName;
-	}
-
-	public int getPrice() {
-		return price;
 	}
 
 	public Image getImage() {

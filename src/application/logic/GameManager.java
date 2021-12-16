@@ -25,9 +25,10 @@ import view.GameScene;
 import view.ViewManager;
 
 /**
- * GameManager is the class that control gameplay state.
- * It start with initialize share objects, then the level, player, game root, and so on.
- * The scene that controls gameplay state can call a public static method called update which check all the thing that happen within one frame.
+ * GameManager is the class that control gameplay state. It start with
+ * initialize share objects, then the level, player, game root, and so on. The
+ * scene that controls gameplay state can call a public static method called
+ * update which check all the thing that happen within one frame.
  * 
  * @author Mos
  *
@@ -42,7 +43,8 @@ public class GameManager {
 	 */
 	private static ArrayList<Node> platforms = new ArrayList<Node>();
 	/**
-	 * Player object named player is the player themself. This object can be moved as you press a specific key
+	 * Player object named player is the player themself. This object can be moved
+	 * as you press a specific key
 	 */
 	private static Player player;
 	/**
@@ -70,14 +72,15 @@ public class GameManager {
 	 */
 	private static AnchorPane appRoot = new AnchorPane();
 	/**
-	 * An anchor pane (gameRoot) is the pane that contains all platform or Node just like platforms.
+	 * An anchor pane (gameRoot) is the pane that contains all platform or Node just
+	 * like platforms.
 	 */
 	private static AnchorPane gameRoot = new AnchorPane();
 	/**
 	 * An anchor pane (uiRoot) is the pane that contains game HUD and other buttons.
 	 */
 	private static AnchorPane uiRoot = new AnchorPane();
-	
+
 	/**
 	 * An integer that is used to define block's width
 	 */
@@ -91,11 +94,13 @@ public class GameManager {
 	 */
 	private static boolean isDead;
 	/**
-	 * An integer to set the positionX player must be in order to finish the level. This field can be changed as the level change.
+	 * An integer to set the positionX player must be in order to finish the level.
+	 * This field can be changed as the level change.
 	 */
 	private static int finishPositionX;
 	/**
-	 * An integer to set the positionY player must be in order to finish the level. This field can be changed as the level change.
+	 * An integer to set the positionY player must be in order to finish the level.
+	 * This field can be changed as the level change.
 	 */
 	private static int finishPositionY;
 	/**
@@ -111,7 +116,8 @@ public class GameManager {
 	 */
 	private static int playerCurrentHP;
 	/**
-	 * The player's max HP. This field is used to set the player's initial current HP when this game change a level.
+	 * The player's max HP. This field is used to set the player's initial current
+	 * HP when this game change a level.
 	 */
 	private static int playerMaxHP;
 	/**
@@ -119,19 +125,23 @@ public class GameManager {
 	 */
 	private static int playerCoin;
 	/**
-	 * The player's EXP. This field show how good you are at this game, also, this field is used when the game is sorting its leaderboard.
+	 * The player's EXP. This field show how good you are at this game, also, this
+	 * field is used when the game is sorting its leaderboard.
 	 */
 	private static int playerEXP;
 	/**
-	 * The Random object. This field is used when we need to random something in the game's logic.
+	 * The Random object. This field is used when we need to random something in the
+	 * game's logic.
 	 */
 	private static Random random = new Random();
 	/**
-	 * A jump bonus. It is craeted as 0, then, increased as the player buy an upgrade.
+	 * A jump bonus. It is craeted as 0, then, increased as the player buy an
+	 * upgrade.
 	 */
 	private static int jumpBonus;
 	/**
-	 * A speed bonus. It is created as 0, then, increased as the player buy an upgrade.
+	 * A speed bonus. It is created as 0, then, increased as the player buy an
+	 * upgrade.
 	 */
 	private static int speedBonus;
 	/**
@@ -139,15 +149,18 @@ public class GameManager {
 	 */
 	private static ArrayList<Node> coins = new ArrayList<Node>();
 	/**
-	 * An ArrayList that contains all the books in the map. This field is decreased as the player collect a coin.
+	 * An ArrayList that contains all the books in the map. This field is decreased
+	 * as the player collect a coin.
 	 */
 	private static ArrayList<Node> books = new ArrayList<Node>();
 	/**
-	 * An integer that show how much book the current level has. This field is decreased as the player collect a book.
+	 * An integer that show how much book the current level has. This field is
+	 * decreased as the player collect a book.
 	 */
 	private static int bookCount;
 	/**
-	 * A boolean to check that has player collect all the books that were in the map.
+	 * A boolean to check that has player collect all the books that were in the
+	 * map.
 	 */
 	private static boolean isMissingBook = false;
 	/**
@@ -181,35 +194,43 @@ public class GameManager {
 
 	/* ============================== PRIVATE STATIC METHOD ============================== */
 	/* ==================== USE IN CONSTRUCTOR ==================== */
-	
+
 	/**
-	 * A method that set levelCount to 0. This is field is used only in the constructor.
+	 * A method that set levelCount to 0. This is field is used only in the
+	 * constructor.
 	 */
 	private static void initializeLevelCount() {
 		levelCount = 0;
 	}
+
 	/**
-	 * A method that set levelWidth to the real level's width widh pixel unit.
-	 * The level width can be as long as the creator want, the number that is assigned to levelWidth is not fixed.
+	 * A method that set levelWidth to the real level's width widh pixel unit. The
+	 * level width can be as long as the creator want, the number that is assigned
+	 * to levelWidth is not fixed.
 	 */
 	private static void setLevelWidth() {
 		levelWidth = 0;
 		levelWidth = Level.ALL_LEVEL[levelCount][0].length() * BLOCK_WIDTH;
 	}
+
 	/**
-	 * A method to set bookCount to zero before counting the actual number of books that the current level has.
-	 * You can think of this method as a reset metho.
+	 * A method to set bookCount to zero before counting the actual number of books
+	 * that the current level has. You can think of this method as a reset metho.
 	 */
 	private static void initializeBookCount() {
 		bookCount = 0;
 	}
+
 	/**
-	 * A method that set a level's background and read through all the character in a map in order to initialize all platform that is not a blank space with its position.
-	 * If a platform is a coin block, it will be added to coins ArrayList.
-	 * If a platform is a book block, it will be added to books ArrayList.
-	 * If a platform is created from a char 'X', the finishPositions will be set to this platform's position.
-	 * Basically, all platforms will be created using RenderableHolder class. But, there are some special platform that need to be initiailized from other class, like Book, Coin, FinishFlag, HurtPlatform.
-	 * All blocks are added to gameRoot and platforms.
+	 * A method that set a level's background and read through all the character in
+	 * a map in order to initialize all platform that is not a blank space with its
+	 * position. If a platform is a coin block, it will be added to coins ArrayList.
+	 * If a platform is a book block, it will be added to books ArrayList. If a
+	 * platform is created from a char 'X', the finishPositions will be set to this
+	 * platform's position. Basically, all platforms will be created using
+	 * RenderableHolder class. But, there are some special platform that need to be
+	 * initiailized from other class, like Book, Coin, FinishFlag, HurtPlatform. All
+	 * blocks are added to gameRoot and platforms.
 	 */
 	private static void setLevelPlatform() {
 		Rectangle background = new Rectangle(ViewManager.getScreenWidth(), ViewManager.getScreenHeight());
@@ -314,59 +335,75 @@ public class GameManager {
 		}
 		appRoot.getChildren().add(background);
 	}
+
 	/**
-	 * A method that initialize player with Player class. 
+	 * A method that initialize player with Player class.
 	 */
 	private static void initializePlayer() {
 		player = new Player(RenderableHolder.spritePlayerStanding, 5, 0, 200, 1);
 	}
+
 	/**
 	 * A method that is used to set integer jumpBonus.
+	 * 
 	 * @param bonus
 	 */
 	private static void setJumpBonus(int bonus) {
 		jumpBonus = bonus;
 	}
+
 	/**
 	 * A method that is used to set integer speedBonus.
+	 * 
 	 * @param bonus
 	 */
 	private static void setSpeedBonus(int bonus) {
 		speedBonus = bonus;
 	}
+
 	/**
-	 * A method that is used to initialize player's max HP. This method is used only in the constructor.
+	 * A method that is used to initialize player's max HP. This method is used only
+	 * in the constructor.
 	 */
 	private static void initializePlayerMaxHP() {
 		playerMaxHP = 250;
 	}
+
 	/**
-	 * A method that is used to initialize player's HP at the start of level 1. This method is used only in the constructor.
+	 * A method that is used to initialize player's HP at the start of level 1. This
+	 * method is used only in the constructor.
 	 */
 	private static void initializePlayerCurrentHP() {
 		playerCurrentHP = playerMaxHP;
 	}
+
 	/**
-	 * A method that is used to initialize player's coin. Player's coin must be 0 everytimes the game is started.
+	 * A method that is used to initialize player's coin. Player's coin must be 0
+	 * everytimes the game is started.
 	 */
 	private static void initializePlayerCoin() {
 		playerCoin = 0;
 	}
+
 	/**
-	 * A method that is used to initialize player's EXP. Player's EXP must be 0 everytimes the game is started.
+	 * A method that is used to initialize player's EXP. Player's EXP must be 0
+	 * everytimes the game is started.
 	 */
 	private static void initializePlayerEXP() {
 		playerEXP = 0;
 	}
+
 	/**
 	 * A method that is used to add player to gameRoot.
 	 */
 	private static void addPlayerToGameRoot() {
 		gameRoot.getChildren().add(player);
 	}
+
 	/**
-	 * A method that is used to add listener to player. This is the method that make gameRoot move as the player move.
-	 * As we fix screen's width to 800, we use the number 40 instead of getting it using ViewManager.getScreenWidth/2
+	 * A method that is used to add listener to player. This is the method that make
+	 * gameRoot move as the player move. As we fix screen's width to 800, we use the
+	 * number 40 instead of getting it using ViewManager.getScreenWidth/2
 	 */
 	private static void setGameRootLayoutX() {
 		player.translateXProperty().addListener((observer, oldValue, newValue) -> {
@@ -376,41 +413,50 @@ public class GameManager {
 			}
 		});
 	}
+
 	/**
-	 * A method that is used to add gameRoot to appRoot.
-	 * gameRoot is a pane that contains all platforms that this class created earlier.
-	 * You can think of appRoot as the main pane or the biggest pane that contains everything.
+	 * A method that is used to add gameRoot to appRoot. gameRoot is a pane that
+	 * contains all platforms that this class created earlier. You can think of
+	 * appRoot as the main pane or the biggest pane that contains everything.
 	 */
 	private static void addGameRoot() {
 		appRoot.getChildren().add(gameRoot);
 	}
+
 	/**
-	 * A method that is used to add uiRoot to appRoot.
-	 * uiRoot is a pane that contains game HUD and buttons that doensn't move like the gameRoot does.
+	 * A method that is used to add uiRoot to appRoot. uiRoot is a pane that
+	 * contains game HUD and buttons that doensn't move like the gameRoot does.
 	 */
 	private static void addUIRoot() {
 		appRoot.getChildren().add(uiRoot);
 	}
+
 	/**
 	 * A method that is used to set boolean canJump.
+	 * 
 	 * @param canJump
 	 */
 	private static void setCanJump(boolean canJump) {
 		GameManager.canJump = canJump;
 	}
+
 	/**
 	 * A method that is used to initialize all KeyCodes' value in keys HashMap.
-	 * Actually, keys HashMap might have all the KeyCodes the player press, but this class will only focus on three main KeyCodes.
-	 * If we change the value of these KeyCodes to true, things will not change much as boolean canJump is false at this point, but we should keep these values false at the stating point.
+	 * Actually, keys HashMap might have all the KeyCodes the player press, but this
+	 * class will only focus on three main KeyCodes. If we change the value of these
+	 * KeyCodes to true, things will not change much as boolean canJump is false at
+	 * this point, but we should keep these values false at the stating point.
 	 */
 	private static void initializeKeysValue() {
 		keys.put(KeyCode.W, false);
 		keys.put(KeyCode.A, false);
 		keys.put(KeyCode.D, false);
 	}
+
 	/**
-	 * A method that is used to increase levelCount field by one.
-	 * This method will not be called in the constructor, but it will be called in the method that is used to change level.
+	 * A method that is used to increase levelCount field by one. This method will
+	 * not be called in the constructor, but it will be called in the method that is
+	 * used to change level.
 	 */
 	private static void levelCountInclement() {
 		levelCount++;
@@ -419,36 +465,41 @@ public class GameManager {
 	/* ==================== USED TO SET UP NEW LEVEL ==================== */
 
 	/**
-	 * A method that is used to clear everything out of the uiRoot.
-	 * This method will be called in order to set up the next level.
+	 * A method that is used to clear everything out of the uiRoot. This method will
+	 * be called in order to set up the next level.
 	 */
 	private static void clearUIRoot() {
 		uiRoot.getChildren().clear();
 	}
+
 	/**
-	 * A method that is used to clear everyting out of the gameRoot.
-	 * This method will be called in order to set up the next leve.
+	 * A method that is used to clear everyting out of the gameRoot. This method
+	 * will be called in order to set up the next leve.
 	 */
 	private static void clearGameRoot() {
 		gameRoot.getChildren().clear();
 	}
+
 	/**
-	 * A method that is used to clear everything out of the appRoot.
-	 * As you know, appRoot only contains background, gameRoot, and uiRoot respectively.
+	 * A method that is used to clear everything out of the appRoot. As you know,
+	 * appRoot only contains background, gameRoot, and uiRoot respectively.
 	 */
 	private static void clearAppRoot() {
 		appRoot.getChildren().clear();
 	}
+
 	/**
-	 * A method that is used to clear everything out of the platforms.
-	 * platforms' items are the same as gameRoot.getChildren()'s items.
+	 * A method that is used to clear everything out of the platforms. platforms'
+	 * items are the same as gameRoot.getChildren()'s items.
 	 */
 	private static void clearPlatforms() {
 		platforms.clear();
 	}
+
 	/**
-	 * A method that is used to set the finishPositionX and finishPositionY to zero and zero respectively.
-	 * Actually, the finishPositions do not need to be resetted, but with this method, this class will be more readable.
+	 * A method that is used to set the finishPositionX and finishPositionY to zero
+	 * and zero respectively. Actually, the finishPositions do not need to be
+	 * resetted, but with this method, this class will be more readable.
 	 */
 	private static void resetFinishPosition() {
 		finishPositionX = 0;
@@ -456,12 +507,15 @@ public class GameManager {
 	}
 
 	/* ==================== USED IN update() METHOD ==================== */
-	
+
 	/**
-	 * A method that check if player can move horizontally in that direction or not, if the player can move, the player will move as much as the value given to this method.
-	 * This method takes a number of times player might moves in one frame.
-	 * This method let player moves throught a coin or a book but not other blocks, somehow, player can walk through all the blocks.
-	 * @param value The number of move this player makes in one frame. 
+	 * A method that check if player can move horizontally in that direction or not,
+	 * if the player can move, the player will move as much as the value given to
+	 * this method. This method takes a number of times player might moves in one
+	 * frame. This method let player moves throught a coin or a book but not other
+	 * blocks, somehow, player can walk through all the blocks.
+	 * 
+	 * @param value The number of move this player makes in one frame.
 	 */
 	private static void movePlayerX(int value) {
 		boolean movingRight = value > 0;
@@ -494,10 +548,14 @@ public class GameManager {
 			player.setTranslateX(player.getTranslateX() + (movingRight ? 1 : -1));
 		}
 	}
+
 	/**
-	 * A method that check if player can move vertically in that direction or not, if the player can move, then the player will move as much as the value given to this method
-	 * This method taks a number of times player might moves in one frame.
-	 * This method let player moves through a coin or a book but not other blocks.
+	 * A method that check if player can move vertically in that direction or not,
+	 * if the player can move, then the player will move as much as the value given
+	 * to this method This method taks a number of times player might moves in one
+	 * frame. This method let player moves through a coin or a book but not other
+	 * blocks.
+	 * 
 	 * @param value The number of move this player makes in one frame.
 	 */
 	private static void movePlayerY(int value) {
@@ -534,12 +592,17 @@ public class GameManager {
 			player.setTranslateY(player.getTranslateY() + (movingDown ? 1 : -1));
 		}
 	}
-	
+
 	/**
-	 * A Method that set player's vertical velocity to the value given to this method.
-	 * The reason why this method is named jumpPlayer is because, in every frame, update() method will call method movePlayerY and use player vertical velocity as a value given to that method.
-	 * This method can only change player's vertical velocity if the player can jump at that time, otherwise, this method will not do anything.
-	 * @param jumpHeight The number of vertical velocity this method will add to player's field. The value should be between 30 to 40.
+	 * A Method that set player's vertical velocity to the value given to this
+	 * method. The reason why this method is named jumpPlayer is because, in every
+	 * frame, update() method will call method movePlayerY and use player vertical
+	 * velocity as a value given to that method. This method can only change
+	 * player's vertical velocity if the player can jump at that time, otherwise,
+	 * this method will not do anything.
+	 * 
+	 * @param jumpHeight The number of vertical velocity this method will add to
+	 *                   player's field. The value should be between 30 to 40.
 	 */
 	private static void jumpPlayer(int jumpHeight) {
 		if (canJump) {
@@ -547,25 +610,35 @@ public class GameManager {
 			setCanJump(false);
 		}
 	}
+
 	/**
-	 * A method that check if the specific KeyCode given to this method is being pressed or not.
+	 * A method that check if the specific KeyCode given to this method is being
+	 * pressed or not.
+	 * 
 	 * @param key The specific KeyCode that need to be checked.
 	 * @return A boolean value that tells if the KeyCode is being pressed or not.
 	 */
 	private static boolean isPressed(KeyCode key) {
 		return keys.getOrDefault(key, false);
 	}
+
 	/**
-	 * A method to set player's current HP to a specific value given to this method. It is mostly used in movePlayerY() and movePlayerX() methods in order to decrease player's HP.
+	 * A method to set player's current HP to a specific value given to this method.
+	 * It is mostly used in movePlayerY() and movePlayerX() methods in order to
+	 * decrease player's HP.
+	 * 
 	 * @param HP A number of HP that will be set to player's current HP.
 	 */
 	private static void setPlayerCurrentHP(int HP) {
 		playerCurrentHP = HP;
 	}
+
 	/**
-	 * A method that is used to check all coins in coins ArrayList if any of them are collected.
-	 * If a coin is collected, all platforms, gameRoot, and coins will remove that coin using ArrayList's remove(object) method
-	 * The logic used to check if the player collect a coin is about checking both coin's and player's position.
+	 * A method that is used to check all coins in coins ArrayList if any of them
+	 * are collected. If a coin is collected, all platforms, gameRoot, and coins
+	 * will remove that coin using ArrayList's remove(object) method The logic used
+	 * to check if the player collect a coin is about checking both coin's and
+	 * player's position.
 	 */
 	private static void checkCoinCollect() {
 		for (Node coin : coins) {
@@ -590,8 +663,10 @@ public class GameManager {
 			}
 		}
 	}
+
 	/**
-	 * This method works similaly to checkCoinCollect() method, but in this method, we use books ArrayList instead of coins ArrayList.
+	 * This method works similaly to checkCoinCollect() method, but in this method,
+	 * we use books ArrayList instead of coins ArrayList.
 	 */
 	private static void checkBookCollect() {
 		for (Node book : books) {
@@ -623,7 +698,9 @@ public class GameManager {
 	 */
 	/**
 	 * This method will be called everytimes GameScene's animation timer is running.
-	 * Basically, this method will check everything happends within a frame, like, moving methods, player's update method, item collecting methods, and win or lose condition checking algorithms.
+	 * Basically, this method will check everything happends within a frame, like,
+	 * moving methods, player's update method, item collecting methods, and win or
+	 * lose condition checking algorithms.
 	 */
 	public static void update() {
 		if (isPressed(KeyCode.W) && player.getTranslateY() >= 5) {
@@ -678,7 +755,7 @@ public class GameManager {
 			setDead(true);
 		}
 	}
-	
+
 	/**
 	 * This method is called when the player has finished a level.
 	 * This method will reset everything that need to be resetted, which, some of the methods are the same in the constructor.
@@ -714,63 +791,82 @@ public class GameManager {
 	 */
 	/**
 	 * appRoot public static getter.
+	 * 
 	 * @return
 	 */
 
 	public static AnchorPane getAppRoot() {
 		return appRoot;
 	}
+
 	/**
 	 * appRoot public static setter.
+	 * 
 	 * @param appRoot Used to set appRoot to the given parameter.
 	 */
 
 	public static void setAppRoot(AnchorPane appRoot) {
 		GameManager.appRoot = appRoot;
 	}
+
 	/**
 	 * isMute public static setter.
-	 * @param isMute Used to set isMute to the given parameter 
+	 * 
+	 * @param isMute Used to set isMute to the given parameter
 	 */
 
 	public static void setMute(boolean isMute) {
 		GameManager.isMute = isMute;
 	}
+
 	/**
 	 * isMute public static getter.
+	 * 
 	 * @return
 	 */
 
 	public static boolean isMute() {
 		return isMute;
 	}
+
 	/**
 	 * BLOCK_WIDTH public static getter.
+	 * 
 	 * @return
 	 */
-
 	public static int getBlockWidth() {
 		return BLOCK_WIDTH;
 	}
+
 	/**
+<<<<<<< HEAD
 	 * BLOCK_HEIGHT public static getter.
+||||||| 0c072d0
+	 * BLOCK_HEIGHT public stati getter.
+=======
+	 * BLOCK_HEIGHT public static getter.
+	 * 
+>>>>>>> 6272fa4129686c4bc22a62558bd7a76a6734a3d1
 	 * @return
 	 */
-
 	public static int getBlockHeight() {
 		return BLOCK_HEIGHT;
 	}
+
 	/**
 	 * KeyCode and Value from keys HashMap public static setter.
+	 * 
 	 * @param keyCode The KeyCode that need to be checked.
-	 * @param value True if the given KeyCode is being pressed.
+	 * @param value   True if the given KeyCode is being pressed.
 	 */
 
 	public static void setKeysValue(KeyCode keyCode, boolean value) {
 		keys.put(keyCode, value);
 	}
+
 	/**
 	 * KeyCode's value from keys HashMap public static getter
+	 * 
 	 * @param key The Specific KeyCode that need to be checked.
 	 * @return The value of given parameter's value.
 	 */
@@ -778,48 +874,60 @@ public class GameManager {
 	public static boolean getKeysValue(KeyCode key) {
 		return keys.getOrDefault(key, false);
 	}
+
 	/**
 	 * isLevelFinish public static setter
+	 * 
 	 * @param isFinish Used to set the isLevelFinish's value to the given parameter.
 	 */
 
 	public static void setLevelFinish(boolean isFinish) {
 		isLevelFinish = isFinish;
 	}
+
 	/**
 	 * isLevelFinish public static getter.
+	 * 
 	 * @return isLevelFinish.
 	 */
 
 	public static boolean isLevelFinish() {
 		return isLevelFinish;
 	}
+
 	/**
 	 * isPressedNextLv public static setter.
- 	 * @param bool Used to set the isPressedNextLv's value to the given parameter.
+	 * 
+	 * @param bool Used to set the isPressedNextLv's value to the given parameter.
 	 */
 
 	public static void setPressedNextLv(boolean bool) {
 		isPressedNextLv = bool;
 	}
+
 	/**
 	 * isPressedNextLv public static getter
+	 * 
 	 * @return isPressedNextLv
 	 */
 
 	public static boolean isPressedNextLv() {
 		return isPressedNextLv;
 	}
+
 	/**
 	 * levelCount public static getter.
+	 * 
 	 * @return levelCount
 	 */
 
 	public static int getLevelCount() {
 		return levelCount;
 	}
+
 	/**
 	 * uiRoot public static getter.
+	 * 
 	 * @return uiRoot
 	 */
 
@@ -833,14 +941,17 @@ public class GameManager {
 	 */
 	/**
 	 * Player's max HP public static setter.
+	 * 
 	 * @param maxHP Used to set player's max HP to the given parameter.
 	 */
 
 	public static void setPlayerMaxHP(int maxHP) {
 		playerMaxHP = maxHP;
 	}
+
 	/**
 	 * Player's coin public static setter.
+	 * 
 	 * @param coin Used to set player's coin to the given parameter.
 	 */
 
@@ -849,31 +960,39 @@ public class GameManager {
 	public static void setPlayerCoin(int coin) {
 		playerCoin = coin;
 	}
+
 	/**
 	 * Player's EXP public static setter.
+	 * 
 	 * @param EXP Used to set player's EXP to the given parameter.
 	 */
 
 	public static void setPlayerEXP(int EXP) {
 		playerEXP = EXP;
 	}
+
 	/**
 	 * Player's name public static setter.
+	 * 
 	 * @param name Used to set player's name to the given parameter.
 	 */
 	public static void setPlayerName(String name) {
 		playerName = name;
 	}
+
 	/**
 	 * isDead public static getter.
+	 * 
 	 * @param isDead Used to set isDead's value to the given parameter.
 	 */
 
 	public static void setDead(boolean isDead) {
 		GameManager.isDead = isDead;
 	}
+
 	/**
 	 * isMissingBook public static getter.
+	 * 
 	 * @param isMissing Used to set isMissingBook's value to the given parameter.
 	 */
 
@@ -886,7 +1005,8 @@ public class GameManager {
 	 * ==============================
 	 */
 	/**
-	 * A method that is used to increase jumpBonus by 1, if jumpBonus is more than or equal to 5, it will be set to 5
+	 * A method that is used to increase jumpBonus by 1, if jumpBonus is more than
+	 * or equal to 5, it will be set to 5
 	 */
 
 	public static void makeJumpHigh() {
@@ -895,8 +1015,10 @@ public class GameManager {
 			jumpBonus = 5;
 		}
 	}
+
 	/**
-	 * A method that is used to increase speedBonus by 1, if speedBonus is more than or equal to 5, it will be set to 5
+	 * A method that is used to increase speedBonus by 1, if speedBonus is more than
+	 * or equal to 5, it will be set to 5
 	 */
 
 	public static void makeRunFast() {
@@ -905,79 +1027,97 @@ public class GameManager {
 			speedBonus = 5;
 		}
 	}
+
 	/**
-	 * A method that is used to increase player's max HP by a number between 30 to 50.
+	 * A method that is used to increase player's max HP by a number between 30 to
+	 * 50.
 	 */
 	public static void upgradePlayerMaxHP() {
 		int newHP = GameManager.getPlayerMaxHP() + 30 + random.nextInt(20);
 		GameManager.setPlayerMaxHP(newHP);
 	}
+
 	/**
-	 *  A method that is used to increase timeMap by a number between 0 to 20.
+	 * A method that is used to increase timeMap by a number between 0 to 20.
 	 */
 	public static void upgradeMapTime() {
 		double time = GameScene.getTimeMapSecond() + random.nextDouble() * 20;
 		GameScene.setTimeMapSecond(time);
 	}
+
 	/**
 	 * A method that is used to update leaderboard as the game is running.
 	 */
 	public static void updateLeaderboard() {
 		String name = GameManager.getPlayerName();
 		String level = String.valueOf(levelCount + 1);
-		GameManager.setPlayerEXP(GameManager.getPlayerCoin()*100);
+		GameManager.setPlayerEXP(GameManager.getPlayerCoin() * 100);
 		String calculatedExp = String.valueOf(GameManager.getPlayerEXP());
 		String[] data = { name, level, calculatedExp };
 		CSVUtility.appendToCSV(data);
 	}
+
 	/**
 	 * Player's max HP public static getter.
+	 * 
 	 * @return player's max HP
 	 */
 	public static int getPlayerMaxHP() {
 		return playerMaxHP;
 	}
+
 	/**
 	 * Player's current HP public static getter.
+	 * 
 	 * @return
 	 */
 
 	public static int getPlayerCurrentHP() {
 		return playerCurrentHP;
 	}
+
 	/**
 	 * Player's coins public static getter.
+	 * 
 	 * @return Player's current coin (spending coins will change this value too)
 	 */
 	public static int getPlayerCoin() {
 		return playerCoin;
 	}
+
 	/**
 	 * Player's EXP public static getter.
+	 * 
 	 * @return Player's current EXP (playing the game might increase this value)
 	 */
 
 	public static int getPlayerEXP() {
 		return playerEXP;
 	}
+
 	/**
 	 * isDead public static getter
+	 * 
 	 * @return isDead.
 	 */
 
 	public static boolean isDead() {
 		return isDead;
 	}
+
 	/**
 	 * isMissingBook public static getter.
+	 * 
 	 * @return isMissingBook
 	 */
 
 	public static boolean isMissingBook() {
 		return isMissingBook;
 	}
+
 	/**
 	 * Player's name public static getter.
+	 * 
 	 * @return Player's name.
 	 */
 

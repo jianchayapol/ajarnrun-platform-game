@@ -34,7 +34,7 @@ public class EnterNameScene extends Scene {
 	private static ImageButton playButton = new ImageButton(ImageButtonType.PLAY);
 	private static StackPane enterPane;
 	private static ProgressBar progBar;
-	private static Rectangle darkRectangle;
+	private static Rectangle whiteRectangle;
 	private static double progressValue;
 	private static TextField textField;
 	private static Label headerText;
@@ -110,11 +110,11 @@ public class EnterNameScene extends Scene {
 	}
 
 	private void initializeRectangle() {
-		darkRectangle = new Rectangle(450, 320);
-		darkRectangle.setFill(Color.WHITESMOKE);
-		darkRectangle.setOpacity(0.2);
-		darkRectangle.setLayoutX(30);
-		darkRectangle.setLayoutY(30);
+		whiteRectangle = new Rectangle(450, 320);
+		whiteRectangle.setFill(Color.WHITESMOKE);
+		whiteRectangle.setOpacity(0.2);
+		whiteRectangle.setLayoutX(30);
+		whiteRectangle.setLayoutY(30);
 	}
 
 	private void initializeEnterNameLabel() {
@@ -154,7 +154,7 @@ public class EnterNameScene extends Scene {
 		enterPane.getChildren().addAll(progBar, textField);
 		VBox vbox = new VBox(30);
 		vbox.getChildren().addAll(headerText, enterPane, playButton, errorMessage);
-		pane.getChildren().addAll(darkRectangle, vbox);
+		pane.getChildren().addAll(whiteRectangle, vbox);
 		vbox.setAlignment(Pos.CENTER);
 		playButton.setLayoutY(400);
 		pane.setAlignment(Pos.CENTER);

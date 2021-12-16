@@ -28,7 +28,7 @@ public class DrawStringUtility {
 	 * Setting up the components' format. Initialize int posX, posY with the
 	 * starting point and use as a layout counter in both x-axis and y-axis. In the
 	 * row and column part, use method sortUpdatedData() from LeaderBoard first,
-	 * then get the data in form of ArrayList<Strin> by using readCSV() from
+	 * then get the data in form of ArrayList by using readCSV() from
 	 * CSVUtility. Set limit number of data to not exceed 9. Looping through all the
 	 * data and fill the row and adding LayoutX and LayooutY for line spacing. Set
 	 * Text color to white and Use method setFont() from FontLoader to set TELEGRAMA
@@ -85,7 +85,7 @@ public class DrawStringUtility {
 	 * LayoutY Setting up the components' format. Initialize int posX, posY with the
 	 * starting point and use as a layout counter in both x-axis and y-axis. In the
 	 * row and column part, use method sortUpdatedData() from LeaderBoard first,
-	 * then get the data in form of ArrayList<Strin> by using readCSV() from
+	 * then get the data in form of ArrayList by using readCSV() from
 	 * CSVUtility. Set limit number of data to not exceed 5. Looping through all the
 	 * data and fill the row and adding LayoutX and LayooutY for line spacing. Set
 	 * Text color to white and Use method setFont() from FontLoader to set TELEGRAMA

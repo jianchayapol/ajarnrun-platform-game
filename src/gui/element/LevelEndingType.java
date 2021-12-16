@@ -8,5 +8,12 @@ package gui.element;
  *
  */
 public enum LevelEndingType {
-	FAILED, COMPLETED
+	/**
+	 * enum: failed
+	 */
+	FAILED,
+	/**
+	 * enum: completed
+	 */
+	COMPLETED
 }

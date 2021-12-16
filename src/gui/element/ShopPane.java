@@ -209,7 +209,7 @@ public class ShopPane extends AnchorPane {
 
 	/**
 	 * public static method to shuffle the ShopPane.shelf
-	 * by calling Collections.shuffle(ArrayList<>).
+	 * by calling Collections.shuffle(ArrayList).
 	 */
 	public static void shuffleItems() {
 		Collections.shuffle(ShopPane.shelf);

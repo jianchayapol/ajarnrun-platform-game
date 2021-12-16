@@ -55,44 +55,44 @@ public class EnterNameScene extends Scene {
 	 */
 	private static StackPane enterPane;
 
-	/*
+	/**
 	 * This ProgressBar represents as a Loading ProgressBar setting up to represent
 	 * the loading map animation (progress bar Simulate Progress Increment).
 	 */
 	private static ProgressBar progBar;
 
-	/*
+	/**
 	 * The rectangle for using as the black transparent background.
 	 */
 	private static Rectangle whiteRectangle;
 
-	/*
+	/**
 	 * This value represents the loading progress value
 	 */
 	private static double progressValue;
 
-	/*
+	/**
 	 * A Textfield for players to input their name
 	 */
 	private static TextField textField;
 
-	/*
+	/**
 	 * This is Header Label Text
 	 */
 	private static Label headerText;
 
-	/*
+	/**
 	 * errorMessage showing when player input the wrong format name
 	 */
 	private static Label errorMessage;
 
-	/*
+	/**
 	 * ImageButton with the ImageButtonType.HOME for setting the scene Back to the
 	 * main menu (ViewManager)
 	 */
 	private static ImageButton homeButton;
 
-	/*
+	/**
 	 * Screen's height setup to be 600
 	 */
 	private static final int HEIGHT = 600;
@@ -376,10 +376,10 @@ public class EnterNameScene extends Scene {
 	 * Method for setting the progress of the progressBar this method will be used
 	 * in method simulateProgressIncrement(d) in the process of loading animation.
 	 * 
-	 * @param d
+	 * @param progress (double) progress
 	 */
-	public static void setProgBar(double d) {
-		progBar.setProgress(d);
+	public static void setProgBar(double progress) {
+		progBar.setProgress(progress);
 	}
 
 	/**

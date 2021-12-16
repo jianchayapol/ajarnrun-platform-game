@@ -66,14 +66,14 @@ public abstract class Character extends ImageView {
 	}
 	/**
 	 * velocityX public setter
-	 * @param An ineger that is used to set velocityX
+	 * @param velocityX An ineger that is used to set velocityX
 	 */
 	public void setVelocityX(int velocityX) {
 		this.velocityX = velocityX;
 	}
 	/**
 	 * velocityY public setter.
-	 * @param An ineger that is used to set velocityY
+	 * @param velocityY An ineger that is used to set velocityY
 	 */
 	public void setVelocityY(int velocityY) {
 		this.velocityY = velocityY;

@@ -31,15 +31,14 @@ public class LeaderBoard {
 	/**
 	 * A public static method that used to update the CSV file by Sorting all the
 	 * data in the file Call static method readCSV() from the CSVUtility class to
-	 * get all data in format of ArrayList<String> Looping through the data file,
+	 * get all data in format of ArrayList Looping through the data file,
 	 * Split each element with delimiter comma (",") to get name, level and, exp
 	 * fields. Instantiate new PlayerStat objects by using those fields and Add to
-	 * the container SortedSet<PlayerStat> stats to store each player's PlayerStat
+	 * the container SortedSet stats to store each player's PlayerStat
 	 * in the correct order, then call public static method updateSortCSV(stats)
 	 * from CSVUtilityto update the csv file. [ Note: We use the PlayerStat's Custom
 	 * Comparater for PlayerStat objects sorting]
 	 * 
-	 * @return
 	 */
 	public static void sortUpdatedData() {
 		stats = new TreeSet<PlayerStat>();

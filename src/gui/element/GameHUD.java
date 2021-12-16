@@ -134,7 +134,6 @@ public class GameHUD extends HBox {
 	/**
 	 * public static method for setting level Label
 	 * 
-	 * @return
 	 */
 	public static void setLevelLabel() {
 		int level = GameManager.getLevelCount() + 1;
@@ -144,7 +143,6 @@ public class GameHUD extends HBox {
 	/**
 	 * public static method for setting name Label
 	 * 
-	 * @return
 	 */
 	public static void setNameLabel(String name) {
 		nameLabel.setText(name);

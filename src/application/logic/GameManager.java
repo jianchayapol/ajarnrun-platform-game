@@ -492,7 +492,7 @@ public class GameManager {
 	 */
 	private static void clearAppRoot() {
 		appRoot.getChildren().clear();
-	}
+	} 
 
 	/**
 	 * A method that is used to clear everything out of the platforms. platforms'

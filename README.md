@@ -3,12 +3,13 @@
 JavaFx Game Development Project  | 
 2110215 Programming Methodology (2021/1)
 
-<img width="665" alt="Screen Shot 2565-01-06 at 05 04 41" src="https://user-images.githubusercontent.com/69767104/148296181-4169d73b-8f0c-45e3-8da2-f36f8a61edd5.png">
+<img width="680" alt="Screen Shot 2565-01-06 at 05 04 41" src="https://user-images.githubusercontent.com/69767104/148296181-4169d73b-8f0c-45e3-8da2-f36f8a61edd5.png">
 
 
+-------------------------------------------------------
 * Authors:
 ```
-       Chayapol Huang & Chanathip Kulsirilak
+      Chayapol Huang & Chanathip Kulsirilak
       Faculty of Engineering, Chulalongkorn University
 ```
 
@@ -18,7 +19,6 @@ JavaFx Game Development Project  |
               https://www.youtube.com/watch?v=Rdl0FVHrdmw
  + coding     Javadoc
 ```
-
 
 * Running from Command Line:
 ```
@@ -31,3 +31,4 @@ JavaFx Game Development Project  |
       javafx.graphics,javafx.controls,javafx.fxml,javafx.media
 ```
 
+-------------------------------------------------------

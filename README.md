@@ -22,7 +22,7 @@ JavaFx Game Development Project  |
 
 * Running from Command Line:
 ```
- Download JavaFX 15 : https://gluonhq.com/products/javafx/
+ Download javafx-sdk-15: https://gluonhq.com/products/javafx/
  
  command:
       java -jar --module-path {PATH_TO_JAVAFX} --add-modules javafx.graphics,

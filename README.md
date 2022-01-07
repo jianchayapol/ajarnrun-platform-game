@@ -3,7 +3,7 @@
 JavaFx Game Development Project  | 
 2110215 Programming Methodology (2021/1)
 
-<img width="720" alt="Screen Shot 2565-01-06 at 05 04 41" src="https://user-images.githubusercontent.com/69767104/148296181-4169d73b-8f0c-45e3-8da2-f36f8a61edd5.png">
+<img width="900" alt="Screen Shot 2565-01-06 at 05 04 41" src="https://user-images.githubusercontent.com/69767104/148296181-4169d73b-8f0c-45e3-8da2-f36f8a61edd5.png">
 
 
 -------------------------------------------------------

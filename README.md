@@ -22,13 +22,15 @@ JavaFx Game Development Project  |
 
 * Running from Command Line:
 ```
- VM argument
-      --module-path {PATH_TO_JAVAFX} --add-modules javafx.graphics,
-      javafx.controls,javafx.fxml,javafx.media
+ Download JavaFX: https://gluonhq.com/products/javafx/
+ 
+ command:
+      java -jar --module-path {PATH_TO_JAVAFX} --add-modules javafx.graphics,
+      javafx.controls,javafx.fxml,javafx.media {NAME_OF_JAR_FILE}.jar
 
- example 
-      --module-path "C:\Program Files\Java\javafx-sdk-15\lib" --add-modules 
-      javafx.graphics,javafx.controls,javafx.fxml,javafx.media
+ example:
+      java -jar --module-path "C:\Program Files\Java\javafx-sdk-15\lib" --add-modules 
+      javafx.graphics,javafx.controls,javafx.fxml,javafx.media 2110215-goodenoughnisit.jar
 ```
 
 -------------------------------------------------------
